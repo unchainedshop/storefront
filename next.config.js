@@ -24,6 +24,7 @@ const {
   UNCHAINED_CREATE_THEME,
   DATATRANS_ENDPOINT,
   DATATRANS_MERCHANT,
+  NEXT_PUBLIC_VERCEL_URL,
 } = process.env;
 
 const theme = JSON.parse(UNCHAINED_CREATE_THEME);
@@ -40,6 +41,7 @@ module.exports = {
   serverRuntimeConfig: {},
   publicRuntimeConfig: {
     FRONTEND_URL,
+    NEXT_PUBLIC_VERCEL_URL,
     GRAPHQL_ENDPOINT,
     NODE_ENV,
     SKIP_INVALID_REMOTES: JSON.parse(SKIP_INVALID_REMOTES || 'false'),
@@ -54,6 +56,7 @@ module.exports = {
       'localhost',
       extractDomain(FRONTEND_URL),
       extractDomain(GRAPHQL_ENDPOINT),
+      extractDomain(NEXT_PUBLIC_VERCEL_URL),
       extractDomain(UNCHAINED_ENDPOINT),
     ].filter(Boolean),
     sizes: [320, 480, 820, 1200, 1600],
