@@ -1,6 +1,10 @@
+import { useIntl } from 'react-intl';
+
+import Icon from '../../common/components/Icon';
 import ProductListItem from './ProductListItem';
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products, totalProducts, onLoadMore }) => {
+  const intl = useIntl();
   return (
     <div className="container">
       <div className="row">
@@ -12,6 +16,19 @@ const ProductList = ({ products }) => {
           </div>
         ))}
       </div>
+      {totalProducts > products?.length && (
+        <div className="text-center py-4 align-align-items-center">
+          <button
+            aria-label={intl.formatMessage({ id: 'load_more' })}
+            type="button"
+            className="button button--secondary button--big"
+            onClick={onLoadMore}
+          >
+            <Icon icon="navigation-arrows-down" className="mr-2" />
+            {intl.formatMessage({ id: 'load_more' })}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

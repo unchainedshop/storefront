@@ -123,5 +123,6 @@
   "old_password_not_correct": "Altes Passwort ist nicht korrekt",
   "confirm_order": "OK, ok, ok. Just let me pay",
   "back_to_website": "Zurück zur Webseite",
-  "change_username": "Benutzername ändern"
+  "change_username": "Benutzername ändern",
+  "load_more": "Weitere laden ..."
 }

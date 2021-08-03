@@ -1,6 +1,8 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import fetch from 'isomorphic-unfetch';
 import getConfig from 'next/config';
+
+import { offsetLimitPagination } from '@apollo/client/utilities';
 import getCurrentDomain from '../../common/utils/getCurrentDomain';
 import possibleTypes from '../../../possibleTypes.json';
 
@@ -26,7 +28,16 @@ function create(initialState, ctx) {
   return new ApolloClient({
     connectToDevTools: process.browser,
     link: httpLink,
-    cache: new InMemoryCache({ possibleTypes }).restore(initialState || {}),
+    cache: new InMemoryCache({
+      possibleTypes,
+      typePolicies: {
+        ProductSearchResult: {
+          fields: {
+            products: offsetLimitPagination(),
+          },
+        },
+      },
+    }).restore(initialState || {}),
   });
 }
 

@@ -123,5 +123,6 @@
   "old_password_not_correct": "Wrong password, please try again",
   "confirm_order": "OK, ok, ok. Just let me pay",
   "remove_email": "Remove this e-mail",
-  "back_to_website": "Back to website"
+  "back_to_website": "Back to website",
+  "load_more": "Load more..."
 }

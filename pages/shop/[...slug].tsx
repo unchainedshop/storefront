@@ -18,7 +18,7 @@ const CategoryDetail = () => {
   const router = useRouter();
   const { slug: slugs } = router.query;
   const slug: string | string[] = slugs[slugs.length - 1];
-  const [currentUrl, setcurrentUrl] = useState('');
+  const [currentUrl, setCurrentUrl] = useState('');
 
   const { assortmentTree, loading: categoryTreeLoading } = useCategoriesTree({
     slugs: slug,
@@ -29,7 +29,9 @@ const CategoryDetail = () => {
     assortment: { texts, media } = {},
     products,
     paths,
+    filteredProducts,
     loading: productsLoading,
+    loadMore,
   } = useAssortmentProducts({
     slugs: slug,
     includeLeaves: true,
@@ -38,7 +40,7 @@ const CategoryDetail = () => {
   const assortmentPaths = getAssortmentPath(paths);
 
   useEffect(() => {
-    setcurrentUrl(window.location.href);
+    setCurrentUrl(window.location.href);
   }, []);
 
   useEffect(() => {
@@ -100,7 +102,11 @@ const CategoryDetail = () => {
             {productsLoading ? (
               <LoadingItem />
             ) : (
-              <ProductList products={products} />
+              <ProductList
+                onLoadMore={loadMore}
+                totalProducts={filteredProducts}
+                products={products}
+              />
             )}
           </div>
         </div>
