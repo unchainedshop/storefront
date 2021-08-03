@@ -180,7 +180,7 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
           />
           <input
             type="button"
-            className="button button--primary my-1"
+            className="button button--secondary ml-2 my-1"
             value={intl.formatMessage({ id: 'cancel' })}
             onClick={onCancel}
           />

@@ -64,7 +64,6 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
         message: `👬 ${intl.formatMessage({
           id: 'email_exists_please_login',
         })}`,
-        shouldFocus: true,
       });
     }
   }, [error]);

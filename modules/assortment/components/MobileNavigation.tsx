@@ -122,6 +122,13 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
             </small>
           </button>
 
+          <a
+            className="ml-3 mb-3 d-flex align-items-center"
+            href={theme.websiteUrl}
+          >
+            <Icon className="icon--small mr-2" icon="house-4" />
+            {intl.formatMessage({ id: 'back_to_website' })}
+          </a>
           {Object.entries(assortmentTree.children).map(
             ([pageId, node]: any) => (
               <Subtree
@@ -139,6 +146,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
         <div className="pt-3 my-3 ml-3">
           {Object.entries(theme.locales)?.map(([lang]) => (
             <button
+              key={lang}
               aria-label={intl.formatMessage({ id: `language_${lang}` })}
               type="button"
               className="no-button d-block mb-3"
