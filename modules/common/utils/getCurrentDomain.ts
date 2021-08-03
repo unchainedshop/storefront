@@ -4,6 +4,9 @@ const {
   publicRuntimeConfig: { FRONTEND_URL },
 } = getConfig();
 
-const getCurrentDomain = () => FRONTEND_URL;
+const WINDOW_ORIGIN =
+  (typeof window !== 'undefined' && window.location.origin) || '';
+
+const getCurrentDomain = () => FRONTEND_URL || WINDOW_ORIGIN;
 
 export default getCurrentDomain;
