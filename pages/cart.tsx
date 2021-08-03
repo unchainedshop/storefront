@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-
 import { useIntl } from 'react-intl';
+import useRedirect from '../modules/auth/hooks/useRedirect';
 import useUser from '../modules/auth/hooks/useUser';
 import ManageCart from '../modules/cart/components/ManageCart';
 import Header from '../modules/layout/components/Header';
@@ -10,12 +9,9 @@ import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
 
 const Cart = () => {
-  const router = useRouter();
   const intl = useIntl();
   const { user, loading } = useUser();
-
-  if (!user && !loading) router.push('/login?next=cart');
-
+  useRedirect({ to: 'checkout', whenSignedIn: false });
   return (
     <>
       <MetaTags title={intl.formatMessage({ id: 'cart' })} />

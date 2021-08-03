@@ -5,6 +5,7 @@ import DatatransStatusGate from '../modules/checkout/components/DatatransStatusG
 import BityPayment from '../modules/checkout/components/BityPayment';
 import DatatransPayment from '../modules/checkout/components/DatatransPayment';
 import WireTransferPayment from '../modules/checkout/components/WireTransferPayment';
+import useRedirect from '../modules/auth/hooks/useRedirect';
 
 import Header from '../modules/layout/components/Header';
 import Footer from '../modules/layout/components/Footer';
@@ -14,14 +15,21 @@ import BillingAddressEditable from '../modules/checkout/components/BillingAddres
 import useUpdateOrderDeliveryShipping from '../modules/checkout/hooks/useUpdateDeliveryShipping';
 import useUpdateCart from '../modules/checkout/hooks/useUpdateCart';
 import MetaTags from '../modules/common/components/MetaTags';
+import { useEffect } from 'react';
 
 const Review = () => {
   const { user } = useUser();
   const intl = useIntl();
 
+  useRedirect({ to: 'checkout', whenSignedIn: false });
+
   const { setOrderPaymentProvider } = useSetOrderPaymentProvider();
   const { updateOrderDeliveryAddress } = useUpdateOrderDeliveryShipping();
   const { updateCart } = useUpdateCart();
+
+  // useEffect(() => {
+
+  // })
 
   const setBillingSameAsDelivery = () => {
     updateCart({

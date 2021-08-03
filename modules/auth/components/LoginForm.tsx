@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = () => {
   const { register, handleSubmit, errors, setError } = useForm();
   const intl = useIntl();
   const { loginWithPassword, error } = useLoginWithPassword();
@@ -21,7 +21,6 @@ const LoginForm = ({ onLogin }) => {
 
   const onSubmit = async ({ email, password }) => {
     await loginWithPassword({ email, password });
-    onLogin();
   };
 
   return (

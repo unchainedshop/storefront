@@ -8,6 +8,7 @@ const AddCartProductMutation = gql`
       _id
       total {
         amount
+        currency
       }
       order {
         ...CartFragment

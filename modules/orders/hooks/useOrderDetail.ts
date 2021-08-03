@@ -22,6 +22,7 @@ const useOrderDetail = ({ orderId }) => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'no-cache',
     ssr: false,
+    skip: !orderId,
   });
 
   return {
