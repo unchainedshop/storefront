@@ -106,11 +106,11 @@ const SignUp = () => {
       },
     });
 
-    router.push('/review');
+    router.replace('/review');
     return true;
   };
 
-  const onLogin = () => router.push('/review');
+  const onLogin = () => router.replace('/review');
 
   return (
     <>

@@ -1,11 +1,12 @@
 import { useIntl } from 'react-intl';
+import { useEffect } from 'react';
+import router from 'next/router';
 import useUser from '../modules/auth/hooks/useUser';
 import useSetOrderPaymentProvider from '../modules/orders/hooks/setPaymentOrderProvider';
 import DatatransStatusGate from '../modules/checkout/components/DatatransStatusGate';
 import BityPayment from '../modules/checkout/components/BityPayment';
 import DatatransPayment from '../modules/checkout/components/DatatransPayment';
 import WireTransferPayment from '../modules/checkout/components/WireTransferPayment';
-import useRedirect from '../modules/auth/hooks/useRedirect';
 
 import Header from '../modules/layout/components/Header';
 import Footer from '../modules/layout/components/Footer';
@@ -15,21 +16,21 @@ import BillingAddressEditable from '../modules/checkout/components/BillingAddres
 import useUpdateOrderDeliveryShipping from '../modules/checkout/hooks/useUpdateDeliveryShipping';
 import useUpdateCart from '../modules/checkout/hooks/useUpdateCart';
 import MetaTags from '../modules/common/components/MetaTags';
-import { useEffect } from 'react';
+import LoadingItem from '../modules/common/components/LoadingItem';
 
 const Review = () => {
-  const { user } = useUser();
+  const { user, loading } = useUser();
   const intl = useIntl();
-
-  useRedirect({ to: 'checkout', whenSignedIn: false });
 
   const { setOrderPaymentProvider } = useSetOrderPaymentProvider();
   const { updateOrderDeliveryAddress } = useUpdateOrderDeliveryShipping();
   const { updateCart } = useUpdateCart();
 
-  // useEffect(() => {
-
-  // })
+  useEffect(() => {
+    if (!loading && !user?.cart?.contact?.emailAddress) {
+      router.replace({ pathname: 'checkout' });
+    }
+  }, [user]);
 
   const setBillingSameAsDelivery = () => {
     updateCart({
@@ -79,6 +80,8 @@ const Review = () => {
       });
     }
   };
+
+  if (loading) return <LoadingItem />;
 
   return (
     <>

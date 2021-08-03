@@ -11,6 +11,7 @@ const UpdateCartMutation = gql`
 const useUpdateCart = () => {
   const [updateCartMutation] = useMutation(UpdateCartMutation, {
     refetchQueries: ['user'],
+    awaitRefetchQueries: true,
   });
 
   const updateCart = async ({
