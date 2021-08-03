@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import fetch from 'isomorphic-unfetch';
 import getConfig from 'next/config';
-
+import getCurrentDomain from '../../common/utils/getCurrentDomain';
 import possibleTypes from '../../../possibleTypes.json';
 
 const {
@@ -18,7 +18,7 @@ if (!process.browser) {
 function create(initialState, ctx) {
   const remoteAddress = ctx?.req?.connection?.remoteAddress;
   const httpLink = new HttpLink({
-    uri: GRAPHQL_ENDPOINT,
+    uri: GRAPHQL_ENDPOINT || `${getCurrentDomain()}/api/graphql`,
     credentials: 'same-origin',
     headers: remoteAddress ? { 'x-real-ip': remoteAddress } : undefined,
   });

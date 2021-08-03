@@ -45,6 +45,13 @@ const CategoryDetail = () => {
     localStorage.setItem('lastVisitedCategory', router.asPath);
   });
 
+  let currentPath: string;
+  if (typeof slugs === 'string') {
+    currentPath = slugs;
+  } else {
+    currentPath = slugs?.join('/');
+  }
+
   return (
     <>
       <MetaTags
@@ -68,7 +75,7 @@ const CategoryDetail = () => {
             ) : (
               <CategoriesList
                 assortment={assortmentTree.children}
-                currentPath={(slugs as any)?.join('/')}
+                currentPath={currentPath}
               />
             )}
           </div>

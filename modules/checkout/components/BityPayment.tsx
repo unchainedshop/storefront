@@ -10,7 +10,7 @@ const BityPayment = ({ order }) => {
   const intl = useIntl();
   const router = useRouter();
   const { signForCheckout } = useSignForCheckout();
-  const [{ payload, signature }, setSign] = useState({}) as any;
+  const [{ payload, signature }, setSign]: any = useState({});
   const [isPaymentButtonDisabled, setPaymentButtonDisabled] = useState(false);
   const { checkOutCart } = useCheckOutCart();
 
