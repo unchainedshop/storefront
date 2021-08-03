@@ -29,9 +29,11 @@ class UnchainedDocument extends Document {
   `,
           }}
         />
-        <Head>
-          <link href="/api/theme" rel="stylesheet" />
-        </Head>
+        <link rel="preload" type="text/css" href="/api/theme" as="style" />
+        <link rel="stylesheet" type="text/css" href="/api/theme" />
+        <Head />
+        <link rel="stylesheet" type="text/css" href="/api/custom-styles" />
+
         <body>
           <Main />
           <NextScript />

@@ -23,7 +23,7 @@ const LanguageSwitch = () => {
         id="language-switcher"
       >
         {Object.entries(theme.locales)?.map(([lang]) => (
-          <option value={lang}>
+          <option key={lang} value={lang}>
             {intl.formatMessage({ id: `language_${lang}` })}
           </option>
         ))}

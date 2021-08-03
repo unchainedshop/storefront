@@ -39,7 +39,6 @@ const SignUp = () => {
       setError('emailAddress', {
         type: 'manual',
         message: '👬 User with the same email already exists. Please login',
-        shouldFocus: true,
       });
     }
   }, [formError]);
@@ -65,12 +64,10 @@ const SignUp = () => {
         setError('password', {
           type: 'manual',
           message: `👬 ${intl.formatMessage({ id: 'password_not_match' })}`,
-          shouldFocus: true,
         });
         setError('password2', {
           type: 'manual',
           message: `👬 ${intl.formatMessage({ id: 'password_not_match' })}`,
-          shouldFocus: true,
         });
         return false;
       }
@@ -265,7 +262,6 @@ const SignUp = () => {
                     }`}
                     name="emailAddress"
                     ref={register({ required: true })}
-                    type="email"
                   />
                 </div>
                 <div

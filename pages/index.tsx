@@ -27,7 +27,11 @@ const Home = () => {
       <MetaTags title={intl.formatMessage({ id: 'home' })} url={currentUrl} />
       <Header />
       <div className="container">
-        <img className="mb-2" src={theme.assets.hero} alt="Hero" />
+        <img
+          className="mb-3 mx-auto d-block"
+          src={theme.assets.hero}
+          alt="Hero"
+        />
 
         {loading ? (
           <LoadingItem />

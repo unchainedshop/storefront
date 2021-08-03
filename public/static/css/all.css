@@ -23,7 +23,7 @@
 @import 'components/cart.css';
 @import 'components/nav-main.css';
 @import 'components/mobile-menu.css';
-@import "~react-image-gallery/styles/css/image-gallery.css";
+@import '~react-image-gallery/styles/css/image-gallery.css';
 @import 'helpers.css';
 @import 'icon.css';
 @import 'print.css';

@@ -32,7 +32,6 @@ const ChangePassword = () => {
       setError('oldPassword', {
         type: 'manual',
         message: intl.formatMessage({ id: 'old_password_not_correct' }),
-        shouldFocus: true,
       });
     }
   }, [error]);
