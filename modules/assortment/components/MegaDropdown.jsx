@@ -47,7 +47,11 @@ const MegaDropdown = ({ ...rest }) => {
         if (!isTouching) setHoverPath([]);
       }}
     >
-      <MegaDropdownColumn {...rest} key="mega-dropdown-column-1" />
+      <MegaDropdownColumn
+        columnIndex={0}
+        {...rest}
+        key="mega-dropdown-column-1"
+      />
       {secondColumnNode?.children ? (
         <MegaDropdownColumn
           {...secondColumnNode}

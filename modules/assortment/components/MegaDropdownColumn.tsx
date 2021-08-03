@@ -1,9 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
+import getConfig from 'next/config';
 
 import { useIntl } from 'react-intl';
 import { useDesktopNavigationContext } from './DesktopNavigationContext';
 import Thumbnail from '../../common/components/thumbnail';
+import Icon from '../../common/components/Icon';
 
 export type Node = {
   slug: string;
@@ -13,6 +15,10 @@ export type Node = {
   type: 'default' | 'show_all';
   media: any[];
 };
+
+const {
+  publicRuntimeConfig: { theme },
+} = getConfig();
 
 const MegaDropdownItem = ({
   slug,
@@ -43,9 +49,7 @@ const MegaDropdownItem = ({
     <Link href={`/${path.join('/')}`}>
       <a
         className={`mega-link ${
-          type === 'default' && Object.keys(children || {}).length
-            ? 'has-arrow'
-            : ''
+          type === 'default' && Object.keys(children).length ? 'has-arrow' : ''
         }`}
         onMouseEnter={handleMouseEnter}
         onClick={handleClick}
@@ -78,9 +82,19 @@ const MegaDropdownItem = ({
   );
 };
 
-const MegaDropdownColumn = ({ ...rest }: Node) => {
+const MegaDropdownColumn = ({
+  columnIndex = null,
+  ...rest
+}: Node & { columnIndex?: number }) => {
+  const intl = useIntl();
   return (
     <div className="mega-col">
+      {columnIndex === 0 && (
+        <a className="mega-link" href={theme.websiteUrl}>
+          <Icon className="icon--small mr-2" icon="house-4" />
+          {intl.formatMessage({ id: 'back_to_website' })}
+        </a>
+      )}
       <MegaDropdownItem {...rest} type="show_all" />
 
       {rest.children &&
@@ -93,6 +107,10 @@ const MegaDropdownColumn = ({ ...rest }: Node) => {
           ))}
     </div>
   );
+};
+
+MegaDropdownColumn.defaultProps = {
+  columnIndex: null,
 };
 
 export default MegaDropdownColumn;
