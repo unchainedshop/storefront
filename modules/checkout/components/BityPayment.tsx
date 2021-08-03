@@ -6,11 +6,15 @@ import LoadingItem from '../../common/components/LoadingItem';
 import renderPrice from '../../common/utils/renderPrice';
 import useCheckOutCart from '../../cart/hooks/useCheckOutCart';
 
+interface IPayloadSignature {
+  payload?: any;
+  signature?: any;
+}
 const BityPayment = ({ order }) => {
   const intl = useIntl();
   const router = useRouter();
   const { signForCheckout } = useSignForCheckout();
-  const [{ payload, signature }, setSign] = useState({}) as any;
+  const [{ payload, signature }, setSign] = useState<IPayloadSignature>({});
   const [isPaymentButtonDisabled, setPaymentButtonDisabled] = useState(false);
   const { checkOutCart } = useCheckOutCart();
 
