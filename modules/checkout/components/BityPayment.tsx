@@ -10,7 +10,7 @@ interface IPayloadSignature {
   payload?: any;
   signature?: any;
 }
-const BityPayment = ({ order }) => {
+const BityPayment = ({ cart }) => {
   const intl = useIntl();
   const router = useRouter();
   const { signForCheckout } = useSignForCheckout();
@@ -23,24 +23,24 @@ const BityPayment = ({ order }) => {
     deliveryContext = undefined,
   } = {}) => {
     await checkOutCart({
-      orderId: order._id,
+      orderId: cart._id,
       paymentContext,
       deliveryContext,
       orderContext: { bityPayload: payload, bitySignature: signature },
     });
     router.replace({
-      query: { orderId: order._id, status: 'success' },
+      query: { orderId: cart._id, status: 'success' },
     });
   };
 
   useEffect(() => {
     signForCheckout({
-      orderPaymentId: order?.paymentInfo._id,
+      orderPaymentId: cart?.paymentInfo._id,
       transactionContext: {},
     }).then((sign) => {
       setSign(JSON.parse(sign));
     });
-  }, [order]);
+  }, [cart]);
 
   if (!payload) return <LoadingItem />;
 
@@ -81,7 +81,7 @@ const BityPayment = ({ order }) => {
             })}
           </h3>
         ) : (
-          renderPrice(order?.total)
+          renderPrice(cart?.total)
         )}
 
         {payload?.output?.currency !== 'BTC' &&
@@ -95,10 +95,10 @@ const BityPayment = ({ order }) => {
                 })}
               </h3>
               <p>
-                BTC/{order?.total.currency}{' '}
+                BTC/{cart?.total.currency}{' '}
                 {renderPrice({
-                  amount: order?.total.amount / payload.input.amount,
-                  currency: order?.total.currency,
+                  amount: cart?.total.amount / payload.input.amount,
+                  currency: cart?.total.currency,
                   addBTCFraction: false,
                 })}{' '}
                 (includes comissions)
