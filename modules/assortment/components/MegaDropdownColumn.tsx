@@ -49,7 +49,9 @@ const MegaDropdownItem = ({
     <Link href={`/${path.join('/')}`}>
       <a
         className={`mega-link ${
-          type === 'default' && Object.keys(children).length ? 'has-arrow' : ''
+          type === 'default' && Object.keys(children || {}).length
+            ? 'has-arrow'
+            : ''
         }`}
         onMouseEnter={handleMouseEnter}
         onClick={handleClick}
