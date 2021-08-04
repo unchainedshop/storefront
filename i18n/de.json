@@ -106,6 +106,7 @@
   "i_have_read_term": "Ja, ich habe die <a class=\"link\" href=\"/terms-conditions\">AGBs</a> gelesen",
   "register": "Registrieren",
   "email_verified_success": "Ihre E-Mail wurde erfolgreich überprüft",
+  "email_verifying": "Ihre E-Mail Addresse wird verifiziert",
   "confirmation_sent": "Eine Bestätigungs-E-Mail wird gesendet",
   "shop.unchained.invoice": "Banküberweisung",
   "shop.unchained.datatrans": "Kreditkarte / PayPal / Twint",

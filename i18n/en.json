@@ -105,6 +105,7 @@
   "i_have_read_term": "Yes, I have read the <a class=\"link\" href=\"/terms-conditions\">Terms and Conditions</a>",
   "register": "Register",
   "email_verified_success": "Your email has been successfully verified",
+  "email_verifying": "Verifying your email address",
   "confirmation_sent": "A confirmation email is sent",
   "shop.unchained.invoice": "Wire Transfer",
   "shop.unchained.datatrans": "Credit Card",
