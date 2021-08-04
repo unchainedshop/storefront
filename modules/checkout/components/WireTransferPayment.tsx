@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
-import useCheckOutCart from '../../cart/hooks/useCheckOutCart';
+import useCheckoutCart from '../hooks/useCheckoutCart';
 
 const DatatransPayment = ({ cart, setBillingSameAsDelivery }) => {
   const intl = useIntl();
   const [isPaymentButtonDisabled, setPaymentButtonDisabled] = useState(false);
-  const { checkOutCart } = useCheckOutCart();
+  const { checkoutCart } = useCheckoutCart();
   const router = useRouter();
 
   const checkout = async ({
@@ -15,7 +15,7 @@ const DatatransPayment = ({ cart, setBillingSameAsDelivery }) => {
     orderContext = undefined,
   } = {}) => {
     if (cart?.deliveryInfo?.address === null) setBillingSameAsDelivery();
-    await checkOutCart({
+    await checkoutCart({
       orderId: cart._id,
       orderContext,
       paymentContext,
@@ -23,7 +23,8 @@ const DatatransPayment = ({ cart, setBillingSameAsDelivery }) => {
     });
 
     router.replace({
-      query: { orderId: cart._id, status: 'success' },
+      pathname: '/thank-you',
+      query: { orderId: cart._id },
     });
   };
 

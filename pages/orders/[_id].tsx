@@ -8,6 +8,7 @@ import Header from '../../modules/layout/components/Header';
 import OrderDetailComponent from '../../modules/orders/components/OrderDetailComponent';
 import useOrderDetail from '../../modules/orders/hooks/useOrderDetail';
 import NotFound from '../404';
+import useRedirect from '../../modules/auth/hooks/useRedirect';
 
 const OrderDetail = () => {
   const router = useRouter();
@@ -15,6 +16,7 @@ const OrderDetail = () => {
   const { order, loading } = useOrderDetail({
     orderId: router.query?._id,
   });
+  useRedirect({ to: '/login', matchGuests: true, matchAnonymous: true });
 
   if (!order && !loading)
     return <NotFound page={intl.formatMessage({ id: 'order' })} />;

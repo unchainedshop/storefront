@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import useOrderDetail from '../../orders/hooks/useOrderDetail';
+import useCheckoutCart from '../hooks/useCheckoutCart';
 
 export interface DatatransStatusGateProps {}
 
@@ -19,6 +20,8 @@ const DatatransStatusGate: React.FC<DatatransStatusGateProps> = ({
     orderId,
   });
 
+  const { checkoutCart } = useCheckoutCart();
+
   const percentage = getPercentage(order, loading, status);
 
   useEffect(() => {
@@ -29,6 +32,12 @@ const DatatransStatusGate: React.FC<DatatransStatusGateProps> = ({
 
   useEffect(() => {
     if (order && !order.orderNumber && !loading) {
+      checkoutCart({
+        orderId: order._id,
+        paymentContext: query,
+        deliveryContext: undefined,
+        orderContext: undefined,
+      });
       setTimeout(() => {
         refetch();
       }, 3000);

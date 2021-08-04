@@ -11,7 +11,9 @@ import MetaTags from '../modules/common/components/MetaTags';
 const Cart = () => {
   const intl = useIntl();
   const { user, loading } = useUser();
-  useRedirect({ to: 'checkout', whenSignedIn: false });
+
+  useRedirect({ to: '/checkout', matchUsers: true });
+
   return (
     <>
       <MetaTags title={intl.formatMessage({ id: 'cart' })} />
@@ -26,13 +28,7 @@ const Cart = () => {
               <>
                 <ManageCart user={user} />
                 <div className="button-group mt-5">
-                  <Link
-                    href={
-                      user?.isGuest ?? true
-                        ? '/register?next=review'
-                        : '/review'
-                    }
-                  >
+                  <Link href={{ pathname: '/review' }}>
                     <a className="button button--primary button--big text-uppercase">
                       {intl.formatMessage({ id: 'to_checkout' })}
                     </a>

@@ -19,11 +19,12 @@ const LoginCart = () => {
         onClick={() => context.toggleCart(!context.isCartOpen)}
       >
         <Icon className="mr-2" icon="shopping-cart-empty-1" />
-        <span className="cart-counter mr-2">
-          {user?.cart?.items
-            ? user?.cart?.items.reduce((acc, item) => acc + item.quantity, 0)
-            : 0}
-        </span>
+
+        {user?.cart?.items?.length && (
+          <span className="cart-counter mr-2">
+            {user?.cart?.items.reduce((acc, item) => acc + item.quantity, 0)}
+          </span>
+        )}
         <span className="hide-on-mobile">
           {intl.formatMessage({ id: 'cart' })}
         </span>

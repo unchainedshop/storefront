@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl';
 import { useEffect } from 'react';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import useUser from '../modules/auth/hooks/useUser';
 import useSetOrderPaymentProvider from '../modules/orders/hooks/setPaymentOrderProvider';
 import DatatransStatusGate from '../modules/checkout/components/DatatransStatusGate';
@@ -21,20 +21,20 @@ import LoadingItem from '../modules/common/components/LoadingItem';
 const Review = () => {
   const { user, loading } = useUser();
   const intl = useIntl();
+  const router = useRouter();
 
   const { setOrderPaymentProvider } = useSetOrderPaymentProvider();
   const { updateOrderDeliveryAddress } = useUpdateOrderDeliveryShipping();
   const { updateCart } = useUpdateCart();
 
   useEffect(() => {
-    if (!loading && !user?.cart?.contact?.emailAddress) {
-      router.replace({ pathname: 'checkout' });
+    if (!loading && user?.cart && !user.cart.contact?.emailAddress) {
+      router.replace({ pathname: '/checkout' });
     }
   }, [user]);
 
   const setBillingSameAsDelivery = () => {
     updateCart({
-      orderId: user?.cart?._id,
       billingAddress: {
         firstName: user?.cart?.deliveryInfo?.address?.firstName,
         lastName: user?.cart?.deliveryInfo?.address?.lastName,
