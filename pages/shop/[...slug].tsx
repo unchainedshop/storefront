@@ -29,9 +29,9 @@ const CategoryDetail = () => {
     assortment: { texts, media } = {},
     products,
     paths,
+    loadMore,
     filteredProducts,
     loading: productsLoading,
-    loadMore,
   } = useAssortmentProducts({
     slugs: slug,
     includeLeaves: true,

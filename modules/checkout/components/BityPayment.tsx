@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import useSignForCheckout from '../hooks/useSignForCheckout';
 import LoadingItem from '../../common/components/LoadingItem';
 import renderPrice from '../../common/utils/renderPrice';
-import useCheckOutCart from '../../cart/hooks/useCheckOutCart';
+import useCheckoutCart from '../hooks/useCheckoutCart';
 
 interface IPayloadSignature {
   payload?: any;
@@ -16,20 +16,21 @@ const BityPayment = ({ cart }) => {
   const { signForCheckout } = useSignForCheckout();
   const [{ payload, signature }, setSign] = useState<IPayloadSignature>({});
   const [isPaymentButtonDisabled, setPaymentButtonDisabled] = useState(false);
-  const { checkOutCart } = useCheckOutCart();
+  const { checkoutCart } = useCheckoutCart();
 
   const checkout = async ({
     paymentContext = undefined,
     deliveryContext = undefined,
   } = {}) => {
-    await checkOutCart({
+    await checkoutCart({
       orderId: cart._id,
       paymentContext,
       deliveryContext,
       orderContext: { bityPayload: payload, bitySignature: signature },
     });
     router.replace({
-      query: { orderId: cart._id, status: 'success' },
+      pathname: '/thank-you',
+      query: { orderId: cart._id },
     });
   };
 

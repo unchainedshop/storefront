@@ -22,8 +22,8 @@ export const AssortmentsProductsQuery = gql`
         ...AssortmentMediaFragment
       }
       searchProducts {
-        productsCount
         filteredProductsCount
+        productsCount
         products(offset: $offset, limit: $limit) {
           ...ProductFragment
         }

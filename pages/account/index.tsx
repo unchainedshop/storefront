@@ -12,6 +12,7 @@ import Header from '../../modules/layout/components/Header';
 import useRemoveEmail from '../../modules/auth/hooks/useRemoveEmail';
 import useAddEmail from '../../modules/auth/hooks/useAddEmail';
 import useResendVerificationEmail from '../../modules/auth/hooks/useResendVerificationEmail';
+import useRedirect from '../../modules/auth/hooks/useRedirect';
 
 const Account = () => {
   const { user } = useUser();
@@ -19,13 +20,15 @@ const Account = () => {
   const intl = useIntl();
   const [username, setUserName] = useState('');
   const [newEmail, setNewEmail] = useState('');
+  const [updateProfile, setUpdateProfile] = useState(false);
 
   const { setUsername } = useSetUsername();
   const { removeEmail } = useRemoveEmail();
   const { addEmail } = useAddEmail();
-
   const { resendVerificationEmail } = useResendVerificationEmail();
-  const [updateProfile, setUpdateProfile] = useState(false);
+
+  useRedirect({ to: '/login', matchAnonymous: true, matchGuests: true });
+
   const showDebugInfo = false;
   const showUsername = user?.roles?.includes('admin');
   const onProfileUpdateComplete = (value) => {

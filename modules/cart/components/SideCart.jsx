@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import { useIntl } from 'react-intl';
@@ -13,12 +12,6 @@ const SideCart = ({ isOpen }) => {
   const { user } = useUser();
   const intl = useIntl();
   const context = useContext(CartContext);
-  const router = useRouter();
-
-  const checkOut = () => {
-    context.toggleCart(false);
-    router.push('/review');
-  };
 
   const subtotal = (user?.cart?.items || []).reduce(
     (acc, item) => {
@@ -107,12 +100,14 @@ const SideCart = ({ isOpen }) => {
                   <div>{renderPrice(subtotal)}</div>
                 </div>
               </div>
-              <a
-                className="button button--primary button--big text-uppercase w-75 mb-3"
-                onClick={() => checkOut()}
-              >
-                {intl.formatMessage({ id: 'to_checkout' })}
-              </a>
+              <Link href={{ pathname: '/review' }}>
+                <a
+                  className="button button--primary button--big text-uppercase w-75 mb-3"
+                  onClick={() => context.toggleCart(false)}
+                >
+                  {intl.formatMessage({ id: 'to_checkout' })}
+                </a>
+              </Link>
               <Link
                 href={`${
                   localStorage.getItem('lastVisitedCategory') || '/shop'

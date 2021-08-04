@@ -1,7 +1,7 @@
 import { useMutation, gql } from '@apollo/client';
 
-const CheckOutCartMutation = gql`
-  mutation CheckOutCart(
+const CheckoutCartMutation = gql`
+  mutation CheckoutCart(
     $orderId: ID!
     $orderContext: JSON
     $paymentContext: JSON
@@ -18,25 +18,25 @@ const CheckOutCartMutation = gql`
   }
 `;
 
-const useCheckOutCartMutation = () => {
-  const [checkOutCartMutation] = useMutation(CheckOutCartMutation, {
+const useCheckoutCartMutation = () => {
+  const [checkoutCartMutation] = useMutation(CheckoutCartMutation, {
     refetchQueries: ['user'],
   });
 
-  const checkOutCart = async ({
+  const checkoutCart = async ({
     orderId,
     orderContext,
     paymentContext,
     deliveryContext,
   }) => {
-    await checkOutCartMutation({
+    await checkoutCartMutation({
       variables: { orderId, orderContext, paymentContext, deliveryContext },
     });
   };
 
   return {
-    checkOutCart,
+    checkoutCart,
   };
 };
 
-export default useCheckOutCartMutation;
+export default useCheckoutCartMutation;
