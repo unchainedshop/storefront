@@ -64,10 +64,16 @@ const Detail = () => {
               />
             </div>
             <div className="col-md-4">
-              <h2 className="px-2 mt-md-0">{product?.texts?.title}</h2>
+              <h2
+                className="px-2 mt-md-0"
+                dangerouslySetInnerHTML={{ __html: product?.texts?.title }}
+              />
               <div className="p-2">
                 <h3 className="my-0">{renderPrice(product?.simulatedPrice)}</h3>
-                <h4 className="mb-3">{product?.texts?.subtitle}</h4>
+                <h4
+                  className="mb-3"
+                  dangerouslySetInnerHTML={{ __html: product?.texts?.subtitle }}
+                />
                 <div
                   className="mb-3"
                   dangerouslySetInnerHTML={{
