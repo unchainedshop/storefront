@@ -39,11 +39,11 @@ const useResetPassword = () => {
   });
 
   const resetPassword = async ({ newPassword, token }) => {
-    await resetPasswordMutation({
+    const { errors } = await resetPasswordMutation({
       variables: { newPassword, token, forceLocale: intl.locale },
     });
     await client.resetStore();
-    return true;
+    return errors;
   };
 
   return {

@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import { toast } from 'react-toastify';
 
 import useForgotPassword from '../../modules/auth/hooks/useForgotPassword';
 import LoadingItem from '../../modules/common/components/LoadingItem';
@@ -10,11 +10,12 @@ import Header from '../../modules/layout/components/Header';
 
 const PasswordForget = () => {
   const { register, handleSubmit } = useForm();
-  const { forgotPassword, loading } = useForgotPassword();
+  const { forgotPassword, loading, error } = useForgotPassword();
+  const [emailSent, setEmailSent] = useState('');
   const intl = useIntl();
   const onSubmit = async ({ email }) => {
     const { success } = await forgotPassword({ email });
-    if (success) toast.success(intl.formatMessage({ id: 'confirmation_sent' }));
+    if (success) setEmailSent(intl.formatMessage({ id: 'confirmation_sent' }));
   };
 
   return (
@@ -22,9 +23,9 @@ const PasswordForget = () => {
       <MetaTags title={intl.formatMessage({ id: 'forgot_password' })} />
       <Header />
       <div className="container">
-        {loading ? (
-          <LoadingItem />
-        ) : (
+        {loading && <LoadingItem />}
+        {emailSent && <div className="text-center"> {emailSent} </div>}
+        {!loading && !emailSent && (
           <div className="row">
             <div className="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
               <h1>{intl.formatMessage({ id: 'forgot_password' })}</h1>
@@ -45,6 +46,9 @@ const PasswordForget = () => {
                   {intl.formatMessage({ id: 'request_new_password' })}
                 </button>
               </form>
+            </div>
+            <div className="error-message form-error text-center">
+              {error && error.message}
             </div>
           </div>
         )}

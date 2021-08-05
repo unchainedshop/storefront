@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 
@@ -13,13 +13,21 @@ const PasswordReset = () => {
   const intl = useIntl();
   const { token } = router.query;
   const { register, handleSubmit, errors, watch } = useForm();
+  const [error, setError] = useState([]);
   const password = useRef({});
 
   password.current = watch('newPassword', '');
   const { resetPassword } = useResetPassword();
 
   const onSubmit = async ({ newPassword }) => {
-    await resetPassword({ newPassword, token });
+    try {
+      await resetPassword({ newPassword, token });
+      router.replace('/account');
+      return true;
+    } catch (e) {
+      setError([{ ...e }]);
+    }
+    return false;
   };
 
   return (
@@ -73,6 +81,13 @@ const PasswordReset = () => {
                 {intl.formatMessage({ id: 'reset_password' })}
               </button>
             </form>
+            {error && (
+              <ul className="form-error error-message">
+                {error.map((e) => (
+                  <li className="error-message">{e.message}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>
