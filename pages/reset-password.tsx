@@ -74,6 +74,13 @@ const PasswordReset = () => {
                 />
                 {errors.password2 && <p>{errors.password2.message}</p>}
               </div>
+              {error && (
+                <ul className="form-error">
+                  {error.map((e) => (
+                    <li className="error-message">{e.message}</li>
+                  ))}
+                </ul>
+              )}
               <button
                 className="button button--primary button--big mt-3"
                 type="submit"
@@ -81,13 +88,6 @@ const PasswordReset = () => {
                 {intl.formatMessage({ id: 'reset_password' })}
               </button>
             </form>
-            {error && (
-              <ul className="form-error error-message">
-                {error.map((e) => (
-                  <li className="error-message">{e.message}</li>
-                ))}
-              </ul>
-            )}
           </div>
         </div>
       </div>

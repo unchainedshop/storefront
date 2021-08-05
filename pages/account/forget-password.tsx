@@ -39,6 +39,9 @@ const PasswordForget = () => {
                   type="email"
                   ref={register({ required: true })}
                 />
+                <div className="error-message form-error text-center">
+                  {error && error.message}
+                </div>
                 <button
                   className="button button--primary button--big mt-3"
                   type="submit"
@@ -46,9 +49,6 @@ const PasswordForget = () => {
                   {intl.formatMessage({ id: 'request_new_password' })}
                 </button>
               </form>
-            </div>
-            <div className="error-message form-error text-center">
-              {error && error.message}
             </div>
           </div>
         )}
