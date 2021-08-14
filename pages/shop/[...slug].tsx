@@ -17,7 +17,7 @@ import getMediaUrl from '../../modules/common/utils/getMediaUrl';
 const CategoryDetail = () => {
   const router = useRouter();
   const { slug: slugs } = router.query;
-  const slug: string | string[] = slugs[slugs.length - 1];
+  const slug: string | string[] = slugs?.length ? slugs[slugs?.length - 1] : '';
   const [currentUrl, setCurrentUrl] = useState('');
 
   const { assortmentTree, loading: categoryTreeLoading } = useCategoriesTree({

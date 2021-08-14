@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import App from 'next/app';
 import { ToastContainer } from 'react-toastify';
 import getConfig from 'next/config';
 
@@ -38,14 +37,6 @@ const UnchainedApp = ({ Component, pageProps, router }) => {
       </CartContext.Provider>
     </IntlWrapper>
   );
-};
-
-UnchainedApp.getInitialProps = async (appContext) => {
-  const appProps = await App.getInitialProps(appContext);
-
-  return {
-    ...appProps,
-  };
 };
 
 export default withApollo(UnchainedApp);
