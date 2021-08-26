@@ -84,7 +84,6 @@ const CurrentUserFragment = gql`
       }
       deliveryInfo: delivery {
         _id
-        meta
         ... on OrderDeliveryShipping {
           address {
             ...AddressFragment

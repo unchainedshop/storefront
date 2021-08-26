@@ -11,7 +11,6 @@ const OrderFragment = gql`
       flagEmoji
       name
     }
-    meta
     delivery {
       _id
       provider {

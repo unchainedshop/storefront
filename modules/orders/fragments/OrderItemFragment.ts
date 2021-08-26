@@ -9,7 +9,6 @@ const OrderItemFragment = gql`
         file {
           name
           url
-          meta
         }
       }
       texts {

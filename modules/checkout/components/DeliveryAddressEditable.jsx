@@ -57,7 +57,6 @@ const DeliveryAddressEditable = ({ user }) => {
             countryCode,
             city,
           },
-          meta: { message },
         });
       }
 
