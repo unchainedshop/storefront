@@ -63,7 +63,7 @@ const useAssortmentProducts = (
       },
     },
   );
-  const paths = (data?.assortment.assortmentPaths || []).flat().pop()?.links;
+  const paths = (data?.assortment?.assortmentPaths || []).flat().pop()?.links;
   const products = data?.assortment?.searchProducts.products || [];
   const loadMore = () => {
     fetchMore({
@@ -82,7 +82,7 @@ const useAssortmentProducts = (
     loadMore,
     error,
     filteredProducts: data?.assortment?.searchProducts.filteredProductsCount,
-    assortment: data?.assortment,
+    assortment: data?.assortment || {},
     products,
     paths,
   };
