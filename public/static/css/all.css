@@ -28,3 +28,6 @@
 @import 'icon.css';
 @import 'print.css';
 @import 'shame.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

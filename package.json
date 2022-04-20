@@ -12,6 +12,10 @@
     "@formatjs/intl-relativetimeformat": "^9.1.6",
     "@graphql-tools/links": "^7.1.0",
     "@graphql-tools/wrap": "^7.0.8",
+    "@headlessui/react": "^1.5.0",
+    "@heroicons/react": "^1.0.6",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/forms": "^0.5.0",
     "apollo-server-micro": "^2.25.1",
     "apollo-server-plugin-response-cache": "^0.9.0",
     "apollo-upload-client": "^16.0.0",
@@ -38,6 +42,7 @@
     "@types/react": "^17.0.11",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
+    "autoprefixer": "^10.4.4",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.28.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -47,7 +52,9 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "postcss": "^8.4.12",
     "prettier": "^2.3.1",
+    "tailwindcss": "^3.0.24",
     "typescript": "^4.3.2"
   },
   "scripts": {
