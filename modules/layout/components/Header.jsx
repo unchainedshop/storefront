@@ -36,7 +36,7 @@ const Header = () => {
   return (
     <>
       {showTopNav && (
-        <div className="color-bg-dark">
+        <div className="bg-slate-900 dark:bg-slate-500">
           <div className="container color-white py-2 text-center font-weight-bold">
             <p className="my-0">{topNavigationText}</p>
           </div>

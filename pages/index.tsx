@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
 
@@ -8,6 +8,7 @@ import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
 import Footer from '../modules/layout/components/Footer';
 import Header from '../modules/layout/components/Header';
+import ThemeContext from '../modules/common/ThemeContext';
 
 const {
   publicRuntimeConfig: { theme },
@@ -17,6 +18,10 @@ const Home = () => {
   const { assortments, loading } = useAssortments();
   const [currentUrl, setcurrentUrl] = useState('');
   const intl = useIntl();
+
+  const thm = useContext(ThemeContext);
+
+  console.log(thm);
 
   useEffect(() => {
     setcurrentUrl(window.location.href);
@@ -28,7 +33,7 @@ const Home = () => {
       <Header />
       <div className="container">
         <img
-          className="mb-3 mx-auto d-block"
+          className="d-block mx-auto mb-3"
           src={theme.assets.hero}
           alt="Hero"
         />
@@ -41,7 +46,7 @@ const Home = () => {
               <CategoryListItem
                 key={category._id}
                 category={category}
-                className="mt-3 col-md-6 mx-auto"
+                className="col-md-6 mx-auto mt-3"
               />
             ))}
           </div>
