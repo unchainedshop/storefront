@@ -11,6 +11,7 @@ import { CartContext } from '../../cart/CartContext';
 import DesktopNavigation from '../../assortment/components/DesktopNavigation';
 import MobileNavigation from '../../assortment/components/MobileNavigation';
 import Icon from '../../common/components/Icon';
+import ThemeContext from '../../common/ThemeContext';
 
 const {
   publicRuntimeConfig: { theme },
@@ -21,6 +22,10 @@ const Header = () => {
   const router = useRouter();
   const [isNavOpen, setNavOpenState] = useState(false);
   const intl = useIntl();
+
+  const [themeData] = useContext(ThemeContext);
+
+  console.log('theme: ', themeData);
 
   const setNavOpen = (isOpen) => {
     setNavOpenState(isOpen);
@@ -36,14 +41,14 @@ const Header = () => {
   return (
     <>
       {showTopNav && (
-        <div className="bg-slate-900 dark:bg-slate-500">
-          <div className="container color-white py-2 text-center font-weight-bold">
+        <div className={`${themeData.bgText}`}>
+          <div className="container py-2 text-center font-bold text-white">
             <p className="my-0">{topNavigationText}</p>
           </div>
         </div>
       )}
 
-      <header className="header sticky-top">
+      <header className="sticky top-0 z-[1020] bg-white opacity-80">
         <SideCart isOpen={context.isCartOpen} />
         <Head>
           <link
@@ -64,13 +69,13 @@ const Header = () => {
             href={theme.assets['icon-16x16']}
           />
         </Head>
-        <div className="container d-flex align-items-center justify-content-between flex-wrap hide-on-mobile py-2">
-          <div className="d-flex justify-content-start align-items-center">
+        <div className="container hidden sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
+          <div className="items-center flex justify-start">
             <DesktopNavigation />
             <Link href="/">
               <a>
                 <img
-                  className="align-self-center ml-3"
+                  className="ml-4 self-center"
                   width="140px"
                   src={theme.assets.logo}
                   alt="Shop logo"
@@ -78,20 +83,20 @@ const Header = () => {
               </a>
             </Link>
           </div>
-          <div className="d-flex justify-content-end">
+          <div className="flex justify-end">
             <LoginCart />
           </div>
         </div>
         <div className="container">
-          <div className="mobile-header hide-on-not-mobile d-flex justify-content-between align-items-center py-2">
-            <div className="d-flex align-items-center">
+          <div className="mobile-header items-center flex justify-between py-2 sm:block">
+            <div className="items-center flex">
               <button
                 type="button"
                 aria-label="menu"
-                className="no-button d-flex align-items-center py-1 mr-3"
+                className="no-button items-center mr-4 flex py-1"
                 onClick={() => setNavOpen(true)}
               >
-                <Icon icon="navigation-menu" className="icon--medium" />
+                <Icon icon="navigation-menu" className="h-5 w-5" />
               </button>
 
               <MobileNavigation

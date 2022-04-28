@@ -7,8 +7,10 @@ import ThemeContext from '../ThemeContext';
 const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(false);
   const [theme, setTheme] = useLocalStorage('theme', 'light');
+  // eslint-disable-next-line no-unused-vars
   const [themeMode, setThemeMode] = useContext(ThemeContext);
 
+  // console.log(themeMode);
   useEffect(() => {
     if (
       localStorage.theme === 'dark' ||
@@ -16,9 +18,11 @@ const ThemeToggle = () => {
         window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       document.getElementsByTagName('html')[0].classList.add('dark');
+      setThemeMode('dark');
       setIsDark(true);
     } else {
       document.getElementsByTagName('html')[0].classList.remove('dark');
+      setThemeMode('light');
       setIsDark(false);
     }
   }, []);
@@ -58,7 +62,7 @@ const ThemeToggle = () => {
       >
         <SunIcon
           className={classNames(
-            'h-8 w-8 text-slate-900 transition-all delay-1000 ease-out',
+            'h-8 w-8 text-white transition-all delay-1000 ease-out',
             {
               hidden: isDark,
             },

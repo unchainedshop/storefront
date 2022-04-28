@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
 
@@ -8,7 +8,6 @@ import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
 import Footer from '../modules/layout/components/Footer';
 import Header from '../modules/layout/components/Header';
-import ThemeContext from '../modules/common/ThemeContext';
 
 const {
   publicRuntimeConfig: { theme },
@@ -16,15 +15,11 @@ const {
 
 const Home = () => {
   const { assortments, loading } = useAssortments();
-  const [currentUrl, setcurrentUrl] = useState('');
+  const [currentUrl, setCurrentUrl] = useState('');
   const intl = useIntl();
 
-  const thm = useContext(ThemeContext);
-
-  console.log(thm);
-
   useEffect(() => {
-    setcurrentUrl(window.location.href);
+    setCurrentUrl(window.location.href);
   }, []);
 
   return (

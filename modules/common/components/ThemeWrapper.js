@@ -1,21 +1,14 @@
 import { useState } from 'react';
 import ThemeContext from '../ThemeContext';
 import theme from '../../../theme';
+import ThemeToggle from './ThemeToggle';
 
 const ThemeWrapper = ({ children }) => {
-  // eslint-disable-next-line no-unused-vars
-  const [themeHook] = useState('light');
-
-  // useEffect(() => {
-  //   setIsDark(
-  //     document.getElementsByTagName('html')[0].classList.contains('dark'),
-  //   );
-  // }, []);
-
-  // const theme = isDark ? Theme.dark : Theme.light;
+  const [themeMode, setThemeMode] = useState('light');
 
   return (
-    <ThemeContext.Provider value={theme[themeHook]}>
+    <ThemeContext.Provider value={[theme[themeMode], setThemeMode]}>
+      <ThemeToggle />
       {children}
     </ThemeContext.Provider>
   );
