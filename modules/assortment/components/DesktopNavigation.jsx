@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
+import { MenuIcon } from '@heroicons/react/solid';
 import DesktopNavigationContext from './DesktopNavigationContext';
 import MegaDropdown from './MegaDropdown';
 import useCategoriesTree from '../hooks/useCategoriesTree';
 import Icon from '../../common/components/Icon';
+import ThemeContext from '../../common/ThemeContext';
 
 const arrayEqual = (a, b) =>
   a.length === b.length &&
   a.reduce((acc, curr, index) => acc && curr === b[index], true);
 
 const DesktopNavigation = () => {
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
+  const [theme] = useContext(ThemeContext);
   const [hoverPath, setHoverPath] = useState([]);
   const [isTouching, setTouching] = useState(false);
 
@@ -20,7 +23,7 @@ const DesktopNavigation = () => {
 
   const handleClick = (node) => (event) => {
     if (isTouching && node.children) {
-      // Special behaviour for touch devices: A tab opens the dropdown and the click (=navigation) is prevented
+      // Special behavior for touch devices: A tab opens the dropdown and the click (=navigation) is prevented
       event.preventDefault();
       if (hoverPath.length > 0 && arrayEqual(node.path, hoverPath)) {
         // This is the second tab on a top-navigation title: It closes the dropdown
@@ -52,14 +55,14 @@ const DesktopNavigation = () => {
       }}
     >
       <nav
-        className="nav nav--main"
+        className="nav sm:flex"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div key="shop" className="d-inline-block">
+        <div key="shop" className="inline-block">
           <Link href="/shop">
             <a
-              className="nav--main__item py-3 d-flex align-items-center"
+              className="nav--main__item relative flex items-center py-4"
               data-in-hover-path={hoverPath.includes(assortmentTree.slug)}
               onMouseEnter={() => {
                 if (!isTouching) {
@@ -74,8 +77,8 @@ const DesktopNavigation = () => {
               }}
               onClick={handleClick(assortmentTree)}
             >
-              <Icon className="mr-2" icon="navigation-menu" />
-              {intl.formatMessage({ id: 'menu' })}
+              <MenuIcon className={`mr-2 h-6 w-6 ${theme.iconColor}`} />
+              {formatMessage({ id: 'menu', defaultMessage: 'Menu' })}
             </a>
           </Link>
           {hoverPath.includes(assortmentTree.slug) && (

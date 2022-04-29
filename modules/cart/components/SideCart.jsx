@@ -34,7 +34,7 @@ const SideCart = ({ isOpen }) => {
       {!user?.cart?.items.length ? (
         <>
           <div
-            className={`side-cart-container py-3 px-2 text-center ${
+            className={`side-cart-container py-4 px-2 text-center ${
               isOpen ? 'open' : ''
             }`}
           >
@@ -52,26 +52,26 @@ const SideCart = ({ isOpen }) => {
       ) : (
         <>
           <div
-            className={`side-cart-container d-flex flex-column px-1 ${
+            className={`side-cart-container flex flex-col px-1 ${
               isOpen ? 'open' : ''
             }`}
           >
             <div>
-              <div className="position-relative">
+              <div className="relative">
                 <button
                   aria-label={intl.formatMessage({ id: 'close' })}
                   type="button"
-                  className="no-button p-2 position-absolute close-cart-button"
+                  className="no-button close-cart-button absolute p-2"
                   onClick={() => context.toggleCart()}
                 >
-                  <Icon className="icon--small" icon="close" />
+                  <Icon className="h-3.5 w-3.5" icon="close" />
                 </button>
               </div>
-              <h3 className="p-3 m-0 h4 text-center d-block">
+              <h3 className="m-0 block p-4 text-center text-lg">
                 {intl.formatMessage({ id: 'in_cart' })}
               </h3>
             </div>
-            <div className="px-2 cart-item-container">
+            <div className="cart-item-container px-2">
               {user?.cart?.items.length === 0 ? (
                 <p>
                   {intl.formatMessage({ id: 'no_product_in_cart' })}{' '}
@@ -91,9 +91,9 @@ const SideCart = ({ isOpen }) => {
                 ))
               )}
             </div>
-            <div className="text-center p-2">
-              <div className="border-top border-bottom py-3 my-0 mb-3">
-                <div className="d-flex flex-wrap justify-content-between align-items-center">
+            <div className="p-2 text-center">
+              <div className="my-0 mb-4 border-t border-b-0 border-solid py-4">
+                <div className="flex flex-wrap items-center justify-between">
                   <div className="mr-2">
                     {intl.formatMessage({ id: 'subtotal' })}{' '}
                   </div>
@@ -102,7 +102,7 @@ const SideCart = ({ isOpen }) => {
               </div>
               <Link href={{ pathname: '/review' }}>
                 <a
-                  className="button button--primary button--big text-uppercase w-75 mb-3"
+                  className="button button--primary button--big w-75 mb-4 uppercase"
                   onClick={() => context.toggleCart(false)}
                 >
                   {intl.formatMessage({ id: 'to_checkout' })}

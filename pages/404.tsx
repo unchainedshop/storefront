@@ -12,9 +12,9 @@ const NotFound = ({ page = '' }) => {
     <>
       <MetaTags title="404: Not Found" />
       <Header />
-      <div className="container text-center text-danger p-3 p-md-5">
-        <div className="p-lg-5 mb-4">
-          <h1 className="font-weight-bolder font-dax-ot-regular">
+      <div className="text-danger container p-4 text-center md:p-5">
+        <div className="mb-6 lg:p-12">
+          <h1 className="font-dax-ot-regular font-[bolder]">
             404: Requested {page || 'Page'} not found
           </h1>
           <div className="mb-5">

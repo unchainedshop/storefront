@@ -25,8 +25,6 @@ const Header = () => {
 
   const [themeData] = useContext(ThemeContext);
 
-  console.log('theme: ', themeData);
-
   const setNavOpen = (isOpen) => {
     setNavOpenState(isOpen);
   };
@@ -41,14 +39,18 @@ const Header = () => {
   return (
     <>
       {showTopNav && (
-        <div className={`${themeData.bgText}`}>
-          <div className="container py-2 text-center font-bold text-white">
+        <div className={`${themeData.bgNotification}`}>
+          <div
+            className={`container py-2 text-center font-bold ${themeData.textNotification}`}
+          >
             <p className="my-0">{topNavigationText}</p>
           </div>
         </div>
       )}
 
-      <header className="sticky top-0 z-[1020] bg-white opacity-80">
+      <header
+        className={`sticky top-0 z-[1020] ${themeData.bgColor} opacity-80 ${themeData.textColor}`}
+      >
         <SideCart isOpen={context.isCartOpen} />
         <Head>
           <link
@@ -70,7 +72,7 @@ const Header = () => {
           />
         </Head>
         <div className="container hidden sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
-          <div className="items-center flex justify-start">
+          <div className="flex items-center justify-start">
             <DesktopNavigation />
             <Link href="/">
               <a>
@@ -88,12 +90,12 @@ const Header = () => {
           </div>
         </div>
         <div className="container">
-          <div className="mobile-header items-center flex justify-between py-2 sm:block">
-            <div className="items-center flex">
+          <div className="mobile-header flex items-center justify-between py-2 sm:hidden">
+            <div className="flex items-center">
               <button
                 type="button"
                 aria-label="menu"
-                className="no-button items-center mr-4 flex py-1"
+                className="no-button mr-4 flex items-center py-1"
                 onClick={() => setNavOpen(true)}
               >
                 <Icon icon="navigation-menu" className="h-5 w-5" />

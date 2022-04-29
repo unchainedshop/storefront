@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
 
@@ -8,6 +8,7 @@ import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
 import Footer from '../modules/layout/components/Footer';
 import Header from '../modules/layout/components/Header';
+import ThemeContext from '../modules/common/ThemeContext';
 
 const {
   publicRuntimeConfig: { theme },
@@ -16,7 +17,9 @@ const {
 const Home = () => {
   const { assortments, loading } = useAssortments();
   const [currentUrl, setCurrentUrl] = useState('');
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
+
+  const [themeData] = useContext(ThemeContext);
 
   useEffect(() => {
     setCurrentUrl(window.location.href);
@@ -24,29 +27,29 @@ const Home = () => {
 
   return (
     <>
-      <MetaTags title={intl.formatMessage({ id: 'home' })} url={currentUrl} />
+      <MetaTags title={formatMessage({ id: 'home' })} url={currentUrl} />
       <Header />
-      <div className="container">
+      <main className={`container ${themeData.bgColor}`}>
         <img
-          className="d-block mx-auto mb-3"
+          className="mx-auto mb-4 block"
           src={theme.assets.hero}
-          alt="Hero"
+          alt={formatMessage({ id: 'hero', defaultMessage: 'Hero' })}
         />
 
         {loading ? (
           <LoadingItem />
         ) : (
-          <div className="row">
-            {assortments.map((category) => (
-              <CategoryListItem
-                key={category._id}
-                category={category}
-                className="col-md-6 mx-auto mt-3"
-              />
-            ))}
-          </div>
+          <section aria-labelledby="favorites-heading">
+            <div className="mx-auto max-w-7xl py-4 px-4 sm:py-32 sm:px-6 lg:px-8">
+              <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-3 sm:gap-y-0 sm:gap-x-6 lg:gap-x-8">
+                {assortments.map((category) => (
+                  <CategoryListItem key={category._id} category={category} />
+                ))}
+              </div>
+            </div>
+          </section>
         )}
-      </div>
+      </main>
       <Footer />
     </>
   );
