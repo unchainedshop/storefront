@@ -19,7 +19,7 @@ import NotFound from '../404';
 
 const Detail = () => {
   const router = useRouter();
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   const [currentUrl, setcurrentUrl] = useState('');
   const { product, paths, loading } = useProductDetail({
     slug: router.query.slug,
@@ -31,7 +31,11 @@ const Detail = () => {
   }, []);
 
   if (!product && !loading)
-    return <NotFound page={intl.formatMessage({ id: 'products' })} />;
+    return (
+      <NotFound
+        page={formatMessage({ id: 'products', defaultMessage: 'products' })}
+      />
+    );
   return (
     <>
       <MetaTags
@@ -45,8 +49,8 @@ const Detail = () => {
         <LoadingItem />
       ) : (
         <div className="container mt-1">
-          <div className="row">
-            <div className="col-12">
+          <div className="-mx-4 flex flex-wrap">
+            <div className="relative w-full max-w-full flex-3 px-4">
               <AssortmentBreadcrumbs
                 paths={productPath}
                 currentAssortment={product?.texts}
@@ -65,7 +69,7 @@ const Detail = () => {
             </div>
             <div className="col-md-4">
               <h2
-                className="px-2 mt-md-0"
+                className="mt-md-0 px-2"
                 dangerouslySetInnerHTML={{ __html: product?.texts?.title }}
               />
               <div className="p-2">

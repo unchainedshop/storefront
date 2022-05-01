@@ -7,20 +7,28 @@ import Header from '../modules/layout/components/Header';
 
 const AboutUs = () => {
   const [currentUrl, setcurrentUrl] = useState('');
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   useEffect(() => {
     setcurrentUrl(window.location.href);
   }, []);
 
   return (
     <>
-      <MetaTags title={intl.formatMessage({ id: 'about' })} url={currentUrl} />
+      <MetaTags
+        title={formatMessage({ id: 'about', defaultMessage: 'About' })}
+        url={currentUrl}
+      />
       <Header />
       <div className="container">
-        <div className="row">
-          <div className="col-md-8 offset-md-2">
-            <h1>{intl.formatMessage({ id: 'about' })}</h1>
-            <p>{intl.formatMessage({ id: 'about_detail' })}</p>
+        <div className="-mr-4 -ml-4 flex flex-wrap">
+          <div className="relative w-full px-4 md:ml-[16.666667%] md:max-w-[66.666667%] md:flex-shrink-0 md:flex-grow-0 md:basis-2/3">
+            <h1>{formatMessage({ id: 'about', defaultMessage: 'About' })}</h1>
+            <p>
+              {formatMessage({
+                id: 'about_detail',
+                defaultMessage: 'About Detail',
+              })}
+            </p>
           </div>
         </div>
       </div>

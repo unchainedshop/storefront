@@ -2,22 +2,22 @@ import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
 const AssortmentBreadcrumbs = ({ paths = [], currentAssortment }) => {
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   return (
-    <nav className="mt-2 mb-4 border-bottom pb-3">
+    <nav className="border-bottom mt-2 mb-6 pb-4">
       <Link href="/">
-        <a className="mr-2 breadcrumb-link">
-          {intl.formatMessage({ id: 'home' })}
+        <a className="breadcrumb-link mr-2">
+          {formatMessage({ id: 'home', defaultMessage: 'Home' })}
         </a>
       </Link>
       <Link href="/shop">
-        <a className="mr-2 breadcrumb-link">
-          {intl.formatMessage({ id: 'shop' })}
+        <a className="breadcrumb-link mr-2">
+          {formatMessage({ id: 'shop', defaultMessage: 'Shop' })}
         </a>
       </Link>
       {paths?.map(({ id, slug, title }) => (
         <Link href={`/${slug}`} as={`/${slug}`} key={id}>
-          <a className="mr-2 breadcrumb-link">{title}</a>
+          <a className="breadcrumb-link marker:breadcrumb-link mr-2">{title}</a>
         </Link>
       ))}
       <a className="breadcrumb-link">

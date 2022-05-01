@@ -13,23 +13,33 @@ import MetaTags from '../modules/common/components/MetaTags';
 import COUNTRIES from '../modules/common/data/countries-list';
 
 const ErrorDisplay = ({ error }) => {
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
+
   if (!error) return '';
   if (error.message?.includes('Email already exists')) {
     return (
-      <div className="form-error my-3">
-        👬 {intl.formatMessage({ id: 'email_exists' })}.
+      <div className="my-4 text-red-600">
+        👬{' '}
+        {formatMessage({ id: 'email_exists', defaultMessage: 'Email exists' })}.
       </div>
     );
   }
 
-  return <div className="form-error my-3">👷‍♀️ An unknown error occurred.</div>;
+  return (
+    <div className="my-4 text-red-600">
+      👷‍♀️{' '}
+      {formatMessage({
+        id: 'unknown_error',
+        defaultMessage: 'An unknown error occurred.',
+      })}
+    </div>
+  );
 };
 
 const SignUp = () => {
   const router = useRouter();
   const { register, handleSubmit, watch, errors, setError } = useForm();
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   const { updateCart } = useUpdateCart();
   const { createUser, error: formError } = useCreateUser();
   const hasErrors = Object.keys(errors).length;
@@ -63,11 +73,17 @@ const SignUp = () => {
       if (password !== password2) {
         setError('password', {
           type: 'manual',
-          message: `👬 ${intl.formatMessage({ id: 'password_not_match' })}`,
+          message: `👬 ${formatMessage({
+            id: 'password_not_match',
+            defaultMessage: 'Password not match',
+          })}`,
         });
         setError('password2', {
           type: 'manual',
-          message: `👬 ${intl.formatMessage({ id: 'password_not_match' })}`,
+          message: `👬 ${formatMessage({
+            id: 'password_not_match',
+            defaultMessage: 'Password not match',
+          })}`,
         });
         return false;
       }
@@ -115,212 +131,268 @@ const SignUp = () => {
   return (
     <>
       <MetaTags
-        title={`${intl.formatMessage({
+        title={`${formatMessage({
           id: 'log_in',
-        })} or ${intl.formatMessage({ id: 'register' })}`}
+          defaultMessage: 'Log In',
+        })} or ${formatMessage({
+          id: 'register',
+          defaultMessage: 'Register',
+        })}`}
       />
       <Header />
       <div className="container">
-        <div className="row">
-          <div className="col-lg-6">
-            <h2>{intl.formatMessage({ id: 'welcome_back' })}</h2>
-            <p className="mt-0 mb-3">
-              {intl.formatMessage({ id: 'welcome_back_message' })}
+        <div className="-mx-4 flex flex-wrap">
+          <div className="relative mx-4 w-full lg:max-w-1/2 lg:flex-2">
+            <h2>
+              {formatMessage({
+                id: 'welcome_back',
+                defaultMessage: 'Welcome back',
+              })}
+            </h2>
+            <p className="mt-0 mb-4">
+              {formatMessage({
+                id: 'welcome_back_message',
+                defaultMessage: 'Welcome back message',
+              })}
             </p>
             <LoginForm onLogin={onLogin} />
           </div>
-          <div className="col-lg-6">
-            <h2> {intl.formatMessage({ id: 'new_here' })} </h2>
-            <p className="mt-0 mb-3">
-              {intl.formatMessage({ id: 'new_here_message' })}
+          <div className="relative mx-4 w-full lg:max-w-1/2 lg:flex-2">
+            <h2>
+              {formatMessage({
+                id: 'new_here',
+                defaultMessage: 'New here',
+              })}
+            </h2>
+            <p className="mt-0 mb-4">
+              {formatMessage({
+                id: 'new_here_message',
+                defaultMessage: 'New here message',
+              })}
             </p>
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
-              <div className="form-row">
+              <div className="form-row flex flex-wrap">
                 <div
-                  className={`mb-3 col-md-6 ${
-                    errors.firstName ? 'form-error' : ''
+                  className={`relative mx-4 mb-4 w-full md:max-w-1/2 md:flex-2 ${
+                    errors.firstName && 'text-red-600'
                   }`}
                 >
-                  <label className="form-label">
-                    {intl.formatMessage({ id: 'first_name' })}
+                  <label className="mb-2 block font-bold leading-tight text-color-dark">
+                    {formatMessage({
+                      id: 'first_name',
+                      defaultMessage: 'First Name',
+                    })}
                   </label>
                   <input
-                    className="form-control"
+                    className="block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0"
                     name="firstName"
                     ref={register({ required: true })}
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
-                    errors.lastName ? 'form-error' : ''
+                  className={`relative mx-4 mb-4 w-full md:max-w-1/2 md:flex-2 ${
+                    errors.lastName && 'text-red-600'
                   }`}
                 >
-                  <label className="form-label">
-                    {intl.formatMessage({ id: 'last_name' })}
+                  <label className="mb-2 block font-bold leading-tight text-color-dark">
+                    {formatMessage({
+                      id: 'last_name',
+                      defaultMessage: 'Last Name',
+                    })}
                   </label>
                   <input
-                    className={`form-control ${
-                      errors.lastName && 'form-error'
+                    className={`block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0 ${
+                      errors.lastName && 'border-red-600 text-red-600'
                     }`}
                     name="lastName"
                     ref={register({ required: true })}
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-12 ${
-                    errors.company ? 'form-error' : ''
+                  className={`relative mb-4 w-full px-4 md:max-w-full md:flex-3 ${
+                    errors.company && 'text-red-600'
                   }`}
                 >
-                  <label className="form-label">
-                    {intl.formatMessage({ id: 'company' })}{' '}
-                    {intl.formatMessage({ id: 'optional' })}
+                  <label className="mb-2 block font-bold leading-tight text-color-dark">
+                    {formatMessage({
+                      id: 'company',
+                      defaultMessage: 'Company',
+                    })}
+                    {formatMessage({
+                      id: 'optional',
+                      defaultMessage: 'Optional',
+                    })}
                   </label>
                   <input
-                    className="form-control"
+                    className="block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0"
                     name="company"
                     ref={register}
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
-                    errors.addressLine ? 'form-error' : ''
+                  className={`relative mb-4 w-full px-4 md:max-w-1/2 md:flex-2 ${
+                    errors.addressLine && 'text-red-600'
                   }`}
                 >
-                  <label className="form-label">
-                    {intl.formatMessage({ id: 'address' })}
+                  <label className="mb-2 block font-bold leading-tight text-color-dark">
+                    {formatMessage({
+                      id: 'address',
+                      defaultMessage: 'Address',
+                    })}
                   </label>
                   <input
-                    className={`form-control ${
-                      errors.addressLine && 'form-error'
+                    className={`block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0 ${
+                      errors.addressLine && 'border-red-600 text-red-600'
                     }`}
                     name="addressLine"
                     ref={register({ required: true })}
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
-                    errors.postalCode ? 'form-error' : ''
+                  className={`relative mb-4 w-full px-4 md:max-w-1/2 md:flex-2 ${
+                    errors.postalCode && 'text-red-600'
                   }`}
                 >
-                  <label className="form-label">
-                    {intl.formatMessage({ id: 'postal_code' })}
+                  <label className="mb-2 block font-bold leading-tight text-color-dark">
+                    {formatMessage({
+                      id: 'postal_code',
+                      defaultMessage: 'Postal code',
+                    })}
                   </label>
                   <input
-                    className={`form-control ${
-                      errors.postalCode && 'form-error'
+                    className={`block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0 ${
+                      errors.postalCode && 'border-red-600 text-red-600'
                     }`}
                     name="postalCode"
                     ref={register({ required: true })}
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${errors.city ? 'form-error' : ''}`}
+                  className={`relative mb-4 w-full px-4 md:max-w-1/2 md:flex-2 ${
+                    errors.city && 'text-red-600'
+                  }`}
                 >
-                  <label className="form-label">
-                    {intl.formatMessage({ id: 'city' })}
+                  <label className="mb-2 block font-bold leading-tight text-color-dark">
+                    {formatMessage({ id: 'city', city: 'City' })}
                   </label>
                   <input
-                    className={`form-control ${errors.city && 'form-error'}`}
+                    className={`block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0 ${
+                      errors.city && 'border-red-600 text-red-600'
+                    }`}
                     name="city"
                     ref={register({ required: true })}
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
-                    errors.countryCode ? 'form-error' : ''
+                  className={`relative mb-4 w-full px-4 md:max-w-1/2 md:flex-2 ${
+                    errors.countryCode && 'text-red-600'
                   }`}
                 >
-                  <label className="form-label">
-                    {intl.formatMessage({ id: 'country' })}
+                  <label className="mb-2 block font-bold leading-tight text-color-dark">
+                    {formatMessage({
+                      id: 'country',
+                      defaultMessage: 'Country',
+                    })}
                   </label>
                   <select
                     name="countryCode"
                     ref={register({ required: true })}
-                    className={`form-control ${
-                      errors.countryCode && 'form-error'
+                    className={`block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0 ${
+                      errors.countryCode && 'border-red-600 text-red-600'
                     }`}
                   >
                     {COUNTRIES.map((c) => (
                       <option key={c.code} value={c.code}>
-                        {' '}
                         {c.name}{' '}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
-                    errors.emailAddress ? 'form-error' : ''
+                  className={`relative mb-4 w-full px-4 md:max-w-1/2 md:flex-2 ${
+                    errors.emailAddress && 'text-red-600'
                   }`}
                 >
-                  <label className="form-label">
-                    {intl.formatMessage({ id: 'email' })}
+                  <label className="mb-2 block font-bold leading-tight text-color-dark">
+                    {formatMessage({ id: 'email', defaultMessage: 'Email' })}
                   </label>
                   <input
-                    className={`form-control ${
-                      errors.emailAddress && 'form-error'
+                    className={`block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0 ${
+                      errors.emailAddress && 'border-red-600 text-red-600'
                     }`}
                     name="emailAddress"
                     ref={register({ required: true })}
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
-                    errors.telNumber ? 'form-error' : ''
+                  className={`relative mb-4 w-full px-4 md:max-w-1/2 md:flex-2 ${
+                    errors.telNumber ? 'text-red-600' : ''
                   }`}
                 >
-                  <label className="form-label">
-                    {intl.formatMessage({ id: 'telephone' })}
+                  <label className="mb-2 block font-bold leading-tight text-color-dark">
+                    {formatMessage({
+                      id: 'telephone',
+                      defaultMessage: 'Telephone',
+                    })}
                   </label>
                   <input
-                    className={`form-control ${
-                      errors.telNumber && 'form-error'
+                    className={`block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0 ${
+                      errors.telNumber && 'border-red-600 text-red-600'
                     }`}
                     name="telNumber"
                     ref={register({ required: false })}
                   />
                 </div>
-                <div className="mb-3 col-md-12">
-                  <p className="form-check mb-3">
+                <div className="relative mb-4 w-full px-4 md:max-w-full md:flex-3">
+                  <p className="form-check relative mb-4 block pl-5">
                     <input
                       type="checkbox"
-                      className="form-check-input"
+                      className="absolute -ml-5"
                       id="account"
                       name="account"
                       ref={register}
                     />
                     <label className="form-check-label mb-0" htmlFor="account">
-                      {intl.formatMessage({ id: 'create_an_account' })}
+                      {formatMessage({
+                        id: 'create_an_account',
+                        defaultMessage: 'Create an account',
+                      })}
                     </label>
                   </p>
                 </div>
                 {createAccount ? (
                   <>
                     <div
-                      className={`mb-3 col-md-6 ${
-                        errors.password ? 'form-error' : ''
+                      className={`relative mb-4 w-full px-4 md:max-w-1/2 md:flex-2 ${
+                        errors.password ? 'text-red-600' : ''
                       }`}
                     >
-                      <label className="form-label">
-                        {intl.formatMessage({ id: 'password' })}
+                      <label className="mb-2 block font-bold leading-tight text-color-dark">
+                        {formatMessage({
+                          id: 'password',
+                          defaultMessage: 'Password',
+                        })}
                       </label>
                       <input
-                        className="form-control"
+                        className="block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0"
                         name="password"
                         type="password"
                         ref={register({ required: true })}
                       />
                     </div>
                     <div
-                      className={`mb-3 col-md-6 ${
-                        errors.password2 ? 'form-error' : ''
+                      className={`relative mb-4 w-full px-4 md:max-w-1/2 md:flex-2 ${
+                        errors.password2 ? 'text-red-600' : ''
                       }`}
                     >
-                      <label className="form-label">
-                        {intl.formatMessage({ id: 'repeat_password' })}
+                      <label className="mb-2 block font-bold leading-tight text-color-dark">
+                        {formatMessage({
+                          id: 'repeat_password',
+                          defaultMessage: 'Repeat Password',
+                        })}
                       </label>
                       <input
-                        className="form-control"
+                        className="block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0"
                         name="password2"
                         type="password"
                         ref={register({ required: true })}
@@ -330,27 +402,28 @@ const SignUp = () => {
                 ) : (
                   ''
                 )}
-                <div className="col-12">
+                <div className="relative w-full max-w-full flex-3 px-4">
                   <p
-                    className={`form-check mt-0 mb-4 ${
-                      errors.conditions ? 'form-error' : ''
+                    className={`relative mt-0 mb-4 block pl-5 ${
+                      errors.conditions ? 'text-red-600' : ''
                     }`}
                   >
                     <input
                       type="checkbox"
-                      className="form-check-input"
+                      className="absolute -ml-5"
                       id="conditions"
                       name="conditions"
                       ref={register({ required: true })}
                     />
                     <label
                       className={`form-check-label mb-0 ${
-                        errors.conditions && 'form-error'
+                        errors.conditions && 'text-red-600'
                       }`}
                       htmlFor="conditions"
                       dangerouslySetInnerHTML={{
-                        __html: intl.formatMessage({
+                        __html: formatMessage({
                           id: 'i_have_read_term',
+                          defaultMessage: 'I have read term',
                         }),
                       }}
                     />
@@ -361,11 +434,14 @@ const SignUp = () => {
               <ErrorDisplay error={formError} />
 
               <button
-                className="button button--primary button--big w-100"
+                className="button button--primary w-full py-[0.875rem] px-5"
                 type="submit"
                 disabled={hasErrors}
               >
-                {intl.formatMessage({ id: 'to_order_review' })}
+                {formatMessage({
+                  id: 'to_order_review',
+                  defaultMessage: 'To Order Rbutton--primaryeview',
+                })}
               </button>
             </form>
           </div>
