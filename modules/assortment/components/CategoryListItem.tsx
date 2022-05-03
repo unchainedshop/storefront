@@ -1,13 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import getMediaUrl from '../../common/utils/getMediaUrl';
-import ThemeContext from '../../common/ThemeContext';
 
 const CategoryListItem = ({ category, className = '' }) => {
-  const [theme] = useContext(ThemeContext);
-
   return (
     <div className={className}>
       <div className="group relative">
@@ -28,10 +25,7 @@ const CategoryListItem = ({ category, className = '' }) => {
                 className="h-full w-full object-cover object-center"
               />
             </div>
-            <h3
-              className={`"mt-4 text-center text-base font-semibold ${theme.headingText}`}
-            >
-              {/* <span className="absolute inset-0" /> */}
+            <h3 className="mt-4 text-center text-base font-semibold text-slate-900 dark:text-slate-50">
               {category.texts?.title}
             </h3>
             <p className="mt-1 text-center text-sm text-gray-500">

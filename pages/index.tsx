@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
 
@@ -8,7 +8,6 @@ import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
 import Footer from '../modules/layout/components/Footer';
 import Header from '../modules/layout/components/Header';
-import ThemeContext from '../modules/common/ThemeContext';
 
 const {
   publicRuntimeConfig: { theme },
@@ -19,8 +18,6 @@ const Home = () => {
   const [currentUrl, setCurrentUrl] = useState('');
   const { formatMessage } = useIntl();
 
-  const [themeData] = useContext(ThemeContext);
-
   useEffect(() => {
     setCurrentUrl(window.location.href);
   }, []);
@@ -29,7 +26,7 @@ const Home = () => {
     <>
       <MetaTags title={formatMessage({ id: 'home' })} url={currentUrl} />
       <Header />
-      <main className={`container ${themeData.bgColor}`}>
+      <main className="container relative mx-auto w-full bg-white px-4 dark:bg-slate-600 sm:px-0">
         <img
           className="mx-auto mb-4 block"
           src={theme.assets.hero}

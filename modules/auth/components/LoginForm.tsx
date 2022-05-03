@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
+import PrimaryButton from '../../common/components/Button';
 
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
 
@@ -10,6 +11,7 @@ const LoginForm = ({ onLogin = null }) => {
   const { formatMessage } = useIntl();
   const { loginWithPassword, error } = useLoginWithPassword();
   const hasErrors = Object.keys(errors).length > 0;
+
   useEffect(() => {
     if (error?.message?.includes('Invalid credentials')) {
       setError('email', {
@@ -35,11 +37,11 @@ const LoginForm = ({ onLogin = null }) => {
             errors.email && 'text-red-600'
           }`}
         >
-          <label className="mb-2 block font-bold leading-tight text-color-dark">
+          <label className="mb-2 block font-bold leading-tight text-color-dark dark:text-slate-300">
             {formatMessage({ id: 'email', defaultMessage: 'Email' })}
           </label>
           <input
-            className="block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0"
+            className="block w-full appearance-none rounded-md border border-light-black bg-white bg-clip-padding py-2 px-3 text-base text-color-dark placeholder-slate-400 shadow-sm transition focus:border-light-blue focus:shadow-0 focus:outline-0 focus:ring-light-blue dark:shadow-white"
             name="email"
             type="email"
             ref={register({ required: true })}
@@ -50,18 +52,21 @@ const LoginForm = ({ onLogin = null }) => {
             errors.password && 'text-red-600'
           }`}
         >
-          <label className="mb-2 block font-bold leading-tight text-color-dark">
+          <label className="mb-2 block font-bold leading-tight text-color-dark dark:text-slate-300">
             {formatMessage({ id: 'password', defaultMessage: 'Password' })}
           </label>
           <input
-            className="block w-full rounded border border-solid border-light-black bg-white bg-clip-padding py-[0.375] px-3 text-base text-color-dark transition focus:border-light-blue focus:shadow-0 focus:outline-0"
+            className="block w-full appearance-none rounded-md border border-light-black bg-white bg-clip-padding py-2 px-3 text-base text-color-dark placeholder-slate-400 shadow-sm transition focus:border-light-blue focus:shadow-0 focus:outline-0 focus:ring-light-blue dark:shadow-white"
             type="password"
             name="password"
             ref={register({ required: true })}
           />
           <Link href="/account/forget-password">
             <a className="mt-2 text-right">
-              <small id="passwordForgot" className="mt-1 block text-[#6c757d]">
+              <small
+                id="passwordForgot"
+                className="mt-1 block text-[#6c757d] dark:text-slate-300"
+              >
                 {formatMessage({
                   id: 'forgot_password',
                   defaultMessage: 'Forgot password',
@@ -78,13 +83,11 @@ const LoginForm = ({ onLogin = null }) => {
             </div>
           ))
         : ''}
-      <button
-        className="button button--primary align-center mt-4 w-full py-[0.875] px-5 font-bold text-white"
+      <PrimaryButton
         type="submit"
+        text={formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
         disabled={hasErrors}
-      >
-        {formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
-      </button>
+      />
     </form>
   );
 };

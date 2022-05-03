@@ -1,9 +1,7 @@
 import Link from 'next/link';
-import { useContext } from 'react';
 import { useIntl } from 'react-intl';
 
 import LanguageSwitch from '../../common/components/LanguageSwitch';
-import ThemeContext from '../../common/ThemeContext';
 
 const footerNavigation = {
   products: [
@@ -108,7 +106,6 @@ const footerNavigation = {
 
 const Footer = () => {
   const { formatMessage } = useIntl();
-  const [theme] = useContext(ThemeContext);
   return (
     // <footer className="footer d-flex flex-wrap justify-content-between container my-5 border-top pt-5">
     //   <div className="d-flex flex-wrap">
@@ -131,7 +128,10 @@ const Footer = () => {
     //     <LanguageSwitch />
     //   </div>
     // </footer>
-    <footer aria-labelledby="footer-heading" className={`${theme.bgColor}`}>
+    <footer
+      aria-labelledby="footer-heading"
+      className="bg-white dark:bg-slate-600"
+    >
       <h2 id="footer-heading" className="sr-only">
         {formatMessage({ id: 'footer', defaultMessage: 'Footer' })}
       </h2>
@@ -155,7 +155,7 @@ const Footer = () => {
               <div className="grid grid-cols-2 gap-8 xl:col-span-2">
                 <div className="space-y-12 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
                   <div>
-                    <h3 className={`text-lg font-medium ${theme.headingText}`}>
+                    <h3 className="text-lg font-medium text-slate-900 dark:text-slate-50">
                       {formatMessage({
                         id: 'products',
                         defaultMessage: 'Products',
@@ -165,9 +165,7 @@ const Footer = () => {
                       {footerNavigation.products.map((item) => (
                         <li key={item.name} className="text-base">
                           <Link href="#">
-                            <a
-                              className={`${theme.footerText} hover:${theme.hoverFooterText}`}
-                            >
+                            <a className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
                               {item.name}
                             </a>
                           </Link>
@@ -176,7 +174,7 @@ const Footer = () => {
                     </ul>
                   </div>
                   <div>
-                    <h3 className={`text-lg font-medium ${theme.headingText}`}>
+                    <h3 className="text-lg font-medium text-slate-900 dark:text-slate-50">
                       {formatMessage({
                         id: 'customer_service',
                         defaultMessage: 'Customer Service',
@@ -186,9 +184,7 @@ const Footer = () => {
                       {footerNavigation.customerService.map((item) => (
                         <li key={item.name} className="text-base">
                           <Link href="#">
-                            <a
-                              className={`${theme.footerText} hover:${theme.hoverFooterText}`}
-                            >
+                            <a className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
                               {item.name}
                             </a>
                           </Link>
@@ -200,7 +196,7 @@ const Footer = () => {
 
                 <div className="space-y-12 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
                   <div>
-                    <h3 className={`text-lg font-medium ${theme.headingText}`}>
+                    <h3 className="text-lg font-medium text-slate-900 dark:text-slate-50">
                       {formatMessage({
                         id: 'company',
                         defaultMessage: 'Company',
@@ -210,9 +206,7 @@ const Footer = () => {
                       {footerNavigation.company.map((item) => (
                         <li key={item.name} className="text-base">
                           <Link href="#">
-                            <a
-                              className={`${theme.footerText} hover:${theme.hoverFooterText}`}
-                            >
+                            <a className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
                               {item.name}
                             </a>
                           </Link>
@@ -221,16 +215,14 @@ const Footer = () => {
                     </ul>
                   </div>
                   <div>
-                    <h3 className={`text-lg font-medium ${theme.headingText}`}>
+                    <h3 className="text-lg font-medium text-slate-900 dark:text-slate-50">
                       {formatMessage({ id: 'legal', defaultMessage: 'Legal' })}
                     </h3>
                     <ul className="mt-6 space-y-6">
                       {footerNavigation.legal.map((item) => (
                         <li key={item.name} className="text-sm">
                           <Link href="#">
-                            <a
-                              className={`${theme.footerText} hover:${theme.hoverFooterText}`}
-                            >
+                            <a className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
                               {item.name}
                             </a>
                           </Link>
@@ -246,7 +238,7 @@ const Footer = () => {
 
         <div className="py-10 md:flex md:items-center md:justify-between">
           <div className="text-center md:text-left">
-            <p className={`text-base ${theme.footerText}`}>
+            <p className="text-base text-slate-400 dark:text-slate-200">
               <span>&copy;</span>
               <span className="mx-2">{new Date().getFullYear()}</span>
               <span>
@@ -262,9 +254,7 @@ const Footer = () => {
             <div className="flex space-x-8">
               {footerNavigation.bottomLinks.map((item) => (
                 <Link key={item.name} href="#">
-                  <a
-                    className={`${theme.footerText} hover:${theme.hoverFooterText}`}
-                  >
+                  <a className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
                     {item.name}
                   </a>
                 </Link>
@@ -272,9 +262,7 @@ const Footer = () => {
             </div>
 
             <div className="ml-6 border-l border-gray-200 pl-6">
-              <div
-                className={`flex items-center text-base ${theme.footerText} hover:${theme.hoverFooterText}`}
-              >
+              <div className="flex items-center text-base text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
                 <LanguageSwitch />
               </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
@@ -6,8 +6,6 @@ import { MenuIcon } from '@heroicons/react/solid';
 import DesktopNavigationContext from './DesktopNavigationContext';
 import MegaDropdown from './MegaDropdown';
 import useCategoriesTree from '../hooks/useCategoriesTree';
-import Icon from '../../common/components/Icon';
-import ThemeContext from '../../common/ThemeContext';
 
 const arrayEqual = (a, b) =>
   a.length === b.length &&
@@ -15,7 +13,6 @@ const arrayEqual = (a, b) =>
 
 const DesktopNavigation = () => {
   const { formatMessage } = useIntl();
-  const [theme] = useContext(ThemeContext);
   const [hoverPath, setHoverPath] = useState([]);
   const [isTouching, setTouching] = useState(false);
 
@@ -77,7 +74,7 @@ const DesktopNavigation = () => {
               }}
               onClick={handleClick(assortmentTree)}
             >
-              <MenuIcon className={`mr-2 h-6 w-6 ${theme.iconColor}`} />
+              <MenuIcon className="mr-2 h-6 w-6 text-slate-900 dark:text-white" />
               {formatMessage({ id: 'menu', defaultMessage: 'Menu' })}
             </a>
           </Link>

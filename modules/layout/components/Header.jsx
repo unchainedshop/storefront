@@ -11,7 +11,7 @@ import { CartContext } from '../../cart/CartContext';
 import DesktopNavigation from '../../assortment/components/DesktopNavigation';
 import MobileNavigation from '../../assortment/components/MobileNavigation';
 import Icon from '../../common/components/Icon';
-import ThemeContext from '../../common/ThemeContext';
+import ThemeToggle from '../../common/components/ThemeToggle';
 
 const {
   publicRuntimeConfig: { theme },
@@ -21,9 +21,7 @@ const Header = () => {
   const context = useContext(CartContext);
   const router = useRouter();
   const [isNavOpen, setNavOpenState] = useState(false);
-  const intl = useIntl();
-
-  const [themeData] = useContext(ThemeContext);
+  const { formatMessage } = useIntl();
 
   const setNavOpen = (isOpen) => {
     setNavOpenState(isOpen);
@@ -32,25 +30,24 @@ const Header = () => {
     router.events.on('routeChangeStart', () => setNavOpen(false));
   }
 
-  const topNavigationText = intl.formatMessage({ id: 'top_notification' });
+  const topNavigationText = formatMessage({
+    id: 'top_notification',
+    defaultMessage: 'Top Notification',
+  });
   const showTopNav =
     !topNavigationText || topNavigationText !== 'top_notification';
 
   return (
     <>
       {showTopNav && (
-        <div className={`${themeData.bgNotification}`}>
-          <div
-            className={`container py-2 text-center font-bold ${themeData.textNotification}`}
-          >
+        <div className="bg-slate-900">
+          <div className="container py-2 text-center font-bold text-white">
             <p className="my-0">{topNavigationText}</p>
           </div>
         </div>
       )}
 
-      <header
-        className={`sticky top-0 z-[1020] ${themeData.bgColor} opacity-80 ${themeData.textColor}`}
-      >
+      <header className="sticky top-0 z-[1020] bg-white text-black opacity-80 dark:bg-slate-600 dark:text-white">
         <SideCart isOpen={context.isCartOpen} />
         <Head>
           <link
@@ -85,9 +82,10 @@ const Header = () => {
               </a>
             </Link>
           </div>
-          <div className="flex justify-end">
+          <div className="ml-auto mr-4 flex">
             <LoginCart />
           </div>
+          <ThemeToggle />
         </div>
         <div className="container">
           <div className="mobile-header flex items-center justify-between py-2 sm:hidden">

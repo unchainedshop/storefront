@@ -7,17 +7,19 @@ import MetaTags from '../modules/common/components/MetaTags';
 import useRedirect from '../modules/auth/hooks/useRedirect';
 
 const LogIn = () => {
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   useRedirect({ to: '/account', matchUsers: true });
   return (
     <>
-      <MetaTags title={intl.formatMessage({ id: 'log_in' })} />
+      <MetaTags
+        title={formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
+      />
       <Header />
       <div className="container">
-        <div className="row">
-          <div className="col-md-6 m-auto">
-            <h1 className="text-center">
-              {intl.formatMessage({ id: 'log_in' })}
+        <div className="row -mx-4 flex flex-wrap">
+          <div className="relative m-auto w-full px-4 md:max-w-1/2 md:flex-2">
+            <h1 className="text-center dark:text-white">
+              {formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
             </h1>
             <LoginForm />
           </div>

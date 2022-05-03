@@ -9,7 +9,6 @@ import '../styles/globals.css';
 import IntlWrapper from '../modules/i18n/components/IntlWrapper';
 import { CartContext } from '../modules/cart/CartContext';
 import withApollo from '../modules/apollo/utils/withApollo';
-import ThemeWrapper from '../modules/common/components/ThemeWrapper';
 
 const {
   publicRuntimeConfig: { localizations },
@@ -35,9 +34,7 @@ const UnchainedApp = ({ Component, pageProps, router }) => {
     <IntlWrapper locale={router.locale} messages={messages} key="intl-provider">
       <CartContext.Provider value={cartContext}>
         <ToastContainer position="top-center" autoClose={3000} newestOnTop />
-        <ThemeWrapper>
-          <Component {...pageProps} />
-        </ThemeWrapper>
+        <Component {...pageProps} />
       </CartContext.Provider>
     </IntlWrapper>
   );

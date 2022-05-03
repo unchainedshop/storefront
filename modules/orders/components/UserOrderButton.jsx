@@ -6,15 +6,15 @@ import useUserOrderOrderList from '../hooks/useUserOrderList';
 
 const OrderButton = () => {
   const { orders } = useUserOrderOrderList();
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   if (orders.length === 0) return null;
 
   return (
     <Link href="/orders">
-      <a className="d-flex align-items-center">
+      <a className="flex items-center">
         <Icon className="mr-2" icon="common-file-stack" />
-        <span className="hide-on-mobile">
-          {intl.formatMessage({ id: 'my_orders' })}
+        <span className="hidden md:block">
+          {formatMessage({ id: 'my_orders', defaultMessage: 'My Orders' })}
         </span>
       </a>
     </Link>

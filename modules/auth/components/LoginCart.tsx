@@ -2,65 +2,69 @@ import Link from 'next/link';
 import { useContext } from 'react';
 import { useIntl } from 'react-intl';
 
+import {
+  LogoutIcon,
+  ShoppingCartIcon,
+  UserCircleIcon,
+} from '@heroicons/react/outline';
 import OrderButton from '../../orders/components/UserOrderButton';
 import { CartContext } from '../../cart/CartContext';
-import Icon from '../../common/components/Icon';
 import useUser from '../hooks/useUser';
 
 const LoginCart = () => {
   const { user } = useUser();
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   const context = useContext(CartContext);
 
   return user ? (
-    <div className="d-flex align-items-center">
+    <div className="flex items-center">
       <a
-        className="ml-md-3 d-flex align-items-center"
+        className="flex items-center md:ml-4"
         onClick={() => context.toggleCart(!context.isCartOpen)}
       >
-        <Icon className="mr-2" icon="shopping-cart-empty-1" />
+        <ShoppingCartIcon className="mr-2 inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
 
         {user?.cart?.items?.length && (
-          <span className="cart-counter mr-2">
+          <span className="cart-counter mr-2 inline-block h-7 w-7 rounded-[50%] text-center font-bold leading-relaxed text-white">
             {user?.cart?.items.reduce((acc, item) => acc + item.quantity, 0)}
           </span>
         )}
-        <span className="hide-on-mobile">
-          {intl.formatMessage({ id: 'cart' })}
+        <span className="hidden md:block">
+          {formatMessage({ id: 'cart', defaultMessage: 'Cart' })}
         </span>
       </a>
-      <div className="ml-2 ml-md-3">
-        {user?.isGuest ? (
-          <>
-            <Link href="/sign-up">
-              <a className="my-1 mr-3 ">
-                {intl.formatMessage({ id: 'sign_up' })}
-              </a>
-            </Link>
-            <Link href="/login">
-              <a className="my-1">{intl.formatMessage({ id: 'log_in' })}</a>
-            </Link>
-          </>
-        ) : (
-          <OrderButton />
-        )}
-      </div>
+      {user?.isGuest ? (
+        <div className="ml-2 md:ml-4">
+          <Link href="/sign-up">
+            <a className="my-1 mr-4">
+              {formatMessage({ id: 'sign_up', defaultMessage: 'Sign Up' })}
+            </a>
+          </Link>
+          <Link href="/login">
+            <a className="my-1">
+              {formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
+            </a>
+          </Link>
+        </div>
+      ) : (
+        <OrderButton />
+      )}
 
       {!user.isGuest ? (
         <>
           <Link href="/account">
-            <a className="ml-2 ml-md-3 d-flex align-items-center">
-              <Icon className="mr-2" icon="single-neutral-home" />
-              <span className="hide-on-mobile">
-                {intl.formatMessage({ id: 'account' })}
+            <a className="ml-2 flex items-center md:ml-4">
+              <UserCircleIcon className="mr-2 inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
+              <span className="hidden md:block">
+                {formatMessage({ id: 'account', defaultMessage: 'Account' })}
               </span>
             </a>
           </Link>
           <Link href="/logout">
-            <a className="ml-2 ml-md-3 d-flex align-items-center">
-              <Icon className="mr-2" icon="logout-2" />
-              <span className="hide-on-mobile">
-                {intl.formatMessage({ id: 'log_out' })}
+            <a className="ml-2 flex items-center md:ml-4">
+              <LogoutIcon className="mr-2 inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
+              <span className="hidden md:block">
+                {formatMessage({ id: 'log_out', defaultMessage: 'Log Out' })}
               </span>
             </a>
           </Link>
@@ -72,10 +76,14 @@ const LoginCart = () => {
   ) : (
     <div>
       <Link href="/sign-up">
-        <a className="my-1 mr-3 ">{intl.formatMessage({ id: 'sign_up' })}</a>
+        <a className="my-1 mr-3">
+          {formatMessage({ id: 'sign_up', defaultMessage: 'Sign Up' })}
+        </a>
       </Link>
       <Link href="/login">
-        <a className="my-1">{intl.formatMessage({ id: 'log_in' })}</a>
+        <a className="my-1">
+          {formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
+        </a>
       </Link>
     </div>
   );
