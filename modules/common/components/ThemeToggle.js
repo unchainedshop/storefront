@@ -42,7 +42,7 @@ const ThemeToggle = () => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="mr-2 flex items-center">
       <button
         type="button"
         className="hover:cursor-pointer"

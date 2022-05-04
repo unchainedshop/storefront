@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import PrimaryButton from '../../common/components/Button';
+import Button from '../../common/components/Button';
 
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
 
@@ -83,10 +83,11 @@ const LoginForm = ({ onLogin = null }) => {
             </div>
           ))
         : ''}
-      <PrimaryButton
+      <Button
         type="submit"
         text={formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
         disabled={hasErrors}
+        className="border-color-brand bg-color-brand text-white hover:border-color-brand-darker hover:bg-color-brand-darker focus:border-color-brand-darker focus:bg-color-brand-darker focus:outline-none focus:ring-2 focus:ring-color-brand-darker focus:ring-offset-2"
       />
     </form>
   );
