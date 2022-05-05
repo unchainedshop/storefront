@@ -17,7 +17,7 @@ const UserName = ({ user }) => {
 
   return (
     <>
-      <h2 className="my-0 text-sm font-medium capitalize text-gray-500">
+      <h2 className="my-0 text-sm font-medium capitalize text-slate-500 dark:text-slate-200">
         {formatMessage({
           id: 'username',
           defaultMessage: 'username',
@@ -26,7 +26,7 @@ const UserName = ({ user }) => {
 
       {!updateUsername ? (
         <>
-          <div className="my-1 flex text-sm text-gray-900 sm:my-0">
+          <div className="my-1 flex text-sm text-slate-900 dark:text-slate-100 sm:my-0">
             {user?.username ||
               formatMessage({
                 id: 'no_username_set',
@@ -39,14 +39,14 @@ const UserName = ({ user }) => {
               defaultMessage: 'Change username',
             })}
             type="button"
-            className="justify-end border-0 py-0 px-0 text-xs font-medium text-purple-600 shadow-none outline-0 hover:text-purple-500 focus:text-purple-500 "
+            className="justify-end border-0 py-0 px-0 text-base font-medium text-purple-600 shadow-none outline-0 hover:text-purple-500 focus:text-purple-500 dark:text-purple-400 "
             onClick={() => setUpdateUserName(!updateUsername)}
           />
         </>
       ) : (
         <>
           <input
-            className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-gray-500 transition focus:border-gray-900 focus:text-gray-900 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-900"
+            className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
             type="text"
             onChange={(e) => setUserName(e.target.value)}
             value={username}
@@ -61,12 +61,15 @@ const UserName = ({ user }) => {
               className="border-0 py-0 px-0 font-bold text-red-400 shadow-none hover:text-red-600"
               onClick={() => setUpdateUserName(!updateUsername)}
             />
-            <span className="text-gray-300" aria-hidden="true">
+            <span
+              className="text-slate-300 dark:text-slate-200"
+              aria-hidden="true"
+            >
               |
             </span>
             <Button
               type="button"
-              className="border-0 py-0 px-0 font-bold text-purple-600 shadow-none"
+              className="border-0 py-0 px-0 font-bold text-purple-600 shadow-none dark:text-purple-400"
               onClick={() => updateName(username)}
               text={formatMessage({
                 id: 'save',
