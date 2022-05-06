@@ -10,7 +10,7 @@ const CategoryListItem = ({ category, className = '' }) => {
       <div className="group relative">
         <Link href={`shop/${category.texts.slug}`}>
           <a>
-            <div className="sm:aspect-w-2 sm:aspect-h-3 h-auto w-full overflow-hidden rounded-lg group-hover:opacity-75 sm:h-auto">
+            <div className="h-auto w-full overflow-hidden rounded-lg group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-3 sm:h-auto">
               <Image
                 src={
                   getMediaUrl(category) ||
@@ -25,9 +25,12 @@ const CategoryListItem = ({ category, className = '' }) => {
                 className="h-full w-full object-cover object-center"
               />
             </div>
-            <h3 className="mt-4 text-center text-base font-semibold text-slate-900 dark:text-slate-50">
+            <h3 className="mt-1 text-center text-base font-semibold text-slate-900 dark:text-slate-50">
               {category.texts?.title}
             </h3>
+            <p className="mt-1 text-center text-sm text-gray-500">
+              {category.texts?.subtitle}
+            </p>
             <p className="mt-1 text-center text-sm text-gray-500">
               {category.texts?.subtitle}
             </p>

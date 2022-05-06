@@ -21,9 +21,10 @@ const General = ({ user }) => {
   const [updateProfile, setUpdateProfile] = useState(false);
   const [newEmail, setNewEmail] = useState('');
 
-  // const showUsername = user?.roles?.includes('admin');
-  const showUsername = true;
+  const showUsername = user?.roles?.includes('admin');
+  console.log(user);
   const { profile = {} } = user;
+  console.log(profile);
 
   const onProfileUpdateComplete = (value) => {
     if (value) setUpdateProfile(false);
@@ -64,9 +65,11 @@ const General = ({ user }) => {
               </div>
               <div className="mt-6">
                 <div className="divide-y divide-slate-200">
-                  <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-                    {showUsername && <UserName user={user} />}
-                  </div>
+                  {showUsername && (
+                    <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+                      <UserName user={user} />
+                    </div>
+                  )}
 
                   <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
                     <div className="text-sm font-medium text-slate-500 dark:text-slate-200">
@@ -132,7 +135,6 @@ const General = ({ user }) => {
                               id: 'resend',
                               defaultMessage: 'ReSend',
                             })}
-                            type="button"
                             className="my-2 px-0 py-0 text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:text-purple-400"
                             onClick={() => resendVerificationEmail(e.address)}
                           />
@@ -143,7 +145,6 @@ const General = ({ user }) => {
                               id: 'remove',
                               defaultMessage: 'Remove',
                             })}
-                            type="button"
                             className="my-2 text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:text-purple-400"
                             onClick={() => removeEmail(e.address)}
                           />
@@ -170,7 +171,6 @@ const General = ({ user }) => {
                           id: 'add_email',
                           defaultMessage: 'Add Email',
                         })}
-                        type="button"
                         className="rounded-md py-0 px-0 font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 dark:text-purple-400"
                         onClick={() => addEmail(newEmail)}
                       />
@@ -208,7 +208,6 @@ const General = ({ user }) => {
                   id: 'cancel',
                   defaultMessage: 'Cancel',
                 })}
-                type="button"
                 onClick={onProfileUpdateComplete}
                 className="mx-4 inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               />
@@ -218,7 +217,7 @@ const General = ({ user }) => {
                 id: 'update_address',
                 defaultMessage: `${updateProfile ? 'save' : 'update'}`,
               })}
-              type="button"
+              type="submit"
               className="inline-flex justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
               onClick={() => setUpdateProfile(true)}
             />

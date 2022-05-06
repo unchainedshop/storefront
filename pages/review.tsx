@@ -105,7 +105,7 @@ const Review = () => {
 
               <div className="form-check my-3">
                 <label
-                  className="form-check-label mb-5 d-flex align-items-center "
+                  className="form-check-label d-flex align-items-center mb-5 "
                   htmlFor="same"
                 >
                   <input
@@ -130,7 +130,7 @@ const Review = () => {
                 {user?.cart?.supportedPaymentProviders.map((pamentProvider) => (
                   <div
                     key={pamentProvider._id}
-                    className="form-check my-2 my-lg-1"
+                    className="form-check my-lg-1 my-2"
                   >
                     <label className="form-check-label d-flex align-items-center">
                       <input
@@ -181,8 +181,8 @@ const Review = () => {
                 )}
               </div>
             </div>
-            <div className="col-lg-4">
-              <h2 className="mt-0 mb-5">
+            <div className="mt-10 lg:mt-0">
+              <h2 className="text-lg font-medium text-slate-900 dark:text-slate-100">
                 {intl.formatMessage({ id: 'order_summary' })}
               </h2>
               <ManageCart user={user} />

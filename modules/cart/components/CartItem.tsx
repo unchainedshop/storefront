@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
+import { TrashIcon } from '@heroicons/react/solid';
+import { useIntl } from 'react-intl';
 import getMediaUrl from '../../common/utils/getMediaUrl';
 import Icon from '../../common/components/Icon';
 import renderPrice from '../../common/utils/renderPrice';
@@ -13,6 +15,7 @@ const CartItem = ({ _id, quantity, product, total }) => {
   const { removeCartItem } = useRemoveCartItem();
   const [previousQuantity, setPreviousQuantity] = useState(quantity);
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
+  const { formatMessage } = useIntl();
 
   const handleChange = (e) => {
     const amount = e.target.value;
@@ -48,8 +51,8 @@ const CartItem = ({ _id, quantity, product, total }) => {
   };
 
   return (
-    <div className="cart-item" key={_id}>
-      <div className="item-img">
+    <li className="flex py-6 px-4 sm:px-6" key={_id}>
+      <div className="flex-shrink-0 bg-yellow-500">
         <Image
           src={`${
             getMediaUrl(product) || '/static/img/sun-glass-placeholder.jpeg'
@@ -62,66 +65,87 @@ const CartItem = ({ _id, quantity, product, total }) => {
           height="350px"
         />
       </div>
-      <div className="d-flex justify-content-between align-items-baseline">
-        <Link href={`/product/${product?.texts?.slug}`}>
-          <a>
-            <div className="item-info">
-              {product?.texts && product?.texts.title}
+
+      <div className="ml-6 flex flex-1 flex-col">
+        <div className="flex">
+          <div className="min-w-0 flex-1">
+            <h4 className="text-sm">
+              <Link href={`/product/${product?.texts?.slug}`}>
+                <a className="font-medium text-gray-700 hover:text-gray-800">
+                  {product?.texts && product?.texts.title}
+                </a>
+              </Link>
+            </h4>
+            {/* <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+            <p className="mt-1 text-sm text-gray-500">{product.size}</p> */}
+          </div>
+
+          <div className="ml-4 flow-root flex-shrink-0">
+            <button
+              type="button"
+              className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-gray-400 hover:text-gray-500"
+              onClick={() => removeCartItem({ itemId: _id })}
+            >
+              <span className="sr-only">
+                {formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
+              </span>
+              <TrashIcon className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+
+        <div className="flex flex-1 items-end justify-between pt-2">
+          <p className="mt-1 text-sm font-medium text-gray-900">
+            {renderPrice(total)}
+          </p>
+
+          <div className="ml-4">
+            <label htmlFor="quantity" className="sr-only">
+              {formatMessage({ id: 'quantity', defaultMessage: 'Quantity' })}
+            </label>
+            <div className="flex flex-wrap items-center justify-between">
+              <div className="item-quantity flex items-center justify-center">
+                <button
+                  type="button"
+                  className="rounded-md border border-gray-300 text-left text-base font-medium text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+                  aria-label="Increase cart item"
+                  disabled={currentQuantity === 1}
+                  onClick={() =>
+                    updateCartItem({
+                      itemId: _id,
+                      quantity: Math.max(quantity - 1, 1),
+                    })
+                  }
+                >
+                  -
+                </button>
+                <input
+                  type="text"
+                  pattern="\d+"
+                  className="form-field"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={currentQuantity}
+                />
+                <button
+                  className="rounded-md border border-gray-300 text-left text-base font-medium text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+                  aria-label="Decrease cart item"
+                  type="button"
+                  onClick={() =>
+                    updateCartItem({
+                      itemId: _id,
+                      quantity: quantity + 1,
+                    })
+                  }
+                >
+                  +
+                </button>
+              </div>
             </div>
-          </a>
-        </Link>
-        <button
-          className="no-button"
-          type="button"
-          aria-label="remove cart item"
-          onClick={() => removeCartItem({ itemId: _id })}
-        >
-          <Icon className="icon--small" icon="bin-2-alternate" />
-        </button>
-      </div>
-      <div className="d-flex justify-content-between align-items-center flex-wrap">
-        <div className="item-quantity">
-          <button
-            type="button"
-            className="no-button border-left-radius"
-            aria-label="Increase cart item"
-            disabled={currentQuantity === 1}
-            onClick={() =>
-              updateCartItem({
-                itemId: _id,
-                quantity: Math.max(quantity - 1, 1),
-              })
-            }
-          >
-            -
-          </button>
-          <input
-            type="text"
-            pattern="\d+"
-            className="form-field"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={currentQuantity}
-          />
-          <button
-            className="no-button border-right-radius"
-            aria-label="Decrease cart item"
-            type="button"
-            onClick={() =>
-              updateCartItem({
-                itemId: _id,
-                quantity: quantity + 1,
-              })
-            }
-          >
-            +
-          </button>
-        </div>
-        <div className="item-price">
-          <small className="d-block mt-2">{renderPrice(total)}</small>
+          </div>
         </div>
       </div>
-    </div>
+    </li>
   );
 };
 

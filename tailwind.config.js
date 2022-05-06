@@ -30,11 +30,25 @@ module.exports = {
       flex: {
         2: '0 0 50%',
         3: '0 0 100%',
+        4: '0 0 33.333333%',
+        5: '0 0 25%',
+        6: '0 0 66.666667%%',
+        7: '0 0 75%',
       },
       maxWidth: {
         '1/2': '50%',
+        '1/3': '33.333333%',
+        '1/4': '25%',
+        '2/3': '66.666667%%',
+        '3/4': '75%',
       },
     },
   },
-  plugins: [],
+  corePlugins: {
+    aspectRatio: false,
+  },
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms'),
+  ],
 };

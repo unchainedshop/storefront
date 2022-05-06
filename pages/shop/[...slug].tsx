@@ -64,14 +64,14 @@ const CategoryDetail = () => {
       />
       <Header />
       <div className="container">
-        <div className="row">
-          <div className="col-12">
+        <div className="-mx-4 flex flex-wrap">
+          <div className="relative w-full flex-3 px-4">
             <AssortmentBreadcrumbs
               paths={assortmentPaths}
               currentAssortment={texts}
             />
           </div>
-          <div className="col-md-4 col-lg-3">
+          <div className="relative w-full p-4 md:max-w-1/3 md:flex-4 lg:max-w-1/4 lg:flex-5">
             {categoryTreeLoading ? (
               <LoadingItem />
             ) : (
@@ -81,7 +81,7 @@ const CategoryDetail = () => {
               />
             )}
           </div>
-          <div className="col-md-8 col-lg-9">
+          <div className="relative w-full px-4 md:max-w-2/3 md:flex-6 lg:max-w-3/4 lg:flex-7">
             <div>
               <h1 className="mt-0">{texts?.title}</h1>
               <h2>{texts?.subtitle}</h2>

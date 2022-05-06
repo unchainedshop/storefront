@@ -10,24 +10,27 @@ import Header from '../../modules/layout/components/Header';
 
 const Categories = () => {
   const { assortments, loading } = useAssortments();
-  const [currentUrl, setcurrentUrl] = useState('');
-  const intl = useIntl();
+  const [currentUrl, setCurrentUrl] = useState('');
+  const { formatMessage } = useIntl();
   useEffect(() => {
-    setcurrentUrl(window.location.href);
+    setCurrentUrl(window.location.href);
   }, []);
 
   return (
     <>
       <MetaTags
-        title={intl.formatMessage({ id: 'product_categories' })}
+        title={formatMessage({
+          id: 'product_categories',
+          defaultMessage: 'Product Categories',
+        })}
         url={currentUrl}
       />
       <Header />
-      <div className="container mt-3">
+      <div className="container mt-4">
         {loading ? (
           <LoadingItem />
         ) : (
-          <div className="row">
+          <div className="px4 flex flex-wrap">
             {assortments.map((category) => (
               <CategoryListItem
                 key={category._id}

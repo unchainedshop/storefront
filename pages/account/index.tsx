@@ -38,6 +38,14 @@ const Account = () => {
     return classes.filter(Boolean).join(' ');
   }
 
+  const handleOnClick = (name) => {
+    subNavigation.forEach((item) => {
+      item.current = item.name === name;
+    });
+  };
+
+  console.log(subNavigation);
+
   return (
     <>
       <MetaTags
@@ -54,6 +62,7 @@ const Account = () => {
             <nav className="space-y-1">
               {subNavigation.map((item) => (
                 <a
+                  onClick={() => handleOnClick(item.name)}
                   key={item.name}
                   href={item.href}
                   className={classNames(
@@ -87,6 +96,7 @@ const Account = () => {
 
           {/* Password */}
           <section
+            id="password"
             aria-labelledby="password"
             className="lg:col-span-9 lg:col-start-4"
           >

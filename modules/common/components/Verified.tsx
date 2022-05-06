@@ -3,12 +3,12 @@ import classNames from 'classnames';
 
 const Verified = ({
   isActive,
-  activeIcon,
-  inActiveIcon,
-  activeClassName,
-  inActiveClassName,
-  containerClassName,
-  iconClassName,
+  activeIcon = '',
+  inActiveIcon = '',
+  activeClassName = '',
+  inActiveClassName = '',
+  containerClassName = '',
+  iconClassName = '',
 }) => {
   return (
     <span className={classNames('', containerClassName)}>

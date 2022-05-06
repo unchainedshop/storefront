@@ -2,6 +2,8 @@ import { useContext } from 'react';
 import Link from 'next/link';
 
 import { useIntl } from 'react-intl';
+import { XIcon } from '@heroicons/react/solid';
+import classNames from 'classnames';
 import renderPrice from '../../common/utils/renderPrice';
 import useUser from '../../auth/hooks/useUser';
 import { CartContext } from '../CartContext';
@@ -34,8 +36,8 @@ const SideCart = ({ isOpen }) => {
       {!user?.cart?.items.length ? (
         <>
           <div
-            className={`side-cart-container py-4 px-2 text-center ${
-              isOpen ? 'open' : ''
+            className={`fixed top-0 right-[-350px] z-[2000] h-full w-[300px] overflow-y-auto bg-white py-4 px-2 text-center shadow-md transition dark:bg-slate-600 lg:right-[450px] lg:w-[-400px] ${
+              isOpen ? 'right-0' : ''
             }`}
           >
             <Icon icon="shopping-bag-sad" />
@@ -52,19 +54,22 @@ const SideCart = ({ isOpen }) => {
       ) : (
         <>
           <div
-            className={`side-cart-container flex flex-col px-1 ${
-              isOpen ? 'open' : ''
-            }`}
+            className={classNames(
+              'side-cart-container flex flex-col px-1 dark:bg-slate-900',
+              {
+                open: isOpen,
+              },
+            )}
           >
             <div>
               <div className="relative">
                 <button
                   aria-label={intl.formatMessage({ id: 'close' })}
                   type="button"
-                  className="no-button close-cart-button absolute p-2"
+                  className="absolute cursor-pointer appearance-none bg-inherit p-2 text-left text-inherit"
                   onClick={() => context.toggleCart()}
                 >
-                  <Icon className="h-3.5 w-3.5" icon="close" />
+                  <XIcon className="h-3.5 w-3.5" />
                 </button>
               </div>
               <h3 className="m-0 block p-4 text-center text-lg">
@@ -91,7 +96,7 @@ const SideCart = ({ isOpen }) => {
                 ))
               )}
             </div>
-            <div className="p-2 text-center">
+            <div className="p-2 text-center text-slate-900">
               <div className="my-0 mb-4 border-t border-b-0 border-solid py-4">
                 <div className="flex flex-wrap items-center justify-between">
                   <div className="mr-2">
@@ -102,7 +107,7 @@ const SideCart = ({ isOpen }) => {
               </div>
               <Link href={{ pathname: '/review' }}>
                 <a
-                  className="button button--primary button--big w-75 mb-4 uppercase"
+                  className="button button--primary button--big w-75 mb-4 uppercase text-slate-900"
                   onClick={() => context.toggleCart(false)}
                 >
                   {intl.formatMessage({ id: 'to_checkout' })}

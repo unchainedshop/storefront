@@ -23,6 +23,13 @@ const CurrentUserFragment = gql`
       countryCode
       locale
     }
+    bookmarks {
+      _id
+      created
+      product {
+        ...ProductFragment
+      }
+    }
 
     profile {
       phoneMobile

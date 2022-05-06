@@ -11,6 +11,19 @@ const ProductFragment = gql`
         url
       }
     }
+    reviews {
+      _id
+      created
+      deleted
+      updated
+      author {
+        _id
+        username
+      }
+      rating
+      title
+      review
+    }
     ... on SimpleProduct {
       simulatedPrice {
         _id

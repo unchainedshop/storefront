@@ -47,7 +47,8 @@ const Address = ({ user }) => {
 
   return (
     <section
-      aria-labelledby="payment-details-heading"
+      id="address"
+      aria-labelledby="address"
       className="pt-6 sm:px-6 lg:col-span-9 lg:col-start-4 lg:px-0"
     >
       <div className="space-y-6 ">
@@ -56,7 +57,7 @@ const Address = ({ user }) => {
             <div className="bg-white py-6 px-4 dark:bg-slate-500 dark:text-slate-200 sm:p-6">
               <div>
                 <h1
-                  id="payment-details-heading"
+                  id="address-heading"
                   className="text-lg font-medium leading-6 text-slate-900 dark:text-slate-100"
                 >
                   {formatMessage({
@@ -242,7 +243,6 @@ const Address = ({ user }) => {
                     id: 'cancel',
                     defaultMessage: 'Cancel',
                   })}
-                  type="button"
                   onClick={onProfileUpdateComplete}
                   className="mx-4 inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 />
@@ -252,7 +252,7 @@ const Address = ({ user }) => {
                   id: 'update_address',
                   defaultMessage: `${updateProfile ? 'save' : 'update'}`,
                 })}
-                type="button"
+                type="submit"
                 className="inline-flex justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
                 onClick={() => setUpdateProfile(true)}
               />
