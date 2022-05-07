@@ -1,6 +1,8 @@
 import { useIntl } from 'react-intl';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { RadioGroup } from '@headlessui/react';
+import { CheckCircleIcon } from '@heroicons/react/solid';
 import useUser from '../modules/auth/hooks/useUser';
 import useSetOrderPaymentProvider from '../modules/orders/hooks/setPaymentOrderProvider';
 import DatatransStatusGate from '../modules/checkout/components/DatatransStatusGate';
@@ -20,7 +22,7 @@ import LoadingItem from '../modules/common/components/LoadingItem';
 
 const Review = () => {
   const { user, loading } = useUser();
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   const router = useRouter();
 
   const { setOrderPaymentProvider } = useSetOrderPaymentProvider();
@@ -81,112 +83,300 @@ const Review = () => {
     }
   };
 
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ');
+  }
+
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
+    user?.cart?.supportedDeliveryProviders[0],
+  );
+
   if (loading) return <LoadingItem />;
 
   return (
     <>
-      <MetaTags title={intl.formatMessage({ id: 'order_review' })} />
+      <MetaTags title={formatMessage({ id: 'order_review' })} />
       <Header />
-      <div className="container mt-5">
-        <div className="row">
+      <div className="bg-slate-50">
+        <div className="mx-auto max-w-full px-4 pt-16 pb-24 sm:px-12 lg:px-16">
+          <h2 className="sr-only">
+            {formatMessage({ id: 'checkout', defaultMessage: 'Checkout' })}
+          </h2>
           <DatatransStatusGate>
-            <div className="col-lg-8 mb-5">
-              <h2 className="mt-0 mb-5">
-                {`${intl.formatMessage({
-                  id: 'checkout',
-                })} - ${intl.formatMessage({ id: 'order_review' })}`}
-              </h2>
-              <h4>{intl.formatMessage({ id: 'delivery_address' })}</h4>
-              <DeliveryAddressEditable user={user} />
+            <form className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+              <div>
+                {/* Delivery address */}
+                <div>
+                  <h2 className="text-lg font-medium text-slate-900">
+                    {formatMessage({ id: 'delivery_address' })}
+                  </h2>
+                  <DeliveryAddressEditable user={user} />
+                </div>
 
-              <h4 className="mt-5">
-                {intl.formatMessage({ id: 'billing_address' })}
-              </h4>
-
-              <div className="form-check my-3">
-                <label
-                  className="form-check-label d-flex align-items-center mb-5 "
-                  htmlFor="same"
-                >
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="same"
-                    defaultChecked={user?.cart?.deliveryInfo?.address === null}
-                    name="same"
-                    onChange={(e) => sameAsDeliveryChange(e)}
-                  />
-                  <span className="ml-3">
-                    {intl.formatMessage({ id: 'same_as_delivery' })}
-                  </span>
-                </label>
-              </div>
-              <BillingAddressEditable user={user} />
-
-              <h4 className="mt-5">
-                {intl.formatMessage({ id: 'payment_method' })}
-              </h4>
-              <section className="">
-                {user?.cart?.supportedPaymentProviders.map((pamentProvider) => (
-                  <div
-                    key={pamentProvider._id}
-                    className="form-check my-lg-1 my-2"
+                {/* Delivery Method */}
+                <div className="mt-10 border-t border-slate-200 pt-10">
+                  <RadioGroup
+                    value={selectedDeliveryMethod}
+                    onChange={setSelectedDeliveryMethod}
                   >
-                    <label className="form-check-label d-flex align-items-center">
+                    <RadioGroup.Label className="text-lg font-medium text-slate-900">
+                      {formatMessage({
+                        id: 'delivery_method',
+                        defaultMessage: 'Delivery method',
+                      })}
+                    </RadioGroup.Label>
+
+                    <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                      {user?.cart?.supportedDeliveryProviders.map(
+                        (deliveryMethod) => (
+                          <RadioGroup.Option
+                            key={deliveryMethod.id}
+                            value={deliveryMethod}
+                            className={({ checked, active }) =>
+                              classNames(
+                                checked
+                                  ? 'border-transparent'
+                                  : 'border-slate-300',
+                                active ? 'ring-2 ring-indigo-500' : '',
+                                'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none',
+                              )
+                            }
+                          >
+                            {({ checked, active }) => (
+                              <>
+                                <div className="flex flex-1">
+                                  <div className="flex flex-col">
+                                    <RadioGroup.Label
+                                      as="span"
+                                      className="block text-sm font-medium text-slate-900"
+                                    >
+                                      {deliveryMethod.type}
+                                    </RadioGroup.Label>
+                                    <RadioGroup.Description
+                                      as="span"
+                                      className="mt-1 flex items-center text-sm text-slate-500"
+                                    >
+                                      {deliveryMethod.turnaround}
+                                    </RadioGroup.Description>
+                                    <RadioGroup.Description
+                                      as="span"
+                                      className="mt-6 text-sm font-medium text-slate-900"
+                                    >
+                                      {deliveryMethod.price}
+                                    </RadioGroup.Description>
+                                  </div>
+                                </div>
+                                {checked ? (
+                                  <CheckCircleIcon
+                                    className="h-5 w-5 text-indigo-600"
+                                    aria-hidden="true"
+                                  />
+                                ) : null}
+                                <div
+                                  className={classNames(
+                                    active ? 'border' : 'border-2',
+                                    checked
+                                      ? 'border-indigo-500'
+                                      : 'border-transparent',
+                                    'pointer-events-none absolute -inset-px rounded-lg',
+                                  )}
+                                  aria-hidden="true"
+                                />
+                              </>
+                            )}
+                          </RadioGroup.Option>
+                        ),
+                      )}
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                {/* Payment */}
+                <div className="mt-10 border-t border-slate-200 pt-10">
+                  <h2 className="text-lg font-medium text-slate-900">
+                    {formatMessage({
+                      id: 'payment',
+                      defaultMessage: 'Payment',
+                    })}
+                  </h2>
+
+                  <fieldset className="mt-4">
+                    <legend className="sr-only">
+                      {formatMessage({
+                        id: 'payment_type',
+                        defaultMessage: 'Payment type',
+                      })}
+                    </legend>
+                    <div className="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
+                      {user?.cart?.supportedPaymentProviders?.map(
+                        (paymentMethod) => (
+                          <div
+                            key={paymentMethod._id}
+                            className="flex items-center"
+                          >
+                            <input
+                              id={paymentMethod._id}
+                              name="payment-type"
+                              type="radio"
+                              className="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                              value={paymentMethod._id}
+                              checked={
+                                paymentMethod._id ===
+                                user?.cart?.paymentInfo?.provider?._id
+                              }
+                              onChange={(e) => {
+                                e.preventDefault();
+                                selectPayment(paymentMethod._id);
+                              }}
+                            />
+
+                            <label
+                              htmlFor={paymentMethod._id}
+                              className="ml-3 block text-sm font-medium text-slate-700"
+                            >
+                              {paymentMethod?.interface?._id}
+                            </label>
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  </fieldset>
+
+                  <div className="mt-4">
+                    {user?.cart?.paymentInfo?.provider?.interface?._id ===
+                    'shop.unchained.invoice' ? (
+                      <WireTransferPayment
+                        setBillingSameAsDelivery={setBillingSameAsDelivery}
+                        cart={user?.cart}
+                      />
+                    ) : (
+                      ''
+                    )}
+                    {user?.cart?.paymentInfo?.provider?.interface?._id ===
+                    'shop.unchained.datatrans' ? (
+                      <DatatransPayment cart={user?.cart} />
+                    ) : (
+                      ''
+                    )}
+                    {user?.cart?.paymentInfo?.provider?.interface?._id ===
+                    'shop.unchained.payment.bity' ? (
+                      <BityPayment cart={user?.cart} />
+                    ) : (
+                      ''
+                    )}
+                  </div>
+
+                  <div className="mt-6 grid grid-cols-4 gap-y-6 gap-x-4">
+                    <div className="col-span-4">
+                      <label
+                        htmlFor="card-number"
+                        className="block text-sm font-medium text-slate-700"
+                      >
+                        Card number
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          type="text"
+                          id="card-number"
+                          name="card-number"
+                          autoComplete="cc-number"
+                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-span-4">
+                      <label
+                        htmlFor="name-on-card"
+                        className="block text-sm font-medium text-slate-700"
+                      >
+                        Name on card
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          type="text"
+                          id="name-on-card"
+                          name="name-on-card"
+                          autoComplete="cc-name"
+                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="col-span-3">
+                      <label
+                        htmlFor="expiration-date"
+                        className="block text-sm font-medium text-slate-700"
+                      >
+                        Expiration date (MM/YY)
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          type="text"
+                          name="expiration-date"
+                          id="expiration-date"
+                          autoComplete="cc-exp"
+                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="cvc"
+                        className="block text-sm font-medium text-slate-700"
+                      >
+                        CVC
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          type="text"
+                          name="cvc"
+                          id="cvc"
+                          autoComplete="csc"
+                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mb-5">
+                  <h4 className="mt-5">
+                    {formatMessage({ id: 'billing_address' })}
+                  </h4>
+
+                  <div className="form-check my-3">
+                    <label
+                      className="form-check-label d-flex align-items-center mb-5 "
+                      htmlFor="same"
+                    >
                       <input
-                        type="radio"
+                        type="checkbox"
                         className="form-check-input"
-                        name="paymentmethods"
-                        value={pamentProvider._id}
-                        checked={
-                          pamentProvider._id ===
-                          user?.cart?.paymentInfo?.provider?._id
+                        id="same"
+                        defaultChecked={
+                          user?.cart?.deliveryInfo?.address === null
                         }
-                        onChange={(e) => {
-                          e.preventDefault();
-                          selectPayment(pamentProvider._id);
-                        }}
+                        name="same"
+                        onChange={(e) => sameAsDeliveryChange(e)}
                       />
                       <span className="ml-3">
-                        {intl.formatMessage({
-                          id: pamentProvider.interface?._id,
-                        })}
+                        {formatMessage({ id: 'same_as_delivery' })}
                       </span>
                     </label>
                   </div>
-                ))}
-              </section>
-
-              <div className="mt-5">
-                {user?.cart?.paymentInfo?.provider?.interface?._id ===
-                'shop.unchained.invoice' ? (
-                  <WireTransferPayment
-                    setBillingSameAsDelivery={setBillingSameAsDelivery}
-                    cart={user?.cart}
-                  />
-                ) : (
-                  ''
-                )}
-                {user?.cart?.paymentInfo?.provider?.interface?._id ===
-                'shop.unchained.datatrans' ? (
-                  <DatatransPayment cart={user?.cart} />
-                ) : (
-                  ''
-                )}
-                {user?.cart?.paymentInfo?.provider?.interface?._id ===
-                'shop.unchained.payment.bity' ? (
-                  <BityPayment cart={user?.cart} />
-                ) : (
-                  ''
-                )}
+                  <BillingAddressEditable user={user} />
+                </div>
               </div>
-            </div>
-            <div className="mt-10 lg:mt-0">
-              <h2 className="text-lg font-medium text-slate-900 dark:text-slate-100">
-                {intl.formatMessage({ id: 'order_summary' })}
-              </h2>
-              <ManageCart user={user} />
-            </div>
+
+              <div className="mt-10 lg:mt-0">
+                <h2 className="text-lg font-medium text-slate-900 dark:text-slate-100">
+                  {formatMessage({ id: 'order_summary' })}
+                </h2>
+                <ManageCart user={user} />
+              </div>
+            </form>
           </DatatransStatusGate>
         </div>
       </div>

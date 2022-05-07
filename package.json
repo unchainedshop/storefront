@@ -12,6 +12,7 @@
     "@formatjs/intl-relativetimeformat": "^9.1.6",
     "@graphql-tools/links": "^7.1.0",
     "@graphql-tools/wrap": "^7.0.8",
+    "@headlessui/react": "^1.6.1",
     "@heroicons/react": "^1.0.6",
     "apollo-server-micro": "^2.25.1",
     "apollo-server-plugin-response-cache": "^0.9.0",

@@ -1,14 +1,13 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 
+import classNames from 'classnames';
 import useUpdateCart from '../hooks/useUpdateCart';
 import useUpdateOrderDeliveryShipping from '../hooks/useUpdateDeliveryShipping';
 import EditableField from '../../common/components/EditableField';
 
 const DeliveryAddressEditable = ({ user }) => {
-  const [isEditing, setEditing] = useState(false);
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   const { updateCart } = useUpdateCart();
   const { register, handleSubmit } = useForm();
   const { updateOrderDeliveryAddress } = useUpdateOrderDeliveryShipping();
@@ -25,119 +24,122 @@ const DeliveryAddressEditable = ({ user }) => {
     telNumber,
     message,
   }) => {
-    if (isEditing) {
-      if (user?.cart?.deliveryInfo?.address) {
-        updateOrderDeliveryAddress({
-          orderDeliveryId: user?.cart?.deliveryInfo?._id,
-          address: {
-            firstName,
-            lastName,
-            company,
-            addressLine,
-            postalCode,
-            countryCode,
-            city,
-          },
-        });
-        updateCart({
-          orderId: user?.cart?._id,
-          contact: { emailAddress, telNumber },
-          meta: { message },
-        });
-      } else {
-        updateCart({
-          orderId: user?.cart?._id,
-          contact: { emailAddress, telNumber },
-          billingAddress: {
-            firstName,
-            lastName,
-            company,
-            addressLine,
-            postalCode,
-            countryCode,
-            city,
-          },
-        });
-      }
-
-      setEditing(false);
+    if (user?.cart?.deliveryInfo?.address) {
+      updateOrderDeliveryAddress({
+        orderDeliveryId: user?.cart?.deliveryInfo?._id,
+        address: {
+          firstName,
+          lastName,
+          company,
+          addressLine,
+          postalCode,
+          countryCode,
+          city,
+        },
+      });
+      updateCart({
+        orderId: user?.cart?._id,
+        contact: { emailAddress, telNumber },
+        meta: { message },
+      });
     } else {
-      setEditing(true);
+      updateCart({
+        orderId: user?.cart?._id,
+        contact: { emailAddress, telNumber },
+        billingAddress: {
+          firstName,
+          lastName,
+          company,
+          addressLine,
+          postalCode,
+          countryCode,
+          city,
+        },
+      });
     }
   };
 
   const addressFields = [
     {
       name: 'firstName',
-      translation: intl.formatMessage({ id: 'first_name' }),
+      translation: formatMessage({ id: 'first_name' }),
       type: 'text',
       required: true,
+      full: false,
     },
     {
       name: 'lastName',
-      translation: intl.formatMessage({ id: 'last_name' }),
+      translation: formatMessage({ id: 'last_name' }),
       type: 'text',
       required: true,
+      full: false,
     },
     {
       name: 'company',
-      translation: `${intl.formatMessage({
+      translation: `${formatMessage({
         id: 'company',
-      })} ${intl.formatMessage({ id: 'optional' })}`,
+      })} ${formatMessage({ id: 'optional' })}`,
       type: 'text',
       required: false,
+      full: true,
     },
     {
       name: 'addressLine',
-      translation: intl.formatMessage({ id: 'address' }),
+      translation: formatMessage({ id: 'address' }),
       type: 'text',
       required: true,
+      full: true,
     },
     {
       name: 'postalCode',
-      translation: intl.formatMessage({ id: 'postal_code' }),
+      translation: formatMessage({ id: 'postal_code' }),
       type: 'text',
       required: true,
+      full: false,
     },
     {
       name: 'city',
-      translation: intl.formatMessage({ id: 'city' }),
+      translation: formatMessage({ id: 'city' }),
       type: 'text',
       required: true,
+      full: false,
     },
     {
       name: 'countryCode',
-      translation: intl.formatMessage({ id: 'country' }),
+      translation: formatMessage({ id: 'country' }),
       type: 'country',
       required: true,
+      full: false,
     },
 
     {
       name: 'emailAddress',
-      translation: intl.formatMessage({ id: 'email' }),
+      translation: formatMessage({ id: 'email' }),
       type: 'email',
       required: true,
+      full: true,
     },
     {
       name: 'telNumber',
-      translation: intl.formatMessage({ id: 'telephone' }),
+      translation: formatMessage({ id: 'telephone' }),
       type: 'text',
       required: true,
+      full: true,
     },
   ];
 
   return (
     <form className="form border-top" onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        {addressFields.map(({ name, translation, type, required }) => (
-          <div
-            className="d-flex flex-wrap justify-content-start align-items-center my-2"
-            key={name}
-          >
-            <div className="col-md-4 my-1 pl-0">
+      <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+        {addressFields.map(({ name, translation, type, required, full }) => (
+          <div className={classNames({ 'sm:col-span-2': full })} key={name}>
+            <label
+              htmlFor={name}
+              className="block text-sm font-medium text-gray-700"
+            >
               <b>{translation}</b>
-            </div>
-            <div className="col-md-8 my-1 pl-0">
+            </label>
+            <div className="mt-1">
               <EditableField
                 name={name}
                 value={
@@ -146,7 +148,6 @@ const DeliveryAddressEditable = ({ user }) => {
                   user?.cart?.contact?.[name]
                 }
                 register={register}
-                isEditing={isEditing}
                 type={type}
                 required={required}
               />
@@ -155,9 +156,7 @@ const DeliveryAddressEditable = ({ user }) => {
         ))}
       </div>
       <button className="button button--secondary mt-3" type="submit">
-        {isEditing
-          ? intl.formatMessage({ id: 'save' })
-          : intl.formatMessage({ id: 'change' })}
+        {formatMessage({ id: 'save' })}
       </button>
     </form>
   );

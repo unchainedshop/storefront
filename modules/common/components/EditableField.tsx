@@ -5,40 +5,35 @@ const EditableField = ({
   register,
   name,
   value,
-  isEditing,
   type = 'text',
   required = false,
 }) => {
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   if (type === 'country') {
-    return isEditing ? (
+    return (
       <select
-        className="form-control"
+        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         name={name}
         defaultValue={value}
         ref={register({ required })}
       >
-        <option value="">{intl.formatMessage({ id: 'please_select' })}</option>
+        <option value="">{formatMessage({ id: 'please_select' })}</option>
         {COUNTRIES.map((c) => (
           <option value={c.code} key={c.code}>
             {c.name}
           </option>
         ))}
       </select>
-    ) : (
-      <div>{COUNTRIES.filter((c) => c.code === value)[0]?.name}</div>
     );
   }
-  return isEditing ? (
+  return (
     <input
-      className="form-control"
+      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
       type={type}
       name={name}
       defaultValue={value}
       ref={register({ required })}
     />
-  ) : (
-    <div>{value}</div>
   );
 };
 

@@ -2,10 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
-import { TrashIcon } from '@heroicons/react/solid';
+import { MinusIcon, PlusIcon, TrashIcon } from '@heroicons/react/solid';
 import { useIntl } from 'react-intl';
 import getMediaUrl from '../../common/utils/getMediaUrl';
-import Icon from '../../common/components/Icon';
 import renderPrice from '../../common/utils/renderPrice';
 import useRemoveCartItem from '../hooks/useRemoveCartItem';
 import useUpdateCartItemMutation from '../hooks/useUpdateCartItem';
@@ -52,17 +51,15 @@ const CartItem = ({ _id, quantity, product, total }) => {
 
   return (
     <li className="flex py-6 px-4 sm:px-6" key={_id}>
-      <div className="flex-shrink-0 bg-yellow-500">
+      <div className="relative h-20 w-20 flex-shrink-0 rounded-md">
         <Image
           src={`${
             getMediaUrl(product) || '/static/img/sun-glass-placeholder.jpeg'
           }`}
           alt={product?.texts?.title}
-          layout="responsive"
+          layout="fill"
           objectFit="contain"
           quality={100}
-          width="350px"
-          height="350px"
         />
       </div>
 
@@ -71,19 +68,19 @@ const CartItem = ({ _id, quantity, product, total }) => {
           <div className="min-w-0 flex-1">
             <h4 className="text-sm">
               <Link href={`/product/${product?.texts?.slug}`}>
-                <a className="font-medium text-gray-700 hover:text-gray-800">
+                <a className="font-medium text-slate-700 hover:text-slate-800">
                   {product?.texts && product?.texts.title}
                 </a>
               </Link>
             </h4>
-            {/* <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-            <p className="mt-1 text-sm text-gray-500">{product.size}</p> */}
+            {/* <p className="mt-1 text-sm text-slate-500">{product.color}</p>
+            <p className="mt-1 text-sm text-slate-500">{product.size}</p> */}
           </div>
 
           <div className="ml-4 flow-root flex-shrink-0">
             <button
               type="button"
-              className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-gray-400 hover:text-gray-500"
+              className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-slate-400 hover:text-slate-500"
               onClick={() => removeCartItem({ itemId: _id })}
             >
               <span className="sr-only">
@@ -95,7 +92,7 @@ const CartItem = ({ _id, quantity, product, total }) => {
         </div>
 
         <div className="flex flex-1 items-end justify-between pt-2">
-          <p className="mt-1 text-sm font-medium text-gray-900">
+          <p className="mt-1 text-sm font-medium text-slate-900">
             {renderPrice(total)}
           </p>
 
@@ -107,7 +104,7 @@ const CartItem = ({ _id, quantity, product, total }) => {
               <div className="item-quantity flex items-center justify-center">
                 <button
                   type="button"
-                  className="rounded-md border border-gray-300 text-left text-base font-medium text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+                  className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
                   aria-label="Increase cart item"
                   disabled={currentQuantity === 1}
                   onClick={() =>
@@ -117,7 +114,7 @@ const CartItem = ({ _id, quantity, product, total }) => {
                     })
                   }
                 >
-                  -
+                  <MinusIcon className="h-6 w-6" />
                 </button>
                 <input
                   type="text"
@@ -128,7 +125,7 @@ const CartItem = ({ _id, quantity, product, total }) => {
                   value={currentQuantity}
                 />
                 <button
-                  className="rounded-md border border-gray-300 text-left text-base font-medium text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+                  className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
                   aria-label="Decrease cart item"
                   type="button"
                   onClick={() =>
@@ -138,7 +135,7 @@ const CartItem = ({ _id, quantity, product, total }) => {
                     })
                   }
                 >
-                  +
+                  <PlusIcon className="h-6 w-6" />
                 </button>
               </div>
             </div>
