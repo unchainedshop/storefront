@@ -16,7 +16,7 @@ const CategoriesList = ({
     Object.entries(assortment).map(([, assort]) => assort) || [];
   return (
     <div className="mb-5">
-      <div className="mb-3 bold">{tree?.navigationTitle}</div>
+      <div className="bold mb-3">{tree?.navigationTitle}</div>
 
       {tree?.children &&
         Object.entries(tree?.children).map(([, { texts, _id }]) => (

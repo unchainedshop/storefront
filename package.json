@@ -39,6 +39,7 @@
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.5.1",
+    "@tailwindcss/typography": "^0.5.2",
     "@types/node": "^15.12.2",
     "@types/react": "^17.0.11",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
@@ -64,7 +65,7 @@
     "dev:local": "UNCHAINED_ENDPOINT=http://localhost:4010/graphql next dev",
     "dev": "next dev",
     "format": "npm run lint -- --fix",
-    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx modules pages api",
+    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx modules pages",
     "test": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit",
     "start": "next start"

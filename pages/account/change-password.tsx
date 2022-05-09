@@ -97,7 +97,7 @@ const ChangePassword = () => {
                   {errors.password2 && <p>{errors.password2.message}</p>}
                 </div>
                 <button
-                  className="button button--primary button--big mt-3 w-100"
+                  className="button button--primary button--big w-100 mt-3"
                   type="submit"
                 >
                   {intl.formatMessage({ id: 'reset_password' })}

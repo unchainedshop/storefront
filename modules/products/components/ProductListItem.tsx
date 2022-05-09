@@ -18,8 +18,6 @@ const ProductListItem = ({ product }) => {
   const { removeBookmark } = useRemoveBookmark();
   const { user } = useUser();
 
-  console.log(product);
-
   const totalUpVote = product?.reviews?.reduce(
     (prev, next) => prev + next.upVote,
     0,

@@ -113,7 +113,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
           <button
             aria-label="close"
             type="button"
-            className="no-button w-100 text-left p-3 d-flex align-items-center"
+            className="no-button w-100 d-flex align-items-center p-3 text-left"
             onClick={doClose}
           >
             <Icon className="icon--small" icon="close" />
@@ -123,7 +123,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
           </button>
 
           <a
-            className="ml-3 mb-3 d-flex align-items-center"
+            className="d-flex align-items-center ml-3 mb-3"
             href={theme.websiteUrl}
           >
             <Icon className="icon--small mr-2" icon="house-4" />
@@ -143,7 +143,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
           )}
         </div>
 
-        <div className="pt-3 my-3 ml-3">
+        <div className="my-3 ml-3 pt-3">
           {Object.entries(theme.locales)?.map(([lang]) => (
             <button
               key={lang}

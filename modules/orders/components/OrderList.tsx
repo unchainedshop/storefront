@@ -8,7 +8,7 @@ const OrderList = ({ orders }) => {
   return (
     <div className="table-responsive container mt-5">
       <h1>Orders</h1>
-      <table className="table table-bordered table-hover text-center table-striped">
+      <table className="table-bordered table-hover table-striped table text-center">
         <thead>
           <tr>
             <th className="p-3">
@@ -45,7 +45,7 @@ const OrderList = ({ orders }) => {
                   {order.supportedPaymentProviders[0].type}
                 </td>
                 <td
-                  className={`p-3 font-weight-bolder ${
+                  className={`font-weight-bolder p-3 ${
                     order?.payment?.status === 'PAID'
                       ? 'pill-success'
                       : 'pill-warning'
@@ -59,7 +59,7 @@ const OrderList = ({ orders }) => {
                   <span>{order.country.flagEmoji}</span>
                 </td>
                 <td
-                  className={`p-3 font-weight-bolder ${
+                  className={`font-weight-bolder p-3 ${
                     order?.status === 'CONFIRMED'
                       ? 'pill-success'
                       : 'pill-warning'

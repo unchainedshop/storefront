@@ -75,7 +75,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
       <form className="form mt-5" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-row">
           <div
-            className={`mb-3 col-md-6 ${errors.firstName ? 'form-error' : ''}`}
+            className={`col-md-6 mb-3 ${errors.firstName ? 'form-error' : ''}`}
           >
             <label className="form-label">
               {intl.formatMessage({ id: 'first_name' })}
@@ -87,7 +87,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
             />
           </div>
           <div
-            className={`mb-3 col-md-6 ${errors.lastName ? 'form-error' : ''}`}
+            className={`col-md-6 mb-3 ${errors.lastName ? 'form-error' : ''}`}
           >
             <label className="form-label">
               {intl.formatMessage({ id: 'last_name' })}
@@ -99,7 +99,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
             />
           </div>
           <div
-            className={`mb-3 col-md-6 ${errors.company ? 'form-error' : ''}`}
+            className={`col-md-6 mb-3 ${errors.company ? 'form-error' : ''}`}
           >
             <label className="form-label">
               {intl.formatMessage({ id: 'company' })} {'  '}{' '}
@@ -108,7 +108,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
             <input className="form-control" name="company" ref={register} />
           </div>
           <div
-            className={`mb-3 col-md-6 ${
+            className={`col-md-6 mb-3 ${
               errors.addressLine ? 'form-error' : ''
             }`}
           >
@@ -122,7 +122,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
             />
           </div>
           <div
-            className={`mb-3 col-md-6 ${errors.postalCode ? 'form-error' : ''}`}
+            className={`col-md-6 mb-3 ${errors.postalCode ? 'form-error' : ''}`}
           >
             <label className="form-label">
               {intl.formatMessage({ id: 'postal_code' })}
@@ -133,7 +133,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
               ref={register({ required: true })}
             />
           </div>
-          <div className={`mb-3 col-md-6 ${errors.city ? 'form-error' : ''}`}>
+          <div className={`col-md-6 mb-3 ${errors.city ? 'form-error' : ''}`}>
             <label className="form-label">
               {intl.formatMessage({ id: 'city' })}
             </label>
@@ -144,7 +144,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
             />
           </div>
           <div
-            className={`mb-3 col-md-6 ${errors.regionCode ? 'form-error' : ''}`}
+            className={`col-md-6 mb-3 ${errors.regionCode ? 'form-error' : ''}`}
           >
             <label className="form-label">
               {intl.formatMessage({ id: 'region' })}{' '}
@@ -156,7 +156,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
             />
           </div>
           <div
-            className={`mb-3 col-md-6 ${
+            className={`col-md-6 mb-3 ${
               errors.countryCode ? 'form-error' : ''
             }`}
           >
@@ -178,7 +178,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
             </select>
           </div>
           <div
-            className={`mb-3 col-md-6 ${
+            className={`col-md-6 mb-3 ${
               errors.emailAddress ? 'form-error' : ''
             }`}
           >
@@ -195,7 +195,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
             )}
           </div>
           <div
-            className={`mb-3 col-md-6 ${errors.telNumber ? 'form-error' : ''}`}
+            className={`col-md-6 mb-3 ${errors.telNumber ? 'form-error' : ''}`}
           >
             <label className="form-label">
               {intl.formatMessage({ id: 'telephone' })}
@@ -208,7 +208,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
           </div>
 
           <div
-            className={`mb-3 col-md-6 ${errors.password ? 'form-error' : ''}`}
+            className={`col-md-6 mb-3 ${errors.password ? 'form-error' : ''}`}
           >
             <label className="form-label">
               {intl.formatMessage({ id: 'password' })}
@@ -221,7 +221,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
             />
           </div>
           <div
-            className={`mb-3 col-md-6 ${errors.password2 ? 'form-error' : ''}`}
+            className={`col-md-6 mb-3 ${errors.password2 ? 'form-error' : ''}`}
           >
             <label className="form-label">
               {intl.formatMessage({ id: 'repeat_password' })}
@@ -240,7 +240,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
           {loading && <LoadingItem />}
           <input
             type="submit"
-            className="button button--primary button--big my-1 w-100"
+            className="button button--primary button--big w-100 my-1"
             value={intl.formatMessage({ id: 'register_user' })}
           />
         </div>

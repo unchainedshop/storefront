@@ -15,7 +15,7 @@ const OrderDetailComponent = ({ order }) => {
           <ListItem title="Order no." value={order?.orderNumber} />
           {order?.items.map((item) => (
             <div
-              className="d-flex align-items-center justify-content-between flex-wrap border-top py-2"
+              className="d-flex align-items-center justify-content-between border-top flex-wrap py-2"
               key={item?._id}
             >
               <div className="d-flex align-items-center">
@@ -41,8 +41,8 @@ const OrderDetailComponent = ({ order }) => {
             </div>
           ))}
           <div className="text-right">
-            <div className="border-top py-3 mt-0">
-              <div className="d-flex flex-wrap justify-content-between">
+            <div className="border-top mt-0 py-3">
+              <div className="d-flex justify-content-between flex-wrap">
                 <div>{intl.formatMessage({ id: 'delivery' })}</div>
                 <div>
                   {renderPrice(
@@ -53,8 +53,8 @@ const OrderDetailComponent = ({ order }) => {
             </div>
           </div>
           <div className="text-right">
-            <div className="border-top py-3 mt-0">
-              <div className="d-flex flex-wrap justify-content-between">
+            <div className="border-top mt-0 py-3">
+              <div className="d-flex justify-content-between flex-wrap">
                 <div>{intl.formatMessage({ id: 'total' })}</div>
                 <div>{renderPrice(order?.total)}</div>
               </div>

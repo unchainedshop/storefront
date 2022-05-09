@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 
+import { MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid';
 import useConditionalAddCartProduct from '../hooks/useConditionalAddCartProduct';
 import useUser from '../../auth/hooks/useUser';
 import useUpdateCartItem from '../hooks/useUpdateCartItem';
@@ -9,7 +10,7 @@ import useRemoveCartItem from '../hooks/useRemoveCartItem';
 
 const AddToCartButton = ({ productId }) => {
   const { register, setValue } = useForm();
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   const { cart } = useUser();
   const { conditionalAddCartProduct } = useConditionalAddCartProduct();
   const { updateCartItem } = useUpdateCartItem();
@@ -54,25 +55,27 @@ const AddToCartButton = ({ productId }) => {
     }
   };
 
-  return quantity > 0 ? (
-    <div className="add-to-cart-wrapper add-to-cart-wrapper--with-counter add-to-cart-wrapper--fullwidth mb-3 mt-2">
-      <div>
+  return true ? (
+    <div className="flex justify-between">
+      <div className="flex w-full items-center">
         <button
           type="button"
-          className="button-icon-small minus"
+          className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 p-1 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           onClick={handleMinus}
         >
-          <span className="icon icon--minus">
+          {/* <span className="icon icon--minus">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
               <path
                 fill="currentColor"
                 d="M424 318.2c13.3 0 24-10.7 24-24v-76.4c0-13.3-10.7-24-24-24H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h400z"
               />
             </svg>
-          </span>
+          </span> */}
+
+          <MinusSmIcon className="h-6 w-6" />
         </button>
 
-        <button type="button" className="no-button" onClick={addToCart}>
+        <button type="button" className="mx-auto" onClick={addToCart}>
           <input
             name="quantity"
             ref={register}
@@ -83,7 +86,9 @@ const AddToCartButton = ({ productId }) => {
             onChange={handleNumberInput}
             onClick={(event) => event.stopPropagation()}
           />
-          <span className="ml-1">In Cart</span>
+          <span className="ml-1">
+            {formatMessage({ id: 'in_cart', defaultMessage: 'In Cart' })}
+          </span>
           <span className="icon icon--check ml-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -100,17 +105,18 @@ const AddToCartButton = ({ productId }) => {
 
         <button
           type="button"
-          className="button-icon-small plus"
+          className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 p-1 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           onClick={addToCart}
         >
-          <span className="icon icon--plus">
+          {/* <span className="icon icon--plus">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
               <path
                 fill="currentColor"
                 d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z"
               />
             </svg>
-          </span>
+          </span> */}
+          <PlusSmIcon className="h-6 w-6" />
         </button>
       </div>
     </div>
@@ -121,7 +127,7 @@ const AddToCartButton = ({ productId }) => {
       aria-label="In Cart"
       onClick={addToCart}
     >
-      <span>{intl.formatMessage({ id: 'add_to_cart' })}</span>
+      <span>{formatMessage({ id: 'add_to_cart' })}</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
