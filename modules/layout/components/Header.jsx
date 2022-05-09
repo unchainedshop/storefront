@@ -26,6 +26,7 @@ const Header = () => {
   const setNavOpen = (isOpen) => {
     setNavOpenState(isOpen);
   };
+
   if (router?.events) {
     router.events.on('routeChangeStart', () => setNavOpen(false));
   }
@@ -34,6 +35,7 @@ const Header = () => {
     id: 'top_notification',
     defaultMessage: 'Top Notification',
   });
+
   const showTopNav =
     !topNavigationText || topNavigationText !== 'top_notification';
 

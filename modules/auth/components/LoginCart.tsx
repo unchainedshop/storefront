@@ -23,7 +23,12 @@ const LoginCart = () => {
         <Link href="/bookmarks">
           <a className="flex items-center gap-4">
             <BookmarkIcon className="h-6 w-6" />
-            <span>{user?.bookmarks?.length}</span>
+            {user?.bookmarks?.length ? (
+              <span>{user?.bookmarks?.length}</span>
+            ) : (
+              ''
+            )}
+
             <span>
               {formatMessage({
                 id: 'bookmarks',
@@ -39,10 +44,12 @@ const LoginCart = () => {
       >
         <ShoppingCartIcon className="mr-2 inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
 
-        {user?.cart?.items?.length && (
+        {user?.cart?.items?.length ? (
           <span className="cart-counter mr-2 inline-block h-7 w-7 rounded-[50%] text-center font-bold leading-relaxed text-slate-900 dark:text-slate-300">
             {user?.cart?.items.reduce((acc, item) => acc + item.quantity, 0)}
           </span>
+        ) : (
+          ''
         )}
         <span className="hidden md:block">
           {formatMessage({ id: 'cart', defaultMessage: 'Cart' })}

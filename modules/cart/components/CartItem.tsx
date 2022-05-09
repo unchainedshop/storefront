@@ -80,7 +80,7 @@ const CartItem = ({ _id, quantity, product, total }) => {
           <div className="ml-4 flow-root flex-shrink-0">
             <button
               type="button"
-              className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-slate-400 hover:text-slate-500 dark:bg-slate-500 dark:text-slate-100"
+              className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-slate-400 hover:text-slate-500 dark:bg-slate-600 dark:text-slate-100"
               onClick={() => removeCartItem({ itemId: _id })}
             >
               <span className="sr-only">
@@ -119,7 +119,7 @@ const CartItem = ({ _id, quantity, product, total }) => {
                 <input
                   type="text"
                   pattern="\d+"
-                  className="h-8 w-14 border-0 p-1 text-center placeholder:font-bold placeholder:opacity-100 dark:bg-slate-500 dark:text-slate-100"
+                  className="h-8 w-14 border-0 p-1 text-center placeholder:font-bold placeholder:opacity-100 dark:bg-slate-600 dark:text-slate-100"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={currentQuantity}

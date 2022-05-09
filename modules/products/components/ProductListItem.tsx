@@ -1,19 +1,24 @@
-import { BookmarkIcon, ShoppingCartIcon } from '@heroicons/react/outline';
-import { StarIcon } from '@heroicons/react/solid';
+import { ShoppingCartIcon } from '@heroicons/react/outline';
+import { BookmarkIcon, StarIcon } from '@heroicons/react/solid';
+import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
+
 import useUser from '../../auth/hooks/useUser';
 import useConditionalAddCartProduct from '../../cart/hooks/useConditionalAddCartProduct';
 import useAddBookmark from '../../common/hooks/useAddBookmark';
-
+import useRemoveBookmark from '../../common/hooks/useRemoveBookmark';
 import getMediaUrl from '../../common/utils/getMediaUrl';
 
 const ProductListItem = ({ product }) => {
   const { formatMessage } = useIntl();
   const { conditionalAddCartProduct } = useConditionalAddCartProduct();
   const { addBookmark } = useAddBookmark();
+  const { removeBookmark } = useRemoveBookmark();
   const { user } = useUser();
+
+  console.log(product);
 
   const totalUpVote = product?.reviews?.reduce(
     (prev, next) => prev + next.upVote,
@@ -27,15 +32,15 @@ const ProductListItem = ({ product }) => {
 
   const averageVote = (totalUpVote / (totalUpVote + totalDownVote)) * 100;
 
+  const [filteredBookmark] =
+    user?.bookmarks?.filter(
+      (bookmark) => bookmark?.product?._id === product?._id,
+    ) || [];
+
   return (
     <>
       <div className="relative">
         <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-slate-200 group-hover:opacity-75 dark:bg-slate-500">
-          {/* <img
-          src={product.imageSrc}
-          alt={product.imageAlt}
-          className="h-full w-full object-cover object-center"
-        /> */}
           <Link href={`/product/${product?.texts?.slug}`}>
             <a className="">
               <div className="h-full py-5 text-center">
@@ -60,6 +65,7 @@ const ProductListItem = ({ product }) => {
           <span>{product?.simulatedPrice?.currency}</span>
           <span className="ml-1">{product?.simulatedPrice?.amount}</span>
         </p>
+
         <button
           type="button"
           className="absolute bottom-1 right-1 dark:text-white"
@@ -67,17 +73,31 @@ const ProductListItem = ({ product }) => {
         >
           <ShoppingCartIcon className="h-6 w-6" />
         </button>
+
         <button
           type="button"
           className="bg-white-500 absolute top-1 right-1 dark:text-white"
           onClick={() =>
-            addBookmark({ productId: product?._id, userId: user?._id })
+            filteredBookmark
+              ? removeBookmark({
+                  bookmarkId: filteredBookmark?._id,
+                })
+              : addBookmark({ productId: product?._id, userId: user?._id })
           }
         >
-          <BookmarkIcon className="h-6 w-6" />
+          <BookmarkIcon
+            className={classNames(
+              'h-6 w-6 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300',
+              {
+                'text-purple-600 hover:text-purple-700 dark:text-yellow-500 dark:hover:text-yellow-700':
+                  user?.bookmarks
+                    ?.map((bookmark) => bookmark?.product?._id)
+                    .includes(product?._id),
+              },
+            )}
+          />
         </button>
       </div>
-
       <div className="pt-4 text-center">
         <h3 className="text-sm font-medium text-slate-900 dark:text-white">
           {product?.texts?.title}

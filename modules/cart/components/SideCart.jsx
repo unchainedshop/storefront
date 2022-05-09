@@ -2,12 +2,11 @@ import { useContext } from 'react';
 import Link from 'next/link';
 
 import { useIntl } from 'react-intl';
-import { XIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
+import { ShoppingBagIcon, XIcon } from '@heroicons/react/outline';
 import renderPrice from '../../common/utils/renderPrice';
 import useUser from '../../auth/hooks/useUser';
 import { CartContext } from '../CartContext';
-import Icon from '../../common/components/Icon';
 import CartItem from './CartItem';
 
 const SideCart = ({ isOpen }) => {
@@ -30,21 +29,30 @@ const SideCart = ({ isOpen }) => {
   return (
     <>
       <div
-        className={`${isOpen ? 'overlay' : ''} `}
+        className={classNames({
+          'fixed top-0 right-0 bottom-0 left-0 z-50 cursor-pointer bg-black opacity-0':
+            isOpen,
+        })}
         onClick={() => context.toggleCart()}
       />
       {!user?.cart?.items.length ? (
         <>
           <div
-            className={`fixed top-0 right-[-350px] z-[2000] h-full w-[300px] overflow-y-auto bg-white py-4 px-2 text-center shadow-md transition dark:bg-slate-600 lg:right-[450px] lg:w-[-400px] ${
-              isOpen ? 'right-0' : ''
-            }`}
+            className={classNames(
+              'fixed top-0 -right-80 z-50 flex h-full w-[300px] flex-col items-center justify-center overflow-y-auto bg-white py-3 px-2 text-center opacity-100 shadow-md transition dark:bg-slate-600 lg:-right-[450px] lg:w-[400px]',
+              {
+                'right-0 lg:right-0': isOpen,
+              },
+            )}
           >
-            <Icon icon="shopping-bag-sad" />
+            <ShoppingBagIcon className="h-6 w-6" />
             <p>
               {intl.formatMessage({ id: 'no_product_in_cart' })}{' '}
               <Link href="/shop">
-                <a onClick={() => context.toggleCart(false)} className="link">
+                <a
+                  onClick={() => context.toggleCart(false)}
+                  className="cursor-pointer font-normal underline"
+                >
                   {intl.formatMessage({ id: 'shop' })}
                 </a>
               </Link>
@@ -55,9 +63,9 @@ const SideCart = ({ isOpen }) => {
         <>
           <div
             className={classNames(
-              'side-cart-container flex flex-col px-1 dark:bg-slate-900',
+              'fixed top-0 -right-80 z-50 flex h-full w-[300px] flex-col overflow-y-auto bg-white bg-opacity-100 px-1 opacity-100 shadow-md transition dark:bg-slate-600 dark:opacity-100 lg:-right-[450px] lg:w-[400px]',
               {
-                open: isOpen,
+                'right-0 lg:right-0': isOpen,
               },
             )}
           >
@@ -69,7 +77,7 @@ const SideCart = ({ isOpen }) => {
                   className="absolute cursor-pointer appearance-none bg-inherit p-2 text-left text-inherit"
                   onClick={() => context.toggleCart()}
                 >
-                  <XIcon className="h-3.5 w-3.5" />
+                  <XIcon className="h-5 w-5" />
                 </button>
               </div>
               <h3 className="m-0 block p-4 text-center text-lg">
@@ -83,7 +91,7 @@ const SideCart = ({ isOpen }) => {
                   <Link href="/shop">
                     <a
                       onClick={() => context.toggleCart(false)}
-                      className="link"
+                      className="cursor-pointer font-normal underline"
                       href="#"
                     >
                       {intl.formatMessage({ id: 'shop' })}.
@@ -96,7 +104,7 @@ const SideCart = ({ isOpen }) => {
                 ))
               )}
             </div>
-            <div className="p-2 text-center text-slate-900">
+            <div className="p-2 text-center text-slate-900 dark:text-slate-100">
               <div className="my-0 mb-4 border-t border-b-0 border-solid py-4">
                 <div className="flex flex-wrap items-center justify-between">
                   <div className="mr-2">
@@ -120,7 +128,7 @@ const SideCart = ({ isOpen }) => {
                 }`}
               >
                 <a
-                  className="my-4 w-full text-sm font-semibold uppercase text-indigo-600 hover:text-indigo-500"
+                  className="h over:text-indigo-500 my-4 w-full text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-400"
                   onClick={() => context.toggleCart(false)}
                 >
                   {intl.formatMessage({ id: 'continue_shopping' })}

@@ -1,8 +1,4 @@
-import {
-  BookmarkIcon,
-  ShoppingCartIcon,
-  TrashIcon,
-} from '@heroicons/react/outline';
+import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/outline';
 import { StarIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,7 +7,6 @@ import useUser from '../modules/auth/hooks/useUser';
 import useConditionalAddCartProduct from '../modules/cart/hooks/useConditionalAddCartProduct';
 import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
-import useAddBookmark from '../modules/common/hooks/useAddBookmark';
 import useRemoveBookmark from '../modules/common/hooks/useRemoveBookmark';
 import getMediaUrl from '../modules/common/utils/getMediaUrl';
 import Footer from '../modules/layout/components/Footer';
@@ -64,15 +59,10 @@ const bookmarks = () => {
                       >
                         <div className="relative">
                           <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-slate-200 group-hover:opacity-75 dark:bg-slate-500">
-                            {/* <img
-                              src={product.imageSrc}
-                              alt={product.imageAlt}
-                              className="h-full w-full object-cover object-center"
-                            /> */}
                             <Link
                               href={`/product/${bookmark.product?.texts?.slug}`}
                             >
-                              <a className="">
+                              <a>
                                 <div className="h-full py-5 text-center">
                                   <Image
                                     loading="lazy"
