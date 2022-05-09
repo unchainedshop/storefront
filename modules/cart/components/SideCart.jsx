@@ -107,7 +107,8 @@ const SideCart = ({ isOpen }) => {
               </div>
               <Link href={{ pathname: '/review' }}>
                 <a
-                  className="button button--primary button--big w-75 mb-4 uppercase text-slate-900"
+                  type="button"
+                  className="mb-4 w-full rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium uppercase text-white shadow-sm hover:bg-indigo-700 hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                   onClick={() => context.toggleCart(false)}
                 >
                   {intl.formatMessage({ id: 'to_checkout' })}
@@ -119,7 +120,7 @@ const SideCart = ({ isOpen }) => {
                 }`}
               >
                 <a
-                  className="button button--secondary text-uppercase w-75 mb-3"
+                  className="my-4 w-full text-sm font-semibold uppercase text-indigo-600 hover:text-indigo-500"
                   onClick={() => context.toggleCart(false)}
                 >
                   {intl.formatMessage({ id: 'continue_shopping' })}

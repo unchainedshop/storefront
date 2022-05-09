@@ -97,17 +97,17 @@ const Review = () => {
     <>
       <MetaTags title={formatMessage({ id: 'order_review' })} />
       <Header />
-      <div className="bg-slate-50">
+      <div className="bg-slate-50 dark:bg-slate-600">
         <div className="mx-auto max-w-full px-4 pt-16 pb-24 sm:px-12 lg:px-16">
           <h2 className="sr-only">
             {formatMessage({ id: 'checkout', defaultMessage: 'Checkout' })}
           </h2>
           <DatatransStatusGate>
-            <form className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+            <div className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
               <div>
                 {/* Delivery address */}
                 <div>
-                  <h2 className="text-lg font-medium text-slate-900">
+                  <h2 className="text-lg font-medium text-slate-900 dark:text-white">
                     {formatMessage({ id: 'delivery_address' })}
                   </h2>
                   <DeliveryAddressEditable user={user} />
@@ -119,7 +119,7 @@ const Review = () => {
                     value={selectedDeliveryMethod}
                     onChange={setSelectedDeliveryMethod}
                   >
-                    <RadioGroup.Label className="text-lg font-medium text-slate-900">
+                    <RadioGroup.Label className="text-lg font-medium text-slate-900 dark:text-white">
                       {formatMessage({
                         id: 'delivery_method',
                         defaultMessage: 'Delivery method',
@@ -137,8 +137,10 @@ const Review = () => {
                                 checked
                                   ? 'border-transparent'
                                   : 'border-slate-300',
-                                active ? 'ring-2 ring-indigo-500' : '',
-                                'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none',
+                                active
+                                  ? 'ring-2 ring-indigo-500 dark:ring-indigo-800'
+                                  : '',
+                                'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none dark:bg-slate-500',
                               )
                             }
                           >
@@ -148,19 +150,19 @@ const Review = () => {
                                   <div className="flex flex-col">
                                     <RadioGroup.Label
                                       as="span"
-                                      className="block text-sm font-medium text-slate-900"
+                                      className="block text-sm font-medium text-slate-900 dark:text-white"
                                     >
                                       {deliveryMethod.type}
                                     </RadioGroup.Label>
                                     <RadioGroup.Description
                                       as="span"
-                                      className="mt-1 flex items-center text-sm text-slate-500"
+                                      className="mt-1 flex items-center text-sm text-slate-500 dark:text-slate-100"
                                     >
                                       {deliveryMethod.turnaround}
                                     </RadioGroup.Description>
                                     <RadioGroup.Description
                                       as="span"
-                                      className="mt-6 text-sm font-medium text-slate-900"
+                                      className="mt-6 text-sm font-medium text-slate-900 dark:text-white"
                                     >
                                       {deliveryMethod.price}
                                     </RadioGroup.Description>
@@ -168,7 +170,7 @@ const Review = () => {
                                 </div>
                                 {checked ? (
                                   <CheckCircleIcon
-                                    className="h-5 w-5 text-indigo-600"
+                                    className="h-5 w-5 text-indigo-600 dark:text-indigo-800"
                                     aria-hidden="true"
                                   />
                                 ) : null}
@@ -191,9 +193,35 @@ const Review = () => {
                   </RadioGroup>
                 </div>
 
+                {/* Billing Address */}
+                <div className="mt-10 border-t border-slate-200 pt-10">
+                  <h4 className="mt-5 text-slate-900 dark:text-white">
+                    {formatMessage({ id: 'billing_address' })}
+                  </h4>
+
+                  <div className="my-3 flex items-start">
+                    <label className="mb-5 " htmlFor="same">
+                      <input
+                        type="checkbox"
+                        className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 dark:text-indigo-800"
+                        id="same"
+                        defaultChecked={
+                          user?.cart?.deliveryInfo?.address === null
+                        }
+                        name="same"
+                        onChange={(e) => sameAsDeliveryChange(e)}
+                      />
+                      <span className="ml-3 text-sm font-medium text-slate-700 dark:text-slate-200">
+                        {formatMessage({ id: 'same_as_delivery' })}
+                      </span>
+                    </label>
+                  </div>
+                  <BillingAddressEditable user={user} />
+                </div>
+
                 {/* Payment */}
                 <div className="mt-10 border-t border-slate-200 pt-10">
-                  <h2 className="text-lg font-medium text-slate-900">
+                  <h2 className="text-lg font-medium text-slate-900 dark:text-white">
                     {formatMessage({
                       id: 'payment',
                       defaultMessage: 'Payment',
@@ -232,7 +260,7 @@ const Review = () => {
 
                             <label
                               htmlFor={paymentMethod._id}
-                              className="ml-3 block text-sm font-medium text-slate-700"
+                              className="ml-3 block text-sm font-medium text-slate-700 dark:text-slate-200"
                             >
                               {paymentMethod?.interface?._id}
                             </label>
@@ -270,9 +298,12 @@ const Review = () => {
                     <div className="col-span-4">
                       <label
                         htmlFor="card-number"
-                        className="block text-sm font-medium text-slate-700"
+                        className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                       >
-                        Card number
+                        {formatMessage({
+                          id: 'card',
+                          defaultMessage: 'Card Number',
+                        })}
                       </label>
                       <div className="mt-1">
                         <input
@@ -280,7 +311,7 @@ const Review = () => {
                           id="card-number"
                           name="card-number"
                           autoComplete="cc-number"
-                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
                         />
                       </div>
                     </div>
@@ -288,7 +319,7 @@ const Review = () => {
                     <div className="col-span-4">
                       <label
                         htmlFor="name-on-card"
-                        className="block text-sm font-medium text-slate-700"
+                        className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                       >
                         Name on card
                       </label>
@@ -298,7 +329,7 @@ const Review = () => {
                           id="name-on-card"
                           name="name-on-card"
                           autoComplete="cc-name"
-                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
                         />
                       </div>
                     </div>
@@ -306,9 +337,12 @@ const Review = () => {
                     <div className="col-span-3">
                       <label
                         htmlFor="expiration-date"
-                        className="block text-sm font-medium text-slate-700"
+                        className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                       >
-                        Expiration date (MM/YY)
+                        {formatMessage({
+                          id: 'expiration_date',
+                          defaultMessage: 'Expiration date (MM/YY)',
+                        })}
                       </label>
                       <div className="mt-1">
                         <input
@@ -316,7 +350,7 @@ const Review = () => {
                           name="expiration-date"
                           id="expiration-date"
                           autoComplete="cc-exp"
-                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
                         />
                       </div>
                     </div>
@@ -324,9 +358,9 @@ const Review = () => {
                     <div>
                       <label
                         htmlFor="cvc"
-                        className="block text-sm font-medium text-slate-700"
+                        className="block text-sm font-medium text-slate-700 dark:text-slate-300"
                       >
-                        CVC
+                        {formatMessage({ id: 'cvc', defaultMessage: 'CVC' })}
                       </label>
                       <div className="mt-1">
                         <input
@@ -334,39 +368,11 @@ const Review = () => {
                           name="cvc"
                           id="cvc"
                           autoComplete="csc"
-                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:shadow-white sm:text-sm"
                         />
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="mb-5">
-                  <h4 className="mt-5">
-                    {formatMessage({ id: 'billing_address' })}
-                  </h4>
-
-                  <div className="form-check my-3">
-                    <label
-                      className="form-check-label d-flex align-items-center mb-5 "
-                      htmlFor="same"
-                    >
-                      <input
-                        type="checkbox"
-                        className="form-check-input"
-                        id="same"
-                        defaultChecked={
-                          user?.cart?.deliveryInfo?.address === null
-                        }
-                        name="same"
-                        onChange={(e) => sameAsDeliveryChange(e)}
-                      />
-                      <span className="ml-3">
-                        {formatMessage({ id: 'same_as_delivery' })}
-                      </span>
-                    </label>
-                  </div>
-                  <BillingAddressEditable user={user} />
                 </div>
               </div>
 
@@ -376,7 +382,7 @@ const Review = () => {
                 </h2>
                 <ManageCart user={user} />
               </div>
-            </form>
+            </div>
           </DatatransStatusGate>
         </div>
       </div>

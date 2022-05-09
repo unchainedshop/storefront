@@ -129,13 +129,13 @@ const DeliveryAddressEditable = ({ user }) => {
   ];
 
   return (
-    <form className="form border-top" onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
         {addressFields.map(({ name, translation, type, required, full }) => (
           <div className={classNames({ 'sm:col-span-2': full })} key={name}>
             <label
               htmlFor={name}
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-slate-700 dark:text-slate-300"
             >
               <b>{translation}</b>
             </label>
@@ -155,7 +155,10 @@ const DeliveryAddressEditable = ({ user }) => {
           </div>
         ))}
       </div>
-      <button className="button button--secondary mt-3" type="submit">
+      <button
+        className="mt-3 inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
+        type="submit"
+      >
         {formatMessage({ id: 'save' })}
       </button>
     </form>

@@ -12,7 +12,7 @@ const EditableField = ({
   if (type === 'country') {
     return (
       <select
-        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:text-slate-800 dark:shadow-white sm:text-sm"
         name={name}
         defaultValue={value}
         ref={register({ required })}
@@ -28,7 +28,7 @@ const EditableField = ({
   }
   return (
     <input
-      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-300 dark:text-slate-800 dark:shadow-white sm:text-sm"
       type={type}
       name={name}
       defaultValue={value}

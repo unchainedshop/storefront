@@ -5,10 +5,10 @@ import CartItem from './CartItem';
 
 const ManageCart = ({ user }) => {
   const { formatMessage } = useIntl();
-  console.log(user);
+
   return (
-    <div className="">
-      <div className="mt-4 rounded-lg border border-slate-300 bg-white shadow-sm">
+    <div className="text-slate-700 dark:text-slate-300">
+      <div className="mt-4 rounded-lg border border-slate-300 bg-white shadow-sm dark:bg-slate-500">
         <h3 className="sr-only">
           {formatMessage({
             id: 'items_in_cart',
@@ -23,14 +23,12 @@ const ManageCart = ({ user }) => {
         <dl className="space-y-6 border-t border-gray-200 py-6 px-4 sm:px-6">
           <div className="flex items-center justify-between">
             <dt className="text-sm">
-              Subtotal
               {formatMessage({
                 id: 'subtotal_vat',
-                defaultMessage: 'Subtotal(vat included)',
-              })}{' '}
-              7.7%
+                defaultMessage: 'Subtotal(vat included) 7.7%',
+              })}
             </dt>
-            <dd className="text-sm font-medium text-gray-900">
+            <dd className="text-sm font-medium text-gray-900 dark:text-white">
               {renderPrice(user?.cart?.itemsTotal)}
             </dd>
           </div>
@@ -38,7 +36,7 @@ const ManageCart = ({ user }) => {
             <dt className="text-sm">
               {formatMessage({ id: 'shipping', defaultMessage: 'Shipping' })}
             </dt>
-            <dd className="text-sm font-medium text-gray-900">
+            <dd className="text-sm font-medium text-gray-900 dark:text-white">
               {renderPrice(user?.cart?.delivery)}
             </dd>
           </div>
@@ -46,7 +44,7 @@ const ManageCart = ({ user }) => {
             <dt className="text-sm">
               {formatMessage({ id: 'taxes', defaultMessage: 'Taxes' })}
             </dt>
-            <dd className="text-sm font-medium text-gray-900">
+            <dd className="text-sm font-medium text-gray-900 dark:text-white">
               {renderPrice(user?.cart?.taxes)}
             </dd>
           </div>
@@ -54,7 +52,7 @@ const ManageCart = ({ user }) => {
             <dt className="text-base font-medium">
               {formatMessage({ id: 'total', defaultMessage: 'Total' })}
             </dt>
-            <dd className="text-base font-medium text-gray-900">
+            <dd className="text-base font-medium text-gray-900 dark:text-white">
               {renderPrice(user?.cart?.total)}
             </dd>
           </div>

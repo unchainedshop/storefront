@@ -68,19 +68,19 @@ const CartItem = ({ _id, quantity, product, total }) => {
           <div className="min-w-0 flex-1">
             <h4 className="text-sm">
               <Link href={`/product/${product?.texts?.slug}`}>
-                <a className="font-medium text-slate-700 hover:text-slate-800">
+                <a className="font-medium text-slate-700 hover:text-slate-800 dark:text-slate-100 dark:hover:text-slate-400">
                   {product?.texts && product?.texts.title}
                 </a>
               </Link>
             </h4>
-            {/* <p className="mt-1 text-sm text-slate-500">{product.color}</p>
-            <p className="mt-1 text-sm text-slate-500">{product.size}</p> */}
+            {/* <p className="mt-1 text-sm text-slate-500 dark:text-slate-100">{product.color}</p>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-100">{product.size}</p> */}
           </div>
 
           <div className="ml-4 flow-root flex-shrink-0">
             <button
               type="button"
-              className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-slate-400 hover:text-slate-500"
+              className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-slate-400 hover:text-slate-500 dark:bg-slate-500 dark:text-slate-100"
               onClick={() => removeCartItem({ itemId: _id })}
             >
               <span className="sr-only">
@@ -92,7 +92,7 @@ const CartItem = ({ _id, quantity, product, total }) => {
         </div>
 
         <div className="flex flex-1 items-end justify-between pt-2">
-          <p className="mt-1 text-sm font-medium text-slate-900">
+          <p className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">
             {renderPrice(total)}
           </p>
 
@@ -100,11 +100,11 @@ const CartItem = ({ _id, quantity, product, total }) => {
             <label htmlFor="quantity" className="sr-only">
               {formatMessage({ id: 'quantity', defaultMessage: 'Quantity' })}
             </label>
-            <div className="flex flex-wrap items-center justify-between">
-              <div className="item-quantity flex items-center justify-center">
+            <div className="flex flex-wrap items-end justify-between">
+              <div className="flex items-end justify-center gap-1">
                 <button
                   type="button"
-                  className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+                  className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:text-slate-200 dark:shadow-white sm:text-sm"
                   aria-label="Increase cart item"
                   disabled={currentQuantity === 1}
                   onClick={() =>
@@ -119,13 +119,13 @@ const CartItem = ({ _id, quantity, product, total }) => {
                 <input
                   type="text"
                   pattern="\d+"
-                  className="form-field"
+                  className="h-8 w-14 border-0 p-1 text-center placeholder:font-bold placeholder:opacity-100 dark:bg-slate-500 dark:text-slate-100"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={currentQuantity}
                 />
                 <button
-                  className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+                  className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:text-slate-200 dark:shadow-white sm:text-sm"
                   aria-label="Decrease cart item"
                   type="button"
                   onClick={() =>

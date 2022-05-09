@@ -7,7 +7,7 @@ import EditableField from '../../common/components/EditableField';
 
 const BillingAddressEditable = ({ user }) => {
   const [isEditing, setEditing] = useState(false);
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   const { updateCart } = useUpdateCart();
   const { register, handleSubmit } = useForm();
 
@@ -47,45 +47,45 @@ const BillingAddressEditable = ({ user }) => {
   const addressFields = [
     {
       name: 'firstName',
-      translation: intl.formatMessage({ id: 'first_name' }),
+      translation: formatMessage({ id: 'first_name' }),
       type: 'text',
       required: true,
     },
     {
       name: 'lastName',
-      translation: intl.formatMessage({ id: 'last_name' }),
+      translation: formatMessage({ id: 'last_name' }),
       type: 'text',
       required: true,
     },
     {
       name: 'company',
-      translation: `${intl.formatMessage({
+      translation: `${formatMessage({
         id: 'company',
-      })} ${intl.formatMessage({ id: 'optional' })} `,
+      })} ${formatMessage({ id: 'optional' })} `,
       type: 'text',
       required: false,
     },
     {
       name: 'addressLine',
-      translation: intl.formatMessage({ id: 'address' }),
+      translation: formatMessage({ id: 'address' }),
       type: 'text',
       required: true,
     },
     {
       name: 'postalCode',
-      translation: intl.formatMessage({ id: 'postal_code' }),
+      translation: formatMessage({ id: 'postal_code' }),
       type: 'text',
       required: true,
     },
     {
       name: 'city',
-      translation: intl.formatMessage({ id: 'city' }),
+      translation: formatMessage({ id: 'city' }),
       type: 'text',
       required: true,
     },
     {
       name: 'countryCode',
-      translation: intl.formatMessage({ id: 'country' }),
+      translation: formatMessage({ id: 'country' }),
       type: 'country',
       required: true,
     },
@@ -93,24 +93,17 @@ const BillingAddressEditable = ({ user }) => {
 
   return (
     <>
-      {' '}
       {!user?.cart?.deliveryInfo?.address ? (
         ''
       ) : (
-        <form
-          className="form border-top mb-5"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
             {addressFields.map(({ name, translation, type, required }) => (
-              <div
-                className="row d-flex justify-content-start align-items-center my-2"
-                key={name}
-              >
-                <div className="col-md-4 my-1">
+              <div key={name}>
+                <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">
                   <b>{translation}</b>
-                </div>
-                <div className="col-md-8 my-1">
+                </label>
+                <div className="mt-1">
                   <EditableField
                     name={name}
                     value={user?.cart?.billingAddress?.[name]}
@@ -123,10 +116,11 @@ const BillingAddressEditable = ({ user }) => {
               </div>
             ))}
           </div>
-          <button className="button button--secondary mt-3 mb-5" type="submit">
-            {isEditing
-              ? intl.formatMessage({ id: 'save' })
-              : intl.formatMessage({ id: 'change' })}
+          <button
+            className="mt-3 mb-5 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            type="submit"
+          >
+            {formatMessage({ id: 'save' })}
           </button>
         </form>
       )}
