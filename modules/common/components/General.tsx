@@ -22,9 +22,7 @@ const General = ({ user }) => {
   const [newEmail, setNewEmail] = useState('');
 
   const showUsername = user?.roles?.includes('admin');
-  console.log(user);
   const { profile = {} } = user;
-  console.log(profile);
 
   const onProfileUpdateComplete = (value) => {
     if (value) setUpdateProfile(false);

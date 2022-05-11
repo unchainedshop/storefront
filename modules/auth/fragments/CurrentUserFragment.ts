@@ -74,7 +74,7 @@ const CurrentUserFragment = gql`
           }
         }
         ... on OrderPaymentGeneric {
-          sign
+          _id
         }
       }
       taxes: total(category: TAXES) {

@@ -63,6 +63,32 @@ const ProductFragment = gql`
         description
         slug
       }
+      bundleItems {
+        product {
+          _id
+          media {
+            _id
+            file {
+              _id
+              name
+              url
+            }
+          }
+          reviews {
+            _id
+            created
+            deleted
+            updated
+            author {
+              _id
+              username
+            }
+            rating
+            title
+            review
+          }
+        }
+      }
     }
     ... on ConfigurableProduct {
       texts(forceLocale: $forceLocale) {
@@ -71,6 +97,25 @@ const ProductFragment = gql`
         subtitle
         description
         slug
+      }
+      variations {
+        _id
+        texts(forceLocale: $forceLocale) {
+          _id
+          title
+          subtitle
+        }
+        type
+        key
+        options {
+          _id
+          texts(forceLocale: $forceLocale) {
+            _id
+            title
+            subtitle
+          }
+          value
+        }
       }
     }
   }

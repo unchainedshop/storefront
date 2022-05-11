@@ -240,7 +240,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
           {loading && <LoadingItem />}
           <input
             type="submit"
-            className="button button--primary button--big w-100 my-1"
+            className="button button--primary button--big w-100 my-1 bg-indigo-800 text-slate-50 hover:bg-indigo-500"
             value={intl.formatMessage({ id: 'register_user' })}
           />
         </div>

@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
+import useUser from '../../auth/hooks/useUser';
 import useAddReview from '../hooks/useAddReview';
 import useProductReviewVote from '../hooks/useProductReviewVote';
 
@@ -12,6 +13,8 @@ const ProductReview = ({ reviews, productId }) => {
   const { addReview } = useAddReview();
   const [rating, setRating] = useState(0);
   const { addReviewVote } = useProductReviewVote();
+
+  const { user } = useUser();
 
   // eslint-disable-next-line no-shadow
   const onSubmit = async ({ rating, review, title }) => {
@@ -135,9 +138,9 @@ const ProductReview = ({ reviews, productId }) => {
               className="flex space-x-4 text-sm text-gray-500"
             >
               <div className="flex-none py-10">
-                {review.author.avatar ? (
+                {review?.author?.avatar?.url ? (
                   <img
-                    src={review.author.avatar}
+                    src={review.author.avatar.url}
                     alt=""
                     className="h-10 w-10 rounded-full bg-gray-100"
                   />
@@ -184,7 +187,13 @@ const ProductReview = ({ reviews, productId }) => {
                     </>
                   ))}
                 </div>
-                <p className="sr-only">{review.rating} out of 5 stars</p>
+                <p className="sr-only">
+                  {review.rating}
+                  {formatMessage({
+                    id: 'rating_starts',
+                    defaultMessage: ' out of 5 stars',
+                  })}
+                </p>
 
                 <div
                   className="prose prose-sm mt-4 max-w-none text-gray-500"
@@ -192,33 +201,35 @@ const ProductReview = ({ reviews, productId }) => {
                   dangerouslySetInnerHTML={{ __html: review.review }}
                 />
 
-                <div className="mt-4 flex">
+                <div className="mt-4 flex text-slate-400">
                   <button
                     type="button"
-                    className="flex items-center"
+                    className="flex items-center p-2 hover:bg-yellow-100 hover:text-yellow-700 disabled:cursor-not-allowed disabled:bg-white disabled:text-slate-200"
                     onClick={() =>
                       addReviewVote({
                         productReviewId: review._id,
                         voteType: 'UPVOTE',
                       })
                     }
+                    disabled={review?.author?._id === user?._id}
                   >
-                    <ThumbUpIcon className="h-7 w-7 text-slate-400" />
-                    <span className="mx-2">{review?.upVote}</span>
+                    <ThumbUpIcon className="h-7 w-7" />
                   </button>
+                  <span className="mx-2 p-2">{review?.upVote}</span>
                   <button
                     type="button"
-                    className="flex items-center"
+                    className="flex items-center p-2 hover:bg-yellow-100 hover:text-yellow-700 disabled:cursor-not-allowed disabled:bg-white disabled:text-slate-200"
                     onClick={() =>
                       addReviewVote({
                         productReviewId: review._id,
                         voteType: 'DOWNVOTE',
                       })
                     }
+                    disabled={review?.author?._id === user?._id}
                   >
-                    <ThumbDownIcon className="h-7 w-7 text-slate-400" />
-                    <span className="mx-2">{review?.upVote}</span>
+                    <ThumbDownIcon className="h-7 w-7" />
                   </button>
+                  <span className="mx-2 p-2">{review?.downVote}</span>
                 </div>
               </div>
             </div>

@@ -4,14 +4,12 @@ import { useEffect, useState } from 'react';
 import ImageGallery from 'react-image-gallery';
 import { useIntl } from 'react-intl';
 
-import { RadioGroup } from '@headlessui/react';
-import { CurrencyDollarIcon, GlobeIcon } from '@heroicons/react/outline';
 import { MinusSmIcon, PlusSmIcon, StarIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
+import { useForm } from 'react-hook-form';
 import useProductDetail from '../../modules/products/hooks/useProductDetail';
 import Header from '../../modules/layout/components/Header';
 import Footer from '../../modules/layout/components/Footer';
-import AddToCartButton from '../../modules/cart/components/AddToCartButton';
 import renderPrice from '../../modules/common/utils/renderPrice';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import MetaTags from '../../modules/common/components/MetaTags';
@@ -22,106 +20,9 @@ import getMediaUrls from '../../modules/common/utils/getMediaUrls';
 import NotFound from '../404';
 import ProductReview from '../../modules/products/components/ProductReview';
 import useProductReviews from '../../modules/products/hooks/useProductReviews';
-
-const productt = {
-  name: 'Basic Tee',
-  price: '$35',
-  href: '#',
-  breadcrumbs: [
-    { id: 1, name: 'Women', href: '#' },
-    { id: 2, name: 'Clothing', href: '#' },
-  ],
-  images: [
-    {
-      id: 1,
-      imageSrc:
-        'https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg',
-      imageAlt: "Back of women's Basic Tee in black.",
-      primary: true,
-    },
-    {
-      id: 2,
-      imageSrc:
-        'https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-01.jpg',
-      imageAlt: "Side profile of women's Basic Tee in black.",
-      primary: false,
-    },
-    {
-      id: 3,
-      imageSrc:
-        'https://tailwindui.com/img/ecommerce-images/product-page-01-product-shot-02.jpg',
-      imageAlt: "Front of women's Basic Tee in black.",
-      primary: false,
-    },
-  ],
-  colors: [
-    { name: 'Black', bgColor: 'bg-slate-900', selectedColor: 'ring-slate-900' },
-    {
-      name: 'Heather Grey',
-      bgColor: 'bg-slate-400',
-      selectedColor: 'ring-slate-400',
-    },
-  ],
-  sizes: [
-    { name: 'XXS', inStock: true },
-    { name: 'XS', inStock: true },
-    { name: 'S', inStock: true },
-    { name: 'M', inStock: true },
-    { name: 'L', inStock: true },
-    { name: 'XL', inStock: false },
-  ],
-  description: `
-    <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
-    <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
-  `,
-  details: [
-    'Only the best materials',
-    'Ethically and locally made',
-    'Pre-washed and pre-shrunk',
-    'Machine wash cold with similar colors',
-  ],
-};
-const reviewss = [
-  {
-    id: 1,
-    rating: 5,
-    content: `
-      <p>This icon pack is just what I need for my latest project. There's an icon for just about anything I could ever need. Love the playful look!</p>
-    `,
-    date: 'July 16, 2021',
-    datetime: '2021-07-16',
-    author: 'Emily Selman',
-    avatarSrc:
-      'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80',
-  },
-  {
-    id: 2,
-    rating: 5,
-    content: `
-      <p>Blown away by how polished this icon pack is. Everything looks so consistent and each SVG is optimized out of the box so I can use it directly with confidence. It would take me several hours to create a single icon this good, so it's a steal at this price.</p>
-    `,
-    date: 'July 12, 2021',
-    datetime: '2021-07-12',
-    author: 'Hector Gibbons',
-    avatarSrc:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80',
-  },
-  // More reviews...
-];
-
-const relatedProducts = [
-  {
-    id: 1,
-    name: 'Basic Tee',
-    href: '#',
-    imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-02.jpg',
-    imageAlt: "Front of men's Basic Tee in white.",
-    price: '$35',
-    color: 'Aspen White',
-  },
-  // More products...
-];
+import ProductListItem from '../../modules/products/components/ProductListItem';
+import { bgColor } from '../../modules/common/data/miscellaneous';
+import useUpdateCartItem from '../../modules/cart/hooks/useUpdateCartItem';
 
 const Detail = () => {
   const router = useRouter();
@@ -131,15 +32,20 @@ const Detail = () => {
     slug: router.query.slug,
   });
 
+  const { handleSubmit, register } = useForm();
   const { productReviews, loading: reviewLoading } = useProductReviews({
     productId: product?._id,
   });
 
-  console.log(productReviews);
+  const { updateCartItem } = useUpdateCartItem();
 
-  const [open, setOpen] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(productt.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(productt.sizes[2]);
+  const [selectedColor, setSelectedColor] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState(0);
+
+  const onSubmit = (data) => {
+    updateCartItem({ itemId: product?._id, quantity: data.quantity });
+  };
 
   const productPath = getAssortmentPath(paths);
   useEffect(() => {
@@ -267,111 +173,128 @@ const Detail = () => {
                 </div>
               </div>
 
+              {/* Variations */}
               <div className="mt-8 lg:col-span-5">
-                <form>
-                  {/* Color picker */}
-                  <div>
-                    <h2 className="text-sm font-medium text-slate-900">
-                      Color
-                    </h2>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  {product?.variations && (
+                    <>
+                      {/* Color picker */}
+                      <div>
+                        <h2 className="text-sm font-medium text-slate-900">
+                          {formatMessage({
+                            id: 'color',
+                            defaultMessage: 'Color',
+                          })}
+                        </h2>
 
-                    <RadioGroup
-                      value={selectedColor}
-                      onChange={setSelectedColor}
-                      className="mt-2"
-                    >
-                      <RadioGroup.Label className="sr-only">
-                        Choose a color
-                      </RadioGroup.Label>
-                      <div className="flex items-center space-x-3">
-                        {productt.colors.map((color) => (
-                          <RadioGroup.Option
-                            key={color.name}
-                            value={color}
-                            className={({ active, checked }) =>
-                              classNames(
-                                'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none',
-                                {
-                                  'ring ring-offset-1': active && checked,
-                                  'ring-2': !active && checked,
-                                },
-                                color.selectedColor,
-                              )
-                            }
-                          >
-                            <RadioGroup.Label as="p" className="sr-only">
-                              {color.name}
-                            </RadioGroup.Label>
-                            <span
-                              aria-hidden="true"
-                              className={classNames(
-                                color.bgColor,
-                                'h-8 w-8 rounded-full border border-black border-opacity-10',
-                              )}
-                            />
-                          </RadioGroup.Option>
-                        ))}
+                        <fieldset className="mt-2">
+                          <legend className="sr-only">
+                            {formatMessage({
+                              id: 'choose_color',
+                              defaultMessage: 'Choose a color',
+                            })}
+                          </legend>
+                          <div className="flex items-center gap-8">
+                            {product?.variations[0]?.options?.map(
+                              (option, index) => (
+                                <label
+                                  key={option?._id}
+                                  className="relative block p-1 pl-5"
+                                >
+                                  <input
+                                    type="radio"
+                                    required
+                                    name={product?.variations[0]?.key}
+                                    ref={register}
+                                    value={option?.value}
+                                    onChange={() => setSelectedColor(index)}
+                                    className="hidden"
+                                  />
+                                  <span
+                                    className={classNames(
+                                      bgColor(option?.value, 500),
+                                      'absolute left-0 top-0 -mt-1 flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-slate-200 text-base font-medium uppercase leading-none text-slate-900 ring-indigo-500 ring-offset-2 active:ring-indigo-500 active:ring-offset-2',
+                                      {
+                                        'border-transparent ring-indigo-500 ring-offset-2':
+                                          selectedColor === index,
+                                      },
+                                    )}
+                                  />
+                                </label>
+                              ),
+                            )}
+                          </div>
+                        </fieldset>
                       </div>
-                    </RadioGroup>
-                  </div>
 
-                  {/* Size picker */}
-                  <div className="mt-8">
-                    <div className="flex items-center justify-between">
-                      <h2 className="text-sm font-medium text-slate-900">
-                        Size
-                      </h2>
-                      <a
-                        href="#"
-                        className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        See sizing chart
-                      </a>
-                    </div>
-
-                    <RadioGroup
-                      value={selectedSize}
-                      onChange={setSelectedSize}
-                      className="mt-2"
-                    >
-                      <RadioGroup.Label className="sr-only">
-                        Choose a size
-                      </RadioGroup.Label>
-                      <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
-                        {productt.sizes.map((size) => (
-                          <RadioGroup.Option
-                            key={size.name}
-                            value={size}
-                            className={({ active, checked }) =>
-                              classNames(
-                                'flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1',
-                                {
-                                  'ring-2 ring-indigo-500 ring-offset-2':
-                                    active,
-                                  'cursor-pointer focus:outline-none':
-                                    size.inStock,
-                                  'cursor-not-allowed opacity-25':
-                                    !size.inStock,
-                                  'border-transparent bg-indigo-600 text-white hover:bg-indigo-700':
-                                    checked,
-                                  'border-slate-200 bg-white text-slate-900 hover:bg-slate-50':
-                                    !checked,
-                                },
-                              )
-                            }
-                            disabled={!size.inStock}
+                      {/* Size picker */}
+                      <div className="mt-16">
+                        <div className="flex items-center justify-between">
+                          <h2 className="text-sm font-medium text-slate-900">
+                            {formatMessage({
+                              id: 'size',
+                              defaultMessage: 'Size',
+                            })}
+                          </h2>
+                          <a
+                            href="#"
+                            className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
                           >
-                            <RadioGroup.Label as="p">
-                              {size.name}
-                            </RadioGroup.Label>
-                          </RadioGroup.Option>
-                        ))}
+                            {formatMessage({
+                              id: 'sizing_chart',
+                              defaultMessage: 'See sizing chart',
+                            })}
+                          </a>
+                        </div>
+
+                        <fieldset
+                          name={product?.variations[1]?.key}
+                          className="mt-2"
+                        >
+                          <legend className="sr-only">
+                            {formatMessage({
+                              id: 'choose_size',
+                              defaultMessage: 'Choose a size',
+                            })}
+                          </legend>
+                          <div className="flex w-full gap-4">
+                            {product?.variations[1]?.options?.map(
+                              (option, index) => (
+                                <label
+                                  key={option?._id}
+                                  className="relative block flex-auto p-1 pl-5"
+                                >
+                                  <input
+                                    type="radio"
+                                    value={option?.value}
+                                    required
+                                    ref={register}
+                                    name={product?.variations[1]?.key}
+                                    className="hidden"
+                                    onChange={() => setSelectedSize(index)}
+                                  />
+                                  <span
+                                    className={classNames(
+                                      'absolute left-0 top-0 -mt-1 flex h-12 w-full items-center justify-center overflow-hidden rounded-md border border-slate-200 text-base font-medium uppercase leading-none text-slate-900 active:ring-indigo-500 active:ring-offset-2',
+                                      {
+                                        'border-transparent bg-indigo-600 text-white ring-indigo-500 ring-offset-2':
+                                          selectedSize === index,
+                                      },
+                                    )}
+                                  >
+                                    {option?.value}
+                                  </span>
+                                </label>
+                              ),
+                            )}
+                          </div>
+                        </fieldset>
                       </div>
-                    </RadioGroup>
-                  </div>
+                    </>
+                  )}
 
                   {/* Quantity */}
-                  <div className="mt-8">
+                  <div className="mt-16">
                     <div className="flex items-center justify-between">
                       <h2 className="text-sm font-medium text-slate-900">
                         {formatMessage({
@@ -385,6 +308,7 @@ const Detail = () => {
                       <button
                         type="button"
                         className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                        onClick={() => setQuantity(quantity - 1)}
                       >
                         <span className="sr-only">
                           {formatMessage({
@@ -404,6 +328,12 @@ const Detail = () => {
                         <input
                           type="number"
                           name="quantity"
+                          ref={register}
+                          required
+                          value={quantity}
+                          onChange={(e) =>
+                            setQuantity(parseInt(e.target.value, 10))
+                          }
                           id="quantity"
                           className="block w-20 rounded-md border-gray-300 text-center shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           placeholder="0"
@@ -412,6 +342,7 @@ const Detail = () => {
                       <button
                         type="button"
                         className="relative -ml-px inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                        onClick={() => setQuantity(quantity + 1)}
                       >
                         <span className="sr-only">
                           {formatMessage({
@@ -451,8 +382,6 @@ const Detail = () => {
                   />
                 </div>
               </div>
-
-              {/* <AddToCartButton productId={product?._id} /> */}
             </div>
 
             {/* Reviews */}
@@ -465,51 +394,34 @@ const Detail = () => {
               />
             )}
 
-            {/* Related products */}
-            <section
-              aria-labelledby="related-heading"
-              className="mt-16 sm:mt-24 lg:col-span-12"
-            >
-              <h2
-                id="related-heading"
-                className="text-lg font-medium text-slate-900"
+            {/* Bundle products */}
+            {product?.bundleItems && (
+              <section
+                aria-labelledby="related-heading"
+                className="mt-16 sm:mt-24 lg:col-span-12"
               >
-                Customers also purchased
-              </h2>
+                <h2
+                  id="related-heading"
+                  className="text-lg font-medium text-slate-900"
+                >
+                  {formatMessage({
+                    id: 'customers_also_purchased',
+                    defaultMessage: 'Customers also purchased',
+                  })}
+                </h2>
 
-              <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                {relatedProducts.map((relatedProduct) => (
-                  <div key={relatedProduct.id} className="group relative">
-                    <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md group-hover:opacity-75 lg:aspect-none lg:h-80">
-                      <img
-                        src={relatedProduct.imageSrc}
-                        alt={relatedProduct.imageAlt}
-                        className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                      />
+                <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                  {product?.bundleItems?.map((bundleItem) => (
+                    <div
+                      key={bundleItem?.product._id}
+                      className="group relative"
+                    >
+                      <ProductListItem product={bundleItem?.product} />
                     </div>
-                    <div className="mt-4 flex justify-between">
-                      <div>
-                        <h3 className="text-sm text-slate-700">
-                          <a href={relatedProduct.href}>
-                            <span
-                              aria-hidden="true"
-                              className="absolute inset-0"
-                            />
-                            {relatedProduct.name}
-                          </a>
-                        </h3>
-                        <p className="mt-1 text-sm text-slate-500">
-                          {relatedProduct.color}
-                        </p>
-                      </div>
-                      <p className="text-sm font-medium text-slate-900">
-                        {relatedProduct.price}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
         </main>
       )}

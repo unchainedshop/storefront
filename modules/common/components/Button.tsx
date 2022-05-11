@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 
 const Button = ({
-  text,
+  text = '',
   disabled = false,
-  type = 'button',
+  type = '',
   className = '',
   onClick,
 }) => {
@@ -16,7 +16,7 @@ const Button = ({
         },
         className,
       )}
-      type={type}
+      type={type ? 'submit' : 'button'}
       onClick={onClick}
       disabled={disabled}
     >
