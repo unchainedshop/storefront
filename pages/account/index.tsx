@@ -42,8 +42,6 @@ const Account = () => {
     });
   };
 
-  console.log(subNavigation);
-
   return (
     <>
       <MetaTags
