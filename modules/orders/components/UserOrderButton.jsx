@@ -11,8 +11,8 @@ const OrderButton = () => {
 
   return (
     <Link href="/orders">
-      <a className="flex items-center">
-        <CollectionIcon className="mx-2 h-6 w-6" />
+      <a className="flex items-center gap-x-2">
+        <CollectionIcon className="h-6 w-6" />
         <span className="hidden md:block">
           {formatMessage({ id: 'my_orders', defaultMessage: 'My Orders' })}
         </span>

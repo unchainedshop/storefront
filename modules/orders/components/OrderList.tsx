@@ -1,6 +1,7 @@
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
+import SearchField from '../../common/components/SearchField';
 
 import renderPrice from '../../common/utils/renderPrice';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
@@ -20,16 +21,13 @@ const orderStatus = {
   FULLFILLED: {
     text: 'Delivered',
     icon: (
-      <CheckCircleIcon
-        className="mr-2 h-5 w-5 text-green-500"
-        aria-hidden="true"
-      />
+      <CheckCircleIcon className="h-5 w-5 text-green-500" aria-hidden="true" />
     ),
     date: 'fullfilled',
   },
 };
 
-const OrderList = ({ orders }) => {
+const OrderList = ({ orders, queryString, setQueryString }) => {
   const { formatMessage } = useIntl();
   const { formatDateTime } = useFormatDateTime();
 
@@ -52,7 +50,14 @@ const OrderList = ({ orders }) => {
           </p>
         </div>
 
-        <div className="mt-4 sm:mt-16">
+        <div className="my-4">
+          <SearchField
+            defaultValue={queryString}
+            onInputChange={setQueryString}
+          />
+        </div>
+
+        <div className="mt-4 sm:mt-8">
           <h2 className="sr-only">
             {formatMessage({
               id: 'recent_orders',
@@ -61,8 +66,8 @@ const OrderList = ({ orders }) => {
           </h2>
 
           <div className="rounded-lg bg-slate-50 py-6 px-4 dark:bg-slate-500 sm:flex sm:items-center sm:justify-between sm:space-x-6 sm:px-6 lg:space-x-8">
-            <dl className="w-full space-y-6 divide-y divide-slate-500 text-base text-slate-600 dark:text-slate-300 sm:grid sm:space-y-0 sm:divide-y-0 lg:flex-none">
-              <div className="hidden sm:block">
+            <dl className="w-full space-y-6 divide-y divide-slate-300 text-base text-slate-600 dark:text-slate-300 sm:grid sm:space-y-0 lg:flex-none">
+              <div className="hidden sm:block sm:pb-6">
                 <div className="flex-auto sm:grid sm:w-5/6 sm:grid-cols-6 sm:gap-x-6 lg:gap-x-8">
                   <div className="flex justify-between sm:block">
                     <dt className="font-medium text-slate-900 dark:text-slate-100">
@@ -161,30 +166,32 @@ const OrderList = ({ orders }) => {
                       </dt>
                       <dd className="sm:mt-1">{order?.payment?.status}</dd>
                     </div>
-                    <div className="flex items-center pt-6 sm:pt-0">
+                    <div className="flex items-center justify-between pt-6 sm:pt-0">
                       <dt className="font-medium text-slate-900 dark:text-slate-100 sm:hidden">
                         {formatMessage({
                           id: 'status',
                           defaultMessage: 'Status',
                         })}
                       </dt>
-                      {orderStatus[order?.status]?.icon &&
-                        orderStatus[order?.status].icon}
                       <dd className="uppercase sm:mt-1">
-                        {orderStatus[order?.status]?.text}
-                        {orderStatus[order?.status]?.date && (
-                          <>
-                            {formatMessage({
-                              id: 'on',
-                              defaultMessage: ' on ',
-                            })}
-                            <time dateTime={order.datetime}>
-                              {formatDateTime(
-                                order[orderStatus[order?.status].date],
-                              )}
-                            </time>
-                          </>
-                        )}
+                        <div className="flex items-center gap-x-2">
+                          {orderStatus[order?.status]?.icon &&
+                            orderStatus[order?.status].icon}
+                          {orderStatus[order?.status]?.text}
+                          {orderStatus[order?.status]?.date && (
+                            <>
+                              {formatMessage({
+                                id: 'on',
+                                defaultMessage: ' on ',
+                              })}
+                              <time dateTime={order.datetime}>
+                                {formatDateTime(
+                                  order[orderStatus[order?.status].date],
+                                )}
+                              </time>
+                            </>
+                          )}
+                        </div>
                       </dd>
                     </div>
                     <div className="flex justify-between pt-6 sm:block sm:pt-0">

@@ -18,10 +18,10 @@ const LoginCart = () => {
   const context = useContext(CartContext);
 
   return user ? (
-    <div className="flex items-center">
+    <div className="flex items-center gap-x-3">
       {user?.bookmarks && (
         <Link href="/bookmarks">
-          <a className="flex items-center gap-4">
+          <a className="flex items-center gap-x-3">
             <BookmarkIcon className="h-6 w-6" />
             {user?.bookmarks?.length ? (
               <span>{user?.bookmarks?.length}</span>
@@ -29,7 +29,7 @@ const LoginCart = () => {
               ''
             )}
 
-            <span>
+            <span className="hidden md:block">
               {formatMessage({
                 id: 'bookmarks',
                 defaultMessage: 'Bookmarks',
@@ -39,13 +39,13 @@ const LoginCart = () => {
         </Link>
       )}
       <a
-        className="flex items-center md:ml-4"
+        className="flex items-center gap-x-3"
         onClick={() => context.toggleCart(!context.isCartOpen)}
       >
-        <ShoppingCartIcon className="mr-2 inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
+        <ShoppingCartIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
 
         {user?.cart?.items?.length ? (
-          <span className="cart-counter mr-2 inline-block h-7 w-7 rounded-[50%] text-center font-bold leading-relaxed text-slate-900 dark:text-slate-300">
+          <span className="inline-block rounded-[50%] text-center font-bold leading-relaxed text-slate-900 dark:text-slate-300">
             {user?.cart?.items.reduce((acc, item) => acc + item.quantity, 0)}
           </span>
         ) : (
@@ -75,16 +75,16 @@ const LoginCart = () => {
       {!user.isGuest ? (
         <>
           <Link href="/account">
-            <a className="ml-2 flex items-center md:ml-4">
-              <UserCircleIcon className="mr-2 inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
+            <a className="flex items-center gap-x-3">
+              <UserCircleIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
               <span className="hidden md:block">
                 {formatMessage({ id: 'account', defaultMessage: 'Account' })}
               </span>
             </a>
           </Link>
           <Link href="/logout">
-            <a className="ml-2 flex items-center md:ml-4">
-              <LogoutIcon className="mr-2 inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
+            <a className="flex items-center gap-x-3">
+              <LogoutIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
               <span className="hidden md:block">
                 {formatMessage({ id: 'log_out', defaultMessage: 'Log Out' })}
               </span>
@@ -96,16 +96,12 @@ const LoginCart = () => {
       )}
     </div>
   ) : (
-    <div>
+    <div className="flex items-center gap-x-3">
       <Link href="/sign-up">
-        <a className="my-1 mr-3">
-          {formatMessage({ id: 'sign_up', defaultMessage: 'Sign Up' })}
-        </a>
+        <a>{formatMessage({ id: 'sign_up', defaultMessage: 'Sign Up' })}</a>
       </Link>
       <Link href="/login">
-        <a className="my-1">
-          {formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
-        </a>
+        <a>{formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}</a>
       </Link>
     </div>
   );
