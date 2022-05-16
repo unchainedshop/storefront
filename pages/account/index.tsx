@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 import {
@@ -5,6 +6,8 @@ import {
   KeyIcon,
   UserCircleIcon,
 } from '@heroicons/react/solid';
+import classNames from 'classnames';
+import { useState } from 'react';
 import useUser from '../../modules/auth/hooks/useUser';
 import MetaTags from '../../modules/common/components/MetaTags';
 import Footer from '../../modules/layout/components/Footer';
@@ -12,35 +15,28 @@ import Header from '../../modules/layout/components/Header';
 import useRedirect from '../../modules/auth/hooks/useRedirect';
 import Address from '../../modules/common/components/Address';
 import General from '../../modules/common/components/General';
+import LoadingItem from '../../modules/common/components/LoadingItem';
 
 const subNavigation = [
-  { name: 'General', href: '#general', icon: UserCircleIcon, current: true },
+  { name: 'General', href: '#general', icon: UserCircleIcon },
   {
     name: 'Address',
     href: '#address',
     icon: IdentificationIcon,
-    current: false,
   },
-  { name: 'Password', href: '#password', icon: KeyIcon, current: false },
+  { name: 'Password', href: '#password', icon: KeyIcon },
 ];
 
 const Account = () => {
-  const { user } = useUser();
+  const { user, loading } = useUser();
   const { formatMessage } = useIntl();
-
+  const showDebugInfo = true;
+  const [currentTab, seCurrentTab] = useState(0);
   useRedirect({ to: '/login', matchAnonymous: true, matchGuests: true });
 
-  const showDebugInfo = true;
-
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ');
+  if (loading) {
+    return <LoadingItem />;
   }
-
-  const handleOnClick = (name) => {
-    subNavigation.forEach((item) => {
-      item.current = item.name === name;
-    });
-  };
 
   return (
     <>
@@ -54,27 +50,28 @@ const Account = () => {
 
       <main className="max-w-full bg-slate-100 pb-10 dark:bg-slate-600 lg:py-12 lg:px-8">
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
-          <aside className="py-6 px-2 sm:px-6 lg:col-span-3 lg:py-0 lg:px-0">
+          <aside className="fixed py-6 px-2 sm:px-6 lg:col-span-3 lg:py-0 lg:px-0">
             <nav className="space-y-1">
-              {subNavigation.map((item) => (
+              {subNavigation.map((item, index) => (
                 <a
-                  onClick={() => handleOnClick(item.name)}
+                  onClick={() => seCurrentTab(index)}
                   key={item.name}
                   href={item.href}
                   className={classNames(
-                    item.current
-                      ? 'bg-slate-50 text-orange-600 hover:bg-white hover:text-slate-900'
-                      : 'text-slate-900 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-200',
-                    'group flex items-center rounded-md px-3 py-2 text-sm font-medium',
+                    'group flex items-center rounded-md px-3 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-orange-400 dark:text-slate-200',
+                    {
+                      'bg-slate-50 text-orange-600 hover:bg-white':
+                        index === currentTab,
+                    },
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={index === currentTab ? 'page' : undefined}
                 >
                   <item.icon
                     className={classNames(
-                      item.current
-                        ? 'text-orange-500'
-                        : 'text-slate-400 group-hover:text-slate-500',
-                      '-ml-1 mr-3 h-6 w-6 flex-shrink-0',
+                      '-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-slate-400 group-hover:text-orange-400',
+                      {
+                        'text-orange-500': index === currentTab,
+                      },
                     )}
                     aria-hidden="true"
                   />

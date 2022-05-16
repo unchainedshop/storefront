@@ -16,13 +16,15 @@ const CategoriesList = ({
     Object.entries(assortment).map(([, assort]) => assort) || [];
   return (
     <div className="mb-5">
-      <div className="bold mb-3">{tree?.navigationTitle}</div>
+      <div className="bold mb-3 dark:text-slate-100">
+        {tree?.navigationTitle}
+      </div>
 
       {tree?.children &&
         Object.entries(tree?.children).map(([, { texts, _id }]) => (
           <div key={_id} className="mb-2 ml-2">
             <Link href={`${currentPath}/${texts.slug}`}>
-              <a className="mr-2">{texts?.title}</a>
+              <a className="mr-2 dark:text-slate-300">{texts?.title}</a>
             </Link>
           </div>
         ))}

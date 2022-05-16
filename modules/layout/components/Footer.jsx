@@ -25,8 +25,10 @@ const footerNavigation = {
     { name: 'Sustainability', href: '#' },
     { name: 'Press', href: '#' },
     { name: 'Careers', href: '#' },
-    { name: 'Terms & Conditions', href: '#' },
-    { name: 'Privacy', href: '#' },
+    { name: 'About', href: '/about' },
+    { name: 'Imprint', href: '/imprint' },
+    { name: 'Terms & Conditions', href: '/terms-conditions' },
+    { name: 'Privacy', href: '/privacy-policy' },
   ],
   legal: [
     { name: 'Terms of Service', href: '#' },
@@ -107,27 +109,6 @@ const footerNavigation = {
 const Footer = () => {
   const { formatMessage } = useIntl();
   return (
-    // <footer className="footer d-flex flex-wrap justify-content-between container my-5 border-top pt-5">
-    //   <div className="d-flex flex-wrap">
-    //     <Link href="/terms-conditions">
-    //       <a className="mr-4 mb-3">
-    //         {intl.formatMessage({ id: 'conditions' })}
-    //       </a>
-    //     </Link>
-    //     <Link href="/privacy-policy">
-    //       <a className="mr-4 mb-3">{intl.formatMessage({ id: 'privacy' })}</a>
-    //     </Link>
-    //     <Link href="/imprint">
-    //       <a className="mr-4 mb-3">{intl.formatMessage({ id: 'imprint' })}</a>
-    //     </Link>
-    //     <Link href="/about">
-    //       <a className="mr-4 mb-3">{intl.formatMessage({ id: 'about' })}</a>
-    //     </Link>
-    //   </div>
-    //   <div className="d-flex justify-content-around mb-3">
-    //     <LanguageSwitch />
-    //   </div>
-    // </footer>
     <footer
       aria-labelledby="footer-heading"
       className="bg-white dark:bg-slate-600"
@@ -136,10 +117,10 @@ const Footer = () => {
         {formatMessage({ id: 'footer', defaultMessage: 'Footer' })}
       </h2>
 
-      <div className="mx-auto max-w-full px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-full">
         <div className="pt-16">
-          <div className="border-t border-gray-200">
-            <div className="mx-auto mt-8 flex max-w-6xl space-x-6">
+          <div className="mx-16 border-t border-gray-200">
+            <div className="mt-8 flex max-w-full space-x-6">
               {footerNavigation.social.map((item) => (
                 <a
                   key={item.name}
@@ -151,7 +132,7 @@ const Footer = () => {
                 </a>
               ))}
             </div>
-            <div className="mx-auto mt-8 max-w-6xl xl:grid xl:grid-cols-2 xl:gap-8">
+            <div className="mt-8 max-w-full xl:grid xl:grid-cols-2 xl:gap-8">
               <div className="grid grid-cols-2 gap-8 xl:col-span-2">
                 <div className="space-y-12 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
                   <div>
@@ -236,7 +217,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="py-10 md:flex md:items-center md:justify-between">
+        <div className="py-10 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
           <div className="text-center md:text-left">
             <p className="text-base text-slate-400 dark:text-slate-200">
               <span>&copy;</span>

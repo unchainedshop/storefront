@@ -76,7 +76,7 @@ const ProductReview = ({ reviews, productId }) => {
           <div className="mx-8 mt-4">
             <label
               htmlFor="title"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-slate-700 dark:text-slate-300"
             >
               {formatMessage({ id: 'title', defaultMessage: 'Title' })}
             </label>
@@ -86,7 +86,7 @@ const ProductReview = ({ reviews, productId }) => {
                 name="title"
                 id="title"
                 ref={register}
-                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="block w-full rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-500 dark:text-slate-100 sm:text-sm"
                 placeholder={formatMessage({
                   id: 'placeholder_title',
                   defaultMessage: 'Title',
@@ -98,7 +98,7 @@ const ProductReview = ({ reviews, productId }) => {
           <div className="mx-8 mt-4">
             <label
               htmlFor="review"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-slate-700 dark:text-slate-300"
             >
               {formatMessage({
                 id: 'add_review',
@@ -110,7 +110,7 @@ const ProductReview = ({ reviews, productId }) => {
                 rows={4}
                 name="review"
                 id="review"
-                className="block w-full resize-none rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="block w-full resize-none rounded-md border-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-500 dark:text-slate-100 dark:placeholder:text-slate-100 sm:text-sm"
                 defaultValue=""
                 ref={register}
                 placeholder={formatMessage({
@@ -123,7 +123,7 @@ const ProductReview = ({ reviews, productId }) => {
           </div>
           <button
             type="submit"
-            className="mx-8 mt-6 inline-flex items-center justify-center rounded-md border border-gray-300 bg-white py-2 px-8 text-sm font-medium text-gray-900 hover:bg-gray-50"
+            className="mx-8 mt-6 inline-flex items-center justify-center rounded-md border border-slate-300 bg-white py-2 px-8 text-sm font-medium text-slate-900 hover:bg-slate-50 dark:bg-slate-700 dark:text-slate-100"
           >
             {formatMessage({
               id: 'write_review',
@@ -135,19 +135,19 @@ const ProductReview = ({ reviews, productId }) => {
           {reviews.map((review, reviewIdx) => (
             <div
               key={review._id}
-              className="flex space-x-4 text-sm text-gray-500"
+              className="flex space-x-4 text-sm text-slate-500"
             >
               <div className="flex-none py-10">
                 {review?.author?.avatar?.url ? (
                   <img
                     src={review.author.avatar.url}
                     alt=""
-                    className="h-10 w-10 rounded-full bg-gray-100"
+                    className="h-10 w-10 rounded-full bg-slate-100"
                   />
                 ) : (
-                  <span className="inline-block h-10 w-10 overflow-hidden rounded-full bg-gray-100">
+                  <span className="inline-block h-10 w-10 overflow-hidden rounded-full bg-slate-100">
                     <svg
-                      className="h-full w-full text-gray-300"
+                      className="h-full w-full text-slate-300"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -158,10 +158,10 @@ const ProductReview = ({ reviews, productId }) => {
               </div>
               <div
                 className={classNames('flex-1 py-10', {
-                  'border-t border-gray-200': !(reviewIdx === 0),
+                  'border-t border-slate-200': !(reviewIdx === 0),
                 })}
               >
-                <h3 className="font-medium text-gray-900">
+                <h3 className="font-medium text-slate-900">
                   {review.author.name}
                 </h3>
                 <p>
@@ -174,7 +174,7 @@ const ProductReview = ({ reviews, productId }) => {
                   </time>
                 </p>
 
-                <div className="mt-4 flex items-center text-gray-300">
+                <div className="mt-4 flex items-center text-slate-300">
                   {[0, 1, 2, 3, 4].map((star) => (
                     <>
                       <StarIcon
@@ -196,7 +196,7 @@ const ProductReview = ({ reviews, productId }) => {
                 </p>
 
                 <div
-                  className="prose prose-sm mt-4 max-w-none text-gray-500"
+                  className="prose prose-sm mt-4 max-w-none text-slate-500"
                   // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{ __html: review.review }}
                 />

@@ -74,7 +74,7 @@ const SideCart = ({ isOpen }) => {
                 <button
                   aria-label={intl.formatMessage({ id: 'close' })}
                   type="button"
-                  className="absolute cursor-pointer appearance-none bg-inherit p-2 text-left text-inherit"
+                  className="absolute cursor-pointer appearance-none p-2 text-left text-inherit opacity-100"
                   onClick={() => context.toggleCart()}
                 >
                   <XIcon className="h-5 w-5" />
@@ -84,7 +84,7 @@ const SideCart = ({ isOpen }) => {
                 {intl.formatMessage({ id: 'in_cart' })}
               </h3>
             </div>
-            <div className="cart-item-container px-2">
+            <div className="px-2">
               {user?.cart?.items.length === 0 ? (
                 <p>
                   {intl.formatMessage({ id: 'no_product_in_cart' })}{' '}

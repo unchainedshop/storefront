@@ -23,6 +23,7 @@ import useProductReviews from '../../modules/products/hooks/useProductReviews';
 import ProductListItem from '../../modules/products/components/ProductListItem';
 import { bgColor } from '../../modules/common/data/miscellaneous';
 import useUpdateCartItem from '../../modules/cart/hooks/useUpdateCartItem';
+import useUser from '../../modules/auth/hooks/useUser';
 
 const Detail = () => {
   const router = useRouter();
@@ -31,6 +32,7 @@ const Detail = () => {
   const { product, paths, loading } = useProductDetail({
     slug: router.query.slug,
   });
+  const { user } = useUser();
 
   const { handleSubmit, register } = useForm();
   const { productReviews, loading: reviewLoading } = useProductReviews({
@@ -106,16 +108,16 @@ const Detail = () => {
             <div className="lg:col-span-5 lg:col-start-8">
               <div className="flex justify-between">
                 <h1
-                  className="text-xl font-medium text-slate-900"
+                  className="text-xl font-medium text-slate-900 dark:text-slate-100"
                   dangerouslySetInnerHTML={{ __html: product?.texts?.title }}
                 />
-                <p className="text-xl font-medium text-slate-900">
+                <p className="text-xl font-medium text-slate-900 dark:text-slate-100">
                   {renderPrice(product?.simulatedPrice)}
                 </p>
               </div>
               <div>
                 <h4
-                  className="text-base font-normal text-slate-500"
+                  className="text-base font-normal text-slate-500 dark:text-slate-300"
                   dangerouslySetInnerHTML={{
                     __html: product?.texts?.subtitle,
                   }}
@@ -131,8 +133,8 @@ const Detail = () => {
                   })}
                 </h2>
                 <div className="flex items-center">
-                  <p className="text-sm text-slate-700">
-                    {averageVote}
+                  <p className="text-sm text-slate-700 dark:text-slate-100">
+                    {averageVote || ''}
                     <span className="sr-only">
                       {formatMessage({
                         id: 'reviews',
@@ -153,12 +155,7 @@ const Detail = () => {
                       />
                     ))}
                   </div>
-                  <div
-                    aria-hidden="true"
-                    className="ml-4 text-sm text-slate-300"
-                  >
-                    ·
-                  </div>
+
                   <div className="ml-4 flex">
                     <a
                       href="#"
@@ -180,7 +177,7 @@ const Detail = () => {
                     <>
                       {/* Color picker */}
                       <div>
-                        <h2 className="text-sm font-medium text-slate-900">
+                        <h2 className="text-sm font-medium text-slate-900 dark:text-slate-100">
                           {formatMessage({
                             id: 'color',
                             defaultMessage: 'Color',
@@ -230,7 +227,7 @@ const Detail = () => {
                       {/* Size picker */}
                       <div className="mt-16">
                         <div className="flex items-center justify-between">
-                          <h2 className="text-sm font-medium text-slate-900">
+                          <h2 className="text-sm font-medium text-slate-900 dark:text-slate-100">
                             {formatMessage({
                               id: 'size',
                               defaultMessage: 'Size',
@@ -296,7 +293,7 @@ const Detail = () => {
                   {/* Quantity */}
                   <div className="mt-16">
                     <div className="flex items-center justify-between">
-                      <h2 className="text-sm font-medium text-slate-900">
+                      <h2 className="text-sm font-medium text-slate-900 dark:text-slate-100">
                         {formatMessage({
                           id: 'quantity',
                           defaultMessage: 'Quantity',
@@ -307,7 +304,7 @@ const Detail = () => {
                     <span className="relative z-0 mt-2 inline-flex gap-2 rounded-md shadow-sm">
                       <button
                         type="button"
-                        className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                        className="relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:bg-slate-500"
                         onClick={() => setQuantity(quantity - 1)}
                       >
                         <span className="sr-only">
@@ -316,7 +313,10 @@ const Detail = () => {
                             defaultMessage: 'Minus',
                           })}
                         </span>
-                        <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
+                        <MinusSmIcon
+                          className="h-5 w-5 dark:text-slate-100"
+                          aria-hidden="true"
+                        />
                       </button>
                       <div>
                         <label htmlFor="quantity" className="sr-only">
@@ -335,13 +335,13 @@ const Detail = () => {
                             setQuantity(parseInt(e.target.value, 10))
                           }
                           id="quantity"
-                          className="block w-20 rounded-md border-gray-300 text-center shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                          className="block w-20 rounded-md border-gray-300 text-center shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-slate-500 dark:text-slate-100 sm:text-sm"
                           placeholder="0"
                         />
                       </div>
                       <button
                         type="button"
-                        className="relative -ml-px inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                        className="relative -ml-px inline-flex items-center rounded-r-md border border-gray-300 bg-white px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:bg-slate-500"
                         onClick={() => setQuantity(quantity + 1)}
                       >
                         <span className="sr-only">
@@ -350,7 +350,10 @@ const Detail = () => {
                             defaultMessage: 'Plus',
                           })}
                         </span>
-                        <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                        <PlusSmIcon
+                          className="h-5 w-5 dark:text-slate-100"
+                          aria-hidden="true"
+                        />
                       </button>
                     </span>
                   </div>
@@ -368,14 +371,14 @@ const Detail = () => {
 
                 {/* Product details */}
                 <div className="mt-10">
-                  <h2 className="text-sm font-medium text-slate-900">
+                  <h2 className="text-sm font-medium text-slate-900 dark:text-slate-100">
                     {formatMessage({
                       id: 'description',
                       defaultMessage: 'Description',
                     })}
                   </h2>
                   <div
-                    className="prose prose-sm mt-4 text-slate-500"
+                    className="prose prose-sm mt-4 text-slate-500 dark:text-slate-300"
                     dangerouslySetInnerHTML={{
                       __html: product?.texts?.description,
                     }}
@@ -385,14 +388,15 @@ const Detail = () => {
             </div>
 
             {/* Reviews */}
-            {reviewLoading ? (
-              <LoadingItem />
-            ) : (
-              <ProductReview
-                reviews={productReviews}
-                productId={product?._id}
-              />
-            )}
+            {user &&
+              (reviewLoading ? (
+                <LoadingItem />
+              ) : (
+                <ProductReview
+                  reviews={productReviews}
+                  productId={product?._id}
+                />
+              ))}
 
             {/* Bundle products */}
             {product?.bundleItems && (
@@ -402,7 +406,7 @@ const Detail = () => {
               >
                 <h2
                   id="related-heading"
-                  className="text-lg font-medium text-slate-900"
+                  className="text-lg font-medium text-slate-900 dark:text-slate-100"
                 >
                   {formatMessage({
                     id: 'customers_also_purchased',

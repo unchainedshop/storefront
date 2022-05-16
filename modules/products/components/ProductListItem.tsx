@@ -125,7 +125,7 @@ const ProductListItem = ({ product }) => {
             ))}
           </div>
           <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-            {product?.reviews.length}{' '}
+            {product?.reviews?.length}{' '}
             {formatMessage({ id: 'reviews', defaultMessage: 'reviews' })}
           </p>
         </div>

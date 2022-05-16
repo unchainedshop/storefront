@@ -42,6 +42,9 @@ module.exports = {
         '2/3': '66.666667%%',
         '3/4': '75%',
       },
+      content: {
+        star: 'url("/public/static/img/icon-streamline/star.svg")',
+      },
     },
   },
   corePlugins: {

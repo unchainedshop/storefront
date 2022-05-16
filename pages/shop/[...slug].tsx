@@ -83,7 +83,7 @@ const CategoryDetail = () => {
           </div>
           <div className="relative w-full px-4 md:max-w-2/3 md:flex-6 lg:max-w-3/4 lg:flex-7">
             <div>
-              <h1 className="mt-0">{texts?.title}</h1>
+              <h1 className="mt-0 dark:text-slate-100">{texts?.title}</h1>
               <h2>{texts?.subtitle}</h2>
               {getMediaUrl({ media }) && (
                 <Image

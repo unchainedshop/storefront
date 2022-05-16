@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 
 const Button = ({
+  icon,
   text = '',
   disabled = false,
-  type = '',
+  type,
   className = '',
   onClick,
 }) => {
@@ -20,6 +21,7 @@ const Button = ({
       onClick={onClick}
       disabled={disabled}
     >
+      {icon && icon}
       {text}
     </button>
   );

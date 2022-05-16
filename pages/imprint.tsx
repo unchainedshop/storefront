@@ -6,10 +6,10 @@ import Footer from '../modules/layout/components/Footer';
 import Header from '../modules/layout/components/Header';
 
 const Imprint = () => {
-  const [currentUrl, setcurrentUrl] = useState('');
+  const [currentUrl, setCurrentUrl] = useState('');
   const intl = useIntl();
   useEffect(() => {
-    setcurrentUrl(window.location.href);
+    setCurrentUrl(window.location.href);
   }, []);
 
   return (

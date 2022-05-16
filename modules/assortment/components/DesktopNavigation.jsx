@@ -52,7 +52,7 @@ const DesktopNavigation = () => {
       }}
     >
       <nav
-        className="nav sm:flex"
+        className="hidden sm:flex"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >

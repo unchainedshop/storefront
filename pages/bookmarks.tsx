@@ -51,11 +51,11 @@ const bookmarks = () => {
                     })}
                   </h2>
 
-                  <div className="-mx-px grid border-l border-gray-200 sm:mx-0 sm:grid-cols-3 lg:grid-cols-4">
+                  <div className="-mx-px grid rounded-lg border-l border-gray-200 sm:mx-0 sm:grid-cols-3 lg:grid-cols-4">
                     {user?.bookmarks?.map((bookmark) => (
                       <div
                         key={bookmark?._id}
-                        className="group relative border-y border-r border-gray-200 p-4 sm:p-6"
+                        className="group relative rounded-lg border-y border-r border-gray-200 p-4 sm:p-6"
                       >
                         <div className="relative">
                           <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-slate-200 group-hover:opacity-75 dark:bg-slate-500">

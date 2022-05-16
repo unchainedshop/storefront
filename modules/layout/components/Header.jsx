@@ -70,13 +70,13 @@ const Header = () => {
             href={theme.assets['icon-16x16']}
           />
         </Head>
-        <div className="container hidden sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
+        <div className="container mx-auto hidden w-full sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
           <div className="flex items-center justify-start">
             <DesktopNavigation />
             <Link href="/">
               <a>
                 <img
-                  className="ml-4 self-center"
+                  className="ml-4 self-center rounded"
                   width="140px"
                   src={theme.assets.logo}
                   alt="Shop logo"

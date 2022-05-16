@@ -14,11 +14,11 @@ const ProductList = ({ products, totalProducts, onLoadMore }) => {
           {formatMessage({ id: 'products', defaultMessage: 'Products' })}
         </h2>
 
-        <div className="-mx-px grid grid-cols-2 border-l border-gray-200 sm:mx-0 md:grid-cols-3 lg:grid-cols-4">
+        <div className="-mx-px grid rounded-lg border-l border-slate-200 dark:border-slate-500 sm:mx-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products.map((product) => (
             <div
               key={product?._id}
-              className="group relative border-y border-r border-gray-200 p-4 sm:p-6"
+              className="group relative rounded-lg border-y border-r border-b border-slate-200 p-4 dark:border-slate-500 sm:p-6"
             >
               <ProductListItem product={product} />
             </div>
@@ -27,15 +27,11 @@ const ProductList = ({ products, totalProducts, onLoadMore }) => {
         {totalProducts > products?.length && (
           <div className="items-center py-6 text-center">
             <Button
-              text={
-                <>
-                  <ChevronDoubleDownIcon className="mr-2 h-6 w-6" />
-                  {formatMessage({
-                    id: 'load_more',
-                    defaultMessage: 'Load More',
-                  })}
-                </>
-              }
+              icon={<ChevronDoubleDownIcon className="mr-2 h-6 w-6" />}
+              text={formatMessage({
+                id: 'load_more',
+                defaultMessage: 'Load More',
+              })}
               aria-label={formatMessage({
                 id: 'load_more',
                 defaultMessage: 'Load More',

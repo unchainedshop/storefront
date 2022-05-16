@@ -27,6 +27,7 @@ const useAssortments = ({ includeLeaves = false } = {}) => {
       includeLeaves,
       forceLocale: intl.locale,
     },
+    errorPolicy: 'ignore',
   });
 
   return {

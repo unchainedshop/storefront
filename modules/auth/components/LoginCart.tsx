@@ -39,7 +39,7 @@ const LoginCart = () => {
         </Link>
       )}
       <a
-        className="flex items-center gap-x-3"
+        className="flex cursor-pointer items-center gap-x-3"
         onClick={() => context.toggleCart(!context.isCartOpen)}
       >
         <ShoppingCartIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
