@@ -28,7 +28,7 @@ const Home = () => {
     <>
       <MetaTags title={formatMessage({ id: 'home' })} url={currentUrl} />
       <Header />
-      <main className="container relative mx-auto w-full bg-white dark:bg-slate-600 sm:px-0">
+      <main className="container relative mx-auto w-full bg-white px-4 dark:bg-slate-600 sm:px-0">
         <img
           className="mx-auto mb-4 block rounded-lg"
           src={theme.assets.hero}

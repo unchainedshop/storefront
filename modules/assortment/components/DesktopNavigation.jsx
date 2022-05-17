@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
@@ -43,6 +43,9 @@ const DesktopNavigation = () => {
     setTimeout(() => setTouching(false), 300);
   };
 
+  const ref = useRef(null);
+  const dataInHoverPath = ref?.current?.getAttribute('data-in-hover-path');
+
   return (
     <DesktopNavigationContext.Provider
       value={{
@@ -61,6 +64,7 @@ const DesktopNavigation = () => {
             <a
               className="nav--main__item relative flex items-center py-4"
               data-in-hover-path={hoverPath.includes(assortmentTree.slug)}
+              ref={ref}
               onMouseEnter={() => {
                 if (!isTouching) {
                   setHoverPath(assortmentTree.slug);
@@ -74,12 +78,15 @@ const DesktopNavigation = () => {
               }}
               onClick={handleClick(assortmentTree)}
             >
-              <MenuIcon className="mr-2 h-6 w-6 text-slate-900 dark:text-white" />
+              <MenuIcon className="mr-2 h-6 w-6 text-slate-900 dark:text-slate-100" />
               {formatMessage({ id: 'menu', defaultMessage: 'Menu' })}
             </a>
           </Link>
           {hoverPath.includes(assortmentTree.slug) && (
-            <MegaDropdown {...assortmentTree} />
+            <MegaDropdown
+              {...assortmentTree}
+              dataInHoverPath={dataInHoverPath}
+            />
           )}
         </div>
       </nav>

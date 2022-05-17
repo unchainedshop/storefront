@@ -13,11 +13,11 @@ const LanguageSwitch = () => {
 
   return (
     <div className="select-wrap language-select">
-      <label htmlFor="language-switcher" className="d-none">
+      <label htmlFor="language-switcher" className="hidden">
         {intl.formatMessage({ id: 'choose_language' })}
       </label>
       <select
-        className="link-hover"
+        className="hover:cursor-pointer"
         value={currentLang}
         onChange={(e) => changeLanguage(e.target.value)}
         id="language-switcher"

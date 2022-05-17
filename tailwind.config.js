@@ -45,6 +45,10 @@ module.exports = {
       content: {
         star: 'url("/public/static/img/icon-streamline/star.svg")',
       },
+      spacing: {
+        sp: 'calc(1em - 5px)',
+        'sp-1': 'calc(100% + 3em)',
+      },
     },
   },
   corePlugins: {

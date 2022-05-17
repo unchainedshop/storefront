@@ -41,8 +41,10 @@ const ThemeToggle = () => {
     }
   };
 
+  console.log(isDark);
+
   return (
-    <div className="mr-2 flex items-center">
+    <div className="flex items-center sm:mr-2">
       <button
         type="button"
         className="hover:cursor-pointer"
@@ -57,6 +59,7 @@ const ThemeToggle = () => {
             'h-8 w-8 text-black transition-all delay-1000 ease-out',
             {
               hidden: isDark,
+              block: !isDark,
             },
           )}
         />
@@ -65,6 +68,7 @@ const ThemeToggle = () => {
             'h-8 w-8 text-white transition-all delay-1000 ease-out',
             {
               hidden: !isDark,
+              block: isDark,
             },
           )}
         />

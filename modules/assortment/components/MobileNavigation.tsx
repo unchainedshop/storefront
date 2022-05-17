@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  HomeIcon,
+  XIcon,
+} from '@heroicons/react/solid';
 import useCategoriesTree from '../hooks/useCategoriesTree';
-import Icon from '../../common/components/Icon';
 import Thumbnail from '../../common/components/thumbnail';
 import changeLanguage from '../../common/utils/changeLanguage';
 
@@ -29,33 +34,34 @@ const Subtree = ({
   const level = path.length - 2;
 
   const levelClassMap = [
-    'h3 p-3',
-    'pl-3 h5 py-3',
-    'pl-4 h5 py-3',
-    'pl-5 h5 py-3',
+    'text-xl p-3',
+    'pl-3 text-base py-3',
+    'pl-4 text-base py-3',
+    'pl-5 text-base py-3',
   ];
   return Object.keys(children).length ? (
-    <div key={pageId} className="border-top">
+    <div key={pageId} className="border-t border-color-grey-lightest">
       <button
         aria-label="Expand"
         type="button"
-        className="no-button w-100 d-flex justify-content-between align-items-center text-uppercase"
+        className="flex w-full cursor-pointer appearance-none items-center justify-between border-0 bg-transparent p-0 text-left uppercase text-inherit"
         onClick={() => setShowSubtree(!showSubtree)}
       >
         <div className={levelClassMap[level]}>
           <Thumbnail media={media} />
           {navigationTitle}
         </div>
-        <Icon
-          icon={showSubtree ? 'arrow-button-up' : 'arrow-button-down'}
-          className="icon--xs mr-3"
-        />
+        {showSubtree ? (
+          <ArrowUpIcon className="justify-canter items-align mr-3 inline-flex h-4 w-5 select-none align-middle" />
+        ) : (
+          <ArrowDownIcon className="justify-canter items-align mr-3 inline-flex h-4 w-5 select-none align-middle" />
+        )}
       </button>
       {showSubtree ? (
         <div>
           <Link href={createPathFromArray(path)}>
             <a
-              className={`border-top d-block text-uppercase link ${
+              className={`link block border-t border-color-grey-lightest uppercase ${
                 levelClassMap[level + 1]
               }`}
             >
@@ -85,7 +91,7 @@ const Subtree = ({
   ) : (
     <Link href={createPathFromArray(path)}>
       <a
-        className={`border-top d-block text-uppercase ${levelClassMap[level]}`}
+        className={`block border-t border-color-grey-lightest uppercase ${levelClassMap[level]}`}
       >
         <Thumbnail media={media} />
         {navigationTitle}
@@ -99,34 +105,35 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
   const { assortmentTree } = useCategoriesTree({ root: 'shop' });
 
   return (
-    <div className="mobile-menu-holder" data-is-open={isNavOpen}>
+    <div
+      className="mobile-menu-holder dark:bg-slate-500 dark:text-slate-900"
+      data-is-open={isNavOpen}
+    >
       <button
         aria-label="close"
         type="button"
-        className="no-button mobile-menu-close"
+        className="mobile-menu-close cursor-pointer appearance-none border-0 bg-transparent p-0 text-left text-inherit"
         onClick={doClose}
       >
-        <span className="d-none">{intl.formatMessage({ id: 'close' })}</span>
+        <span className="hidden">{intl.formatMessage({ id: 'close' })}</span>
       </button>
       <nav id="menu" className="mobile-menu">
         <div>
           <button
             aria-label="close"
             type="button"
-            className="no-button w-100 d-flex align-items-center p-3 text-left"
+            className="flex w-full cursor-pointer appearance-none items-center border-0 bg-transparent p-3 text-left text-inherit"
             onClick={doClose}
           >
-            <Icon className="icon--small" icon="close" />
+            <XIcon className="mr-3 inline-flex h-4 w-5 select-none items-center justify-center align-middle" />
             <small className="ml-2">
               {intl.formatMessage({ id: 'close' })}
             </small>
           </button>
 
-          <a
-            className="d-flex align-items-center ml-3 mb-3"
-            href={theme.websiteUrl}
-          >
-            <Icon className="icon--small mr-2" icon="house-4" />
+          <a className="ml-3 mb-3 flex items-center" href={theme.websiteUrl}>
+            <HomeIcon className="mr-3 inline-flex h-4 w-5 select-none items-center justify-center align-middle" />
+
             {intl.formatMessage({ id: 'back_to_website' })}
           </a>
           {Object.entries(assortmentTree.children).map(
@@ -149,7 +156,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
               key={lang}
               aria-label={intl.formatMessage({ id: `language_${lang}` })}
               type="button"
-              className="no-button d-block mb-3"
+              className="mb-3 block cursor-pointer appearance-none border-0 bg-transparent p-0 text-left text-inherit"
               onClick={() => changeLanguage(lang)}
             >
               {intl.formatMessage({ id: `language_${lang}` })}

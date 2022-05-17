@@ -55,7 +55,7 @@ const AddToCartButton = ({ productId }) => {
     }
   };
 
-  return true ? (
+  return quantity ? (
     <div className="flex justify-between">
       <div className="flex w-full items-center">
         <button
@@ -63,15 +63,6 @@ const AddToCartButton = ({ productId }) => {
           className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 p-1 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           onClick={handleMinus}
         >
-          {/* <span className="icon icon--minus">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-              <path
-                fill="currentColor"
-                d="M424 318.2c13.3 0 24-10.7 24-24v-76.4c0-13.3-10.7-24-24-24H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h400z"
-              />
-            </svg>
-          </span> */}
-
           <MinusSmIcon className="h-6 w-6" />
         </button>
 
@@ -108,14 +99,6 @@ const AddToCartButton = ({ productId }) => {
           className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 p-1 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           onClick={addToCart}
         >
-          {/* <span className="icon icon--plus">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-              <path
-                fill="currentColor"
-                d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z"
-              />
-            </svg>
-          </span> */}
           <PlusSmIcon className="h-6 w-6" />
         </button>
       </div>

@@ -9,7 +9,7 @@ class UnchainedDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html className="scroll-smooth">
         <noscript
           // eslint-disable-next-line
           dangerouslySetInnerHTML={{

@@ -35,7 +35,7 @@ const AssortmentTreeQuery = gql`
 `;
 
 const useCategoriesTree = ({
-  slugs = [],
+  slugs = null,
   includeLeaves = false,
   root = '',
 }: {

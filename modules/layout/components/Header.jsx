@@ -5,12 +5,13 @@ import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 
+import { MenuIcon } from '@heroicons/react/solid';
+import Image from 'next/image';
 import LoginCart from '../../auth/components/LoginCart';
 import SideCart from '../../cart/components/SideCart';
 import { CartContext } from '../../cart/CartContext';
 import DesktopNavigation from '../../assortment/components/DesktopNavigation';
 import MobileNavigation from '../../assortment/components/MobileNavigation';
-import Icon from '../../common/components/Icon';
 import ThemeToggle from '../../common/components/ThemeToggle';
 
 const {
@@ -74,12 +75,17 @@ const Header = () => {
           <div className="flex items-center justify-start">
             <DesktopNavigation />
             <Link href="/">
-              <a>
-                <img
-                  className="ml-4 self-center rounded"
-                  width="140px"
+              <a className="relative ml-4 h-10 w-36 rounded">
+                <Image
                   src={theme.assets.logo}
-                  alt="Shop logo"
+                  alt={formatMessage({
+                    id: 'shop_logo',
+                    defaultMessage: 'Shop logo',
+                  })}
+                  layout="fill"
+                  placeholder="blur"
+                  blurDataURL=""
+                  className="rounded"
                 />
               </a>
             </Link>
@@ -90,15 +96,15 @@ const Header = () => {
           <ThemeToggle />
         </div>
         <div className="container">
-          <div className="mobile-header flex items-center justify-between py-2 sm:hidden">
+          <div className="flex items-center justify-between px-4 py-2 sm:hidden">
             <div className="flex items-center">
               <button
                 type="button"
                 aria-label="menu"
-                className="no-button mr-4 flex items-center py-1"
+                className="mr-4 flex cursor-pointer appearance-none items-center border-0 bg-transparent p-0 py-1 text-left text-inherit"
                 onClick={() => setNavOpen(true)}
               >
-                <Icon icon="navigation-menu" className="h-5 w-5" />
+                <MenuIcon className="h-6 w-6 text-slate-900 dark:text-slate-100" />
               </button>
 
               <MobileNavigation
@@ -107,12 +113,25 @@ const Header = () => {
               />
 
               <Link href="/">
-                <a>
-                  <img width="100px" src={theme.assets.logo} alt="Shop logo" />
+                <a className="relative h-7 w-24 rounded">
+                  <Image
+                    src={theme.assets.logo}
+                    alt={formatMessage({
+                      id: 'shop_logo_mobile',
+                      defaultMessage: 'Shop logo',
+                    })}
+                    layout="fill"
+                    placeholder="blur"
+                    blurDataURL=""
+                    className="rounded"
+                  />
                 </a>
               </Link>
             </div>
-            <LoginCart />
+            <div className="ml-auto mr-3 flex">
+              <LoginCart />
+            </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>
