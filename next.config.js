@@ -66,7 +66,7 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/order:path*',
+        source: '/order/:path*',
         destination: '/orders/[_id]',
         permanent: true,
       },

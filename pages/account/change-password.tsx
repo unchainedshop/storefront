@@ -1,3 +1,5 @@
+import { KeyIcon } from '@heroicons/react/solid';
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
@@ -45,77 +47,93 @@ const ChangePassword = () => {
         })}
       />
       <Header />
-      <div className="container mt-5 max-w-full bg-slate-100 pb-10 dark:bg-slate-600 lg:py-12 lg:px-8">
+      <div className="bg-slate-100 dark:bg-slate-600">
         {loading ? (
           <LoadingItem />
         ) : (
-          <div className="mx-4 flex flex-wrap">
-            <div className="relative w-full px-4 md:ml-[25%] md:max-w-full md:flex-2">
-              <h1>{formatMessage({ id: 'change_password' })}</h1>
-              <form className="form" onSubmit={handleSubmit(onSubmit)}>
-                <div
-                  className={`mb-3 grid grid-cols-3 ${
-                    errors.password2 ? 'form-error' : ''
-                  }`}
-                >
+          <div className="mx-auto mt-5 w-full p-10 sm:max-w-md md:max-w-lg lg:max-w-xl">
+            <div className="rounded-lg border bg-white p-4 shadow-sm dark:bg-slate-500">
+              <div>
+                <KeyIcon className="mx-auto h-24 w-24 text-fuchsia-600" />
+              </div>
+              <h1 className="text-center text-6xl font-bold text-slate-600 dark:text-slate-300">
+                {formatMessage({ id: 'change_password' })}
+              </h1>
+
+              <form
+                className="mt-10 space-y-4"
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <div className={classNames({ 'form-error': errors.password2 })}>
                   <label
-                    className={`inline-block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2 ${
-                      errors.oldPassword ? 'form-error' : ''
-                    }`}
+                    htmlFor="oldPassword"
+                    className={classNames(
+                      'block text-sm font-medium text-slate-700 dark:text-slate-300',
+                      {
+                        'form-error': errors.oldPassword,
+                      },
+                    )}
                   >
                     {formatMessage({ id: 'current_password' })}
                   </label>
-                  <input
-                    className="col-span-2 inline-block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    name="oldPassword"
-                    type="password"
-                    ref={register({ required: true })}
-                  />
-                  {errors.oldPassword && (
-                    <span className="error-message">
-                      {' '}
-                      {errors.oldPassword?.message}{' '}
-                    </span>
-                  )}
+                  <div className="mt-1">
+                    <input
+                      type="password"
+                      id="oldPassword"
+                      name="oldPassword"
+                      ref={register({ required: true })}
+                      className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
+                    />
+                    {errors.oldPassword && (
+                      <span className="error-message">
+                        {errors.oldPassword?.message}
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <div
-                  className={`mb-3 grid grid-cols-3 ${
-                    errors.password2 ? 'form-error' : ''
-                  }`}
-                >
-                  <label className="inline-block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+
+                <div className={classNames({ 'form-error': errors.password2 })}>
+                  <label
+                    htmlFor="newPassword"
+                    className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+                  >
                     {formatMessage({ id: 'new_password' })}
                   </label>
-                  <input
-                    className="col-span-2 inline-block w-full  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    name="newPassword"
-                    type="password"
-                    ref={register({ required: true })}
-                  />
+                  <div className="mt-1">
+                    <input
+                      type="password"
+                      id="newPassword"
+                      name="newPassword"
+                      ref={register({ required: true })}
+                      className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
+                    />
+                  </div>
                 </div>
-                <div
-                  className={`mb-3 grid grid-cols-3 ${
-                    errors.password2 ? 'form-error' : ''
-                  }`}
-                >
-                  <label className="inline-block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                <div className={classNames({ 'form-error': errors.password2 })}>
+                  <label
+                    htmlFor="password2"
+                    className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+                  >
                     {formatMessage({ id: 'repeat_password' })}
                   </label>
-                  <input
-                    className="col-span-2 inline-block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    name="password2"
-                    type="password"
-                    ref={register({
-                      validate: (value) =>
-                        value === password.current ||
-                        formatMessage({ id: 'password_not_match' }),
-                    })}
-                  />
-                  {errors.password2 && <p>{errors.password2.message}</p>}
+                  <div className="mt-1">
+                    <input
+                      type="password"
+                      id="password2"
+                      name="password2"
+                      ref={register({
+                        validate: (value) =>
+                          value === password.current ||
+                          formatMessage({ id: 'password_not_match' }),
+                      })}
+                      className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
+                    />
+                    {errors.password2 && <p>{errors.password2.message}</p>}
+                  </div>
                 </div>
                 <button
                   type="submit"
-                  className="w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                  className="w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-50"
                 >
                   {formatMessage({ id: 'reset_password' })}
                 </button>
