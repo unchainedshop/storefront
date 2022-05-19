@@ -53,6 +53,7 @@ module.exports = {
     domains: [
       'localhost',
       'tailwindui.com',
+      'images.unsplash.com',
       extractDomain(FRONTEND_URL),
       extractDomain(GRAPHQL_ENDPOINT),
       extractDomain(UNCHAINED_ENDPOINT),

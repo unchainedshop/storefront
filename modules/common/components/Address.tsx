@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
@@ -76,14 +77,29 @@ const Address = ({ user }) => {
                     })}
                   </div>
                   {updateProfile ? (
-                    <input
-                      className={`block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600 ${
-                        errors.addressLine && 'form-error'
-                      }`}
-                      name="addressLine"
-                      defaultValue={profile?.address?.addressLine}
-                      ref={register({ required: true })}
-                    />
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        name="addressLine"
+                        defaultValue={profile?.address?.addressLine}
+                        ref={register({ required: true })}
+                        className={classNames(
+                          'block w-full rounded-md border border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-slate-900 dark:text-slate-600',
+                          {
+                            'border-red-900 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                              errors.addressLine,
+                          },
+                        )}
+                      />
+                      {errors.addressLine && (
+                        <p className="text-sm text-red-600">
+                          {formatMessage({
+                            id: 'error_addressLine',
+                            defaultMessage: 'Address is required',
+                          })}
+                        </p>
+                      )}
+                    </div>
                   ) : (
                     <div className="mb-1">
                       {user?.profile?.address?.addressLine}
@@ -92,21 +108,32 @@ const Address = ({ user }) => {
                 </div>
 
                 <div className="col-span-4 sm:col-span-2">
-                  <div className="mb-1">
-                    {formatMessage({
-                      id: 'address_2',
-                      defaultMessage: 'Address 2',
-                    })}
+                  <div className="mb-1 flex justify-between">
+                    <span>
+                      {formatMessage({
+                        id: 'address_2',
+                        defaultMessage: 'Address 2',
+                      })}
+                    </span>
+                    {updateProfile && (
+                      <span className="text-sm text-slate-500">
+                        {formatMessage({
+                          id: 'address2_optional',
+                          defaultMessage: 'Optional',
+                        })}
+                      </span>
+                    )}
                   </div>
                   {updateProfile ? (
-                    <input
-                      className={`block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600 ${
-                        errors.addressLine && 'form-error'
-                      }`}
-                      name="addressLine2"
-                      defaultValue={user?.profile?.address?.addressLine2}
-                      ref={register({ required: false })}
-                    />
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        name="addressLine2"
+                        defaultValue={user?.profile?.address?.addressLine2}
+                        ref={register({ required: false })}
+                        className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
+                      />
+                    </div>
                   ) : (
                     <div className="mb-1">
                       {user?.profile?.address?.addressLine2}
@@ -122,14 +149,29 @@ const Address = ({ user }) => {
                     })}
                   </div>
                   {updateProfile ? (
-                    <input
-                      className={`block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600 ${
-                        errors.telNumber && 'form-error'
-                      }`}
-                      name="telNumber"
-                      defaultValue={profile?.phoneMobile}
-                      ref={register({ required: true })}
-                    />
+                    <div className="mt-1">
+                      <input
+                        type="tel"
+                        name="telNumber"
+                        defaultValue={profile?.phoneMobile}
+                        ref={register({ required: true })}
+                        className={classNames(
+                          'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
+                          {
+                            'border-red-900 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                              errors.telNumber,
+                          },
+                        )}
+                      />
+                      {errors.telNumber && (
+                        <p className="text-sm text-red-600">
+                          {formatMessage({
+                            id: 'error_telNumber',
+                            defaultMessage: 'Telephone number is required',
+                          })}
+                        </p>
+                      )}
+                    </div>
                   ) : (
                     <div className="mb-1">{user?.profile?.phoneMobile}</div>
                   )}
@@ -143,14 +185,29 @@ const Address = ({ user }) => {
                     })}
                   </div>
                   {updateProfile ? (
-                    <input
-                      className={`block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600 ${
-                        errors.postalCode && 'form-error'
-                      }`}
-                      name="postalCode"
-                      defaultValue={profile?.address?.postalCode}
-                      ref={register({ required: true })}
-                    />
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        name="postalCode"
+                        defaultValue={profile?.address?.postalCode}
+                        ref={register({ required: true })}
+                        className={classNames(
+                          'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
+                          {
+                            'border-red-900 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                              errors.postalCode,
+                          },
+                        )}
+                      />
+                      {errors.postalCode && (
+                        <p className="text-sm text-red-600">
+                          {formatMessage({
+                            id: 'error_postalCode',
+                            defaultMessage: 'Postal code is required',
+                          })}
+                        </p>
+                      )}
+                    </div>
                   ) : (
                     <div className="mb-1">
                       {user?.profile?.address?.postalCode}
@@ -166,21 +223,20 @@ const Address = ({ user }) => {
                     })}
                   </div>
                   {updateProfile ? (
-                    <select
-                      name="countryCode"
-                      defaultValue={profile?.address?.countryCode}
-                      ref={register({ required: true })}
-                      className={`block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600 ${
-                        errors.countryCode && 'form-error'
-                      }`}
-                    >
-                      {COUNTRIES.map((c) => (
-                        <option key={c.code} value={c.code}>
-                          {' '}
-                          {c.name}{' '}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="mt-1">
+                      <select
+                        name="countryCode"
+                        defaultValue={profile?.address?.countryCode}
+                        ref={register({ required: true })}
+                        className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
+                      >
+                        {COUNTRIES.map((c) => (
+                          <option key={c.code} value={c.code}>
+                            {c.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   ) : (
                     <div className="mb-1">
                       {
@@ -193,20 +249,32 @@ const Address = ({ user }) => {
                 </div>
 
                 <div className="col-span-4 sm:col-span-2">
-                  <div className="mb-1">
-                    {formatMessage({
-                      id: 'region',
-                      defaultMessage: 'Region',
-                    })}
+                  <div className="mb-1 flex justify-between">
+                    <span>
+                      {formatMessage({
+                        id: 'region',
+                        defaultMessage: 'Region',
+                      })}
+                    </span>
+                    {updateProfile && (
+                      <span className="text-sm text-slate-500">
+                        {formatMessage({
+                          id: 'region_optional',
+                          defaultMessage: 'Optional',
+                        })}
+                      </span>
+                    )}
                   </div>
                   {updateProfile ? (
-                    <input
-                      className={`block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600 ${
-                        errors.regionCode && 'form-error'
-                      }`}
-                      name="regionCode"
-                      defaultValue={profile?.address?.regionCode}
-                    />
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        name="regionCode"
+                        defaultValue={profile?.address?.regionCode}
+                        ref={register({ required: false })}
+                        className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
+                      />
+                    </div>
                   ) : (
                     <div className="mb-1">
                       {user?.profile?.address?.regionCode}
@@ -222,14 +290,29 @@ const Address = ({ user }) => {
                     })}
                   </div>
                   {updateProfile ? (
-                    <input
-                      className={`block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600 ${
-                        errors.city && 'form-error'
-                      }`}
-                      name="city"
-                      defaultValue={profile?.address?.city}
-                      ref={register({ required: true })}
-                    />
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        name="city"
+                        defaultValue={profile?.address?.city}
+                        ref={register({ required: true })}
+                        className={classNames(
+                          'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
+                          {
+                            'border-red-900 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                              errors.postalCode,
+                          },
+                        )}
+                      />
+                      {errors.city && (
+                        <p className="text-sm text-red-600">
+                          {formatMessage({
+                            id: 'error_city',
+                            defaultMessage: 'City is required',
+                          })}
+                        </p>
+                      )}
+                    </div>
                   ) : (
                     <div className="mb-1">{user?.profile?.address?.city}</div>
                   )}

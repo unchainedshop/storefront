@@ -1,16 +1,20 @@
 import Link from 'next/link';
+import router from 'next/router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import Button from '../../common/components/Button';
+import LoadingItem from '../../common/components/LoadingItem';
 
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
+import useUser from '../hooks/useUser';
 
 const LoginForm = ({ onLogin = null }) => {
   const { register, handleSubmit, errors, setError } = useForm();
   const { formatMessage } = useIntl();
   const { loginWithPassword, error } = useLoginWithPassword();
   const hasErrors = Object.keys(errors).length > 0;
+  const { loading } = useUser();
 
   useEffect(() => {
     if (error?.message?.includes('Invalid credentials')) {
@@ -28,6 +32,10 @@ const LoginForm = ({ onLogin = null }) => {
     await loginWithPassword({ email, password });
     onLogin?.();
   };
+
+  if (loading) {
+    <LoadingItem />;
+  }
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -83,6 +91,16 @@ const LoginForm = ({ onLogin = null }) => {
             </div>
           ))
         : ''}
+
+      {error?.message?.includes('Navision auth failed') && (
+        <div className="my-2 rounded bg-red-300 p-1 text-red-600">
+          {error.message}
+          {formatMessage({
+            id: 'error',
+            defaultMessage: ', Try again later',
+          })}
+        </div>
+      )}
       <Button
         type="submit"
         text={formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}

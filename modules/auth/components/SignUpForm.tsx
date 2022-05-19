@@ -5,8 +5,8 @@ import { useIntl } from 'react-intl';
 import getConfig from 'next/config';
 import Image from 'next/image';
 import classNames from 'classnames';
-import LoadingItem from '../../common/components/LoadingItem';
 
+import { toast } from 'react-toastify';
 import COUNTRIES from '../../common/data/countries-list';
 import useCreateUser from '../hooks/useCreateUser';
 
@@ -14,11 +14,17 @@ const {
   publicRuntimeConfig: { theme },
 } = getConfig();
 
-const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
+const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
   const router = useRouter();
   const { formatMessage } = useIntl();
-  const { register, handleSubmit, errors, setError, watch } = useForm();
-  const { createUser, error, loading } = useCreateUser();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    watch,
+  } = useForm();
+  const { createUser, error } = useCreateUser();
   const password = useRef({});
   password.current = watch('password', '');
 
@@ -54,18 +60,21 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
           regionCode,
           countryCode,
         },
+        customFields: [{ contactNumber: telNumber }],
       },
     };
     try {
       await createUser(userProfile);
+      toast.success('User created successfully');
       router.push(onSuccessGoTo);
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e);
     }
   };
+
   useEffect(() => {
-    if (error?.message?.includes('Email already exists')) {
+    if (error?.message?.includes('E-Mail already exists')) {
       setError('emailAddress', {
         type: 'manual',
         message: `👬 ${formatMessage({
@@ -76,9 +85,9 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
   }, [error]);
 
   return (
-    <div className="lg:grid lg:grid-cols-2">
+    <div className="bg-slate-100 dark:bg-slate-600 lg:grid lg:grid-cols-2">
       <div className="flex flex-col justify-center py-6 px-2 sm:px-3 lg:flex-none lg:px-10 xl:px-12">
-        <div className="mx-auto w-full rounded-lg border border-slate-400 bg-white px-2 py-6 drop-shadow-lg dark:bg-slate-500 sm:px-3 lg:px-10 xl:px-12">
+        <div className="mx-auto w-full rounded-lg border border-slate-200 bg-white px-2 py-6 drop-shadow-lg dark:bg-slate-500 sm:px-3 lg:px-10 xl:px-12">
           <div>
             <h2 className="mt-6 text-3xl font-extrabold text-slate-900 dark:text-slate-100">
               {formatMessage({ id: 'welcome', defaultMessage: 'Welcome' })}
@@ -107,7 +116,12 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                       href="#"
                       className="inline-flex w-full justify-center rounded-md border border-slate-300 bg-white py-2 px-4 text-sm font-medium text-slate-500 shadow-sm hover:bg-slate-50 dark:bg-slate-400"
                     >
-                      <span className="sr-only">Sign in with Facebook</span>
+                      <span className="sr-only">
+                        {formatMessage({
+                          id: 'facebook',
+                          defaultMessage: 'Sign up with Facebook',
+                        })}
+                      </span>
                       <svg
                         className="h-5 w-5"
                         fill="currentColor"
@@ -128,7 +142,12 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                       href="#"
                       className="inline-flex w-full justify-center rounded-md border border-slate-300 bg-white py-2 px-4 text-sm font-medium text-slate-500 shadow-sm hover:bg-slate-50"
                     >
-                      <span className="sr-only">Sign in with Twitter</span>
+                      <span className="sr-only">
+                        {formatMessage({
+                          id: 'twitter',
+                          defaultMessage: 'Sign up with Twitter',
+                        })}
+                      </span>
                       <svg
                         className="h-5 w-5"
                         fill="currentColor"
@@ -145,7 +164,12 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                       href="#"
                       className="inline-flex w-full justify-center rounded-md border border-slate-300 bg-white py-2 px-4 text-sm font-medium text-slate-500 shadow-sm hover:bg-slate-50"
                     >
-                      <span className="sr-only">Sign in with GitHub</span>
+                      <span className="sr-only">
+                        {formatMessage({
+                          id: 'github',
+                          defaultMessage: 'Sign up with GitHub',
+                        })}
+                      </span>
                       <svg
                         className="h-5 w-5"
                         fill="currentColor"
@@ -172,7 +196,10 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="bg-white px-2 text-slate-500 dark:bg-slate-500 dark:text-slate-300">
-                    Or continue with
+                    {formatMessage({
+                      id: 'email_sign_up',
+                      defaultMessage: 'Or continue with',
+                    })}
                   </span>
                 </div>
               </div>
@@ -183,11 +210,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                 className="space-y-6 md:grid md:grid-cols-6 md:gap-4 md:space-y-0"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <div
-                  className={classNames('md:col-span-6', {
-                    'form-error': errors.firstName,
-                  })}
-                >
+                <div className="md:col-span-6">
                   <label
                     htmlFor="firstName"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -200,16 +223,26 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                       id="firstName"
                       name="firstName"
                       ref={register({ required: true })}
-                      className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900  focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
+                      className={classNames(
+                        'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                        {
+                          'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                            errors.firstName,
+                        },
+                      )}
                     />
+                    {errors.firstName && (
+                      <p className="text-sm text-red-600">
+                        {formatMessage({
+                          id: 'error_firstName',
+                          defaultMessage: 'First Name is required',
+                        })}
+                      </p>
+                    )}
                   </div>
                 </div>
 
-                <div
-                  className={classNames('md:col-span-6', {
-                    'form-error': errors.lastName,
-                  })}
-                >
+                <div className="md:col-span-6">
                   <label
                     htmlFor="lastName"
                     className="inline-block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -222,19 +255,24 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                     name="lastName"
                     ref={register({ required: true })}
                     className={classNames(
-                      'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                      'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none  dark:text-slate-600 sm:text-sm',
                       {
-                        'form-error': errors.lastName,
+                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                          errors.lastName,
                       },
                     )}
                   />
+                  {errors.lastName && (
+                    <p className="text-sm text-red-600">
+                      {formatMessage({
+                        id: 'error_lastName',
+                        defaultMessage: 'Last Name is required',
+                      })}
+                    </p>
+                  )}
                 </div>
 
-                <div
-                  className={classNames('md:col-span-3', {
-                    'form-error': errors.addressLine,
-                  })}
-                >
+                <div className="md:col-span-3">
                   <label
                     htmlFor="addressLine"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -249,17 +287,22 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                     className={classNames(
                       'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                       {
-                        'form-error': errors.addressLine,
+                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                          errors.addressLine,
                       },
                     )}
                   />
+                  {errors.addressLine && (
+                    <p className="text-sm text-red-600">
+                      {formatMessage({
+                        id: 'error_address',
+                        defaultMessage: 'Address is required',
+                      })}
+                    </p>
+                  )}
                 </div>
 
-                <div
-                  className={classNames('md:col-span-3', {
-                    'form-error': errors.company,
-                  })}
-                >
+                <div className="md:col-span-3">
                   <label
                     htmlFor="company"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -276,11 +319,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                   />
                 </div>
 
-                <div
-                  className={classNames('md:col-span-3', {
-                    'form-error': errors.postalCode,
-                  })}
-                >
+                <div className="md:col-span-3">
                   <label
                     htmlFor="postalCode"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -295,17 +334,22 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                     className={classNames(
                       'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                       {
-                        'form-error': errors.postalCode,
+                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                          errors.postalCode,
                       },
                     )}
                   />
+                  {errors.postalCode && (
+                    <p className="text-sm text-red-600">
+                      {formatMessage({
+                        id: 'error_postalCode',
+                        defaultMessage: 'Postal code is required',
+                      })}
+                    </p>
+                  )}
                 </div>
 
-                <div
-                  className={classNames('md:col-span-3', {
-                    'form-error': errors.telNumber,
-                  })}
-                >
+                <div className="md:col-span-3">
                   <label
                     htmlFor="telNumber"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -320,17 +364,22 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                     className={classNames(
                       'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                       {
-                        'form-error': errors.telNumber,
+                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                          errors.telNumber,
                       },
                     )}
                   />
+                  {errors.telNumber && (
+                    <p className="text-sm text-red-600">
+                      {formatMessage({
+                        id: 'error_telNumber',
+                        defaultMessage: 'Telephone number is required',
+                      })}
+                    </p>
+                  )}
                 </div>
 
-                <div
-                  className={classNames('md:col-span-2', {
-                    'form-error': errors.city,
-                  })}
-                >
+                <div className="md:col-span-2">
                   <label
                     htmlFor="city"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -345,17 +394,21 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                     className={classNames(
                       'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                       {
-                        'form-error': errors.city,
+                        'mt-2 text-sm text-red-600': errors.city,
                       },
                     )}
                   />
+                  {errors.city && (
+                    <p className="text-sm text-red-600">
+                      {formatMessage({
+                        id: 'error_city',
+                        defaultMessage: 'City is required',
+                      })}
+                    </p>
+                  )}
                 </div>
 
-                <div
-                  className={classNames('md:col-span-2', {
-                    'form-error': errors.regionCode,
-                  })}
-                >
+                <div className="md:col-span-2">
                   <label
                     htmlFor="regionCode"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -371,17 +424,14 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                     className={classNames(
                       'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                       {
-                        'form-error': errors.regionCode,
+                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                          errors.regionCode,
                       },
                     )}
                   />
                 </div>
 
-                <div
-                  className={classNames('md:col-span-2', {
-                    'form-error': errors.countryCode,
-                  })}
-                >
+                <div className="md:col-span-2">
                   <label
                     htmlFor="countryCode"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -393,12 +443,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                     name="countryCode"
                     defaultValue="CH"
                     ref={register({ required: true })}
-                    className={classNames(
-                      'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
-                      {
-                        'form-error': errors.countryCode,
-                      },
-                    )}
+                    className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
                   >
                     {COUNTRIES.map((c) => (
                       <option key={c.code} value={c.code}>
@@ -408,11 +453,7 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                   </select>
                 </div>
 
-                <div
-                  className={classNames('md:col-span-4', {
-                    'form-error': errors.emailAddress,
-                  })}
-                >
+                <div className="md:col-span-4">
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
                     {formatMessage({ id: 'email' })}
                   </label>
@@ -421,24 +462,30 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                     id="emailAddress"
                     name="emailAddress"
                     autoComplete="email"
-                    ref={register({ required: true })}
+                    ref={register({
+                      required: 'Email is required',
+                      pattern: {
+                        value:
+                          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        message: 'Please enter a valid email address',
+                      },
+                    })}
                     className={classNames(
                       'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                       {
-                        'form-error': errors.emailAddress,
+                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                          errors.emailAddress,
                       },
                     )}
                   />
                   {errors.emailAddress && (
-                    <span> {errors.emailAddress?.message} </span>
+                    <p className="text-sm text-red-600">
+                      {errors.emailAddress?.message}
+                    </p>
                   )}
                 </div>
 
-                <div
-                  className={classNames('md:col-span-3', {
-                    'form-error': errors.password,
-                  })}
-                >
+                <div className="md:col-span-3">
                   <label
                     htmlFor="password"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -449,18 +496,38 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                     type="password"
                     id="password"
                     name="password"
-                    ref={register({ required: true })}
+                    ref={register({
+                      required: {
+                        value: true,
+                        message: 'Password is required',
+                      },
+                      minLength: {
+                        value: 8,
+                        message: 'Password must be at least 8 characters',
+                      },
+                      pattern: {
+                        value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/,
+                        message:
+                          'Password must contain at least one numeric digit, one uppercase and one lowercase letter',
+                      },
+                    })}
+                    autoComplete="new-password"
                     className={classNames(
                       'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                      {
+                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                          errors.password,
+                      },
                     )}
                   />
+                  {errors.password && (
+                    <p className="text-sm text-red-600">
+                      {errors.password?.message}
+                    </p>
+                  )}
                 </div>
 
-                <div
-                  className={classNames('md:col-span-3', {
-                    'form-error': errors.password2,
-                  })}
-                >
+                <div className="md:col-span-3">
                   <label
                     htmlFor="password2"
                     className="block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -476,14 +543,33 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
                         value === password.current ||
                         'The passwords do not match',
                     })}
+                    autoComplete="new-password"
                     className={classNames(
                       'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
+                      {
+                        'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                          errors.password2,
+                      },
                     )}
                   />
-                  {errors.password2 && <p>{errors.password2.message}</p>}
+                  {errors.password2 && (
+                    <p className="text-sm text-red-600">
+                      {errors.password2?.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="md:col-span-6 md:mx-4">
+                  {error?.message?.includes('Navision auth failed') && (
+                    <div className="bg-red-300 text-red-600">
+                      {error.message}
+                      {formatMessage({
+                        id: 'error',
+                        defaultMessage: ', Try again later',
+                      })}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -499,12 +585,44 @@ const SignUpForm = ({ onSuccessGoTo = '/account' }) => {
           </div>
         </div>
       </div>
-      <div className="relative hidden lg:block">
-        <img
-          className="absolute inset-0 h-full w-full rounded-lg object-cover "
-          src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
-          alt=""
-        />
+      <div className="relative hidden py-6 lg:block">
+        <div className="relative h-full w-full opacity-50">
+          <span>
+            <Image
+              src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
+              alt=""
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+              placeholder="blur"
+              blurDataURL=""
+              className="z-0 rounded-lg"
+            />
+          </span>
+        </div>
+        <span className="absolute top-1/3 left-1/3">
+          <Image
+            src={theme.assets.logo}
+            alt={formatMessage({
+              id: 'shop_logo',
+              defaultMessage: 'Shop logo',
+            })}
+            layout="fixed"
+            width={144}
+            height={40}
+            placeholder="blur"
+            blurDataURL=""
+            className="mx-auto rounded"
+          />
+        </span>
+        <div className="absolute top-1/2 left-0 w-full">
+          <h1 className="mx-auto w-2/3 text-center text-6xl font-bold text-slate-700 dark:text-slate-300">
+            {formatMessage({
+              id: 'title',
+              defaultMessage: 'create an account and enjoy shopping',
+            })}
+          </h1>
+        </div>
       </div>
     </div>
   );

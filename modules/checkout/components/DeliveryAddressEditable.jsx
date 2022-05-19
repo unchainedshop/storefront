@@ -9,7 +9,11 @@ import EditableField from '../../common/components/EditableField';
 const DeliveryAddressEditable = ({ user }) => {
   const { formatMessage } = useIntl();
   const { updateCart } = useUpdateCart();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { updateOrderDeliveryAddress } = useUpdateOrderDeliveryShipping();
 
   const onSubmit = async ({
@@ -64,66 +68,78 @@ const DeliveryAddressEditable = ({ user }) => {
       name: 'firstName',
       translation: formatMessage({ id: 'first_name' }),
       type: 'text',
-      required: true,
+      validator: { required: 'First name must be provided.' },
       full: false,
     },
     {
       name: 'lastName',
       translation: formatMessage({ id: 'last_name' }),
       type: 'text',
-      required: true,
+      validator: { required: 'First name must be provided.' },
       full: false,
     },
     {
       name: 'company',
-      translation: `${formatMessage({
-        id: 'company',
-      })} ${formatMessage({ id: 'optional' })}`,
+      translation: formatMessage({ id: 'company' }),
       type: 'text',
-      required: false,
+      validator: false,
       full: true,
     },
     {
       name: 'addressLine',
       translation: formatMessage({ id: 'address' }),
       type: 'text',
-      required: true,
-      full: true,
+      validator: { required: 'Address must be provided.' },
+      full: false,
+    },
+    {
+      name: 'addressLine2',
+      translation: formatMessage({ id: 'address 2' }),
+      type: 'text',
+      validator: false,
+      full: false,
+      optional: true,
     },
     {
       name: 'postalCode',
       translation: formatMessage({ id: 'postal_code' }),
       type: 'text',
-      required: true,
+      validator: { required: 'Postal code must be provided.' },
       full: false,
     },
     {
       name: 'city',
       translation: formatMessage({ id: 'city' }),
       type: 'text',
-      required: true,
+      validator: { required: 'City must be provided.' },
       full: false,
     },
     {
       name: 'countryCode',
       translation: formatMessage({ id: 'country' }),
       type: 'country',
-      required: true,
+      validator: { required: 'Country code must be provided.' },
       full: false,
-    },
-
-    {
-      name: 'emailAddress',
-      translation: formatMessage({ id: 'email' }),
-      type: 'email',
-      required: true,
-      full: true,
     },
     {
       name: 'telNumber',
       translation: formatMessage({ id: 'telephone' }),
       type: 'text',
-      required: true,
+      validator: { required: 'Telephone Number must be provided.' },
+      full: false,
+    },
+    {
+      name: 'emailAddress',
+      translation: formatMessage({ id: 'email' }),
+      type: 'email',
+      validator: {
+        required: 'Email must be provided.',
+        pattern: {
+          value:
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+          message: 'Please enter a valid email address',
+        },
+      },
       full: true,
     },
   ];
@@ -131,14 +147,24 @@ const DeliveryAddressEditable = ({ user }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
-        {addressFields.map(({ name, translation, type, required, full }) => (
+        {addressFields.map(({ name, translation, type, validator, full }) => (
           <div className={classNames({ 'sm:col-span-2': full })} key={name}>
-            <label
-              htmlFor={name}
-              className="block text-sm font-medium text-slate-700 dark:text-slate-300"
-            >
-              <b>{translation}</b>
-            </label>
+            <div className="flex justify-between">
+              <label
+                htmlFor={name}
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+              >
+                <b>{translation}</b>
+              </label>
+              {!validator && (
+                <span className="text-sm text-slate-500">
+                  {formatMessage({
+                    id: `${name}_optional`,
+                    defaultMessage: 'Optional',
+                  })}
+                </span>
+              )}
+            </div>
             <div className="mt-1">
               <EditableField
                 name={name}
@@ -149,8 +175,12 @@ const DeliveryAddressEditable = ({ user }) => {
                 }
                 register={register}
                 type={type}
-                required={required}
+                validator={validator}
+                errors={errors}
               />
+              {errors[name] && (
+                <p className="text-sm text-red-600">{errors[name].message}</p>
+              )}
             </div>
           </div>
         ))}

@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
@@ -79,12 +80,29 @@ const General = ({ user }) => {
                     <div className="mb-2 flex items-center gap-x-16 sm:col-span-2">
                       <div className="mt-1 flex text-sm text-slate-900 dark:text-slate-100 sm:mt-0">
                         {updateProfile ? (
-                          <input
-                            className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
-                            defaultValue={profile?.address?.firstName}
-                            name="firstName"
-                            ref={register({ required: true })}
-                          />
+                          <div className="mt-1">
+                            <input
+                              type="text"
+                              name="firstName"
+                              defaultValue={profile?.address?.firstName}
+                              ref={register({ required: true })}
+                              className={classNames(
+                                'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
+                                {
+                                  'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                                    errors.firstName,
+                                },
+                              )}
+                            />
+                            {errors.firstName && (
+                              <p className="text-sm text-red-600">
+                                {formatMessage({
+                                  id: 'error_firstName',
+                                  defaultMessage: 'First Name is required',
+                                })}
+                              </p>
+                            )}
+                          </div>
                         ) : (
                           <span className="mb-1">
                             {user?.profile?.address?.firstName}
@@ -94,14 +112,29 @@ const General = ({ user }) => {
 
                       <div className="mt-1 flex text-sm text-slate-900 dark:text-slate-100 sm:mt-0">
                         {updateProfile ? (
-                          <input
-                            className={`block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600 ${
-                              errors.lastName && 'form-error'
-                            }`}
-                            name="lastName"
-                            defaultValue={profile?.address?.lastName}
-                            ref={register({ required: true })}
-                          />
+                          <div className="mt-1">
+                            <input
+                              type="text"
+                              name="lastName"
+                              defaultValue={profile?.address?.lastName}
+                              ref={register({ required: true })}
+                              className={classNames(
+                                'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
+                                {
+                                  'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
+                                    errors.lastName,
+                                },
+                              )}
+                            />
+                            {errors.lastName && (
+                              <p className="text-sm text-red-600">
+                                {formatMessage({
+                                  id: 'error_lastName',
+                                  defaultMessage: 'Last Name is required',
+                                })}
+                              </p>
+                            )}
+                          </div>
                         ) : (
                           <span className="mb-1">
                             {user?.profile?.address?.lastName}

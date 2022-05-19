@@ -41,8 +41,6 @@ const ThemeToggle = () => {
     }
   };
 
-  console.log(isDark);
-
   return (
     <div className="flex items-center sm:mr-2">
       <button
