@@ -50,7 +50,7 @@ const Account = () => {
 
       <main className="max-w-full bg-slate-100 pb-10 dark:bg-slate-600 lg:py-12 lg:px-8">
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
-          <aside className="fixed py-6 px-2 sm:px-6 lg:col-span-3 lg:py-0 lg:px-0">
+          <aside className="py-6 px-2 sm:px-6 lg:col-span-3 lg:py-0 lg:px-0">
             <nav className="space-y-1">
               {subNavigation.map((item, index) => (
                 <a

@@ -94,7 +94,10 @@ const DeliveryAddressEditable = ({ user }) => {
     },
     {
       name: 'addressLine2',
-      translation: formatMessage({ id: 'address 2' }),
+      translation: formatMessage({
+        id: 'address_2',
+        defaultMessage: 'Address 2',
+      }),
       type: 'text',
       validator: false,
       full: false,

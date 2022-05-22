@@ -130,7 +130,7 @@ const Review = () => {
                       {user?.cart?.supportedDeliveryProviders.map(
                         (deliveryMethod) => (
                           <RadioGroup.Option
-                            key={deliveryMethod.id}
+                            key={deliveryMethod._id}
                             value={deliveryMethod}
                             className={({ checked, active }) =>
                               classNames(
@@ -218,7 +218,7 @@ const Review = () => {
                   </div>
                   <BillingAddressEditable user={user} />
                 </div>
-
+k
                 {/* Payment */}
                 <div className="mt-10 border-t border-slate-200 pt-10">
                   <h2 className="text-lg font-medium text-slate-900 dark:text-white">

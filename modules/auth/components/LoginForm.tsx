@@ -1,9 +1,9 @@
+import classNames from 'classnames';
 import Link from 'next/link';
-import router from 'next/router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import Button from '../../common/components/Button';
+import { toast } from 'react-toastify';
 import LoadingItem from '../../common/components/LoadingItem';
 
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
@@ -29,8 +29,13 @@ const LoginForm = ({ onLogin = null }) => {
   }, [error]);
 
   const onSubmit = async ({ email, password }) => {
-    await loginWithPassword({ email, password });
-    onLogin?.();
+    try {
+      await loginWithPassword({ email, password });
+      onLogin?.();
+      toast.success('Login is successfully');
+    } catch (err) {
+      toast.error(`Login failed with ${err}`);
+    }
   };
 
   if (loading) {
@@ -38,76 +43,119 @@ const LoginForm = ({ onLogin = null }) => {
   }
 
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
-      <div className="form-row flex flex-wrap">
-        <div
-          className={`flex w-full flex-col justify-between ${
-            errors.email && 'text-red-600'
-          }`}
-        >
-          <label className="mb-2 block font-bold leading-tight text-color-dark dark:text-slate-300">
-            {formatMessage({ id: 'email', defaultMessage: 'Email' })}
-          </label>
-          <input
-            className="block w-full appearance-none rounded-md border border-light-black bg-white bg-clip-padding py-2 px-3 text-base text-color-dark placeholder-slate-400 shadow-sm transition focus:border-light-blue focus:shadow-0 focus:outline-0 focus:ring-light-blue dark:shadow-white"
-            name="email"
-            type="email"
-            ref={register({ required: true })}
-          />
-        </div>
-        <div
-          className={`mt-4 flex w-full flex-col justify-between ${
-            errors.password && 'text-red-600'
-          }`}
-        >
-          <label className="mb-2 block font-bold leading-tight text-color-dark dark:text-slate-300">
-            {formatMessage({ id: 'password', defaultMessage: 'Password' })}
-          </label>
-          <input
-            className="block w-full appearance-none rounded-md border border-light-black bg-white bg-clip-padding py-2 px-3 text-base text-color-dark placeholder-slate-400 shadow-sm transition focus:border-light-blue focus:shadow-0 focus:outline-0 focus:ring-light-blue dark:shadow-white"
-            type="password"
-            name="password"
-            ref={register({ required: true })}
-          />
-          <Link href="/account/forget-password">
-            <a className="mt-2 text-right">
-              <small
-                id="passwordForgot"
-                className="mt-1 block text-[#6c757d] dark:text-slate-300"
+    <>
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow dark:bg-slate-500 sm:rounded-lg sm:px-10">
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
               >
+                {formatMessage({ id: 'email', defaultMessage: 'Email' })}
+              </label>
+              <div className="mt-1">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  ref={register({ required: true })}
+                  className={classNames(
+                    'block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-slate-500 sm:text-sm',
+                    {
+                      'border-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500':
+                        errors.email,
+                    },
+                  )}
+                />
+                {errors.email && (
+                  <p className="text-sm text-red-600">
+                    {formatMessage({
+                      id: 'error_email',
+                      defaultMessage: 'Email is required',
+                    })}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+              >
+                {formatMessage({ id: 'password', defaultMessage: 'Password' })}
+              </label>
+              <div className="mt-1">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  ref={register({ required: true })}
+                  className={classNames(
+                    'block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-slate-500 sm:text-sm',
+                    {
+                      'border-red-300 focus:border-red-500 focus:outline-none focus:ring-red-500':
+                        errors.password,
+                    },
+                  )}
+                />
+                {errors.password && (
+                  <p className="text-sm text-red-600">
+                    {formatMessage({
+                      id: 'error_password',
+                      defaultMessage: 'Password is required',
+                    })}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end">
+              <div className="text-sm">
+                <Link href="/account/forget-password">
+                  <a className="font-medium text-slate-600 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-400">
+                    {formatMessage({
+                      id: 'forgot_password',
+                      defaultMessage: 'Forgot your password?',
+                    })}
+                  </a>
+                </Link>
+              </div>
+            </div>
+
+            {hasErrors
+              ? Object.values(errors).map((err) => (
+                  <div key={err.message} className="text-red-600">
+                    {err.message}
+                  </div>
+                ))
+              : ''}
+
+            {error?.message?.includes('Navision auth failed') && (
+              <div className="my-2 rounded bg-red-300 p-1 text-red-600">
+                {error.message}
                 {formatMessage({
-                  id: 'forgot_password',
-                  defaultMessage: 'Forgot password',
+                  id: 'error',
+                  defaultMessage: ', Try again later',
                 })}
-              </small>
-            </a>
-          </Link>
+              </div>
+            )}
+
+            <div>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+              >
+                {formatMessage({ id: 'sign_in', defaultMessage: 'Sign in' })}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-      {hasErrors
-        ? Object.values(errors).map((err) => (
-            <div key={err.message} className="text-red-600">
-              {err.message}
-            </div>
-          ))
-        : ''}
-
-      {error?.message?.includes('Navision auth failed') && (
-        <div className="my-2 rounded bg-red-300 p-1 text-red-600">
-          {error.message}
-          {formatMessage({
-            id: 'error',
-            defaultMessage: ', Try again later',
-          })}
-        </div>
-      )}
-      <Button
-        type="submit"
-        text={formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
-        disabled={hasErrors}
-        className="border-color-brand bg-color-brand text-white hover:border-color-brand-darker hover:bg-color-brand-darker focus:border-color-brand-darker focus:bg-color-brand-darker focus:outline-none focus:ring-2 focus:ring-color-brand-darker focus:ring-offset-2"
-      />
-    </form>
+    </>
   );
 };
 

@@ -22,6 +22,10 @@ const Home = () => {
 
   useEffect(() => {
     setCurrentUrl(window.location.href);
+
+    return () => {
+      setCurrentUrl('');
+    };
   }, []);
 
   return (
