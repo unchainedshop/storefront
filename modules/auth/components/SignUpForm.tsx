@@ -595,7 +595,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
               objectFit="cover"
               objectPosition="center"
               placeholder="blur"
-              blurDataURL=""
+              blurDataURL="placeholder.png"
               className="z-0 rounded-lg"
             />
           </span>
@@ -611,7 +611,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
             width={144}
             height={40}
             placeholder="blur"
-            blurDataURL=""
+            blurDataURL="placeholder.png"
             className="mx-auto rounded"
           />
         </span>

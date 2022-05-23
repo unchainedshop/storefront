@@ -84,7 +84,7 @@ const Header = () => {
                   })}
                   layout="fill"
                   placeholder="blur"
-                  blurDataURL=""
+                  blurDataURL="placeholder.png"
                   className="rounded"
                 />
               </a>
@@ -122,7 +122,7 @@ const Header = () => {
                     })}
                     layout="fill"
                     placeholder="blur"
-                    blurDataURL=""
+                    blurDataURL="placeholder.png"
                     className="rounded"
                   />
                 </a>

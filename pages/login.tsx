@@ -32,7 +32,7 @@ const LogIn = () => {
               })}
               layout="fill"
               placeholder="blur"
-              blurDataURL=""
+              blurDataURL="placeholder.png"
               className="rounded"
             />
           </div>

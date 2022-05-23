@@ -63,8 +63,8 @@ const CategoryDetail = () => {
         imageUrl={getMediaUrl({ media })}
       />
       <Header />
-      <div className="container">
-        <div className="-mx-4 flex flex-wrap">
+      <div className="px-4 sm:px-8 md:px-12 lg:px-16">
+        <div className="flex flex-wrap">
           <div className="relative w-full flex-3 px-4">
             <AssortmentBreadcrumbs
               paths={assortmentPaths}

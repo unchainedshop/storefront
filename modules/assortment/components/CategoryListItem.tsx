@@ -19,7 +19,7 @@ const CategoryListItem = ({ category }) => {
             alt={category?.texts.title}
             layout="fill"
             placeholder="blur"
-            blurDataURL=""
+            blurDataURL="placeholder.png"
             objectFit="cover"
             objectPosition="center"
             className="h-full w-full"

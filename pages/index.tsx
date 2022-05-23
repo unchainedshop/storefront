@@ -77,7 +77,7 @@ const Home = () => {
                     objectFit="contain"
                     objectPosition="center"
                     placeholder="blur"
-                    blurDataURL=""
+                    blurDataURL="placeholder.png"
                   />
                   <div
                     aria-hidden="true"
@@ -113,7 +113,7 @@ const Home = () => {
                     objectFit="cover"
                     objectPosition="center"
                     placeholder="blur"
-                    blurDataURL=""
+                    blurDataURL="placeholder.png"
                     className="group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
                   />
                   <div
@@ -183,7 +183,7 @@ const Home = () => {
                     }
                     layout="fill"
                     placeholder="blur"
-                    blurDataURL=""
+                    blurDataURL="placeholder.png"
                     objectFit="contain"
                     objectPosition="center"
                     className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
@@ -220,7 +220,7 @@ const Home = () => {
                     }
                     layout="fill"
                     placeholder="blur"
-                    blurDataURL=""
+                    blurDataURL="placeholder.png"
                     objectFit="cover"
                     objectPosition="center"
                     className="group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
