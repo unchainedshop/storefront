@@ -2,17 +2,25 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
+import {
+  MinusIcon,
+  PhotographIcon,
+  PlusIcon,
+  TrashIcon,
+} from '@heroicons/react/solid';
+import { useIntl } from 'react-intl';
 import getMediaUrl from '../../common/utils/getMediaUrl';
-import Icon from '../../common/components/Icon';
 import renderPrice from '../../common/utils/renderPrice';
 import useRemoveCartItem from '../hooks/useRemoveCartItem';
 import useUpdateCartItemMutation from '../hooks/useUpdateCartItem';
+import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
 
-const CartItem = ({ _id, quantity, product, total }) => {
+const CartItem = ({ _id, quantity, product, enableUpdate = true }) => {
   const { updateCartItem } = useUpdateCartItemMutation();
   const { removeCartItem } = useRemoveCartItem();
   const [previousQuantity, setPreviousQuantity] = useState(quantity);
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
+  const { formatMessage } = useIntl();
 
   const handleChange = (e) => {
     const amount = e.target.value;
@@ -48,80 +56,108 @@ const CartItem = ({ _id, quantity, product, total }) => {
   };
 
   return (
-    <div className="cart-item" key={_id}>
-      <div className="item-img">
-        <Image
-          src={`${
-            getMediaUrl(product) || '/static/img/sun-glass-placeholder.jpeg'
-          }`}
-          alt={product?.texts?.title}
-          layout="responsive"
-          objectFit="contain"
-          quality={100}
-          width="350px"
-          height="350px"
-        />
-      </div>
-      <div className="d-flex justify-content-between align-items-baseline">
-        <Link href={`/product/${product?.texts?.slug}`}>
-          <a>
-            <div className="item-info">
-              {product?.texts && product?.texts.title}
-            </div>
-          </a>
-        </Link>
-        <button
-          className="no-button"
-          type="button"
-          aria-label="remove cart item"
-          onClick={() => removeCartItem({ itemId: _id })}
-        >
-          <Icon className="icon--small" icon="bin-2-alternate" />
-        </button>
-      </div>
-      <div className="d-flex justify-content-between align-items-center flex-wrap">
-        <div className="item-quantity">
-          <button
-            type="button"
-            className="no-button border-left-radius"
-            aria-label="Increase cart item"
-            disabled={currentQuantity === 1}
-            onClick={() =>
-              updateCartItem({
-                itemId: _id,
-                quantity: Math.max(quantity - 1, 1),
-              })
-            }
-          >
-            -
-          </button>
-          <input
-            type="text"
-            pattern="\d+"
-            className="form-field"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={currentQuantity}
+    <li className="flex py-6 px-4 sm:px-6" key={_id}>
+      <div className="relative h-20 w-20 flex-shrink-0 rounded-md">
+        {getMediaUrl(product) ? (
+          <Image
+            src={getMediaUrl(product)}
+            alt={product?.texts?.title}
+            layout="fill"
+            placeholder="blur"
+            blurDataURL="/placeholder.png"
+            objectFit="cover"
+            loader={defaultNextImageLoader}
           />
-          <button
-            className="no-button border-right-radius"
-            aria-label="Decrease cart item"
-            type="button"
-            onClick={() =>
-              updateCartItem({
-                itemId: _id,
-                quantity: quantity + 1,
-              })
-            }
-          >
-            +
-          </button>
+        ) : (
+          <div className="relative h-full w-full">
+            <PhotographIcon className="absolute inset-0 h-full w-full text-slate-200  dark:text-slate-500" />
+          </div>
+        )}
+      </div>
+
+      <div className="ml-6 flex flex-1 flex-col">
+        <div className="flex">
+          <div className="min-w-0 flex-1">
+            <h4 className="text-sm">
+              <Link href={`/product/${product?.texts?.slug}`}>
+                <a className="font-medium text-slate-700 hover:text-slate-800 dark:text-slate-100 dark:hover:text-slate-400">
+                  {product?.texts && product?.texts.title}
+                </a>
+              </Link>
+            </h4>
+          </div>
+          {enableUpdate ? (
+            <div className="ml-4 flow-root flex-shrink-0">
+              <button
+                type="button"
+                className="-m-2.5 flex items-center justify-center p-2.5 text-slate-400 hover:text-slate-500 dark:text-slate-100"
+                onClick={() => removeCartItem({ itemId: _id })}
+              >
+                <span className="sr-only">
+                  {formatMessage({ id: 'remove', defaultMessage: 'Remove' })}
+                </span>
+                <TrashIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
+          ) : null}
         </div>
-        <div className="item-price">
-          <small className="d-block mt-2">{renderPrice(total)}</small>
+
+        <div className="flex flex-1 items-end justify-between pt-2">
+          <p className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">
+            {renderPrice(product?.simulatedPrice)}
+          </p>
+
+          <div className="ml-4">
+            <label htmlFor="quantity" className="sr-only">
+              {formatMessage({ id: 'quantity', defaultMessage: 'Quantity' })}
+            </label>
+            {enableUpdate ? (
+              <div className="flex flex-wrap items-end justify-between">
+                <div className="flex items-end justify-center gap-1">
+                  <button
+                    type="button"
+                    className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:text-slate-200 dark:shadow-white sm:text-sm"
+                    aria-label="Increase cart item"
+                    disabled={currentQuantity === 1}
+                    onClick={() =>
+                      updateCartItem({
+                        itemId: _id,
+                        quantity: Math.max(quantity - 1, 1),
+                      })
+                    }
+                  >
+                    <MinusIcon className="h-6 w-6" />
+                  </button>
+                  <input
+                    type="text"
+                    pattern="\d+"
+                    className="h-8 w-14 border-0 p-1 pb-0 text-center placeholder:font-bold placeholder:opacity-100 dark:bg-inherit dark:text-slate-100"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={currentQuantity}
+                  />
+                  <button
+                    className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:text-slate-200 dark:shadow-white sm:text-sm"
+                    aria-label="Decrease cart item"
+                    type="button"
+                    onClick={() =>
+                      updateCartItem({
+                        itemId: _id,
+                        quantity: quantity + 1,
+                      })
+                    }
+                  >
+                    <PlusIcon className="h-6 w-6" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <span>{quantity}</span>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </li>
   );
 };
 

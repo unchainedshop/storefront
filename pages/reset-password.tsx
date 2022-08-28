@@ -6,7 +6,6 @@ import { useIntl } from 'react-intl';
 import useResetPassword from '../modules/auth/hooks/useResetPassword';
 import MetaTags from '../modules/common/components/MetaTags';
 import Footer from '../modules/layout/components/Footer';
-import Header from '../modules/layout/components/Header';
 
 const PasswordReset = () => {
   const router = useRouter();
@@ -33,7 +32,6 @@ const PasswordReset = () => {
   return (
     <>
       <MetaTags title={intl.formatMessage({ id: 'reset_password' })} />
-      <Header />
       <div className="container">
         <div className="row">
           <div className="col-md-8 offset-md-2">

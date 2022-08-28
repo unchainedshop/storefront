@@ -6,13 +6,12 @@ import CategoriesList from '../../modules/assortment/components/CategoriesList';
 import useAssortmentProducts from '../../modules/assortment/hooks/useAssortmentProducts';
 import getAssortmentPath from '../../modules/assortment/utils/getAssortmentPath';
 import AssortmentBreadcrumbs from '../../modules/assortment/components/AssortmentBreadcrumbs';
-import Footer from '../../modules/layout/components/Footer';
-import Header from '../../modules/layout/components/Header';
 import ProductList from '../../modules/products/components/ProductList';
 import MetaTags from '../../modules/common/components/MetaTags';
 import useCategoriesTree from '../../modules/assortment/hooks/useCategoriesTree';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import getMediaUrl from '../../modules/common/utils/getMediaUrl';
+import defaultNextImageLoader from '../../modules/common/utils/getDefaultNextImageLoader';
 
 const CategoryDetail = () => {
   const router = useRouter();
@@ -62,56 +61,53 @@ const CategoryDetail = () => {
         url={currentUrl}
         imageUrl={getMediaUrl({ media })}
       />
-      <Header />
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <AssortmentBreadcrumbs
-              paths={assortmentPaths}
-              currentAssortment={texts}
+      <div className="flex flex-wrap px-4 sm:px-0">
+        <div className="relative w-full flex-3 pl-1">
+          <AssortmentBreadcrumbs
+            paths={assortmentPaths}
+            currentAssortment={texts}
+          />
+        </div>
+        <div className="relative w-full p-4 pl-1 md:max-w-1/3 md:flex-4 lg:max-w-1/4 lg:flex-5">
+          {categoryTreeLoading ? (
+            <LoadingItem />
+          ) : (
+            <CategoriesList
+              assortment={assortmentTree.children}
+              currentPath={currentPath}
             />
-          </div>
-          <div className="col-md-4 col-lg-3">
-            {categoryTreeLoading ? (
-              <LoadingItem />
-            ) : (
-              <CategoriesList
-                assortment={assortmentTree.children}
-                currentPath={currentPath}
+          )}
+        </div>
+        <div className="relative w-full px-4 md:max-w-2/3 md:flex-6 lg:max-w-3/4 lg:flex-7">
+          <div>
+            <h1 className="mt-0 dark:text-slate-100">{texts?.title}</h1>
+            <h2>{texts?.subtitle}</h2>
+            {getMediaUrl({ media }) && (
+              <Image
+                src={getMediaUrl({ media })}
+                alt={texts?.title}
+                layout="responsive"
+                objectFit="contain"
+                quality={100}
+                width="706px"
+                height="235px"
+                loader={defaultNextImageLoader}
               />
             )}
-          </div>
-          <div className="col-md-8 col-lg-9">
-            <div>
-              <h1 className="mt-0">{texts?.title}</h1>
-              <h2>{texts?.subtitle}</h2>
-              {getMediaUrl({ media }) && (
-                <Image
-                  src={getMediaUrl({ media })}
-                  alt={texts?.title}
-                  layout="responsive"
-                  objectFit="contain"
-                  quality={100}
-                  width="706px"
-                  height="235px"
-                />
-              )}
 
-              <p>{texts?.description}</p>
-            </div>
-            {productsLoading ? (
-              <LoadingItem />
-            ) : (
-              <ProductList
-                onLoadMore={loadMore}
-                totalProducts={filteredProducts}
-                products={products}
-              />
-            )}
+            <p>{texts?.description}</p>
           </div>
+          {productsLoading ? (
+            <LoadingItem />
+          ) : (
+            <ProductList
+              onLoadMore={loadMore}
+              totalProducts={filteredProducts}
+              products={products}
+            />
+          )}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

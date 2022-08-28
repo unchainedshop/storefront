@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
+import { MenuIcon } from '@heroicons/react/solid';
 import DesktopNavigationContext from './DesktopNavigationContext';
 import MegaDropdown from './MegaDropdown';
 import useCategoriesTree from '../hooks/useCategoriesTree';
-import Icon from '../../common/components/Icon';
 
 const arrayEqual = (a, b) =>
   a.length === b.length &&
   a.reduce((acc, curr, index) => acc && curr === b[index], true);
 
 const DesktopNavigation = () => {
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
   const [hoverPath, setHoverPath] = useState([]);
   const [isTouching, setTouching] = useState(false);
 
@@ -20,7 +20,7 @@ const DesktopNavigation = () => {
 
   const handleClick = (node) => (event) => {
     if (isTouching && node.children) {
-      // Special behaviour for touch devices: A tab opens the dropdown and the click (=navigation) is prevented
+      // Special behavior for touch devices: A tab opens the dropdown and the click (=navigation) is prevented
       event.preventDefault();
       if (hoverPath.length > 0 && arrayEqual(node.path, hoverPath)) {
         // This is the second tab on a top-navigation title: It closes the dropdown
@@ -43,6 +43,9 @@ const DesktopNavigation = () => {
     setTimeout(() => setTouching(false), 300);
   };
 
+  const ref = useRef(null);
+  const dataInHoverPath = ref?.current?.getAttribute('data-in-hover-path');
+
   return (
     <DesktopNavigationContext.Provider
       value={{
@@ -52,15 +55,16 @@ const DesktopNavigation = () => {
       }}
     >
       <nav
-        className="nav nav--main"
+        className="hidden sm:flex"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div key="shop" className="d-inline-block">
+        <div key="shop" className="inline-block">
           <Link href="/shop">
             <a
-              className="nav--main__item py-3 d-flex align-items-center"
+              className="nav--main__item flex items-center py-4"
               data-in-hover-path={hoverPath.includes(assortmentTree.slug)}
+              ref={ref}
               onMouseEnter={() => {
                 if (!isTouching) {
                   setHoverPath(assortmentTree.slug);
@@ -74,12 +78,15 @@ const DesktopNavigation = () => {
               }}
               onClick={handleClick(assortmentTree)}
             >
-              <Icon className="mr-2" icon="navigation-menu" />
-              {intl.formatMessage({ id: 'menu' })}
+              <MenuIcon className="mr-2 h-6 w-6 text-slate-900 dark:text-slate-100" />
+              {formatMessage({ id: 'menu', defaultMessage: 'Menu' })}
             </a>
           </Link>
           {hoverPath.includes(assortmentTree.slug) && (
-            <MegaDropdown {...assortmentTree} />
+            <MegaDropdown
+              {...assortmentTree}
+              dataInHoverPath={dataInHoverPath}
+            />
           )}
         </div>
       </nav>

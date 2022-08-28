@@ -10,14 +10,18 @@ const {
 const LanguageSwitch = () => {
   const intl = useIntl();
   const currentLang = intl.locale.split('-')[0];
+  intl.formatMessage({ id: 'language_en', defaultMessage: 'English' });
 
   return (
     <div className="select-wrap language-select">
-      <label htmlFor="language-switcher" className="d-none">
-        {intl.formatMessage({ id: 'choose_language' })}
+      <label htmlFor="language-switcher" className="hidden">
+        {intl.formatMessage({
+          id: 'choose_language',
+          defaultMessage: 'Choose language',
+        })}
       </label>
       <select
-        className="link-hover"
+        className="hover:cursor-pointer"
         value={currentLang}
         onChange={(e) => changeLanguage(e.target.value)}
         id="language-switcher"

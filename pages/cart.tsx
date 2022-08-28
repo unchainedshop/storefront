@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import useRedirect from '../modules/auth/hooks/useRedirect';
 import useUser from '../modules/auth/hooks/useUser';
 import ManageCart from '../modules/cart/components/ManageCart';
-import Header from '../modules/layout/components/Header';
+
 import Footer from '../modules/layout/components/Footer';
 import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
@@ -17,7 +17,7 @@ const Cart = () => {
   return (
     <>
       <MetaTags title={intl.formatMessage({ id: 'cart' })} />
-      <Header />
+
       <div className="container">
         <div className="row">
           <div className="col-md-8 col-lg-6 mx-auto">

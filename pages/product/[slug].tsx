@@ -5,7 +5,6 @@ import ImageGallery from 'react-image-gallery';
 import { useIntl } from 'react-intl';
 
 import useProductDetail from '../../modules/products/hooks/useProductDetail';
-import Header from '../../modules/layout/components/Header';
 import Footer from '../../modules/layout/components/Footer';
 import AddToCartButton from '../../modules/cart/components/AddToCartButton';
 import renderPrice from '../../modules/common/utils/renderPrice';
@@ -40,7 +39,6 @@ const Detail = () => {
         url={currentUrl}
         description={product?.texts?.description}
       />
-      <Header />
       {loading ? (
         <LoadingItem />
       ) : (

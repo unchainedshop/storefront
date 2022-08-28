@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
-
 import AddressFragment from '../../common/fragments/AddressFragment';
 import ProductFragment from '../../products/fragments/ProductFragment';
+import SimpleProductPrice from '../../products/fragments/SimpleProductPrice';
 
 const CurrentUserFragment = gql`
   fragment CurrentUserFragment on User {
@@ -23,6 +23,14 @@ const CurrentUserFragment = gql`
       countryCode
       locale
     }
+    bookmarks {
+      _id
+      created
+      product {
+        ...ProductFragment
+        ...SimpleProductPrice
+      }
+    }
 
     profile {
       phoneMobile
@@ -34,6 +42,10 @@ const CurrentUserFragment = gql`
       _id
       billingAddress {
         ...AddressFragment
+      }
+      currency {
+        _id
+        isoCode
       }
 
       contact {
@@ -54,6 +66,7 @@ const CurrentUserFragment = gql`
         }
         product {
           ...ProductFragment
+          ...SimpleProductPrice
         }
       }
       paymentInfo: payment {
@@ -64,10 +77,12 @@ const CurrentUserFragment = gql`
           type
           interface {
             _id
+            label
+            version
           }
         }
         ... on OrderPaymentGeneric {
-          sign
+          _id
         }
       }
       taxes: total(category: TAXES) {
@@ -84,6 +99,9 @@ const CurrentUserFragment = gql`
       }
       deliveryInfo: delivery {
         _id
+        provider {
+          _id
+        }
         ... on OrderDeliveryShipping {
           address {
             ...AddressFragment
@@ -94,21 +112,38 @@ const CurrentUserFragment = gql`
         amount
         currency
       }
+      currency {
+        _id
+        isoCode
+      }
       supportedPaymentProviders {
         _id
         type
         interface {
           _id
+          label
+          version
         }
       }
       supportedDeliveryProviders {
         _id
         type
+        interface {
+          _id
+          label
+          version
+        }
+        simulatedPrice {
+          _id
+          amount
+          currency
+        }
       }
     }
   }
   ${ProductFragment}
   ${AddressFragment}
+  ${SimpleProductPrice}
 `;
 
 export default CurrentUserFragment;

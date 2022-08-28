@@ -1,15 +1,10 @@
 import { useIntl } from 'react-intl';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import useUser from '../modules/auth/hooks/useUser';
-import useSetOrderPaymentProvider from '../modules/orders/hooks/setPaymentOrderProvider';
-import DatatransStatusGate from '../modules/checkout/components/DatatransStatusGate';
-import BityPayment from '../modules/checkout/components/BityPayment';
-import DatatransPayment from '../modules/checkout/components/DatatransPayment';
-import WireTransferPayment from '../modules/checkout/components/WireTransferPayment';
+import { ShoppingBagIcon } from '@heroicons/react/solid';
 
-import Header from '../modules/layout/components/Header';
-import Footer from '../modules/layout/components/Footer';
+import useUser from '../modules/auth/hooks/useUser';
+import DatatransStatusGate from '../modules/checkout/components/DatatransStatusGate';
 import ManageCart from '../modules/cart/components/ManageCart';
 import DeliveryAddressEditable from '../modules/checkout/components/DeliveryAddressEditable';
 import BillingAddressEditable from '../modules/checkout/components/BillingAddressEditable';
@@ -17,21 +12,32 @@ import useUpdateOrderDeliveryShipping from '../modules/checkout/hooks/useUpdateD
 import useUpdateCart from '../modules/checkout/hooks/useUpdateCart';
 import MetaTags from '../modules/common/components/MetaTags';
 import LoadingItem from '../modules/common/components/LoadingItem';
+import NoData from '../modules/common/components/NoData';
+import DeliveryMethod from '../modules/checkout/components/DeliveryMethod';
+import PaymentMethod from '../modules/checkout/components/PaymentMethod';
 
 const Review = () => {
   const { user, loading } = useUser();
-  const intl = useIntl();
-  const router = useRouter();
+  const { formatMessage } = useIntl();
 
-  const { setOrderPaymentProvider } = useSetOrderPaymentProvider();
+  const router = useRouter();
+  const [isFromSignUp, setIsFromSignUp] = useState(false);
+
   const { updateOrderDeliveryAddress } = useUpdateOrderDeliveryShipping();
   const { updateCart } = useUpdateCart();
+  const [sameCheckbox, setSameCheckbox] = useState(
+    user?.cart?.billingAddress !== null,
+  );
 
   useEffect(() => {
     if (!loading && user?.cart && !user.cart.contact?.emailAddress) {
       router.replace({ pathname: '/checkout' });
     }
+    setIsFromSignUp(!!router.query?.newSignUp);
   }, [user]);
+  useEffect(() => {
+    setIsFromSignUp(!!router.query?.newSignUp);
+  }, []);
 
   const setBillingSameAsDelivery = () => {
     updateCart({
@@ -44,13 +50,6 @@ const Review = () => {
         city: user?.cart?.deliveryInfo?.address?.city,
         countryCode: user?.cart?.deliveryInfo?.address?.countryCode,
       },
-    });
-  };
-
-  const selectPayment = async (providerId) => {
-    await setOrderPaymentProvider({
-      orderId: user.cart._id,
-      paymentProviderId: providerId,
     });
   };
 
@@ -79,118 +78,111 @@ const Review = () => {
         meta: null,
       });
     }
+    setSameCheckbox(!sameCheckbox);
   };
 
   if (loading) return <LoadingItem />;
 
   return (
     <>
-      <MetaTags title={intl.formatMessage({ id: 'order_review' })} />
-      <Header />
-      <div className="container mt-5">
-        <div className="row">
-          <DatatransStatusGate>
-            <div className="col-lg-8 mb-5">
-              <h2 className="mt-0 mb-5">
-                {`${intl.formatMessage({
-                  id: 'checkout',
-                })} - ${intl.formatMessage({ id: 'order_review' })}`}
-              </h2>
-              <h4>{intl.formatMessage({ id: 'delivery_address' })}</h4>
-              <DeliveryAddressEditable user={user} />
-
-              <h4 className="mt-5">
-                {intl.formatMessage({ id: 'billing_address' })}
-              </h4>
-
-              <div className="form-check my-3">
-                <label
-                  className="form-check-label mb-5 d-flex align-items-center "
-                  htmlFor="same"
-                >
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="same"
-                    defaultChecked={user?.cart?.deliveryInfo?.address === null}
-                    name="same"
-                    onChange={(e) => sameAsDeliveryChange(e)}
-                  />
-                  <span className="ml-3">
-                    {intl.formatMessage({ id: 'same_as_delivery' })}
-                  </span>
-                </label>
-              </div>
-              <BillingAddressEditable user={user} />
-
-              <h4 className="mt-5">
-                {intl.formatMessage({ id: 'payment_method' })}
-              </h4>
-              <section className="">
-                {user?.cart?.supportedPaymentProviders.map((pamentProvider) => (
-                  <div
-                    key={pamentProvider._id}
-                    className="form-check my-2 my-lg-1"
-                  >
-                    <label className="form-check-label d-flex align-items-center">
-                      <input
-                        type="radio"
-                        className="form-check-input"
-                        name="paymentmethods"
-                        value={pamentProvider._id}
-                        checked={
-                          pamentProvider._id ===
-                          user?.cart?.paymentInfo?.provider?._id
-                        }
-                        onChange={(e) => {
-                          e.preventDefault();
-                          selectPayment(pamentProvider._id);
-                        }}
-                      />
-                      <span className="ml-3">
-                        {intl.formatMessage({
-                          id: pamentProvider.interface?._id,
+      <MetaTags
+        title={formatMessage({
+          id: 'order_review',
+          defaultMessage: 'Order review',
+        })}
+      />
+      {user?.cart ? (
+        <div className="bg-slate-50 dark:bg-slate-600">
+          <div className="max-w-full px-4 pt-16 pb-24">
+            <h2 className="sr-only">
+              {formatMessage({ id: 'checkout', defaultMessage: 'Checkout' })}
+            </h2>
+            <DatatransStatusGate>
+              <div className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+                <div>
+                  <div>
+                    <h2 className="text-lg font-medium text-slate-900 dark:text-white">
+                      {formatMessage({
+                        id: 'delivery_address',
+                        defaultMessage: 'Delivery address',
+                      })}
+                    </h2>
+                    {!isFromSignUp ? (
+                      <DeliveryAddressEditable user={user} />
+                    ) : (
+                      <button
+                        type="submit"
+                        onClick={() => setIsFromSignUp(!isFromSignUp)}
+                        className="w-50 rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-50"
+                      >
+                        {formatMessage({
+                          id: 'edit_delivery_address',
+                          defaultMessage: 'Edit delivery address',
                         })}
-                      </span>
-                    </label>
+                      </button>
+                    )}
                   </div>
-                ))}
-              </section>
 
-              <div className="mt-5">
-                {user?.cart?.paymentInfo?.provider?.interface?._id ===
-                'shop.unchained.invoice' ? (
-                  <WireTransferPayment
-                    setBillingSameAsDelivery={setBillingSameAsDelivery}
-                    cart={user?.cart}
-                  />
-                ) : (
-                  ''
-                )}
-                {user?.cart?.paymentInfo?.provider?.interface?._id ===
-                'shop.unchained.datatrans' ? (
-                  <DatatransPayment cart={user?.cart} />
-                ) : (
-                  ''
-                )}
-                {user?.cart?.paymentInfo?.provider?.interface?._id ===
-                'shop.unchained.payment.bity' ? (
-                  <BityPayment cart={user?.cart} />
-                ) : (
-                  ''
-                )}
+                  <DeliveryMethod user={user} />
+
+                  <div className="mt-10 border-t border-slate-200 pt-10">
+                    <h4 className="mt-5 text-slate-900 dark:text-white">
+                      {formatMessage({
+                        id: 'billing_address',
+                        defaultMessage: 'Billing address',
+                      })}
+                    </h4>
+
+                    <div className="my-3 flex items-start">
+                      <label className="mb-5" htmlFor="same">
+                        <input
+                          type="checkbox"
+                          className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 dark:text-indigo-800"
+                          id="same"
+                          // defaultChecked={user?.cart?.deliveryInfo === null}
+                          defaultChecked={sameCheckbox}
+                          name="same"
+                          onChange={(e) => sameAsDeliveryChange(e)}
+                        />
+                        <span className="ml-3 text-sm font-medium text-slate-700 dark:text-slate-200">
+                          {formatMessage({
+                            id: 'same_as_delivery',
+                            defaultMessage: 'Same as delivery address',
+                          })}
+                        </span>
+                      </label>
+                    </div>
+                    <BillingAddressEditable
+                      checked={sameCheckbox}
+                      user={user}
+                    />
+                  </div>
+
+                  <PaymentMethod user={user} />
+                </div>
+
+                <div className="mt-10 lg:mt-0">
+                  <h2 className="text-lg font-medium text-slate-900 dark:text-slate-100">
+                    {formatMessage({
+                      id: 'order_summary',
+                      defaultMessage: 'Order summary',
+                    })}
+                  </h2>
+                  <ManageCart user={user} />
+                </div>
               </div>
-            </div>
-            <div className="col-lg-4">
-              <h2 className="mt-0 mb-5">
-                {intl.formatMessage({ id: 'order_summary' })}
-              </h2>
-              <ManageCart user={user} />
-            </div>
-          </DatatransStatusGate>
+            </DatatransStatusGate>
+          </div>
         </div>
-      </div>
-      <Footer />
+      ) : (
+        <NoData
+          message={formatMessage({
+            id: 'no_item_in_cart',
+            defaultMessage: 'item in cart',
+          })}
+          Icon={<ShoppingBagIcon className="h-8 w-8" />}
+        />
+      )}
     </>
   );
 };

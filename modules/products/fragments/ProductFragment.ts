@@ -11,27 +11,15 @@ const ProductFragment = gql`
         url
       }
     }
-    ... on SimpleProduct {
-      simulatedPrice {
-        _id
-        isTaxable
-        isNetPrice
-        amount
-        currency
-      }
-      dimensions {
-        width
-        height
-        length
-        weight
-      }
-      texts(forceLocale: $forceLocale) {
-        _id
-        title
-        subtitle
-        description
-        slug
-      }
+    reviews {
+      _id
+      created
+      deleted
+      updated
+
+      rating
+      title
+      review
     }
     ... on PlanProduct {
       texts(forceLocale: $forceLocale) {
@@ -40,8 +28,30 @@ const ProductFragment = gql`
         subtitle
         description
         slug
+        labels
+        vendor
+        brand
       }
     }
+    ... on SimpleProduct {
+      texts(forceLocale: $forceLocale) {
+        _id
+        title
+        subtitle
+        description
+        slug
+        labels
+        vendor
+        brand
+      }
+      dimensions {
+        width
+        height
+        length
+        weight
+      }
+    }
+
     ... on BundleProduct {
       texts(forceLocale: $forceLocale) {
         _id
@@ -49,6 +59,35 @@ const ProductFragment = gql`
         subtitle
         description
         slug
+        labels
+        vendor
+        brand
+      }
+      bundleItems {
+        product {
+          _id
+          media {
+            _id
+            file {
+              _id
+              name
+              url
+            }
+          }
+          reviews {
+            _id
+            created
+            deleted
+            updated
+            author {
+              _id
+              username
+            }
+            rating
+            title
+            review
+          }
+        }
       }
     }
     ... on ConfigurableProduct {
@@ -58,6 +97,28 @@ const ProductFragment = gql`
         subtitle
         description
         slug
+        labels
+        vendor
+        brand
+      }
+      variations {
+        _id
+        texts(forceLocale: $forceLocale) {
+          _id
+          title
+          subtitle
+        }
+        type
+        key
+        options {
+          _id
+          texts(forceLocale: $forceLocale) {
+            _id
+            title
+            subtitle
+          }
+          value
+        }
       }
     }
   }

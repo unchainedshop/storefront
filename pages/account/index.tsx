@@ -1,318 +1,181 @@
+/* eslint-disable no-return-assign */
 import Link from 'next/link';
-import { useState } from 'react';
 import { useIntl } from 'react-intl';
-
-import UpdateProfileForm from '../../modules/auth/components/UpdateProfileForm';
-import useSetUsername from '../../modules/auth/hooks/useSetUsername';
+import {
+  IdentificationIcon,
+  KeyIcon,
+  UserCircleIcon,
+} from '@heroicons/react/solid';
+import classNames from 'classnames';
+import { useRouter } from 'next/router';
 import useUser from '../../modules/auth/hooks/useUser';
 import MetaTags from '../../modules/common/components/MetaTags';
-import COUNTRIES from '../../modules/common/data/countries-list';
-import Footer from '../../modules/layout/components/Footer';
-import Header from '../../modules/layout/components/Header';
-import useRemoveEmail from '../../modules/auth/hooks/useRemoveEmail';
-import useAddEmail from '../../modules/auth/hooks/useAddEmail';
-import useResendVerificationEmail from '../../modules/auth/hooks/useResendVerificationEmail';
 import useRedirect from '../../modules/auth/hooks/useRedirect';
+import Address from '../../modules/common/components/Address';
+import General from '../../modules/common/components/General';
+import LoadingItem from '../../modules/common/components/LoadingItem';
+
+const subNavigation = [
+  { name: 'General', href: '#general', icon: UserCircleIcon },
+  {
+    name: 'Address',
+    href: '#address',
+    icon: IdentificationIcon,
+  },
+  { name: 'Password', href: '#password', icon: KeyIcon },
+];
 
 const Account = () => {
-  const { user } = useUser();
-  const [updateUsername, setUpdateUserName] = useState(false);
-  const intl = useIntl();
-  const [username, setUserName] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [updateProfile, setUpdateProfile] = useState(false);
-
-  const { setUsername } = useSetUsername();
-  const { removeEmail } = useRemoveEmail();
-  const { addEmail } = useAddEmail();
-  const { resendVerificationEmail } = useResendVerificationEmail();
-
+  const { user, loading } = useUser();
+  const router = useRouter();
+  const { formatMessage } = useIntl();
+  const showDebugInfo = true;
   useRedirect({ to: '/login', matchAnonymous: true, matchGuests: true });
 
-  const showDebugInfo = false;
-  const showUsername = user?.roles?.includes('admin');
-  const onProfileUpdateComplete = (value) => {
-    if (value) setUpdateProfile(false);
-  };
-
-  const updateName = async (name) => {
-    await setUsername({ username: name, userId: user._id });
-    setUpdateUserName(!updateUsername);
-  };
+  if (loading) {
+    return <LoadingItem />;
+  }
 
   return (
     <>
       <MetaTags
-        title={user?.username || intl.formatMessage({ id: 'account' })}
+        title={
+          user?.username ||
+          formatMessage({ id: 'account', defaultMessage: 'Account' })
+        }
       />
-      <Header />
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <h1 className="my-5">{intl.formatMessage({ id: 'account' })}</h1>
-            {updateProfile ? (
-              <UpdateProfileForm
-                user={user}
-                onSuccess={onProfileUpdateComplete}
-                onCancel={onProfileUpdateComplete}
-              />
-            ) : (
-              <div className="row">
-                <div className="col-md-6">
-                  {showUsername && (
-                    <div className="d-flex align-items-center justify-content-between flex-wrap mb-2 border-bottom pb-3 mb-3">
-                      <h2 className="my-0">
-                        {intl.formatMessage({ id: 'username' })}
-                      </h2>
-                      {!updateUsername ? (
-                        <>
-                          <span className="mb-1">
-                            {user?.username ||
-                              intl.formatMessage({ id: 'no_username_set' })}
-                          </span>
-                          <button
-                            type="button"
-                            className=" button button--small button--secondary"
-                            onClick={() => setUpdateUserName(!updateUsername)}
-                          >
-                            {intl.formatMessage({ id: 'change_username' })}
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <input
-                            className="form-control my-2"
-                            type="text"
-                            onChange={(e) => setUserName(e.target.value)}
-                            value={username}
-                          />
-                          <button
-                            type="button"
-                            className="button button--small button--primary"
-                            onClick={() => updateName(username)}
-                          >
-                            {intl.formatMessage({ id: 'save_username' })}
-                          </button>
-                          <button
-                            type="button"
-                            className="button button--small text-danger"
-                            onClick={() => setUpdateUserName(!updateUsername)}
-                          >
-                            {intl.formatMessage({ id: 'cancel' })}
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  )}
-                  <div className="d-flex align-items-center justify-content-between flex-wrap mb-2 border-bottom pb-3">
-                    <h2 className="my-0 d-inline-block mr-3">
-                      {intl.formatMessage({ id: 'password' })}
-                    </h2>
-                    <Link href="account/change-password">
-                      <a className="button button--small button--secondary">
-                        {intl.formatMessage({ id: 'change_password' })}
-                      </a>
-                    </Link>
-                  </div>
-                  <div>
-                    <h2>{intl.formatMessage({ id: 'email' })}</h2>
-                    {user?.emails?.map((e, i) => (
-                      <div key={e.address} className="mb-2 border-bottom pb-1">
-                        <label className="form-label mb-1">
-                          {i + 1}. {intl.formatMessage({ id: 'email' })}
-                        </label>
-                        <span className="mb-1 d-flex justify-content-between align-items-center flex-wrap">
-                          {e.address}
-                          {e.verified ? (
-                            <span className="pill-success m-2">
-                              <span className="pill px-2 py-1">
-                                {intl.formatMessage({ id: 'verified' })}
-                              </span>
-                            </span>
-                          ) : (
-                            <>
-                              <span className="pill-warning m-2">
-                                <span className="pill px-2 py-1">
-                                  {intl.formatMessage({ id: 'not_verified' })}
-                                </span>
-                              </span>
-                              <button
-                                type="button"
-                                className="button button--small button--primary my-2"
-                                onClick={() =>
-                                  resendVerificationEmail(e.address)
-                                }
-                              >
-                                {intl.formatMessage({
-                                  id: 'resend_verification',
-                                })}
-                              </button>
-                            </>
-                          )}
-                          {user?.emails?.length > 1 && (
-                            <button
-                              type="button"
-                              className="button button--small button--secondary my-2"
-                              onClick={() => removeEmail(e.address)}
-                            >
-                              {intl.formatMessage({
-                                id: 'remove_email',
-                              })}
-                            </button>
-                          )}
-                        </span>
-                      </div>
-                    ))}
-                    <div className="form-row">
-                      <label className="form-label">
-                        {intl.formatMessage({ id: 'add_email' })}
-                      </label>
-                      <input
-                        className="form-control"
-                        type="text"
-                        onChange={(e) => setNewEmail(e.target.value)}
-                        value={newEmail}
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      className="button button--small button--secondary mt-2 mb-5"
-                      onClick={() => addEmail(newEmail)}
-                    >
-                      {intl.formatMessage({ id: 'add_email' })}
-                    </button>
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="d-flex align-items-center justify-content-between mb-4">
-                    <h2 className="my-0">Address</h2>
-                    {!updateProfile && (
-                      <button
-                        type="button"
-                        className="button button--small button--secondary"
-                        onClick={() => setUpdateProfile(true)}
-                      >
-                        {intl.formatMessage({ id: 'change_address' })}
-                      </button>
-                    )}
-                  </div>
-                  {showDebugInfo && (
-                    <>
-                      <div className="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                        <span className="mb-1">
-                          {intl.formatMessage({ id: 'guest' })}
-                        </span>
-                        <span className="mb-1">
-                          {user?.isGuest ? (
-                            <b>{intl.formatMessage({ id: 'yes' })}</b>
-                          ) : (
-                            <b>{intl.formatMessage({ id: 'no' })}</b>
-                          )}
-                        </span>
-                      </div>
-                      <div className="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                        <span className="mb-1">
-                          {intl.formatMessage({ id: 'number_of_orders' })}
-                        </span>
-                        <span className="mb-1">
-                          {' '}
-                          {user?.order?.length || 0}
-                        </span>
-                      </div>
-                    </>
-                  )}
-
-                  <div className="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                    <span className="mb-1">
-                      {intl.formatMessage({ id: 'first_name' })}
-                    </span>
-                    <span className="mb-1">
-                      {user?.profile?.address?.firstName}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                    <span className="mb-1">
-                      {intl.formatMessage({ id: 'last_name' })}
-                    </span>
-                    <span className="mb-1">
-                      {user?.profile?.address?.lastName}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                    <span className="mb-1">
-                      {intl.formatMessage({ id: 'company' })}
-                    </span>
-                    <span className="mb-1">
-                      {user?.profile?.address?.Company}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                    <span className="mb-1">
-                      {intl.formatMessage({ id: 'address' })}
-                    </span>
-                    <span className="mb-1">
-                      {' '}
-                      {user?.profile?.address?.addressLine}{' '}
-                      {user?.profile?.address?.addressLine2 && (
-                        <>
-                          <br />
-                          {user?.profile?.address?.addressLine2}
-                        </>
-                      )}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                    <span className="mb-1">
-                      {intl.formatMessage({ id: 'telephone' })}
-                    </span>
-                    <span className="mb-1"> {user?.profile?.phoneMobile} </span>
-                  </div>
-                  <div className="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                    <span className="mb-1">
-                      {intl.formatMessage({ id: 'postal_code' })}
-                    </span>
-                    <span className="mb-1">
-                      {' '}
-                      {user?.profile?.address?.postalCode}{' '}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                    <span className="mb-1">
-                      {intl.formatMessage({ id: 'city' })}
-                    </span>
-                    <span className="mb-1">
-                      {' '}
-                      {user?.profile?.address?.city}{' '}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                    <span className="mb-1">
-                      {intl.formatMessage({ id: 'region' })}
-                    </span>
-                    <span className="mb-1">
-                      {' '}
-                      {user?.profile?.address?.regionCode}{' '}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-column flex-sm-row justify-content-between mb-2">
-                    <span className="mb-1">
-                      {intl.formatMessage({ id: 'country' })}
-                    </span>
-                    <span className="mb-1">
+      <div className="max-w-full bg-slate-100 pb-10 dark:bg-slate-600 lg:py-12 lg:px-8">
+        <div className="lg:grid lg:grid-cols-12 lg:gap-x-5">
+          <aside className="h-fit py-6 px-2 sm:px-6 lg:sticky lg:top-24 lg:col-span-3 lg:py-0 lg:px-0">
+            <nav className="space-y-1 lg:sticky lg:top-24">
+              {subNavigation.map((item) => (
+                <Link href={item.href} key={item.name}>
+                  <a
+                    className={classNames(
+                      'group flex items-center rounded-md px-3 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-indigo-400 dark:bg-slate-600 dark:text-white dark:hover:text-sky-400',
                       {
-                        COUNTRIES.filter(
-                          (c) => c.code === user?.profile?.address?.countryCode,
-                        )[0]?.name
-                      }
-                    </span>
+                        'bg-slate-50 text-indigo-600 hover:bg-white dark:bg-slate-500 dark:text-sky-400':
+                          item.name.toLowerCase() ===
+                          (router.asPath.includes('#')
+                            ? router.asPath.split('#')[1]
+                            : 'general'),
+                      },
+                    )}
+                  >
+                    <item.icon
+                      className={classNames(
+                        '-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-slate-400 group-hover:text-indigo-400 dark:group-hover:text-sky-500',
+                        {
+                          'text-indigo-600 dark:text-sky-400':
+                            item.name.toLowerCase() ===
+                            (router.asPath.includes('#')
+                              ? router.asPath.split('#')[1]
+                              : 'general'),
+                        },
+                      )}
+                      aria-hidden="true"
+                    />
+                    <span className="truncate">{item.name}</span>
+                  </a>
+                </Link>
+              ))}
+            </nav>
+          </aside>
+
+          {/* General */}
+          <General user={user} />
+
+          {/* Address */}
+          <Address user={user} />
+
+          {/* Password */}
+          <section
+            id="password"
+            aria-labelledby="password"
+            className="lg:col-span-9 lg:col-start-4"
+          >
+            <div className="mt-6 bg-white pt-6 shadow dark:bg-slate-500 sm:overflow-hidden sm:rounded-md">
+              <div className="px-4 sm:px-6">
+                <h2
+                  id="password"
+                  className="text-lg font-medium leading-6 text-slate-900 dark:text-slate-100"
+                >
+                  {formatMessage({
+                    id: 'password',
+                    defaultMessage: 'Password',
+                  })}
+                </h2>
+              </div>
+              <div className="mt-6 flex flex-col">
+                <div className="overflow-x-auto">
+                  <div className="inline-block min-w-full align-middle sm:px-6 lg:px-8">
+                    <div className="overflow-hidden border-t border-slate-200 py-8">
+                      <Link href="account/change-password">
+                        <a className=" text-lg font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500">
+                          {formatMessage({
+                            id: 'change_password',
+                            defaultMessage: 'Change Password',
+                          })}
+                        </a>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          </section>
+
+          {showDebugInfo && (
+            <section
+              aria-labelledby="password"
+              className="lg:col-span-9 lg:col-start-4"
+            >
+              <div className="mt-6 bg-white px-4 pt-6 shadow dark:bg-slate-500 dark:text-slate-200 sm:overflow-hidden sm:rounded-md sm:px-6">
+                <div className="m-2 flex flex-col sm:flex-row">
+                  <span className="mb-1">
+                    {formatMessage({
+                      id: 'guest',
+                      defaultMessage: 'Guest',
+                    })}
+                  </span>
+                  <span className="mx-4 mb-1">
+                    {user?.isGuest ? (
+                      <b>
+                        {formatMessage({
+                          id: 'yes',
+                          defaultMessage: 'Yes',
+                        })}
+                      </b>
+                    ) : (
+                      <b>
+                        {formatMessage({
+                          id: 'no',
+                          defaultMessage: 'No',
+                        })}
+                      </b>
+                    )}
+                  </span>
+                </div>
+                <div className="m-2 flex flex-col sm:flex-row">
+                  <Link href="/orders">
+                    <a className="link mb-1 text-indigo-600 hover:text-indigo-600 dark:text-sky-400 dark:hover:text-sky-500">
+                      {formatMessage(
+                        {
+                          id: 'number_of_orders',
+                          defaultMessage: 'Number Of Orders: {count}',
+                        },
+                        {
+                          count: user?.orders?.length || 0,
+                        },
+                      )}
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </section>
+          )}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

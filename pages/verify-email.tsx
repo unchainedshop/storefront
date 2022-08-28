@@ -4,8 +4,6 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import MetaTags from '../modules/common/components/MetaTags';
-import Footer from '../modules/layout/components/Footer';
-import Header from '../modules/layout/components/Header';
 import useVerifyEmail from '../modules/auth/hooks/useVerifyEmail';
 import useRedirect from '../modules/auth/hooks/useRedirect';
 
@@ -27,32 +25,44 @@ const VerifiedEmail = () => {
 
   return (
     <>
-      <MetaTags title={intl.formatMessage({ id: 'email_verified_success' })} />
-      <Header />
-      <div className="container">
-        <div className="row">
-          <div className="col-md-8 offset-md-2">
-            {loading ? (
-              <>
-                <h1>
-                  {intl.formatMessage({ id: 'email_verifying' })}
-                  <br /> <br /> ...
-                </h1>
-              </>
-            ) : (
-              <>
-                <h1>{intl.formatMessage({ id: 'email_verified_success' })}</h1>
-                <Link href="/">
-                  <a className="button button--secondary my-3">
-                    {intl.formatMessage({ id: 'back_to_home' })}
-                  </a>
-                </Link>
-              </>
-            )}
-          </div>
+      <MetaTags
+        title={intl.formatMessage({
+          id: 'email_verified_success',
+          defaultMessage: 'Your email has been successfully verified',
+        })}
+      />
+      <div className="mx-4 flex flex-wrap">
+        <div className="relative w-full px-4 md:ml-[16.666667%] md:max-w-2/3 md:flex-6">
+          {loading ? (
+            <>
+              <h1>
+                {intl.formatMessage({
+                  id: 'email_verifying',
+                  defaultMessage: 'Verifying your email address',
+                })}
+                <br /> <br /> ...
+              </h1>
+            </>
+          ) : (
+            <>
+              <h1>
+                {intl.formatMessage({
+                  id: 'email_verified_success',
+                  defaultMessage: 'Your email has been successfully verified',
+                })}
+              </h1>
+              <Link href="/">
+                <a className="button button--secondary my-3">
+                  {intl.formatMessage({
+                    id: 'back_to_home',
+                    defaultMessage: 'Back to Home',
+                  })}
+                </a>
+              </Link>
+            </>
+          )}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

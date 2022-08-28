@@ -19,12 +19,12 @@
 .nav--main__mega {
   display: flex;
   position: absolute;
-  left: -1.5em;
-  right: -1.5em;
-  top: 42px;
-  width: calc(100% + 3em);
+  /* left: -1.5em; */
+  /* right: -1.5em; */
+  /* top: 42px; */
+  /* width: calc(100% + 3em); */
   visibility: hidden;
-  opacity: 0;
+  /* opacity: 0; */
   overflow: hidden;
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.15);
   transition-delay: 150ms;
@@ -34,7 +34,7 @@
   visibility: visible;
   opacity: 1;
   overflow: visible;
-  background-color: white;
+  /* background-color: white; */
 }
 
 .mega-link {

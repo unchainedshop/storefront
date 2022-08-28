@@ -22,8 +22,6 @@ const {
   SKIP_INVALID_REMOTES,
   UNCHAINED_ENDPOINT,
   UNCHAINED_CREATE_THEME,
-  DATATRANS_ENDPOINT,
-  DATATRANS_MERCHANT,
 } = process.env;
 
 const theme = JSON.parse(UNCHAINED_CREATE_THEME);
@@ -44,20 +42,10 @@ module.exports = {
     NODE_ENV,
     SKIP_INVALID_REMOTES: JSON.parse(SKIP_INVALID_REMOTES || 'false'),
     UNCHAINED_ENDPOINT,
-    DATATRANS_ENDPOINT,
-    DATATRANS_MERCHANT,
     theme,
     localizations,
   },
-  images: {
-    domains: [
-      'localhost',
-      extractDomain(FRONTEND_URL),
-      extractDomain(GRAPHQL_ENDPOINT),
-      extractDomain(UNCHAINED_ENDPOINT),
-    ].filter(Boolean),
-    sizes: [320, 480, 820, 1200, 1600],
-  },
+
   i18n: {
     locales: Object.keys(theme.locales),
     defaultLocale: Object.keys(theme.locales)[0],
@@ -65,7 +53,7 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/order:path*',
+        source: '/order/:path*',
         destination: '/orders/[_id]',
         permanent: true,
       },

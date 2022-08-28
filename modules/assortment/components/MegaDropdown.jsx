@@ -22,7 +22,7 @@ const getColumn = (node, hoverPath, columnIndex) => {
   return [null, null];
 };
 
-const MegaDropdown = ({ ...rest }) => {
+const MegaDropdown = ({ dataInHoverPath, ...rest }) => {
   const { setHoverPath, isTouching, hoverPath } = useDesktopNavigationContext();
 
   const [, secondColumnNode] = getColumn(rest, hoverPath, 1);
@@ -36,7 +36,7 @@ const MegaDropdown = ({ ...rest }) => {
 
   return (
     <div
-      className="nav--main__mega"
+      className="nav--main__mega rounded-md bg-white dark:bg-slate-500"
       onMouseEnter={() => {
         if (!isTouching) setHoverPath(rest?.path);
       }}
@@ -58,7 +58,7 @@ const MegaDropdown = ({ ...rest }) => {
           key="mega-dropdown-column-2"
         />
       ) : (
-        <div className="mega-col" />
+        <div className="mega-col inline-block w-1/3 border-r border-color-grey-lightest" />
       )}
       {thirdColumnNode?.children ? (
         <MegaDropdownColumn {...thirdColumnNode} key="mega-dropdown-column-3" />

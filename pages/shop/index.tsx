@@ -5,40 +5,53 @@ import CategoryListItem from '../../modules/assortment/components/CategoryListIt
 import useAssortments from '../../modules/assortment/hooks/useAssortments';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import MetaTags from '../../modules/common/components/MetaTags';
-import Footer from '../../modules/layout/components/Footer';
-import Header from '../../modules/layout/components/Header';
 
 const Categories = () => {
   const { assortments, loading } = useAssortments();
-  const [currentUrl, setcurrentUrl] = useState('');
-  const intl = useIntl();
+  const [currentUrl, setCurrentUrl] = useState('');
+  const { formatMessage } = useIntl();
+
   useEffect(() => {
-    setcurrentUrl(window.location.href);
+    setCurrentUrl(window.location.href);
   }, []);
 
   return (
     <>
       <MetaTags
-        title={intl.formatMessage({ id: 'product_categories' })}
+        title={formatMessage({
+          id: 'product_categories',
+          defaultMessage: 'Product Categories',
+        })}
         url={currentUrl}
       />
-      <Header />
-      <div className="container mt-3">
+      <div className="relative w-full bg-white dark:bg-slate-600">
         {loading ? (
           <LoadingItem />
         ) : (
-          <div className="row">
-            {assortments.map((category) => (
-              <CategoryListItem
-                key={category._id}
-                category={category}
-                className="col-md-6 col-lg-4"
-              />
-            ))}
-          </div>
+          <section aria-labelledby="favorites-heading">
+            <div className="max-w-full pl-4 pt-16 sm:pl-6 sm:pt-24 lg:pl-8">
+              <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100">
+                {formatMessage({
+                  id: 'shop_by_collection',
+                  defaultMessage: 'Shop by Collection',
+                })}
+              </h2>
+              <p className="mt-4 text-base text-gray-500 dark:text-slate-400">
+                {formatMessage({
+                  id: 'shop_description',
+                  defaultMessage:
+                    'Each season, we collaborate with world-class designers to create a collection inspired by the natural world.',
+                })}
+              </p>
+              <div className="mt-10 space-y-12 divide-gray-200 lg:grid lg:grid-cols-3 lg:gap-x-5  lg:space-y-0">
+                {assortments.map((category) => (
+                  <CategoryListItem key={category._id} category={category} />
+                ))}
+              </div>
+            </div>
+          </section>
         )}
       </div>
-      <Footer />
     </>
   );
 };

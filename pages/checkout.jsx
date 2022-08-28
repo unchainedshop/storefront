@@ -6,7 +6,6 @@ import { useIntl } from 'react-intl';
 
 import useCreateUser from '../modules/auth/hooks/useCreateUser';
 import useUpdateCart from '../modules/checkout/hooks/useUpdateCart';
-import Header from '../modules/layout/components/Header';
 import LoginForm from '../modules/auth/components/LoginForm';
 import Footer from '../modules/layout/components/Footer';
 import MetaTags from '../modules/common/components/MetaTags';
@@ -119,7 +118,7 @@ const SignUp = () => {
           id: 'log_in',
         })} or ${intl.formatMessage({ id: 'register' })}`}
       />
-      <Header />
+
       <div className="container">
         <div className="row">
           <div className="col-lg-6">

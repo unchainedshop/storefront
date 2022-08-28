@@ -3,9 +3,10 @@ import Link from 'next/link';
 import getConfig from 'next/config';
 
 import { useIntl } from 'react-intl';
+import classNames from 'classnames';
+import { HomeIcon } from '@heroicons/react/solid';
 import { useDesktopNavigationContext } from './DesktopNavigationContext';
 import Thumbnail from '../../common/components/thumbnail';
-import Icon from '../../common/components/Icon';
 
 export type Node = {
   slug: string;
@@ -48,17 +49,15 @@ const MegaDropdownItem = ({
   return (
     <Link href={`/${path.join('/')}`}>
       <a
-        className={`mega-link ${
-          type === 'default' && Object.keys(children || {}).length
-            ? 'has-arrow'
-            : ''
-        }`}
+        className={classNames('mega-link', {
+          'has-arrow': type === 'default' && Object.keys(children || {}).length,
+        })}
         onMouseEnter={handleMouseEnter}
         onClick={handleClick}
         onTouchStart={handleTouchStart}
         data-in-hover-path={type === 'default' && hoverPath.includes(slug)}
       >
-        <div className="d-flex align-items-baseline">
+        <div className="flex items-baseline">
           {type === 'default' ? (
             <>
               <Thumbnail media={media} />
@@ -73,7 +72,10 @@ const MegaDropdownItem = ({
 
           {type === 'show_all' ? (
             <small className="ml-2">
-              {intl.formatMessage({ id: 'show_all' })}
+              {intl.formatMessage({
+                id: 'show_all',
+                defaultMessage: 'Show all',
+              })}
             </small>
           ) : (
             ''
@@ -90,11 +92,19 @@ const MegaDropdownColumn = ({
 }: Node & { columnIndex?: number }) => {
   const intl = useIntl();
   return (
-    <div className="mega-col">
+    <div className="inline-block w-1/3 border-r border-color-grey-lightest">
       {columnIndex === 0 && (
-        <a className="mega-link" href={theme.websiteUrl}>
-          <Icon className="icon--small mr-2" icon="house-4" />
-          {intl.formatMessage({ id: 'back_to_website' })}
+        <a
+          className="mb-1 block cursor-pointer py-1 pr-7 pl-6 text-base uppercase hover:underline lg:text-lg lg:font-medium lg:tracking-wider"
+          href={theme.websiteUrl}
+        >
+          <HomeIcon className="mr-2 inline-flex h-8 w-8 items-center" />
+          <span className="align-bottom">
+            {intl.formatMessage({
+              id: 'back_to_website',
+              defaultMessage: 'Back to website',
+            })}
+          </span>
         </a>
       )}
       <MegaDropdownItem {...rest} type="show_all" />
