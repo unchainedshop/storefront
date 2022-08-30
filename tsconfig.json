@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    // "baseUrl": ".",
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -8,7 +9,8 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
+    "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -17,7 +19,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "noImplicitAny": false,
   },
   "exclude": [
     "node_modules"
@@ -27,7 +30,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.js",
-    "**/*.jsx",
-    "**/*.json"
-  ]
+    "**/*.jsx"
+, "next.config.js"  ]
 }
+

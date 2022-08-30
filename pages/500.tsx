@@ -10,7 +10,7 @@ const ServerError = () => {
   return (
     <>
       <MetaTags title="500: oops, something went wrong" />
-      <div className="container text-center text-danger p-3 p-md-5">
+      <div className="text-danger p-md-5 container p-3 text-center">
         <div className="p-lg-5 mb-4">
           <h1 className="font-weight-bolder font-dax-ot-regular">
             500 - Server-side error occurred

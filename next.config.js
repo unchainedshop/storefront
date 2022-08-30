@@ -1,19 +1,7 @@
-/* eslint-disable no-undef */
-
 console.log(process.version);
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('./node_env');
 const fs = require('fs');
-
-function extractDomain(string) {
-  try {
-    const url = new URL(string);
-    return url.hostname;
-  } catch (e) {
-    return null;
-  }
-}
 
 const {
   FRONTEND_URL,
@@ -45,7 +33,9 @@ module.exports = {
     theme,
     localizations,
   },
-
+  typescript: {
+    tsconfigPath: './tsconfig.json',
+  },
   i18n: {
     locales: Object.keys(theme.locales),
     defaultLocale: Object.keys(theme.locales)[0],

@@ -38,7 +38,7 @@ const PasswordReset = () => {
             <h1>reset Password</h1>
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
               <div
-                className={`mb-3 col-md-6 ${
+                className={`col-md-6 mb-3 ${
                   errors.password2 ? 'form-error' : ''
                 }`}
               >
@@ -53,7 +53,7 @@ const PasswordReset = () => {
                 />
               </div>
               <div
-                className={`mb-3 col-md-6 ${
+                className={`col-md-6 mb-3 ${
                   errors.password2 ? 'form-error' : ''
                 }`}
               >

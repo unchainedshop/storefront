@@ -21,7 +21,7 @@ const Logout = () => {
   return (
     <>
       <MetaTags title={intl.formatMessage({ id: 'log_out' })} />
-      <div className="container text-center m-5">
+      <div className="container m-5 text-center">
         🙏 {intl.formatMessage({ id: 'logged_out' })}
       </div>
       <Footer />

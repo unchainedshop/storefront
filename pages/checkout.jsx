@@ -136,7 +136,7 @@ const SignUp = () => {
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
               <div className="form-row">
                 <div
-                  className={`mb-3 col-md-6 ${
+                  className={`col-md-6 mb-3 ${
                     errors.firstName ? 'form-error' : ''
                   }`}
                 >
@@ -150,7 +150,7 @@ const SignUp = () => {
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
+                  className={`col-md-6 mb-3 ${
                     errors.lastName ? 'form-error' : ''
                   }`}
                 >
@@ -166,7 +166,7 @@ const SignUp = () => {
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-12 ${
+                  className={`col-md-12 mb-3 ${
                     errors.company ? 'form-error' : ''
                   }`}
                 >
@@ -181,7 +181,7 @@ const SignUp = () => {
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
+                  className={`col-md-6 mb-3 ${
                     errors.addressLine ? 'form-error' : ''
                   }`}
                 >
@@ -197,7 +197,7 @@ const SignUp = () => {
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
+                  className={`col-md-6 mb-3 ${
                     errors.postalCode ? 'form-error' : ''
                   }`}
                 >
@@ -213,7 +213,7 @@ const SignUp = () => {
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${errors.city ? 'form-error' : ''}`}
+                  className={`col-md-6 mb-3 ${errors.city ? 'form-error' : ''}`}
                 >
                   <label className="form-label">
                     {intl.formatMessage({ id: 'city' })}
@@ -225,7 +225,7 @@ const SignUp = () => {
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
+                  className={`col-md-6 mb-3 ${
                     errors.countryCode ? 'form-error' : ''
                   }`}
                 >
@@ -248,7 +248,7 @@ const SignUp = () => {
                   </select>
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
+                  className={`col-md-6 mb-3 ${
                     errors.emailAddress ? 'form-error' : ''
                   }`}
                 >
@@ -264,7 +264,7 @@ const SignUp = () => {
                   />
                 </div>
                 <div
-                  className={`mb-3 col-md-6 ${
+                  className={`col-md-6 mb-3 ${
                     errors.telNumber ? 'form-error' : ''
                   }`}
                 >
@@ -279,7 +279,7 @@ const SignUp = () => {
                     ref={register({ required: false })}
                   />
                 </div>
-                <div className="mb-3 col-md-12">
+                <div className="col-md-12 mb-3">
                   <p className="form-check mb-3">
                     <input
                       type="checkbox"
@@ -296,7 +296,7 @@ const SignUp = () => {
                 {createAccount ? (
                   <>
                     <div
-                      className={`mb-3 col-md-6 ${
+                      className={`col-md-6 mb-3 ${
                         errors.password ? 'form-error' : ''
                       }`}
                     >
@@ -311,7 +311,7 @@ const SignUp = () => {
                       />
                     </div>
                     <div
-                      className={`mb-3 col-md-6 ${
+                      className={`col-md-6 mb-3 ${
                         errors.password2 ? 'form-error' : ''
                       }`}
                     >

@@ -63,7 +63,7 @@ const Detail = () => {
             </div>
             <div className="col-md-4">
               <h2
-                className="px-2 mt-md-0"
+                className="mt-md-0 px-2"
                 dangerouslySetInnerHTML={{ __html: product?.texts?.title }}
               />
               <div className="p-2">
