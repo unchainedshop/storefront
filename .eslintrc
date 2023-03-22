@@ -1,26 +1,53 @@
 {
   "root": true,
-  "parser": "babel-eslint",
-  "extends": ["airbnb", "prettier", "plugin:prettier/recommended"],
+  "plugins": ["formatjs", "react-hooks"],
+  "extends": [ "next", "airbnb", "prettier", "plugin:prettier/recommended"],
   "parserOptions": {
-    "ecmaVersion": 2018, // Allows for the parsing of modern ECMAScript features
-    "sourceType": "module", // Allows for the use of imports
-    "project": "tsconfig.json"
+        
+    "project": "./tsconfig.json",
+    "requireConfigFile": false,
+    "ecmaVersion": 6,
+ 
+    "ecmaFeatures": {
+        "jsx": true
+    }
+
   },
   "env": {
     "browser": true,
     "node": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
+
   },
   "rules": {
+    "react/react-in-jsx-scope": "off",
+    // allow jsx syntax in js files (for next.js project)
+    "react/no-unstable-nested-components": [
+      "off",
+      { "allowAsProps": true  }
+    ],
+    
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+    "formatjs/no-offset": "error",
+    "formatjs/enforce-default-message": "error",
+    "formatjs/no-emoji": "error",
     "jsx-a11y/label-has-associated-control": [0],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "react/prop-types": [0],
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
     "react/jsx-props-no-spreading": [0],
     "no-underscore-dangle": [
       "error",
       { "allow": ["_id", "__typename", "__mutationName"] }
     ],
-    "react/react-in-jsx-scope": [0],
     "prettier/prettier": [
       "error",
       {
@@ -46,10 +73,10 @@
       }
     ],
     "react/jsx-filename-extension": [
-      2,
+      1,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
     ],
-    "jsx-a11y/alt-text": [0],
+    
     "jsx-a11y/no-static-element-interactions": [0],
     "jsx-a11y/click-events-have-key-events": [0]
   },
@@ -58,6 +85,10 @@
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
+    },
+    "react": {
+      "version": "detect"
     }
+
   }
 }
