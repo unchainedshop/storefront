@@ -33,9 +33,6 @@ module.exports = {
     theme,
     localizations,
   },
-  typescript: {
-    tsconfigPath: './tsconfig.json',
-  },
   i18n: {
     locales: Object.keys(theme.locales),
     defaultLocale: Object.keys(theme.locales)[0],

@@ -9,7 +9,11 @@ import Button from './Button';
 const Address = ({ user }) => {
   const { formatMessage } = useIntl();
   const { updateUserProfile } = useUpdateUserProfile();
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<any>();
 
   const [updateProfile, setUpdateProfile] = useState(false);
 
@@ -30,7 +34,7 @@ const Address = ({ user }) => {
       countryCode,
     } = form;
 
-    const { firstName, lastName, company } = profile?.address;
+    const { firstName, lastName, company } = profile?.address || {};
 
     const userProfile = {
       phoneMobile: telNumber,
@@ -87,7 +91,7 @@ const Address = ({ user }) => {
                         type="text"
                         name="addressLine"
                         defaultValue={profile?.address?.addressLine}
-                        ref={register}
+                        {...register('addressLine')}
                         className={classNames(
                           'block w-full rounded-md border border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-slate-900 dark:text-slate-600',
                           {
@@ -135,7 +139,7 @@ const Address = ({ user }) => {
                         type="text"
                         name="addressLine2"
                         defaultValue={user?.profile?.address?.addressLine2}
-                        ref={register}
+                        {...register('addressLine2')}
                         className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
                       />
                     </div>
@@ -159,7 +163,7 @@ const Address = ({ user }) => {
                         type="tel"
                         name="telNumber"
                         defaultValue={profile?.phoneMobile}
-                        ref={register}
+                        {...register('telNumber')}
                         className={classNames(
                           'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
                           {
@@ -195,7 +199,7 @@ const Address = ({ user }) => {
                         type="text"
                         name="postalCode"
                         defaultValue={profile?.address?.postalCode}
-                        ref={register}
+                        {...register('postalCode')}
                         className={classNames(
                           'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
                           {
@@ -232,7 +236,7 @@ const Address = ({ user }) => {
                       <select
                         name="countryCode"
                         defaultValue={profile?.address?.countryCode}
-                        ref={register}
+                        {...register('countryCode')}
                         className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
                       >
                         {COUNTRIES.map((c) => (
@@ -276,7 +280,7 @@ const Address = ({ user }) => {
                         type="text"
                         name="regionCode"
                         defaultValue={profile?.address?.regionCode}
-                        ref={register}
+                        {...register('regionCode')}
                         className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
                       />
                     </div>
@@ -300,7 +304,7 @@ const Address = ({ user }) => {
                         type="text"
                         name="city"
                         defaultValue={profile?.address?.city}
-                        ref={register}
+                        {...register('city')}
                         className={classNames(
                           'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
                           {

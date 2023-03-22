@@ -5,7 +5,11 @@ import COUNTRIES from '../../common/data/countries-list';
 import useUpdateUserProfile from '../hooks/useUpdateUserProfile';
 
 const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<any>();
   const intl = useIntl();
   const { profile = {} } = user;
   const { updateUserProfile } = useUpdateUserProfile();
@@ -50,40 +54,52 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
             className={`mb-3 col-md-6 ${errors.firstName ? 'form-error' : ''}`}
           >
             <label className="form-label">
-              {intl.formatMessage({ id: 'first_name' })}
+              {intl.formatMessage({
+                id: 'first_name',
+                defaultMessage: 'Firstname',
+              })}
             </label>
             <input
               className="form-control"
               defaultValue={profile?.address?.firstName}
               name="firstName"
-              ref={register({ required: true })}
+              {...register('firstName', { required: true })}
             />
           </div>
           <div
             className={`mb-3 col-md-6 ${errors.lastName ? 'form-error' : ''}`}
           >
             <label className="form-label">
-              {intl.formatMessage({ id: 'last_name' })}
+              {intl.formatMessage({
+                id: 'last_name',
+                defaultMessage: 'lastname',
+              })}
             </label>
             <input
               className={`form-control ${errors.lastName && 'form-error'}`}
               name="lastName"
               defaultValue={profile?.address?.lastName}
-              ref={register({ required: true })}
+              {...register('lastName', { required: true })}
             />
           </div>
           <div
             className={`mb-3 col-md-6 ${errors.company ? 'form-error' : ''}`}
           >
             <label className="form-label">
-              {intl.formatMessage({ id: 'company' })}{' '}
-              {intl.formatMessage({ id: 'optional' })}
+              {intl.formatMessage({
+                id: 'company',
+                defaultMessage: 'Company Name',
+              })}{' '}
+              {intl.formatMessage({
+                id: 'optional',
+                defaultMessage: '(Optional)',
+              })}
             </label>
             <input
               className="form-control"
               name="company"
               defaultValue={profile?.address?.company}
-              ref={register}
+              {...register('company')}
             />
           </div>
           <div
@@ -92,26 +108,29 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
             }`}
           >
             <label className="form-label">
-              {intl.formatMessage({ id: 'address' })}
+              {intl.formatMessage({ id: 'address', defaultMessage: 'Address' })}
             </label>
             <input
               className={`form-control ${errors.addressLine && 'form-error'}`}
               name="addressLine"
               defaultValue={profile?.address?.addressLine}
-              ref={register({ required: true })}
+              {...register('addressLine', { required: true })}
             />
           </div>
           <div
             className={`mb-3 col-md-6 ${errors.postalCode ? 'form-error' : ''}`}
           >
             <label className="form-label">
-              {intl.formatMessage({ id: 'postal_code' })}
+              {intl.formatMessage({
+                id: 'postal_code',
+                defaultMessage: 'Postal Code / ZIP',
+              })}
             </label>
             <input
               className={`form-control ${errors.postalCode && 'form-error'}`}
               name="postalCode"
               defaultValue={profile?.address?.postalCode}
-              ref={register({ required: true })}
+              {...register('postalCode', { required: true })}
             />
           </div>
           <div className={`mb-3 col-md-6 ${errors.city ? 'form-error' : ''}`}>
@@ -120,15 +139,19 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
               className={`form-control ${errors.city && 'form-error'}`}
               name="city"
               defaultValue={profile?.address?.city}
-              ref={register({ required: true })}
+              {...register('city', { required: true })}
             />
           </div>
           <div
             className={`mb-3 col-md-6 ${errors.regionCode ? 'form-error' : ''}`}
           >
             <label className="form-label">
-              {intl.formatMessage({ id: 'region' })} {'  '}{' '}
-              {intl.formatMessage({ id: 'optional' })}
+              {intl.formatMessage({ id: 'region', defaultMessage: 'Region' })}{' '}
+              {'  '}{' '}
+              {intl.formatMessage({
+                id: 'optional',
+                defaultMessage: '(Optional)',
+              })}
             </label>
             <input
               className={`form-control ${errors.regionCode && 'form-error'}`}
@@ -142,12 +165,12 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
             }`}
           >
             <label className="form-label">
-              {intl.formatMessage({ id: 'country' })}
+              {intl.formatMessage({ id: 'country', defaultMessage: 'Country' })}
             </label>
             <select
               name="countryCode"
               defaultValue={profile?.address?.countryCode}
-              ref={register({ required: true })}
+              {...register('countryCode', { required: true })}
               className={`form-control ${errors.countryCode && 'form-error'}`}
             >
               {COUNTRIES.map((c) => (
@@ -162,13 +185,16 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
             className={`mb-3 col-md-6 ${errors.telNumber ? 'form-error' : ''}`}
           >
             <label className="form-label">
-              {intl.formatMessage({ id: 'telephone' })}
+              {intl.formatMessage({
+                id: 'telephone',
+                defaultMessage: 'Telephone Number',
+              })}
             </label>
             <input
               className={`form-control ${errors.telNumber && 'form-error'}`}
               name="telNumber"
               defaultValue={profile?.phoneMobile}
-              ref={register({ required: true })}
+              {...register('telNumber', { required: true })}
             />
           </div>
         </div>
@@ -176,12 +202,18 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
           <input
             type="submit"
             className="button button--primary my-1"
-            value={intl.formatMessage({ id: 'save_address' })}
+            value={intl.formatMessage({
+              id: 'save_address',
+              defaultMessage: 'Save Address',
+            })}
           />
           <input
             type="button"
             className="button button--secondary ml-2 my-1"
-            value={intl.formatMessage({ id: 'cancel' })}
+            value={intl.formatMessage({
+              id: 'cancel',
+              defaultMessage: 'Cancel',
+            })}
             onClick={onCancel}
           />
         </div>

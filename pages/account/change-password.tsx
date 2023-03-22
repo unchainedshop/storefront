@@ -11,7 +11,13 @@ import MetaTags from '../../modules/common/components/MetaTags';
 import PasswordVisible from '../../modules/common/components/PasswordVisible';
 
 const ChangePassword = () => {
-  const { register, handleSubmit, errors, watch, setError } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setError,
+  } = useForm<any>();
   const { formatMessage } = useIntl();
   const router = useRouter();
   const password = useRef({});
@@ -92,7 +98,7 @@ const ChangePassword = () => {
                       type={isOldPasswordVisible ? 'text' : 'password'}
                       id="oldPassword"
                       name="oldPassword"
-                      ref={register({ required: true })}
+                      {...register('oldPassword', { required: true })}
                       className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
                     />
 
@@ -102,7 +108,7 @@ const ChangePassword = () => {
                     />
                     {errors.oldPassword && (
                       <span className="error-message">
-                        {errors.oldPassword?.message}
+                        {errors.oldPassword?.message as string}
                       </span>
                     )}
                   </div>
@@ -123,7 +129,7 @@ const ChangePassword = () => {
                       type={isNewPasswordVisible ? 'text' : 'password'}
                       id="newPassword"
                       name="newPassword"
-                      ref={register({ required: true })}
+                      {...register('newPassword', { required: true })}
                       className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
                     />
 
@@ -148,7 +154,7 @@ const ChangePassword = () => {
                       type={isPassword2Visible ? 'text' : 'password'}
                       id="password2"
                       name="password2"
-                      ref={register({
+                      {...register('password2', {
                         validate: (value) =>
                           value === password.current ||
                           formatMessage({
@@ -162,7 +168,9 @@ const ChangePassword = () => {
                       isPasswordVisible={isPassword2Visible}
                       setIsPasswordVisible={setIsPassword2Visible}
                     />
-                    {errors.password2 && <p>{errors.password2.message}</p>}
+                    {errors.password2 && (
+                      <p>{errors.password2.message as string}</p>
+                    )}
                   </div>
                 </div>
                 <button

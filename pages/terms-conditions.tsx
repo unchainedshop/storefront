@@ -14,13 +14,21 @@ const Conditions = () => {
   return (
     <>
       <MetaTags
-        title={intl.formatMessage({ id: 'conditions' })}
+        title={intl.formatMessage({
+          id: 'conditions',
+          defaultMessage: 'Conditions',
+        })}
         url={currentUrl}
       />
       <div className="container">
         <div className="row">
           <div className="col-md-8 offset-md-2">
-            <h1>{intl.formatMessage({ id: 'conditions' })}</h1>
+            <h1>
+              {intl.formatMessage({
+                id: 'conditions',
+                defaultMessage: 'Conditions',
+              })}
+            </h1>
             <p>...</p>
           </div>
         </div>

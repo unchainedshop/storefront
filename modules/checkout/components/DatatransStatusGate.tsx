@@ -3,7 +3,9 @@ import { useRouter } from 'next/router';
 import useOrderDetail from '../../orders/hooks/useOrderDetail';
 import useCheckoutCart from '../hooks/useCheckoutCart';
 
-export interface DatatransStatusGateProps {}
+export interface DatatransStatusGateProps {
+  children: any;
+}
 
 const getPercentage = (order, loading, status) => {
   return (order?.orderNumber ? 50 : 0) + (status === 'success' ? 50 : 0);

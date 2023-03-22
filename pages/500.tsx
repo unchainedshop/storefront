@@ -17,10 +17,19 @@ const ServerError = () => {
           </h1>
           <div className="mb-5">
             <div className="text-center">
-              <p>{intl.formatMessage({ id: '505_sorry' })}</p>
+              <p>
+                {intl.formatMessage({
+                  id: '505_sorry',
+                  defaultMessage:
+                    'oops, Something went wrong when performing your request, please try again later!',
+                })}
+              </p>
               <Link href="/">
                 <a className="button button--primary">
-                  {intl.formatMessage({ id: 'back_to_home' })}
+                  {intl.formatMessage({
+                    id: 'back_to_home',
+                    defaultMessage: 'Back to Home',
+                  })}
                 </a>
               </Link>
             </div>

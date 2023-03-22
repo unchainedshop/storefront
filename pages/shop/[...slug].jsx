@@ -16,7 +16,7 @@ import defaultNextImageLoader from '../../modules/common/utils/getDefaultNextIma
 const CategoryDetail = () => {
   const router = useRouter();
   const { slug: slugs } = router.query;
-  const slug = slugs?.length ? slugs[slugs?.length - 1] : '';
+  const slug = slugs?.length ? slugs[(slugs?.length || 0) - 1] : '';
   const [currentUrl, setCurrentUrl] = useState('');
 
   const { assortmentTree, loading: categoryTreeLoading } = useCategoriesTree({

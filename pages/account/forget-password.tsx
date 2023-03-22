@@ -8,7 +8,7 @@ import LoadingItem from '../../modules/common/components/LoadingItem';
 import MetaTags from '../../modules/common/components/MetaTags';
 
 const PasswordForget = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<any>();
   const { forgotPassword, loading, error } = useForgotPassword();
   const [emailSent, setEmailSent] = useState('');
   const { formatMessage } = useIntl();
@@ -65,7 +65,7 @@ const PasswordForget = () => {
                     id="email"
                     name="email"
                     autoComplete="email"
-                    ref={register({ required: true })}
+                    {...register('email', { required: true })}
                     className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:bg-slate-600 dark:text-slate-600 sm:text-sm"
                   />
                   <span className="error-message form-error text-center">

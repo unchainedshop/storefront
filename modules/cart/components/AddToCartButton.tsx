@@ -75,7 +75,7 @@ const AddToCartButton = ({ productId }) => {
         <button type="button" className="no-button" onClick={addToCart}>
           <input
             name="quantity"
-            ref={register}
+            {...register('quantity')}
             type="number"
             className="add-to-cart-counter form-control"
             min="1"
@@ -121,7 +121,12 @@ const AddToCartButton = ({ productId }) => {
       aria-label="In Cart"
       onClick={addToCart}
     >
-      <span>{intl.formatMessage({ id: 'add_to_cart' })}</span>
+      <span>
+        {intl.formatMessage({
+          id: 'add_to_cart',
+          defaultMessage: 'Add to Cart',
+        })}
+      </span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

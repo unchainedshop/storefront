@@ -12,7 +12,11 @@ import Verified from './Verified';
 
 const General = ({ user }) => {
   const { formatMessage } = useIntl();
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const { updateUserProfile } = useUpdateUserProfile();
   const { removeEmail } = useRemoveEmail();
@@ -38,7 +42,7 @@ const General = ({ user }) => {
       city,
       regionCode,
       countryCode,
-    } = profile?.address;
+    } = profile?.address || {};
 
     const userProfile = {
       address: {
@@ -99,7 +103,7 @@ const General = ({ user }) => {
                               type="text"
                               name="firstName"
                               defaultValue={profile?.address?.firstName}
-                              ref={register}
+                              {...register('firstName')}
                               className={classNames(
                                 'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
                                 {
@@ -131,7 +135,7 @@ const General = ({ user }) => {
                               type="text"
                               name="lastName"
                               defaultValue={profile?.address?.lastName}
-                              ref={register}
+                              {...register('lastName')}
                               className={classNames(
                                 'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
                                 {
@@ -246,7 +250,7 @@ const General = ({ user }) => {
                         className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
                         name="company"
                         defaultValue={profile?.address?.company}
-                        ref={register}
+                        {...register('company')}
                       />
                     ) : (
                       <div className="mb-1">

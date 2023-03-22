@@ -11,7 +11,12 @@ const PasswordReset = () => {
   const router = useRouter();
   const intl = useIntl();
   const { token } = router.query;
-  const { register, handleSubmit, errors, watch } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<any>();
   const [error, setError] = useState([]);
   const password = useRef({});
 
@@ -24,14 +29,19 @@ const PasswordReset = () => {
       router.replace('/account');
       return true;
     } catch (e) {
-      setError([{ ...e }]);
+      setError([e]);
     }
     return false;
   };
 
   return (
     <>
-      <MetaTags title={intl.formatMessage({ id: 'reset_password' })} />
+      <MetaTags
+        title={intl.formatMessage({
+          id: 'reset_password',
+          defaultMessage: 'Reset Password',
+        })}
+      />
       <div className="container">
         <div className="row">
           <div className="col-md-8 offset-md-2">
@@ -43,13 +53,16 @@ const PasswordReset = () => {
                 }`}
               >
                 <label className="form-label">
-                  {intl.formatMessage({ id: 'new_password' })}
+                  {intl.formatMessage({
+                    id: 'new_password',
+                    defaultMessage: 'New Password',
+                  })}
                 </label>
                 <input
                   className="form-control"
                   name="newPassword"
                   type="password"
-                  ref={register({ required: true })}
+                  {...register('newPassword', { required: true })}
                 />
               </div>
               <div
@@ -58,19 +71,24 @@ const PasswordReset = () => {
                 }`}
               >
                 <label className="form-label">
-                  {intl.formatMessage({ id: 'repeat_password' })}
+                  {intl.formatMessage({
+                    id: 'repeat_password',
+                    defaultMessage: 'Repeat password',
+                  })}
                 </label>
                 <input
                   className="form-control"
                   name="password2"
                   type="password"
-                  ref={register({
+                  {...register('password2', {
                     validate: (value) =>
                       value === password.current ||
                       'The passwords do not match',
                   })}
                 />
-                {errors.password2 && <p>{errors.password2.message}</p>}
+                {errors.password2 && (
+                  <p>{errors.password2.message as string}</p>
+                )}
               </div>
               {error && (
                 <ul className="form-error">
@@ -83,7 +101,10 @@ const PasswordReset = () => {
                 className="button button--primary button--big mt-3"
                 type="submit"
               >
-                {intl.formatMessage({ id: 'reset_password' })}
+                {intl.formatMessage({
+                  id: 'reset_password',
+                  defaultMessage: 'Set new password',
+                })}
               </button>
             </form>
           </div>
