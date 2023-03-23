@@ -24,13 +24,11 @@ const ServerError = () => {
                     'oops, Something went wrong when performing your request, please try again later!',
                 })}
               </p>
-              <Link href="/">
-                <a className="button button--primary">
-                  {intl.formatMessage({
-                    id: 'back_to_home',
-                    defaultMessage: 'Back to Home',
-                  })}
-                </a>
+              <Link href="/" className="button button--primary">
+                {intl.formatMessage({
+                  id: 'back_to_home',
+                  defaultMessage: 'Back to Home',
+                })}
               </Link>
             </div>
           </div>

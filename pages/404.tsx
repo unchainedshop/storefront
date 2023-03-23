@@ -25,13 +25,11 @@ const NotFound = ({ page = '' }) => {
                     'Sorry, the page you were looking for was not found!',
                 })}{' '}
               </p>
-              <Link href="/">
-                <a className="button button--primary">
-                  {intl.formatMessage({
-                    id: 'back_to_home',
-                    defaultMessage: 'Back to home',
-                  })}
-                </a>
+              <Link href="/" className="button button--primary">
+                {intl.formatMessage({
+                  id: 'back_to_home',
+                  defaultMessage: 'Back to home',
+                })}
               </Link>
             </div>
           </div>

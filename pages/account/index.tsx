@@ -49,34 +49,34 @@ const Account = () => {
           <aside className="h-fit py-6 px-2 sm:px-6 lg:sticky lg:top-24 lg:col-span-3 lg:py-0 lg:px-0">
             <nav className="space-y-1 lg:sticky lg:top-24">
               {subNavigation.map((item) => (
-                <Link href={item.href} key={item.name}>
-                  <a
+                <Link
+                  href={item.href}
+                  key={item.name}
+                  className={classNames(
+                    'group flex items-center rounded-md px-3 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-indigo-400 dark:bg-slate-600 dark:text-white dark:hover:text-sky-400',
+                    {
+                      'bg-slate-50 text-indigo-600 hover:bg-white dark:bg-slate-500 dark:text-sky-400':
+                        item.name.toLowerCase() ===
+                        (router.asPath.includes('#')
+                          ? router.asPath.split('#')[1]
+                          : 'general'),
+                    },
+                  )}
+                >
+                  <item.icon
                     className={classNames(
-                      'group flex items-center rounded-md px-3 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-indigo-400 dark:bg-slate-600 dark:text-white dark:hover:text-sky-400',
+                      '-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-slate-400 group-hover:text-indigo-400 dark:group-hover:text-sky-500',
                       {
-                        'bg-slate-50 text-indigo-600 hover:bg-white dark:bg-slate-500 dark:text-sky-400':
+                        'text-indigo-600 dark:text-sky-400':
                           item.name.toLowerCase() ===
                           (router.asPath.includes('#')
                             ? router.asPath.split('#')[1]
                             : 'general'),
                       },
                     )}
-                  >
-                    <item.icon
-                      className={classNames(
-                        '-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-slate-400 group-hover:text-indigo-400 dark:group-hover:text-sky-500',
-                        {
-                          'text-indigo-600 dark:text-sky-400':
-                            item.name.toLowerCase() ===
-                            (router.asPath.includes('#')
-                              ? router.asPath.split('#')[1]
-                              : 'general'),
-                        },
-                      )}
-                      aria-hidden="true"
-                    />
-                    <span className="truncate">{item.name}</span>
-                  </a>
+                    aria-hidden="true"
+                  />
+                  <span className="truncate">{item.name}</span>
                 </Link>
               ))}
             </nav>
@@ -110,13 +110,14 @@ const Account = () => {
                 <div className="overflow-x-auto">
                   <div className="inline-block min-w-full align-middle sm:px-6 lg:px-8">
                     <div className="overflow-hidden border-t border-slate-200 py-8">
-                      <Link href="account/change-password">
-                        <a className=" text-lg font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500">
-                          {formatMessage({
-                            id: 'change_password',
-                            defaultMessage: 'Change Password',
-                          })}
-                        </a>
+                      <Link
+                        href="account/change-password"
+                        className=" text-lg font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500"
+                      >
+                        {formatMessage({
+                          id: 'change_password',
+                          defaultMessage: 'Change Password',
+                        })}
                       </Link>
                     </div>
                   </div>
@@ -157,18 +158,19 @@ const Account = () => {
                   </span>
                 </div>
                 <div className="m-2 flex flex-col sm:flex-row">
-                  <Link href="/orders">
-                    <a className="link mb-1 text-indigo-600 hover:text-indigo-600 dark:text-sky-400 dark:hover:text-sky-500">
-                      {formatMessage(
-                        {
-                          id: 'number_of_orders',
-                          defaultMessage: 'Number Of Orders: {count}',
-                        },
-                        {
-                          count: user?.orders?.length || 0,
-                        },
-                      )}
-                    </a>
+                  <Link
+                    href="/orders"
+                    className="link mb-1 text-indigo-600 hover:text-indigo-600 dark:text-sky-400 dark:hover:text-sky-500"
+                  >
+                    {formatMessage(
+                      {
+                        id: 'number_of_orders',
+                        defaultMessage: 'Number Of Orders: {count}',
+                      },
+                      {
+                        count: user?.orders?.length || 0,
+                      },
+                    )}
                   </Link>
                 </div>
               </div>

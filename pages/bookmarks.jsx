@@ -1,6 +1,6 @@
 import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/outline';
 import { PhotographIcon, StarIcon } from '@heroicons/react/solid';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 import useUser from '../modules/auth/hooks/useUser';
@@ -8,11 +8,11 @@ import useConditionalAddCartProduct from '../modules/cart/hooks/useConditionalAd
 import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
 import useRemoveBookmark from '../modules/common/hooks/useRemoveBookmark';
-import defaultNextImageLoader from '../modules/common/utils/getDefaultNextImageLoader';
+import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
 import getMediaUrl from '../modules/common/utils/getMediaUrl';
 import renderPrice from '../modules/common/utils/renderPrice';
 
-const bookmarks = () => {
+const Bookmarks = () => {
   const { formatMessage } = useIntl();
   const { user, loading } = useUser();
   const { conditionalAddCartProduct } = useConditionalAddCartProduct();
@@ -60,26 +60,24 @@ const bookmarks = () => {
                           <Link
                             href={`/product/${bookmark.product?.texts?.slug}`}
                           >
-                            <a>
-                              <div className="h-full py-5 text-center">
-                                {getMediaUrl(bookmark.product) ? (
-                                  <Image
-                                    src={getMediaUrl(bookmark.product)}
-                                    alt={bookmark.product?.texts?.title}
-                                    layout="fill"
-                                    placeholder="blur"
-                                    blurDataURL="placeholder.png"
-                                    objectFit="cover"
-                                    className="h-full w-full"
-                                    loader={defaultNextImageLoader}
-                                  />
-                                ) : (
-                                  <div className="relative h-full w-full">
-                                    <PhotographIcon className="absolute inset-0 h-full w-full  dark:text-slate-500" />
-                                  </div>
-                                )}
-                              </div>
-                            </a>
+                            <div className="h-full py-5 text-center">
+                              {getMediaUrl(bookmark.product) ? (
+                                <Image
+                                  src={getMediaUrl(bookmark.product)}
+                                  alt={bookmark.product?.texts?.title}
+                                  layout="fill"
+                                  placeholder="blur"
+                                  blurDataURL="placeholder.png"
+                                  objectFit="cover"
+                                  className="h-full w-full"
+                                  loader={defaultNextImageLoader}
+                                />
+                              ) : (
+                                <div className="relative h-full w-full">
+                                  <PhotographIcon className="absolute inset-0 h-full w-full  dark:text-slate-500" />
+                                </div>
+                              )}
+                            </div>
                           </Link>
                         </div>
                         <p className="absolute bottom-1 left-1 text-sm font-normal text-slate-900 dark:text-white">
@@ -154,4 +152,4 @@ const bookmarks = () => {
   );
 };
 
-export default bookmarks;
+export default Bookmarks;

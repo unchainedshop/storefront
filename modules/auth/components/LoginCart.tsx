@@ -29,22 +29,20 @@ const LoginCart = () => {
   return user ? (
     <div className="flex items-center gap-x-3">
       {user?.bookmarks && (
-        <Link href="/bookmarks">
-          <a className="flex items-center gap-x-3">
-            <BookmarkIcon className="h-6 w-6" />
-            {user?.bookmarks?.length ? (
-              <span>{user?.bookmarks?.length}</span>
-            ) : (
-              ''
-            )}
+        <Link href="/bookmarks" className="flex items-center gap-x-3">
+          <BookmarkIcon className="h-6 w-6" />
+          {user?.bookmarks?.length ? (
+            <span>{user?.bookmarks?.length}</span>
+          ) : (
+            ''
+          )}
 
-            <span className="hidden lg:block">
-              {formatMessage({
-                id: 'bookmarks',
-                defaultMessage: 'Bookmarks',
-              })}
-            </span>
-          </a>
+          <span className="hidden lg:block">
+            {formatMessage({
+              id: 'bookmarks',
+              defaultMessage: 'Bookmarks',
+            })}
+          </span>
         </Link>
       )}
       <a
@@ -66,15 +64,11 @@ const LoginCart = () => {
       </a>
       {user?.isGuest ? (
         <div className="ml-2 md:ml-4">
-          <Link href="/sign-up">
-            <a className="my-1 mr-4">
-              {formatMessage({ id: 'sign_up', defaultMessage: 'Sign up' })}
-            </a>
+          <Link href="/sign-up" className="my-1 mr-4">
+            {formatMessage({ id: 'sign_up', defaultMessage: 'Sign up' })}
           </Link>
-          <Link href="/login">
-            <a className="my-1">
-              {formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
-            </a>
+          <Link href="/login" className="my-1">
+            {formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
           </Link>
         </div>
       ) : (
@@ -83,13 +77,11 @@ const LoginCart = () => {
 
       {!user.isGuest ? (
         <>
-          <Link href="/account">
-            <a className="flex items-center gap-x-3">
-              <UserCircleIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
-              <span className="hidden lg:block">
-                {formatMessage({ id: 'account', defaultMessage: 'Account' })}
-              </span>
-            </a>
+          <Link href="/account" className="flex items-center gap-x-3">
+            <UserCircleIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
+            <span className="hidden lg:block">
+              {formatMessage({ id: 'account', defaultMessage: 'Account' })}
+            </span>
           </Link>
 
           <a
@@ -111,10 +103,10 @@ const LoginCart = () => {
   ) : (
     <div className="flex items-center gap-x-3">
       <Link href="/sign-up">
-        <a>{formatMessage({ id: 'sign_up', defaultMessage: 'Sign up' })}</a>
+        {formatMessage({ id: 'sign_up', defaultMessage: 'Sign up' })}
       </Link>
       <Link href="/login">
-        <a>{formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}</a>
+        {formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
       </Link>
     </div>
   );

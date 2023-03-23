@@ -3,13 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import getConfig from 'next/config';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import classNames from 'classnames';
-
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import COUNTRIES from '../../common/data/countries-list';
 import useCreateUser from '../hooks/useCreateUser';
-import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
+import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
 import PasswordVisible from '../../common/components/PasswordVisible';
 
 const {

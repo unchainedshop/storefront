@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 
 import useCreateUser from '../modules/auth/hooks/useCreateUser';
@@ -11,13 +11,18 @@ import Footer from '../modules/layout/components/Footer';
 import MetaTags from '../modules/common/components/MetaTags';
 import COUNTRIES from '../modules/common/data/countries-list';
 
-const ErrorDisplay = ({ error }) => {
+const ErrorDisplay = ({ error }): ReactElement => {
   const intl = useIntl();
-  if (!error) return '';
+  if (!error) return null;
   if (error.message?.includes('Email already exists')) {
     return (
       <div className="form-error my-3">
-        👬 {intl.formatMessage({ id: 'email_exists' })}.
+        👬{' '}
+        {intl.formatMessage({
+          id: 'email_exists',
+          defaultMessage: 'E-Mail exists already, login?',
+        })}
+        .
       </div>
     );
   }
@@ -27,11 +32,17 @@ const ErrorDisplay = ({ error }) => {
 
 const SignUp = () => {
   const router = useRouter();
-  const { register, handleSubmit, watch, errors, setError } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    setError,
+  } = useForm<any>();
   const intl = useIntl();
   const { updateCart } = useUpdateCart();
   const { createUser, error: formError } = useCreateUser();
-  const hasErrors = Object.keys(errors).length;
+  const hasErrors = !!Object.keys(errors).length;
 
   useEffect(() => {
     if (formError?.message?.includes('Email already exists.')) {
@@ -62,11 +73,17 @@ const SignUp = () => {
       if (password !== password2) {
         setError('password', {
           type: 'manual',
-          message: `👬 ${intl.formatMessage({ id: 'password_not_match' })}`,
+          message: `👬 ${intl.formatMessage({
+            id: 'password_not_match',
+            defaultMessage: 'Passwords do not match',
+          })}`,
         });
         setError('password2', {
           type: 'manual',
-          message: `👬 ${intl.formatMessage({ id: 'password_not_match' })}`,
+          message: `👬 ${intl.formatMessage({
+            id: 'password_not_match',
+            defaultMessage: 'Passwords do not match',
+          })}`,
         });
         return false;
       }
@@ -116,22 +133,43 @@ const SignUp = () => {
       <MetaTags
         title={`${intl.formatMessage({
           id: 'log_in',
-        })} or ${intl.formatMessage({ id: 'register' })}`}
+          defaultMessage: 'Login',
+        })} or ${intl.formatMessage({
+          id: 'register',
+          defaultMessage: 'Register',
+        })}`}
       />
 
       <div className="container">
         <div className="row">
           <div className="col-lg-6">
-            <h2>{intl.formatMessage({ id: 'welcome_back' })}</h2>
+            <h2>
+              {intl.formatMessage({
+                id: 'welcome_back',
+                defaultMessage: 'Welcome back',
+              })}
+            </h2>
             <p className="mt-0 mb-3">
-              {intl.formatMessage({ id: 'welcome_back_message' })}
+              {intl.formatMessage({
+                id: 'welcome_back_message',
+                defaultMessage: 'Nice you are back again, continue',
+              })}
             </p>
             <LoginForm onLogin={onLogin} />
           </div>
           <div className="col-lg-6">
-            <h2> {intl.formatMessage({ id: 'new_here' })} </h2>
+            <h2>
+              {' '}
+              {intl.formatMessage({
+                id: 'new_here',
+                defaultMessage: 'New here',
+              })}{' '}
+            </h2>
             <p className="mt-0 mb-3">
-              {intl.formatMessage({ id: 'new_here_message' })}
+              {intl.formatMessage({
+                id: 'new_here_message',
+                defaultMessage: 'Are you new here?',
+              })}
             </p>
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
               <div className="form-row">
@@ -141,12 +179,15 @@ const SignUp = () => {
                   }`}
                 >
                   <label className="form-label">
-                    {intl.formatMessage({ id: 'first_name' })}
+                    {intl.formatMessage({
+                      id: 'first_name',
+                      defaultMessage: 'Firstname',
+                    })}
                   </label>
                   <input
                     className="form-control"
                     name="firstName"
-                    ref={register({ required: true })}
+                    {...register('firstName', { required: true })}
                   />
                 </div>
                 <div
@@ -155,14 +196,17 @@ const SignUp = () => {
                   }`}
                 >
                   <label className="form-label">
-                    {intl.formatMessage({ id: 'last_name' })}
+                    {intl.formatMessage({
+                      id: 'last_name',
+                      defaultMessage: 'Lastname',
+                    })}
                   </label>
                   <input
                     className={`form-control ${
                       errors.lastName && 'form-error'
                     }`}
                     name="lastName"
-                    ref={register({ required: true })}
+                    {...register('lastName', { required: true })}
                   />
                 </div>
                 <div
@@ -171,13 +215,19 @@ const SignUp = () => {
                   }`}
                 >
                   <label className="form-label">
-                    {intl.formatMessage({ id: 'company' })}{' '}
-                    {intl.formatMessage({ id: 'optional' })}
+                    {intl.formatMessage({
+                      id: 'company',
+                      defaultMessage: 'Company Name',
+                    })}{' '}
+                    {intl.formatMessage({
+                      id: 'optional',
+                      defaultMessage: '(Optional)',
+                    })}
                   </label>
                   <input
                     className="form-control"
                     name="company"
-                    ref={register}
+                    {...register('company')}
                   />
                 </div>
                 <div
@@ -186,14 +236,17 @@ const SignUp = () => {
                   }`}
                 >
                   <label className="form-label">
-                    {intl.formatMessage({ id: 'address' })}
+                    {intl.formatMessage({
+                      id: 'address',
+                      defaultMessage: 'Address',
+                    })}
                   </label>
                   <input
                     className={`form-control ${
                       errors.addressLine && 'form-error'
                     }`}
                     name="addressLine"
-                    ref={register({ required: true })}
+                    {...register('addressLine', { required: true })}
                   />
                 </div>
                 <div
@@ -202,26 +255,29 @@ const SignUp = () => {
                   }`}
                 >
                   <label className="form-label">
-                    {intl.formatMessage({ id: 'postal_code' })}
+                    {intl.formatMessage({
+                      id: 'postal_code',
+                      defaultMessage: 'Postal Code',
+                    })}
                   </label>
                   <input
                     className={`form-control ${
                       errors.postalCode && 'form-error'
                     }`}
                     name="postalCode"
-                    ref={register({ required: true })}
+                    {...register('postalCode', { required: true })}
                   />
                 </div>
                 <div
                   className={`col-md-6 mb-3 ${errors.city ? 'form-error' : ''}`}
                 >
                   <label className="form-label">
-                    {intl.formatMessage({ id: 'city' })}
+                    {intl.formatMessage({ id: 'city', defaultMessage: 'City' })}
                   </label>
                   <input
                     className={`form-control ${errors.city && 'form-error'}`}
                     name="city"
-                    ref={register({ required: true })}
+                    {...register('city', { required: true })}
                   />
                 </div>
                 <div
@@ -230,11 +286,14 @@ const SignUp = () => {
                   }`}
                 >
                   <label className="form-label">
-                    {intl.formatMessage({ id: 'country' })}
+                    {intl.formatMessage({
+                      id: 'country',
+                      defaultMessage: 'Country',
+                    })}
                   </label>
                   <select
                     name="countryCode"
-                    ref={register({ required: true })}
+                    {...register('countryCode', { required: true })}
                     className={`form-control ${
                       errors.countryCode && 'form-error'
                     }`}
@@ -253,14 +312,17 @@ const SignUp = () => {
                   }`}
                 >
                   <label className="form-label">
-                    {intl.formatMessage({ id: 'email' })}
+                    {intl.formatMessage({
+                      id: 'email',
+                      defaultMessage: 'E-Mail Address',
+                    })}
                   </label>
                   <input
                     className={`form-control ${
                       errors.emailAddress && 'form-error'
                     }`}
                     name="emailAddress"
-                    ref={register({ required: true })}
+                    {...register('emailAddress', { required: true })}
                   />
                 </div>
                 <div
@@ -269,14 +331,17 @@ const SignUp = () => {
                   }`}
                 >
                   <label className="form-label">
-                    {intl.formatMessage({ id: 'telephone' })}
+                    {intl.formatMessage({
+                      id: 'telephone',
+                      defaultMessage: 'Telephone Number',
+                    })}
                   </label>
                   <input
                     className={`form-control ${
                       errors.telNumber && 'form-error'
                     }`}
                     name="telNumber"
-                    ref={register({ required: false })}
+                    {...register('telNumber')}
                   />
                 </div>
                 <div className="col-md-12 mb-3">
@@ -286,10 +351,13 @@ const SignUp = () => {
                       className="form-check-input"
                       id="account"
                       name="account"
-                      ref={register}
+                      {...register('account')}
                     />
                     <label className="form-check-label mb-0" htmlFor="account">
-                      {intl.formatMessage({ id: 'create_an_account' })}
+                      {intl.formatMessage({
+                        id: 'create_an_account',
+                        defaultMessage: 'Create a new account',
+                      })}
                     </label>
                   </p>
                 </div>
@@ -301,13 +369,16 @@ const SignUp = () => {
                       }`}
                     >
                       <label className="form-label">
-                        {intl.formatMessage({ id: 'password' })}
+                        {intl.formatMessage({
+                          id: 'password',
+                          defaultMessage: 'Password',
+                        })}
                       </label>
                       <input
                         className="form-control"
                         name="password"
                         type="password"
-                        ref={register({ required: true })}
+                        {...register('password', { required: true })}
                       />
                     </div>
                     <div
@@ -316,13 +387,16 @@ const SignUp = () => {
                       }`}
                     >
                       <label className="form-label">
-                        {intl.formatMessage({ id: 'repeat_password' })}
+                        {intl.formatMessage({
+                          id: 'repeat_password',
+                          defaultMessage: 'Repeat password',
+                        })}
                       </label>
                       <input
                         className="form-control"
                         name="password2"
                         type="password"
-                        ref={register({ required: true })}
+                        {...register('password2', { required: true })}
                       />
                     </div>
                   </>
@@ -340,7 +414,7 @@ const SignUp = () => {
                       className="form-check-input"
                       id="conditions"
                       name="conditions"
-                      ref={register({ required: true })}
+                      {...register('conditions', { required: true })}
                     />
                     <label
                       className={`form-check-label mb-0 ${
@@ -350,6 +424,8 @@ const SignUp = () => {
                       dangerouslySetInnerHTML={{
                         __html: intl.formatMessage({
                           id: 'i_have_read_term',
+                          defaultMessage:
+                            'I have read the terms and conditions',
                         }),
                       }}
                     />
@@ -364,7 +440,10 @@ const SignUp = () => {
                 type="submit"
                 disabled={hasErrors}
               >
-                {intl.formatMessage({ id: 'to_order_review' })}
+                {intl.formatMessage({
+                  id: 'to_order_review',
+                  defaultMessage: 'Continue to Order Review',
+                })}
               </button>
             </form>
           </div>

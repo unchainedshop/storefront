@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import OrderPriceSummary from '../../checkout/components/OrderPriceSummary';
 import useCheckoutCartMutation from '../../checkout/hooks/useCheckoutCart';
 import { useAppContext } from '../../common/components/AppContextWrapper';

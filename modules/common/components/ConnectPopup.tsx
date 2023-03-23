@@ -20,12 +20,10 @@ const ConnectPopup = ({ isOpen, connect }) => {
                 'By connecting my wallet to this webapp, I confirm that I have read           and understood the',
             })}
             <Link href="/terms">
-              <a>
-                {formatMessage({
-                  id: 'terms_and_conditions',
-                  defaultMessage: 'Terms and Conditions',
-                })}
-              </a>
+              {formatMessage({
+                id: 'terms_and_conditions',
+                defaultMessage: 'Terms and Conditions',
+              })}
             </Link>
             {formatMessage({
               id: 'terms_and_condition_main',

@@ -47,41 +47,40 @@ const MegaDropdownItem = ({
     setHoverPath(path);
   };
   return (
-    <Link href={`/${path.join('/')}`}>
-      <a
-        className={classNames('mega-link', {
-          'has-arrow': type === 'default' && Object.keys(children || {}).length,
-        })}
-        onMouseEnter={handleMouseEnter}
-        onClick={handleClick}
-        onTouchStart={handleTouchStart}
-        data-in-hover-path={type === 'default' && hoverPath.includes(slug)}
-      >
-        <div className="flex items-baseline">
-          {type === 'default' ? (
-            <>
-              <Thumbnail media={media} />
-              {navigationTitle}
-            </>
-          ) : (
-            <b>
-              {navigationTitle}
-              &nbsp;
-            </b>
-          )}
+    <Link
+      href={`/${path.join('/')}`}
+      className={classNames('mega-link', {
+        'has-arrow': type === 'default' && Object.keys(children || {}).length,
+      })}
+      onMouseEnter={handleMouseEnter}
+      onClick={handleClick}
+      onTouchStart={handleTouchStart}
+      data-in-hover-path={type === 'default' && hoverPath.includes(slug)}
+    >
+      <div className="flex items-baseline">
+        {type === 'default' ? (
+          <>
+            <Thumbnail media={media} />
+            {navigationTitle}
+          </>
+        ) : (
+          <b>
+            {navigationTitle}
+            &nbsp;
+          </b>
+        )}
 
-          {type === 'show_all' ? (
-            <small className="ml-2">
-              {intl.formatMessage({
-                id: 'show_all',
-                defaultMessage: 'Show all',
-              })}
-            </small>
-          ) : (
-            ''
-          )}
-        </div>
-      </a>
+        {type === 'show_all' ? (
+          <small className="ml-2">
+            {intl.formatMessage({
+              id: 'show_all',
+              defaultMessage: 'Show all',
+            })}
+          </small>
+        ) : (
+          ''
+        )}
+      </div>
     </Link>
   );
 };

@@ -1,5 +1,4 @@
 import { useIntl } from 'react-intl';
-
 import { useRouter } from 'next/router';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import MetaTags from '../../modules/common/components/MetaTags';

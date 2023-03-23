@@ -14,13 +14,15 @@ const Imprint = () => {
   return (
     <>
       <MetaTags
-        title={intl.formatMessage({ id: 'imprint' })}
+        title={intl.formatMessage({ id: 'imprint', defaultMessage: 'Imprint' })}
         url={currentUrl}
       />
       <div className="container">
         <div className="row">
           <div className="col-md-8 offset-md-2">
-            <h1>{intl.formatMessage({ id: 'imprint' })}</h1>
+            <h1>
+              {intl.formatMessage({ id: 'imprint', defaultMessage: 'Imprint' })}
+            </h1>
             <p>...</p>
           </div>
         </div>

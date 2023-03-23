@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import getConfig from 'next/config';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import useOrderDetail from '../modules/orders/hooks/useOrderDetail';
@@ -244,15 +244,16 @@ const ThankYou = () => {
               </dl>
 
               <div className="mt-8 border-t border-slate-200 py-6 text-center">
-                <Link href="/shop">
-                  <a className="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500">
-                    {formatMessage({
-                      id: 'continue_shopping',
-                      defaultMessage: 'Continue Shopping',
-                    })}
+                <Link
+                  href="/shop"
+                  className="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500"
+                >
+                  {formatMessage({
+                    id: 'continue_shopping',
+                    defaultMessage: 'Continue Shopping',
+                  })}
 
-                    <span aria-hidden="true"> &rarr;</span>
-                  </a>
+                  <span aria-hidden="true"> &rarr;</span>
                 </Link>
               </div>
             </div>

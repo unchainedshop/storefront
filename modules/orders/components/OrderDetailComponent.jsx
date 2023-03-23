@@ -1,20 +1,20 @@
 import { useIntl } from 'react-intl';
 import Link from 'next/link';
 import { CheckCircleIcon, PaperClipIcon } from '@heroicons/react/solid';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import renderPrice from '../../common/utils/renderPrice';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
 import useUser from '../../auth/hooks/useUser';
 
 import getMediaUrl from '../../common/utils/getMediaUrl';
-import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
+import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
 
 function getFlagEmoji(countryCode) {
   const codePoints = countryCode
     ?.toUpperCase()
     ?.split('')
-    ?.map((char) => 127397 + char?.charCodeAt());
+    ?.map((char) => 127397 + Number(char?.charCodeAt()));
   return String.fromCodePoint(...(codePoints || []));
 }
 
@@ -75,40 +75,39 @@ const OrderDetailComponent = ({ order }) => {
               <Link
                 key={item._id}
                 href={`/product/${item?.product?.texts?.slug}`}
+                className="flex w-full rounded-lg border border-t border-b border-slate-200 bg-white shadow-sm transition-transform hover:scale-105 hover:border-indigo-600 dark:bg-slate-600 dark:hover:border-sky-400 md:px-0"
               >
-                <a className="flex w-full rounded-lg border border-t border-b border-slate-200 bg-white shadow-sm transition-transform hover:scale-105 hover:border-indigo-600 dark:bg-slate-600 dark:hover:border-sky-400 md:px-0">
-                  <div className="flex w-full justify-between p-4">
-                    <div className="flex">
-                      <div className="relative h-40 w-40 overflow-hidden rounded-lg">
-                        <Image
-                          src={`${
-                            getMediaUrl(item?.product) ||
-                            '/static/img/sun-glass-placeholder.jpeg'
-                          }`}
-                          alt={item?.product?.texts?.title}
-                          layout="fill"
-                          objectFit="contain"
-                          loader={defaultNextImageLoader}
-                          className="h-full w-full flex-none rounded-md bg-slate-100 object-fill object-center dark:bg-slate-500"
-                        />
-                      </div>
-                      <div className="ml-4 max-w-1/2">
-                        <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100">
-                          {item?.product?.texts?.title}
-                        </h3>
-                        <p className="text-slate-400">
-                          {item?.product?.texts?.subtitle}
-                        </p>
-                        <p className="text-slate-900 dark:text-slate-100">
-                          {item?.product?.texts?.description}
-                        </p>
-                      </div>
+                <div className="flex w-full justify-between p-4">
+                  <div className="flex">
+                    <div className="relative h-40 w-40 overflow-hidden rounded-lg">
+                      <Image
+                        src={`${
+                          getMediaUrl(item?.product) ||
+                          '/static/img/sun-glass-placeholder.jpeg'
+                        }`}
+                        alt={item?.product?.texts?.title}
+                        layout="fill"
+                        objectFit="contain"
+                        loader={defaultNextImageLoader}
+                        className="h-full w-full flex-none rounded-md bg-slate-100 object-fill object-center dark:bg-slate-500"
+                      />
                     </div>
-                    <p className="text-right font-medium text-slate-900 dark:text-slate-100">
-                      {renderPrice(item.total)}
-                    </p>
+                    <div className="ml-4 max-w-1/2">
+                      <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100">
+                        {item?.product?.texts?.title}
+                      </h3>
+                      <p className="text-slate-400">
+                        {item?.product?.texts?.subtitle}
+                      </p>
+                      <p className="text-slate-900 dark:text-slate-100">
+                        {item?.product?.texts?.description}
+                      </p>
+                    </div>
                   </div>
-                </a>
+                  <p className="text-right font-medium text-slate-900 dark:text-slate-100">
+                    {renderPrice(item.total)}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>

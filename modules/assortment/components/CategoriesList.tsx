@@ -21,8 +21,8 @@ const CategoriesList = ({
       {tree?.children &&
         Object.entries(tree?.children).map(([, { texts, _id }]) => (
           <div key={_id} className="mb-2 ml-2">
-            <Link href={`${currentPath}/${texts.slug}`}>
-              <a className="mr-2">{texts?.title}</a>
+            <Link href={`${currentPath}/${texts.slug}`} className="mr-2">
+              {texts?.title}
             </Link>
           </div>
         ))}

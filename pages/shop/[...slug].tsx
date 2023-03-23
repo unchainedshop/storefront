@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
-
+import Image from 'next/legacy/image';
 import CategoriesList from '../../modules/assortment/components/CategoriesList';
 import useAssortmentProducts from '../../modules/assortment/hooks/useAssortmentProducts';
 import getAssortmentPath from '../../modules/assortment/utils/getAssortmentPath';
@@ -11,7 +10,7 @@ import MetaTags from '../../modules/common/components/MetaTags';
 import useCategoriesTree from '../../modules/assortment/hooks/useCategoriesTree';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import getMediaUrl from '../../modules/common/utils/getMediaUrl';
-import defaultNextImageLoader from '../../modules/common/utils/getDefaultNextImageLoader';
+import defaultNextImageLoader from '../../modules/common/utils/defaultNextImageLoader';
 
 const CategoryDetail = () => {
   const router = useRouter();
@@ -89,8 +88,8 @@ const CategoryDetail = () => {
                 layout="responsive"
                 objectFit="contain"
                 quality={100}
-                width="706px"
-                height="235px"
+                width={706}
+                height={235}
                 loader={defaultNextImageLoader}
               />
             )}

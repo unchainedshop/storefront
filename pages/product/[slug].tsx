@@ -30,7 +30,14 @@ const Detail = () => {
   }, []);
 
   if (!product && !loading)
-    return <NotFound page={intl.formatMessage({ id: 'products' })} />;
+    return (
+      <NotFound
+        page={intl.formatMessage({
+          id: 'products',
+          defaultMessage: 'Products',
+        })}
+      />
+    );
   return (
     <>
       <MetaTags

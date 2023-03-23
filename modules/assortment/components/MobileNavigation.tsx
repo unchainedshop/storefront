@@ -59,17 +59,16 @@ const Subtree = ({
       </button>
       {showSubtree ? (
         <div>
-          <Link href={createPathFromArray(path)}>
-            <a
-              className={`link block border-t border-color-grey-lightest uppercase text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500 ${
-                levelClassMap[level + 1]
-              }`}
-            >
-              {intl.formatMessage({
-                id: 'show_all',
-                defaultMessage: 'Show all',
-              })}
-            </a>
+          <Link
+            href={createPathFromArray(path)}
+            className={`link block border-t border-color-grey-lightest uppercase text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500 ${
+              levelClassMap[level + 1]
+            }`}
+          >
+            {intl.formatMessage({
+              id: 'show_all',
+              defaultMessage: 'Show all',
+            })}
           </Link>
 
           {Object.entries(children)
@@ -92,13 +91,12 @@ const Subtree = ({
       )}
     </div>
   ) : (
-    <Link href={createPathFromArray(path)}>
-      <a
-        className={`block border-t border-color-grey-lightest uppercase hover:bg-slate-100 dark:hover:bg-slate-500 ${levelClassMap[level]}`}
-      >
-        <Thumbnail media={media} />
-        {navigationTitle}
-      </a>
+    <Link
+      href={createPathFromArray(path)}
+      className={`block border-t border-color-grey-lightest uppercase hover:bg-slate-100 dark:hover:bg-slate-500 ${levelClassMap[level]}`}
+    >
+      <Thumbnail media={media} />
+      {navigationTitle}
     </Link>
   );
 };
@@ -136,16 +134,17 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
             </small>
           </button>
 
-          <Link href="/">
-            <a className="ml-3 flex cursor-pointer items-baseline py-2 text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500">
-              <HomeIcon className="mr-3  h-4 w-5 select-none " />
-              <span className="text-lg font-medium">
-                {intl.formatMessage({
-                  id: 'back_to_website',
-                  defaultMessage: 'Back to website',
-                })}
-              </span>
-            </a>
+          <Link
+            href="/"
+            className="ml-3 flex cursor-pointer items-baseline py-2 text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500"
+          >
+            <HomeIcon className="mr-3  h-4 w-5 select-none " />
+            <span className="text-lg font-medium">
+              {intl.formatMessage({
+                id: 'back_to_website',
+                defaultMessage: 'Back to website',
+              })}
+            </span>
           </Link>
           {Object.entries(assortmentTree.children).map(
             ([pageId, node]: any) => (

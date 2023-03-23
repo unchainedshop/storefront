@@ -1,11 +1,11 @@
 import { useIntl } from 'react-intl';
 
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import getConfig from 'next/config';
 import LoginForm from '../modules/auth/components/LoginForm';
 import MetaTags from '../modules/common/components/MetaTags';
 import useRedirect from '../modules/auth/hooks/useRedirect';
-import defaultNextImageLoader from '../modules/common/utils/getDefaultNextImageLoader';
+import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
 
 const {
   publicRuntimeConfig: { theme },

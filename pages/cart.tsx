@@ -16,22 +16,30 @@ const Cart = () => {
 
   return (
     <>
-      <MetaTags title={intl.formatMessage({ id: 'cart' })} />
+      <MetaTags
+        title={intl.formatMessage({ id: 'cart', defaultMessage: 'Cart' })}
+      />
 
       <div className="container">
         <div className="row">
           <div className="col-md-8 col-lg-6 mx-auto">
-            <h1>{intl.formatMessage({ id: 'cart' })}</h1>
+            <h1>
+              {intl.formatMessage({ id: 'cart', defaultMessage: 'Cart' })}
+            </h1>
             {loading ? (
               <LoadingItem />
             ) : (
               <>
                 <ManageCart user={user} />
                 <div className="button-group mt-5">
-                  <Link href={{ pathname: '/review' }}>
-                    <a className="button button--primary button--big text-uppercase">
-                      {intl.formatMessage({ id: 'to_checkout' })}
-                    </a>
+                  <Link
+                    href={{ pathname: '/review' }}
+                    className="button button--primary button--big text-uppercase"
+                  >
+                    {intl.formatMessage({
+                      id: 'to_checkout',
+                      defaultMessage: 'Continue to Checkout',
+                    })}
                   </Link>
                 </div>
               </>

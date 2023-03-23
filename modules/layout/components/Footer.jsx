@@ -62,10 +62,11 @@ const Footer = () => {
                     <ul className="mt-6 space-y-6">
                       {footerNavigation.products.map((item) => (
                         <li key={item.name} className="text-base">
-                          <Link href="#">
-                            <a className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
-                              {item.name}
-                            </a>
+                          <Link
+                            href="#"
+                            className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
+                          >
+                            {item.name}
                           </Link>
                         </li>
                       ))}
@@ -81,10 +82,11 @@ const Footer = () => {
                     <ul className="mt-6 space-y-6">
                       {footerNavigation.customerService.map((item) => (
                         <li key={item.name} className="text-base">
-                          <Link href="#">
-                            <a className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
-                              {item.name}
-                            </a>
+                          <Link
+                            href="#"
+                            className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
+                          >
+                            {item.name}
                           </Link>
                         </li>
                       ))}
@@ -103,10 +105,11 @@ const Footer = () => {
                     <ul className="mt-6 space-y-6">
                       {footerNavigation.company.map((item) => (
                         <li key={item.name} className="text-base">
-                          <Link href="#">
-                            <a className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
-                              {item.name}
-                            </a>
+                          <Link
+                            href="#"
+                            className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
+                          >
+                            {item.name}
                           </Link>
                         </li>
                       ))}
@@ -119,10 +122,11 @@ const Footer = () => {
                     <ul className="mt-6 space-y-6">
                       {footerNavigation.legal.map((item) => (
                         <li key={item.name} className="text-sm">
-                          <Link href="#">
-                            <a className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
-                              {item.name}
-                            </a>
+                          <Link
+                            href="#"
+                            className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
+                          >
+                            {item.name}
                           </Link>
                         </li>
                       ))}
@@ -151,10 +155,12 @@ const Footer = () => {
           <div className="mt-4 flex items-center justify-center md:mt-0">
             <div className="flex space-x-8">
               {footerNavigation.bottomLinks.map((item) => (
-                <Link key={item.name} href="#">
-                  <a className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
-                    {item.name}
-                  </a>
+                <Link
+                  key={item.name}
+                  href="#"
+                  className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
+                >
+                  {item.name}
                 </Link>
               ))}
             </div>

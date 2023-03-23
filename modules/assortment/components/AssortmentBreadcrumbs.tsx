@@ -5,19 +5,20 @@ const AssortmentBreadcrumbs = ({ paths = [], currentAssortment }) => {
   const intl = useIntl();
   return (
     <nav className="mt-2 mb-4 border-bottom pb-3">
-      <Link href="/">
-        <a className="mr-2 breadcrumb-link">
-          {intl.formatMessage({ id: 'home' })}
-        </a>
+      <Link className="mr-2 breadcrumb-link" href="/">
+        {intl.formatMessage({ id: 'home', defaultMessage: 'Home' })}
       </Link>
-      <Link href="/shop">
-        <a className="mr-2 breadcrumb-link">
-          {intl.formatMessage({ id: 'shop' })}
-        </a>
+      <Link href="/shop" className="mr-2 breadcrumb-link">
+        {intl.formatMessage({ id: 'shop', defaultMessage: 'Shop' })}
       </Link>
       {paths?.map(({ id, slug, title }) => (
-        <Link href={`/${slug}`} as={`/${slug}`} key={id}>
-          <a className="mr-2 breadcrumb-link">{title}</a>
+        <Link
+          href={`/${slug}`}
+          as={`/${slug}`}
+          key={id}
+          className="mr-2 breadcrumb-link"
+        >
+          {title}
         </Link>
       ))}
       <a className="breadcrumb-link">

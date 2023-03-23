@@ -60,27 +60,26 @@ const DesktopNavigation = () => {
         onTouchEnd={handleTouchEnd}
       >
         <div key="shop" className="inline-block">
-          <Link href="/shop">
-            <a
-              className="nav--main__item flex items-center py-4"
-              data-in-hover-path={hoverPath.includes(assortmentTree.slug)}
-              ref={ref}
-              onMouseEnter={() => {
-                if (!isTouching) {
-                  setHoverPath(assortmentTree.slug);
-                }
-              }}
-              onMouseOut={() => {
-                setHoverPath([]);
-              }}
-              onBlur={() => {
-                if (!isTouching) setHoverPath([]);
-              }}
-              onClick={handleClick(assortmentTree)}
-            >
-              <MenuIcon className="mr-2 h-6 w-6 text-slate-900 dark:text-slate-100" />
-              {formatMessage({ id: 'menu', defaultMessage: 'Menu' })}
-            </a>
+          <Link
+            href="/shop"
+            className="nav--main__item flex items-center py-4"
+            data-in-hover-path={hoverPath.includes(assortmentTree.slug)}
+            ref={ref}
+            onMouseEnter={() => {
+              if (!isTouching) {
+                setHoverPath(assortmentTree.slug);
+              }
+            }}
+            onMouseOut={() => {
+              setHoverPath([]);
+            }}
+            onBlur={() => {
+              if (!isTouching) setHoverPath([]);
+            }}
+            onClick={handleClick(assortmentTree)}
+          >
+            <MenuIcon className="mr-2 h-6 w-6 text-slate-900 dark:text-slate-100" />
+            {formatMessage({ id: 'menu', defaultMessage: 'Menu' })}
           </Link>
           {hoverPath.includes(assortmentTree.slug) && (
             <MegaDropdown

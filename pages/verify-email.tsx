@@ -49,13 +49,11 @@ const VerifiedEmail = () => {
                   defaultMessage: 'Your email has been successfully verified',
                 })}
               </h1>
-              <Link href="/">
-                <a className="button button--secondary my-3">
-                  {intl.formatMessage({
-                    id: 'back_to_home',
-                    defaultMessage: 'Back to Home',
-                  })}
-                </a>
+              <Link href="/" className="button button--secondary my-3">
+                {intl.formatMessage({
+                  id: 'back_to_home',
+                  defaultMessage: 'Back to Home',
+                })}
               </Link>
             </>
           )}

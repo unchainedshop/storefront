@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import LoadingItem from '../../common/components/LoadingItem';
 import PasswordVisible from '../../common/components/PasswordVisible';
 
@@ -134,13 +134,14 @@ const LoginForm = ({ onLogin = null }) => {
 
           <div className="flex items-center justify-end">
             <div className="text-sm">
-              <Link href="/account/forget-password">
-                <a className="font-medium text-slate-600 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-400">
-                  {formatMessage({
-                    id: 'forgot_password',
-                    defaultMessage: 'Forgot your password?',
-                  })}
-                </a>
+              <Link
+                href="/account/forget-password"
+                className="font-medium text-slate-600 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-400"
+              >
+                {formatMessage({
+                  id: 'forgot_password',
+                  defaultMessage: 'Forgot your password?',
+                })}
               </Link>
             </div>
           </div>

@@ -3,7 +3,7 @@ import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import classNames from 'classnames';
 import { PhotographIcon } from '@heroicons/react/solid';
 import useAssortments from '../modules/assortment/hooks/useAssortments';
@@ -11,7 +11,7 @@ import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
 import getMediaUrl from '../modules/common/utils/getMediaUrl';
 import { catagories } from '../modules/common/data/miscellaneous';
-import defaultNextImageLoader from '../modules/common/utils/getDefaultNextImageLoader';
+import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
 
 const {
   publicRuntimeConfig: { theme },
@@ -65,14 +65,15 @@ const Home = () => {
                       defaultMessage: 'Shop by Category',
                     })}
                   </h2>
-                  <Link href="/shop">
-                    <a className="hidden text-sm font-semibold text-fuchsia-600 hover:text-fuchsia-500 sm:block">
-                      {formatMessage({
-                        id: 'browse_all_category',
-                        defaultMessage: 'Browse all categories',
-                      })}
-                      <span aria-hidden="true"> &rarr;</span>
-                    </a>
+                  <Link
+                    href="/shop"
+                    className="hidden text-sm font-semibold text-fuchsia-600 hover:text-fuchsia-500 sm:block"
+                  >
+                    {formatMessage({
+                      id: 'browse_all_category',
+                      defaultMessage: 'Browse all categories',
+                    })}
+                    <span aria-hidden="true"> &rarr;</span>
                   </Link>
                 </div>
 
@@ -122,10 +123,8 @@ const Home = () => {
                         <div>
                           <h3 className="font-semibold text-white">
                             <Link href={`shop/${assortment?.texts?.slug}`}>
-                              <a>
-                                <span className="absolute inset-0" />
-                                {assortment?.texts?.title}
-                              </a>
+                              <span className="absolute inset-0" />
+                              {assortment?.texts?.title}
                             </Link>
                           </h3>
                           <p
@@ -141,14 +140,15 @@ const Home = () => {
                 </div>
 
                 <div className="mt-6 sm:hidden">
-                  <Link href="/shop">
-                    <a className="block text-sm font-semibold text-fuchsia-600 hover:text-fuchsia-500">
-                      {formatMessage({
-                        id: 'browse_all_category_mobile',
-                        defaultMessage: 'Browse all categories',
-                      })}
-                      <span aria-hidden="true"> &rarr;</span>
-                    </a>
+                  <Link
+                    href="/shop"
+                    className="block text-sm font-semibold text-fuchsia-600 hover:text-fuchsia-500"
+                  >
+                    {formatMessage({
+                      id: 'browse_all_category_mobile',
+                      defaultMessage: 'Browse all categories',
+                    })}
+                    <span aria-hidden="true"> &rarr;</span>
                   </Link>
                 </div>
               </div>

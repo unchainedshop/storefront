@@ -1,7 +1,6 @@
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 
-import 'react-toastify/dist/ReactToastify.css';
 import '../public/static/css/all.css';
 import '../styles/globals.css';
 
@@ -23,7 +22,7 @@ const UnchainedApp = ({ Component, pageProps, router }) => {
     <IntlWrapper locale={router.locale} messages={messages} key="intl-provider">
       <AppContextWrapper>
         <ApolloProvider client={apollo}>
-          <ToastContainer position="top-center" autoClose={3000} newestOnTop />
+          <Toaster />
           <Layout>
             <Component {...pageProps} />
           </Layout>

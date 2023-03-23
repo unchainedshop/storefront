@@ -14,13 +14,15 @@ const Privacy = () => {
   return (
     <>
       <MetaTags
-        title={intl.formatMessage({ id: 'privacy' })}
+        title={intl.formatMessage({ id: 'privacy', defaultMessage: 'Privacy' })}
         url={currentUrl}
       />
       <div className="container">
         <div className="row">
           <div className="col-md-8 offset-md-2">
-            <h1>{intl.formatMessage({ id: 'privacy' })}</h1>
+            <h1>
+              {intl.formatMessage({ id: 'privacy', defaultMessage: 'Privacy' })}
+            </h1>
             <p>...</p>
           </div>
         </div>

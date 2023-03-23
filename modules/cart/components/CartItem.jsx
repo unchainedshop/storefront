@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
@@ -13,7 +13,7 @@ import getMediaUrl from '../../common/utils/getMediaUrl';
 import renderPrice from '../../common/utils/renderPrice';
 import useRemoveCartItem from '../hooks/useRemoveCartItem';
 import useUpdateCartItemMutation from '../hooks/useUpdateCartItem';
-import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
+import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
 
 const CartItem = ({ _id, quantity, product, enableUpdate = true }) => {
   const { updateCartItem } = useUpdateCartItemMutation();
@@ -79,10 +79,11 @@ const CartItem = ({ _id, quantity, product, enableUpdate = true }) => {
         <div className="flex">
           <div className="min-w-0 flex-1">
             <h4 className="text-sm">
-              <Link href={`/product/${product?.texts?.slug}`}>
-                <a className="font-medium text-slate-700 hover:text-slate-800 dark:text-slate-100 dark:hover:text-slate-400">
-                  {product?.texts && product?.texts.title}
-                </a>
+              <Link
+                href={`/product/${product?.texts?.slug}`}
+                className="font-medium text-slate-700 hover:text-slate-800 dark:text-slate-100 dark:hover:text-slate-400"
+              >
+                {product?.texts && product?.texts.title}
               </Link>
             </h4>
           </div>

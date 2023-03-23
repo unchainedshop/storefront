@@ -1,7 +1,7 @@
 import { ShoppingCartIcon } from '@heroicons/react/outline';
 import { BookmarkIcon, PhotographIcon, StarIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
@@ -10,7 +10,7 @@ import useConditionalAddCartProduct from '../../cart/hooks/useConditionalAddCart
 import useConditionalBookmarkProduct from '../../cart/hooks/useConditionalBookmarkProduct';
 
 import useRemoveBookmark from '../../common/hooks/useRemoveBookmark';
-import defaultNextImageLoader from '../../common/utils/getDefaultNextImageLoader';
+import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
 import getMediaUrl from '../../common/utils/getMediaUrl';
 import renderPrice from '../../common/utils/renderPrice';
 import calculateProductRating from '../utils/calculateProductRating';
@@ -34,27 +34,25 @@ const ProductListItem = ({ product }) => {
     <>
       <div className="relative">
         <div className="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg  text-slate-200 group-hover:opacity-75 dark:bg-slate-500">
-          <Link href={`/product/${product?.texts?.slug}`}>
-            <a className="">
-              <div className="h-full py-5 text-center">
-                {getMediaUrl(product) ? (
-                  <Image
-                    src={getMediaUrl(product)}
-                    alt={product?.texts?.title}
-                    layout="fill"
-                    placeholder="blur"
-                    blurDataURL="placeholder.png"
-                    objectFit="cover"
-                    className="h-full w-full"
-                    loader={defaultNextImageLoader}
-                  />
-                ) : (
-                  <div className="relative h-full w-full">
-                    <PhotographIcon className="absolute inset-0 h-full w-full  dark:text-slate-500" />
-                  </div>
-                )}
-              </div>
-            </a>
+          <Link href={`/product/${product?.texts?.slug}`} className="">
+            <div className="h-full py-5 text-center">
+              {getMediaUrl(product) ? (
+                <Image
+                  src={getMediaUrl(product)}
+                  alt={product?.texts?.title}
+                  layout="fill"
+                  placeholder="blur"
+                  blurDataURL="placeholder.png"
+                  objectFit="cover"
+                  className="h-full w-full"
+                  loader={defaultNextImageLoader}
+                />
+              ) : (
+                <div className="relative h-full w-full">
+                  <PhotographIcon className="absolute inset-0 h-full w-full  dark:text-slate-500" />
+                </div>
+              )}
+            </div>
           </Link>
         </div>
         <p className="absolute bottom-1 left-1 text-sm font-normal text-slate-900 dark:text-white">
