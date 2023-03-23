@@ -69,13 +69,19 @@ const DeliveryAddressEditable = ({ user }) => {
   const addressFields = [
     {
       name: 'firstName',
-      translation: intl.formatMessage({ id: 'first_name' }),
+      translation: intl.formatMessage({
+        id: 'first_name',
+        defaultMessage: 'Firstname',
+      }),
       type: 'text',
       required: true,
     },
     {
       name: 'lastName',
-      translation: intl.formatMessage({ id: 'last_name' }),
+      translation: intl.formatMessage({
+        id: 'last_name',
+        defaultMessage: 'Lastname',
+      }),
       type: 'text',
       required: true,
     },
@@ -83,44 +89,63 @@ const DeliveryAddressEditable = ({ user }) => {
       name: 'company',
       translation: `${intl.formatMessage({
         id: 'company',
-      })} ${intl.formatMessage({ id: 'optional' })}`,
+        defaultMessage: 'Company',
+      })} ${intl.formatMessage({
+        id: 'optional',
+        defaultMessage: 'Optional',
+      })}`,
       type: 'text',
       required: false,
     },
     {
       name: 'addressLine',
-      translation: intl.formatMessage({ id: 'address' }),
+      translation: intl.formatMessage({
+        id: 'address',
+        defaultMessage: 'Address',
+      }),
       type: 'text',
       required: true,
     },
     {
       name: 'postalCode',
-      translation: intl.formatMessage({ id: 'postal_code' }),
+      translation: intl.formatMessage({
+        id: 'postal_code',
+        defaultMessage: 'Postal Code',
+      }),
       type: 'text',
       required: true,
     },
     {
       name: 'city',
-      translation: intl.formatMessage({ id: 'city' }),
+      translation: intl.formatMessage({ id: 'city', defaultMessage: 'City' }),
       type: 'text',
       required: true,
     },
     {
       name: 'countryCode',
-      translation: intl.formatMessage({ id: 'country' }),
+      translation: intl.formatMessage({
+        id: 'country',
+        defaultMessage: 'Country',
+      }),
       type: 'country',
       required: true,
     },
 
     {
       name: 'emailAddress',
-      translation: intl.formatMessage({ id: 'email' }),
+      translation: intl.formatMessage({
+        id: 'email',
+        defaultMessage: 'Email Address',
+      }),
       type: 'email',
       required: true,
     },
     {
       name: 'telNumber',
-      translation: intl.formatMessage({ id: 'telephone' }),
+      translation: intl.formatMessage({
+        id: 'telephone',
+        defaultMessage: 'Telephone Number',
+      }),
       type: 'text',
       required: true,
     },
@@ -156,8 +181,11 @@ const DeliveryAddressEditable = ({ user }) => {
       </div>
       <button className="button button--secondary mt-3" type="submit">
         {isEditing
-          ? intl.formatMessage({ id: 'save' })
-          : intl.formatMessage({ id: 'change' })}
+          ? intl.formatMessage({ id: 'save', defaultMessage: 'Save' })
+          : intl.formatMessage({
+              id: 'change',
+              defaultMessage: 'Change Address',
+            })}
       </button>
     </form>
   );

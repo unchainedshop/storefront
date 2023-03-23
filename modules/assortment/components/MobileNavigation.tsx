@@ -39,6 +39,7 @@ const Subtree = ({
     'pl-12 text-base py-3',
     'pl-16 text-base py-3',
   ];
+
   return Object.keys(children).length ? (
     <div key={pageId} className="border-t border-color-grey-lightest">
       <button
@@ -73,7 +74,7 @@ const Subtree = ({
 
           {Object.entries(children)
             .sort(([, aNode]: any, [, bNode]: any) => {
-              return aNode?.index - bNode.index;
+              return Number(aNode?.index) - bNode.index;
             })
             .map(([subPageId, node]: any) => (
               <Subtree
@@ -164,12 +165,18 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
           {Object.entries(theme.locales)?.map(([lang]) => (
             <button
               key={lang}
-              aria-label={intl.formatMessage({ id: `language_${lang}` })}
+              aria-label={intl.formatMessage({
+                id: `language_${lang}`,
+                defaultMessage: 'Language X',
+              })}
               type="button"
               className="mb-3 block cursor-pointer appearance-none border-0 bg-transparent p-0 text-left text-inherit"
               onClick={() => changeLanguage(lang)}
             >
-              {intl.formatMessage({ id: `language_${lang}` })}
+              {intl.formatMessage({
+                id: `language_${lang}`,
+                defaultMessage: 'Language X',
+              })}
             </button>
           ))}
         </div>

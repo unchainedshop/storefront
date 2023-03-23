@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
@@ -15,7 +15,14 @@ const DesktopNavigation = () => {
   const { formatMessage } = useIntl();
   const [hoverPath, setHoverPath] = useState([]);
   const [isTouching, setTouching] = useState(false);
-
+  const navContext = useMemo(
+    () => ({
+      setHoverPath,
+      hoverPath,
+      isTouching,
+    }),
+    [setHoverPath, hoverPath, isTouching],
+  );
   const { assortmentTree } = useCategoriesTree({ root: 'shop' });
 
   const handleClick = (node) => (event) => {
@@ -47,13 +54,7 @@ const DesktopNavigation = () => {
   const dataInHoverPath = ref?.current?.getAttribute('data-in-hover-path');
 
   return (
-    <DesktopNavigationContext.Provider
-      value={{
-        setHoverPath,
-        hoverPath,
-        isTouching,
-      }}
-    >
+    <DesktopNavigationContext.Provider value={navContext}>
       <nav
         className="hidden sm:flex"
         onTouchStart={handleTouchStart}

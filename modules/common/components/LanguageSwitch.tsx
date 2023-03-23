@@ -28,7 +28,10 @@ const LanguageSwitch = () => {
       >
         {Object.entries(theme.locales)?.map(([lang]) => (
           <option key={lang} value={lang}>
-            {intl.formatMessage({ id: `language_${lang}` })}
+            {intl.formatMessage({
+              id: `language_${lang}`,
+              defaultMessage: 'Language X',
+            })}
           </option>
         ))}
       </select>

@@ -35,7 +35,7 @@ const usePayWithDatatrans = () => {
 
   return async (cart) => {
     const orderPaymentId = cart?.paymentInfo?._id;
-    const { amount, currency } = cart?.total;
+    const { amount, currency } = cart?.total || {};
     const sign = await signForCheckout({
       orderPaymentId,
       transactionContext: {},

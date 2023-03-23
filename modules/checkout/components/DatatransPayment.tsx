@@ -19,7 +19,7 @@ const DatatransPayment = ({ cart }) => {
         setPaymentButtonDisabled(false);
       }}
     >
-      {intl.formatMessage({ id: 'pay_now' })}
+      {intl.formatMessage({ id: 'pay_now', defaultMessage: 'Pay now' })}
     </button>
   );
 };

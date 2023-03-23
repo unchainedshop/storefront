@@ -40,7 +40,10 @@ const DatatransPayment = ({ cart, setBillingSameAsDelivery }) => {
         setPaymentButtonDisabled(false);
       }}
     >
-      {intl.formatMessage({ id: 'confirm_purchase' })}
+      {intl.formatMessage({
+        id: 'confirm_purchase',
+        defaultMessage: 'Confirm binding order',
+      })}
     </button>
   );
 };

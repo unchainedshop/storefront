@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import useChangeCartCurrency from '../hooks/useChangeCartCurrency';
 import useSupportedCurrencies from '../utils/useSupportedCurrencies';
 
@@ -24,11 +23,6 @@ const CurrencySelector = ({ onChange, selectedCurrency, className = '' }) => {
       ))}
     </select>
   ) : null;
-};
-
-CurrencySelector.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  selectedCurrency: PropTypes.string.isRequired,
 };
 
 export default CurrencySelector;

@@ -2,30 +2,6 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
 import { useState } from 'react';
 
-const Accordion = ({
-  data = [],
-  containerCSS = '',
-  headerCSS = '',
-  bodyCSS = '',
-  itemContainerCSS = '',
-}) => {
-  return (
-    <div className={classNames('my-3', containerCSS)}>
-      {data.map(({ header, body }, key) => (
-        <AccordionItem
-          header={header}
-          body={body}
-          // eslint-disable-next-line react/no-array-index-key
-          key={key}
-          headerCSS={headerCSS}
-          bodyCSS={bodyCSS}
-          itemContainerCSS={itemContainerCSS}
-        />
-      ))}
-    </div>
-  );
-};
-
 const AccordionItem = ({
   header,
   body,
@@ -76,6 +52,30 @@ const AccordionItem = ({
       ) : (
         ''
       )}
+    </div>
+  );
+};
+
+const Accordion = ({
+  data = [],
+  containerCSS = '',
+  headerCSS = '',
+  bodyCSS = '',
+  itemContainerCSS = '',
+}) => {
+  return (
+    <div className={classNames('my-3', containerCSS)}>
+      {data.map(({ header, body }, key) => (
+        <AccordionItem
+          header={header}
+          body={body}
+          // eslint-disable-next-line react/no-array-index-key
+          key={key}
+          headerCSS={headerCSS}
+          bodyCSS={bodyCSS}
+          itemContainerCSS={itemContainerCSS}
+        />
+      ))}
     </div>
   );
 };

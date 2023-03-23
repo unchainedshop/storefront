@@ -25,7 +25,7 @@ export const keyMappings: any = {
           'slugs',
           'currency',
         ],
-        merge(existing = [], incoming) {
+        merge(existing = [], incoming = []) {
           return [...existing, ...incoming];
         },
       },
@@ -38,61 +38,61 @@ export const keyMappings: any = {
           'queryString',
           'currency',
         ],
-        merge(existing = [], incoming) {
+        merge(existing = [], incoming = []) {
           return [...existing, ...incoming];
         },
       },
       countries: {
         keyArgs: ['limit', 'includeInactive', 'offset', 'queryString'],
-        merge(existing = [], incoming) {
+        merge(existing = [], incoming = []) {
           return [...existing, ...incoming];
         },
       },
       SupportedCurrencies: {
         keyArgs: ['limit', 'includeInactive', 'offset', 'queryString'],
-        merge(existing = [], incoming) {
+        merge(existing = [], incoming = []) {
           return [...existing, ...incoming];
         },
       },
       enrollments: {
         keyArgs: ['limit', 'offset', 'queryString'],
-        merge(existing = [], incoming) {
+        merge(existing = [], incoming = []) {
           return [...existing, ...incoming];
         },
       },
       quotations: {
         keyArgs: ['limit', 'offset', 'queryString'],
-        merge(existing = [], incoming) {
+        merge(existing = [], incoming = []) {
           return [...existing, ...incoming];
         },
       },
       workQueue: {
         keyArgs: ['limit', 'status', 'selectTypes', 'created', 'queryString'],
-        merge(existing = [], incoming) {
+        merge(existing = [], incoming = []) {
           return [...existing, ...incoming];
         },
       },
       languages: {
         keyArgs: ['limit', 'includeInactive', 'offset', 'queryString'],
-        merge(existing = [], incoming) {
+        merge(existing = [], incoming = []) {
           return [...existing, ...incoming];
         },
       },
       events: {
         keyArgs: ['limit', 'offset', 'type', 'queryString'],
-        merge(existing = [], incoming) {
+        merge(existing = [], incoming = []) {
           return [...existing, ...incoming];
         },
       },
       users: {
         keyArgs: ['limit', 'includeGuests', 'queryString', 'offset'],
-        merge(existing = [], incoming) {
+        merge(existing = [], incoming = []) {
           return [...existing, ...incoming];
         },
       },
       filters: {
         keyArgs: ['limit', 'offset', 'queryString'],
-        merge(existing = [], incoming) {
+        merge(existing = [], incoming = []) {
           return [...existing, ...incoming];
         },
       },
@@ -100,13 +100,13 @@ export const keyMappings: any = {
     },
     SimpleProduct: {
       keyArgs: ['currency'],
-      merge(existing = {}, incoming) {
+      merge(existing = {}, incoming = {}) {
         return { ...existing, ...incoming };
       },
     },
     orders: {
       keyArgs: ['limit', 'includeCarts', 'offset', 'queryString', 'currency'],
-      merge(existing = [], incoming) {
+      merge(existing = [], incoming = []) {
         return [...existing, ...incoming];
       },
     },

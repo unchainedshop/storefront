@@ -101,40 +101,36 @@ const BillingAddressEditable = ({ user, checked }) => {
     },
   ];
 
+  if (checked) return null;
+
   return (
-    <>
-      {checked ? (
-        ''
-      ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
-            {addressFields.map(({ name, translation, type, required }) => (
-              <div key={name}>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                  <b>{translation}</b>
-                </label>
-                <div className="mt-1">
-                  <EditableField
-                    name={name}
-                    value={user?.cart?.billingAddress?.[name]}
-                    register={register}
-                    isEditing={isEditing}
-                    type={type}
-                    required={required}
-                  />
-                </div>
-              </div>
-            ))}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+        {addressFields.map(({ name, translation, type, required }) => (
+          <div key={name}>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
+              <b>{translation}</b>
+            </label>
+            <div className="mt-1">
+              <EditableField
+                name={name}
+                value={user?.cart?.billingAddress?.[name]}
+                register={register}
+                isEditing={isEditing}
+                type={type}
+                required={required}
+              />
+            </div>
           </div>
-          <button
-            className="mt-3 mb-5 inline-flex items-center rounded-md  bg-slate-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
-            type="submit"
-          >
-            {formatMessage({ id: 'save', defaultMessage: 'Save' })}
-          </button>
-        </form>
-      )}
-    </>
+        ))}
+      </div>
+      <button
+        className="mt-3 mb-5 inline-flex items-center rounded-md  bg-slate-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+        type="submit"
+      >
+        {formatMessage({ id: 'save', defaultMessage: 'Save' })}
+      </button>
+    </form>
   );
 };
 

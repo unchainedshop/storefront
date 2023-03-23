@@ -24,7 +24,7 @@ const AssortmentBreadcrumbs = ({ paths = [], currentAssortment }) => {
       <a className="breadcrumb-link">
         <b>{currentAssortment?.title}</b>
       </a>
-      <style jsx>
+      <style>
         {`
           .breadcrumb-link {
             font-size: 0.875rem;

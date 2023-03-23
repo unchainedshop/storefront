@@ -21,9 +21,8 @@ const EditableField = ({
               errors?.[name]?.message,
           },
         )}
-        name={name}
         defaultValue={value}
-        ref={register(validator)}
+        {...register(name, validator)}
       >
         <option value="">
           {formatMessage({
@@ -49,9 +48,8 @@ const EditableField = ({
         },
       )}
       type={type}
-      name={name}
       defaultValue={value}
-      ref={register(validator)}
+      {...register(name, validator)}
     />
   );
 };

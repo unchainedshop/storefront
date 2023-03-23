@@ -8,7 +8,7 @@ const AddEmailMutation = gql`
   }
 `;
 
-const useaddEmail = () => {
+const useAddEmail = () => {
   const [addEmailMutation, { error }] = useMutation(AddEmailMutation);
 
   const addEmail = async (email) => {
@@ -24,4 +24,4 @@ const useaddEmail = () => {
   };
 };
 
-export default useaddEmail;
+export default useAddEmail;

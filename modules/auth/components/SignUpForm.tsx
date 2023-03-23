@@ -24,7 +24,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
     formState: { errors },
     setError,
     watch,
-  } = useForm();
+  } = useForm<any>();
   const { createUser, error } = useCreateUser();
   const password = useRef({});
   password.current = watch('password', '');
@@ -223,7 +223,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       type="text"
                       id="firstName"
                       name="firstName"
-                      ref={register({ required: true })}
+                      {...register('firstName', { required: true })}
                       className={classNames(
                         'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                         {
@@ -258,7 +258,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       type="text"
                       id="lastName"
                       name="lastName"
-                      ref={register({ required: true })}
+                      {...register('lastName', { required: true })}
                       className={classNames(
                         'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none  dark:text-slate-600 sm:text-sm',
                         {
@@ -293,7 +293,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       type="text"
                       id="addressLine"
                       name="addressLine"
-                      ref={register({ required: true })}
+                      {...register('addressLine', { required: true })}
                       className={classNames(
                         'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                         {
@@ -333,7 +333,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       type="text"
                       id="company"
                       name="company"
-                      ref={register}
+                      {...register('company', { required: true })}
                       className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
                     />
                   </div>
@@ -354,7 +354,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       type="text"
                       id="postalCode"
                       name="postalCode"
-                      ref={register({ required: true })}
+                      {...register('postalCode', { required: true })}
                       className={classNames(
                         'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                         {
@@ -389,7 +389,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       type="tel"
                       name="telNumber"
                       autoComplete="tel"
-                      ref={register({ required: false })}
+                      {...register('telNumber', { required: true })}
                       className={classNames(
                         'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                         {
@@ -421,7 +421,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       type="text"
                       id="city"
                       name="city"
-                      ref={register({ required: true })}
+                      {...register('city', { required: true })}
                       className={classNames(
                         'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                         {
@@ -456,7 +456,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       type="text"
                       id="regionCode"
                       name="regionCode"
-                      ref={register}
+                      {...register('regionCode')}
                       className={classNames(
                         'block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm',
                         {
@@ -482,7 +482,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     id="countryCode"
                     name="countryCode"
                     defaultValue="CH"
-                    ref={register({ required: true })}
+                    {...register('countryCode', { required: true })}
                     className="block w-full appearance-none rounded-md border border-slate-300 bg-slate-100 py-2 px-3 placeholder-slate-400 shadow-sm transition focus:border-slate-900 focus:text-slate-900 focus:outline-none focus:ring-slate-900 dark:text-slate-600 sm:text-sm"
                   >
                     {COUNTRIES.map((c) => (
@@ -502,7 +502,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     id="emailAddress"
                     name="emailAddress"
                     autoComplete="email"
-                    ref={register({
+                    {...register('emailAddress', {
                       required: 'Email is required',
                       pattern: {
                         value:
@@ -520,7 +520,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                   />
                   {errors.emailAddress && (
                     <p className="text-sm text-red-600">
-                      {errors.emailAddress?.message}
+                      {errors.emailAddress?.message as string}
                     </p>
                   )}
                 </div>
@@ -540,7 +540,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                       type={isPasswordVisible ? 'text' : 'password'}
                       id="password"
                       name="password"
-                      ref={register({
+                      {...register('password', {
                         required: {
                           value: true,
                           message: 'Password is required',
@@ -571,7 +571,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     />
                     {errors.password && (
                       <p className="text-sm text-red-600">
-                        {errors.password?.message}
+                        {errors.password?.message as string}
                       </p>
                     )}
                   </div>
@@ -591,8 +591,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     <input
                       type={isPassword2Visible ? 'text' : 'password'}
                       id="password2"
-                      name="password2"
-                      ref={register({
+                      {...register('password2', {
                         validate: (value) =>
                           value === password.current ||
                           'The passwords do not match',
@@ -612,7 +611,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                     />
                     {errors.password2 && (
                       <p className="text-sm text-red-600">
-                        {errors.password2?.message}
+                        {errors.password2?.message as string}
                       </p>
                     )}
                   </div>

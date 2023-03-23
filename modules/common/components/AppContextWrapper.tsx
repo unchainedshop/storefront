@@ -1,87 +1,70 @@
-import React, {
-  useState,
-  useContext,
-  useEffect,
-
-} from 'react';
-
-import ConnectPopup from './ConnectPopup';
-
+import React, { useState, useContext, useEffect, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
-import { useRouter } from 'next/router';
+import ConnectPopup from './ConnectPopup';
 
-const METAMASK_ERROR = {
-  4001: 'Payment Canceled',
-  32602: 'Invalid data provided',
-  32603: 'Internal server error'
-}
-
-
-export const AppContext = React.createContext<{
+type AppContextType = {
   hasSigner?: boolean;
   accounts?: string[];
-
   connect: () => Promise<void>;
   selectedCurrency?: string;
-  changeCurrency: (val) => void;
+  changeCurrency: (p: any) => Promise<void>; // eslint-disable-line
   isCartOpen: boolean;
-  toggleCart?: (val) => void;
-  payWithMetaMask?: (order: {orderId: string; orderAddress: string}, orderAmount: string) => void;
-}>({
+  toggleCart?: (p: any) => void; // eslint-disable-line
+  payWithMetaMask?: () => void;
+};
+
+export const AppContext = React.createContext<AppContextType>({
   accounts: [],
   connect: () => null,
-  changeCurrency: () => {},
+  changeCurrency: async () => {},
   isCartOpen: false,
   toggleCart: () => null,
 });
 
 export const useAppContext = () => useContext(AppContext);
 
-const ethereum = (global as any).ethereum;
+const { ethereum } = global as any;
 
 export const AppContextWrapper = ({ children }) => {
-  
   const [accounts, setAccounts] = useState<string[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [isCartOpen, toggleCart] = useState(false);
   const [selectedCurrency, setCurrency] = useState('ETH');
-  const [status, setStatus] = useState({metaMaskOpen: false , isWaitingForConfirmation: false, isError: false, message: ''})
-  const {formatMessage} = useIntl()
-  const router = useRouter()
-  
+  const [status] = useState({
+    metaMaskOpen: false,
+    isWaitingForConfirmation: false,
+    isError: false,
+    message: '',
+  });
+  const { formatMessage } = useIntl();
 
   const changeCurrency = async (val) => {
-    if(typeof window !== 'undefined') {
-    setCurrency(val ?? 'ETH')
-      localStorage.setItem('selectedCurrency', val)
+    if (typeof window !== 'undefined') {
+      setCurrency(val ?? 'ETH');
+      localStorage.setItem('selectedCurrency', val);
     }
-    
-  }
+  };
 
   useEffect(() => {
-    
-    if(typeof(window) != 'undefined')
-    changeCurrency(localStorage.getItem('selectedCurrency'))
-    
+    if (typeof window !== 'undefined')
+      changeCurrency(localStorage.getItem('selectedCurrency'));
   }, []);
-
-  
 
   const doConnect = async () => {
     setModalOpen(false);
     await ethereum.request({ method: 'eth_requestAccounts' });
-    const accounts = await ethereum.request({
+    const connectedAccounts = await ethereum.request({
       method: 'eth_accounts',
     });
-    setAccounts(accounts);
+    setAccounts(connectedAccounts);
   };
 
   const connect = async () => setModalOpen(true);
 
-  return (
-    <AppContext.Provider
-      value={{
+  const appContext = useMemo(
+    () =>
+      ({
         hasSigner: !!ethereum,
         accounts,
         connect,
@@ -89,33 +72,35 @@ export const AppContextWrapper = ({ children }) => {
         toggleCart,
         selectedCurrency,
         changeCurrency,
-      }}
-    >
-      
-      {status.metaMaskOpen &&
-      <div className="align-items-center fixed top-0 left-0 right-0 bottom-0 z-[100000] flex justify-center bg-color-light-dark opacity-95">
-        {(status.isWaitingForConfirmation || status.isError) &&
-        <div className="absolute mx-auto mt-40 w-1/4 max-w-lg bg-white p-5">
-          
-        <p>
-        {status.isError ? status.message : <>{formatMessage({
-              id: 'processing_payment',
-              defaultMessage:
-                'Processing payment, waiting for block confirmation. this might take few seconds to a minute',
-                
-            })}
-            
-            <img  src='/static/img/spinner-icon.gif'/>
-            </> 
-            }
-            
-          </p>
+      } as AppContextType),
+    [ethereum, accounts, connect, isCartOpen, selectedCurrency],
+  );
 
+  return (
+    <AppContext.Provider value={appContext}>
+      {status.metaMaskOpen && (
+        <div className="align-items-center fixed top-0 left-0 right-0 bottom-0 z-[100000] flex justify-center bg-color-light-dark opacity-95">
+          {(status.isWaitingForConfirmation || status.isError) && (
+            <div className="absolute mx-auto mt-40 w-1/4 max-w-lg bg-white p-5">
+              <p>
+                {status.isError ? (
+                  status.message
+                ) : (
+                  <>
+                    {formatMessage({
+                      id: 'processing_payment',
+                      defaultMessage:
+                        'Processing payment, waiting for block confirmation. this might take few seconds to a minute',
+                    })}
 
+                    <img src="/static/img/spinner-icon.gif" />
+                  </>
+                )}
+              </p>
+            </div>
+          )}
         </div>
-}
-        </div>
-}
+      )}
       <ConnectPopup isOpen={modalOpen} connect={doConnect} />
       {children}
     </AppContext.Provider>
