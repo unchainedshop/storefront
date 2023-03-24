@@ -38,7 +38,7 @@ class UnchainedDocument extends Document {
         <Head />
         <link rel="stylesheet" type="text/css" href="/api/custom-styles" />
 
-        <body className="bg-slate-100 dark:bg-slate-600">
+        <body className="dark:bg-slate-600">
           <Main />
           <NextScript />
         </body>
