@@ -6,6 +6,13 @@ const VERIFY_EMAIL_MUTATION = gql`
       id
       token
       tokenExpires
+      user {
+        _id
+        emails {
+          address
+          verified
+        }
+      }
     }
   }
 `;
@@ -16,7 +23,6 @@ const useVerifyEmail = () => {
   const verifyEmail = async ({ token }) => {
     return verifyEmailMutation({
       variables: { token },
-      refetchQueries: ['user'],
     });
   };
 

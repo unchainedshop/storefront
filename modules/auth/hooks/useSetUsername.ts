@@ -15,7 +15,6 @@ const useSetUsername = () => {
   const setUsername = async ({ username, userId }) => {
     return setUsernameMutation({
       variables: { username, userId },
-      refetchQueries: ['user'],
     });
   };
 

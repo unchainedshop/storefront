@@ -16,7 +16,6 @@ const useResendVerificationEmail = () => {
   const resendVerificationEmail = async (email) => {
     return resendVerificationEmailMutation({
       variables: { email },
-      refetchQueries: ['user'],
     });
   };
 

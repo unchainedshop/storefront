@@ -4,6 +4,10 @@ const AddEmailMutation = gql`
   mutation addEmail($email: String!) {
     addEmail(email: $email) {
       _id
+      emails {
+        address
+        verified
+      }
     }
   }
 `;
@@ -14,7 +18,6 @@ const useAddEmail = () => {
   const addEmail = async (email) => {
     return addEmailMutation({
       variables: { email },
-      refetchQueries: ['user'],
     });
   };
 

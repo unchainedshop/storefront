@@ -4,6 +4,10 @@ const RemoveEmailMutation = gql`
   mutation removeEmail($email: String!) {
     removeEmail(email: $email) {
       _id
+      emails {
+        address
+        verified
+      }
     }
   }
 `;
@@ -14,7 +18,6 @@ const useRemoveEmail = () => {
   const removeEmail = async (email) => {
     return removeEmailMutation({
       variables: { email },
-      refetchQueries: ['user'],
     });
   };
 

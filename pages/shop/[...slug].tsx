@@ -81,19 +81,6 @@ const CategoryDetail = () => {
           <div>
             <h1 className="mt-0 dark:text-slate-100">{texts?.title}</h1>
             <h2>{texts?.subtitle}</h2>
-            {getMediaUrl({ media }) && (
-              <Image
-                src={getMediaUrl({ media })}
-                alt={texts?.title}
-                layout="responsive"
-                objectFit="contain"
-                quality={100}
-                width={706}
-                height={235}
-                loader={defaultNextImageLoader}
-              />
-            )}
-
             <p>{texts?.description}</p>
           </div>
           {productsLoading ? (
