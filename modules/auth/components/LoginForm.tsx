@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import PasswordVisible from '../../common/components/PasswordVisible';
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
 
-const LoginForm = ({ onLogin = null, children }) => {
+const LoginForm = ({ onLogin = null, children }: any) => {
   const {
     register,
     handleSubmit,

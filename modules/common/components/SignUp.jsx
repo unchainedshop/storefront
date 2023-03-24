@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 
 import useCreateUser from '../../auth/hooks/useCreateUser';
-import useUpdateCart from '../../checkout/hooks/useUpdateCart';
 import EditableField from './EditableField';
 import PasswordVisible from './PasswordVisible';
 
@@ -35,7 +34,6 @@ const ErrorDisplay = ({ error }) => {
 const SignUp = () => {
   const router = useRouter();
   const { formatMessage } = useIntl();
-  const { updateCart } = useUpdateCart();
   const { createUser, error: formError } = useCreateUser();
   const { register, handleSubmit, watch, errors, setError } = useForm();
   const hasErrors = Object.keys(errors).length;
@@ -231,20 +229,6 @@ const SignUp = () => {
         return false;
       }
     }
-
-    await updateCart({
-      contact: { emailAddress, telNumber },
-      billingAddress: {
-        firstName,
-        lastName,
-        company,
-        addressLine,
-        postalCode,
-        city,
-        countryCode,
-        regionCode,
-      },
-    });
 
     router.replace({ pathname: '/review', query: { newSignUp: 'true' } });
     return true;
