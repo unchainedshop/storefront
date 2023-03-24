@@ -147,8 +147,8 @@ const SideCart = ({ isOpen }) => {
               })}
             </Link>
 
-            <Link
-              href={`${localStorage.getItem('lastVisitedCategory') || '/shop'}`}
+            <button
+              type="button"
               className="my-4 block w-full text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-400"
               onClick={() => toggleCart(false)}
             >
@@ -156,7 +156,7 @@ const SideCart = ({ isOpen }) => {
                 id: 'continue_shopping',
                 defaultMessage: 'Continue shopping',
               })}
-            </Link>
+            </button>
           </div>
         </div>
       )}

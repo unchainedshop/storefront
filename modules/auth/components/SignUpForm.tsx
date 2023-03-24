@@ -618,16 +618,6 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
                 </div>
 
                 <div className="md:col-span-6">
-                  {error?.message?.includes('Navision auth failed') && (
-                    <div className="bg-red-300 text-red-600">
-                      {error.message}
-                      {formatMessage({
-                        id: 'error',
-                        defaultMessage: ', Try again later',
-                      })}
-                    </div>
-                  )}
-
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md border border-transparent bg-slate-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"

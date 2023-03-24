@@ -8,14 +8,9 @@ const LoginWithPasswordMutation = gql`
   mutation LoginWithPassword(
     $email: String!
     $plainPassword: String
-    $password: HashedPasswordInput
     $currency: String
   ) {
-    loginWithPassword(
-      email: $email
-      plainPassword: $plainPassword
-      password: $password
-    ) {
+    loginWithPassword(email: $email, plainPassword: $plainPassword) {
       id
       token
       tokenExpires
@@ -27,7 +22,6 @@ const LoginWithPasswordMutation = gql`
   ${CurrentUserFragment}
 `;
 const useLoginWithPassword = (): any => {
-  const { locale } = useIntl();
   const { selectedCurrency } = useAppContext();
 
   const [logInWithPasswordMutation, { error }] = useMutation(
@@ -48,7 +42,6 @@ const useLoginWithPassword = (): any => {
       username,
       email: normalizedEmail,
       plainPassword: password,
-      password: null,
       currency: selectedCurrency,
     };
 

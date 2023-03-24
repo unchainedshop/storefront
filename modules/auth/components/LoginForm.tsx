@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import toast from 'react-hot-toast';
@@ -9,7 +9,6 @@ import PasswordVisible from '../../common/components/PasswordVisible';
 
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
 import useUser from '../hooks/useUser';
-import { storeLoginToken } from '../utils/store';
 
 const LoginForm = ({ onLogin = null }) => {
   const {
@@ -19,37 +18,35 @@ const LoginForm = ({ onLogin = null }) => {
     formState: { errors },
   } = useForm<any, any>();
   const { formatMessage } = useIntl();
-  const { logInWithPassword, error } = useLoginWithPassword();
+  const { logInWithPassword } = useLoginWithPassword();
   const hasErrors = Object.keys(errors).length > 0;
   const { loading } = useUser();
-
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  useEffect(() => {
-    if (error?.message?.includes('Invalid credentials')) {
-      setError('account', {
-        type: 'manual',
-        message: `👷‍♀️ ${formatMessage({
-          id: 'invalid_credentials',
-          defaultMessage: 'Invalid credentials',
-        })}`,
-      });
-    }
-  }, [error]);
 
   const onSubmit = async ({ email, password }) => {
     try {
-      const { data } = await logInWithPassword({
+      const loginResult = await logInWithPassword({
         email,
         password,
       });
-
-      const { id, token, tokenExpires } = data?.loginWithPassword || {};
-
-      await storeLoginToken(id, token, new Date(tokenExpires));
+      if (loginResult.errors?.length) throw loginResult.errors.pop();
       onLogin?.();
       toast.success('Login is successfully');
-    } catch (err) {
+    } catch (error: any) {
+      if (error?.extensions?.code) {
+        setError('account', {
+          type: 'manual',
+          message: `👷‍♀️ ${formatMessage({
+            id: `login_error_${error.extensions.code.toLowerCase()}`,
+            defaultMessage: error.message,
+          })}`,
+        });
+      } else {
+        setError('account', {
+          type: 'manual',
+          message: error.message,
+        });
+      }
       toast.error(`Login failed, try again`);
     }
   };
@@ -154,16 +151,6 @@ const LoginForm = ({ onLogin = null }) => {
                 </div>
               ))
             : ''}
-
-          {error?.message?.includes('Navision auth failed') && (
-            <div className="my-2 rounded bg-red-300 p-1 text-red-600">
-              {error.message}
-              {formatMessage({
-                id: 'error',
-                defaultMessage: ', Try again later',
-              })}
-            </div>
-          )}
 
           <div>
             <button

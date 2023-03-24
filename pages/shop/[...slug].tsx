@@ -41,10 +41,6 @@ const CategoryDetail = () => {
     setCurrentUrl(window.location.href);
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('lastVisitedCategory', router.asPath);
-  });
-
   let currentPath;
   if (typeof slugs === 'string') {
     currentPath = slugs;
