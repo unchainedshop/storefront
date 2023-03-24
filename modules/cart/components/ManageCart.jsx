@@ -42,8 +42,8 @@ const ManageCart = ({ user }) => {
   const canCheckout =
     user &&
     user?.cart &&
-    user?.cart?.billingAddress.addressLine &&
-    user?.cart?.billingAddress.city &&
+    user?.cart?.billingAddress?.addressLine &&
+    user?.cart?.billingAddress?.city &&
     user?.cart?.contact?.emailAddress;
 
   return (

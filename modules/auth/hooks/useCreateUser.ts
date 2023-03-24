@@ -9,7 +9,6 @@ const CreateUserMutation = gql`
     $email: String!
     $password: String!
     $profile: UserProfileInput
-    $forceLocale: String
   ) {
     createUser(email: $email, plainPassword: $password, profile: $profile) {
       id
@@ -48,7 +47,6 @@ const useCreateUser = () => {
         email,
         password,
         profile,
-        forceLocale: intl.locale,
       },
     });
     await client.resetStore();

@@ -5,10 +5,7 @@ import AssortmentFragment from '../fragments/assortment';
 import AssortmentMediaFragment from '../fragments/AssortmentMedia';
 
 export const AssortmentsQuery = gql`
-  query AssortmentsQuery(
-    $includeLeaves: Boolean = false
-    $forceLocale: String
-  ) {
+  query AssortmentsQuery($includeLeaves: Boolean = false) {
     assortments(includeLeaves: $includeLeaves) {
       ...AssortmentFragment
       media {
@@ -21,11 +18,9 @@ export const AssortmentsQuery = gql`
 `;
 
 const useAssortments = ({ includeLeaves = false } = {}) => {
-  const intl = useIntl();
   const { data, loading, error } = useQuery(AssortmentsQuery, {
     variables: {
       includeLeaves,
-      forceLocale: intl.locale,
     },
   });
 

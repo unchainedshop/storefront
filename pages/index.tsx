@@ -4,14 +4,11 @@ import { useIntl } from 'react-intl';
 
 import Link from 'next/link';
 import Image from 'next/legacy/image';
-import classNames from 'classnames';
-import { PhotographIcon } from '@heroicons/react/solid';
 import useAssortments from '../modules/assortment/hooks/useAssortments';
 import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
-import getMediaUrl from '../modules/common/utils/getMediaUrl';
-import { catagories } from '../modules/common/data/miscellaneous';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
+import CategoryListItem from '../modules/assortment/components/CategoryListItem';
 
 const {
   publicRuntimeConfig: { theme },
@@ -77,68 +74,6 @@ const Home = () => {
                   </Link>
                 </div>
 
-                <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6 lg:gap-8">
-                  {assortments?.slice(0, 5)?.map((assortment, index) => (
-                    <div
-                      key={assortment?._id}
-                      className={classNames(
-                        'group aspect-w-2 aspect-h-1 relative overflow-hidden rounded-lg',
-                        {
-                          'sm:aspect-w-1 sm:aspect-h-1 sm:row-span-2':
-                            catagories[index]?.row === 2,
-                        },
-                      )}
-                    >
-                      {getMediaUrl(assortment?.media) ? (
-                        <Image
-                          src={getMediaUrl(assortment?.media)}
-                          alt={
-                            assortment.texts.description ||
-                            assortment.texts.title
-                          }
-                          layout="fill"
-                          objectFit="cover"
-                          objectPosition="center"
-                          placeholder="blur"
-                          blurDataURL="/placeholder-product.png"
-                          className={classNames(
-                            'object-cover object-center group-hover:opacity-75',
-                            {
-                              'sm:absolute sm:inset-0 sm:h-full sm:w-full':
-                                catagories[index]?.hasClass,
-                            },
-                          )}
-                          loader={defaultNextImageLoader}
-                        />
-                      ) : (
-                        <div>
-                          <PhotographIcon className="absolute inset-0 h-full w-full text-slate-200  dark:text-slate-500" />
-                        </div>
-                      )}
-                      <div
-                        aria-hidden="true"
-                        className="bg-gradient-to-b from-transparent to-black opacity-50"
-                      />
-                      <div className="flex items-end p-6">
-                        <div>
-                          <h3 className="font-semibold text-white">
-                            <Link href={`shop/${assortment?.texts?.slug}`}>
-                              <span className="absolute inset-0" />
-                              {assortment?.texts?.title}
-                            </Link>
-                          </h3>
-                          <p
-                            aria-hidden="true"
-                            className="mt-1 text-sm text-white"
-                          >
-                            {assortment?.texts?.subtitle}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
                 <div className="mt-6 sm:hidden">
                   <Link
                     href="/shop"
@@ -151,6 +86,14 @@ const Home = () => {
                     <span aria-hidden="true"> &rarr;</span>
                   </Link>
                 </div>
+              </div>
+              <div className="mt-10 space-y-12 divide-gray-200 lg:grid lg:grid-cols-3 lg:gap-x-5  lg:space-y-0">
+                {assortments.map((assortment) => (
+                  <CategoryListItem
+                    key={assortment._id}
+                    category={assortment}
+                  />
+                ))}
               </div>
             </div>
           )

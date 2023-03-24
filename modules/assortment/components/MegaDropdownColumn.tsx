@@ -55,7 +55,7 @@ const MegaDropdownItem = ({
       onMouseEnter={handleMouseEnter}
       onClick={handleClick}
       onTouchStart={handleTouchStart}
-      data-in-hover-path={type === 'default' && hoverPath.includes(slug)}
+      data-in-hover-path={type === 'default' && hoverPath?.includes(slug)}
     >
       <div className="flex items-baseline">
         {type === 'default' ? (

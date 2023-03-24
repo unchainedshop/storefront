@@ -104,8 +104,7 @@ const Subtree = ({
 
 const MobileNavigation = ({ doClose, isNavOpen }) => {
   const intl = useIntl();
-  const { assortmentTree } = useCategoriesTree({ root: 'shop' });
-
+  const { assortmentTree } = useCategoriesTree({ includeLeaves: false });
   return (
     <div className="mobile-menu-holder " data-is-open={isNavOpen}>
       <button

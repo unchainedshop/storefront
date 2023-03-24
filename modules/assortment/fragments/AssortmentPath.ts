@@ -22,7 +22,7 @@ export const ProductAssortmentPathFragment = gql`
   fragment ProductAssortmentPathFragment on ProductAssortmentPath {
     links {
       assortmentId
-      assortmentTexts(forceLocale: $forceLocale) {
+      assortmentTexts {
         _id
         title
         slug

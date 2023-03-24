@@ -9,7 +9,6 @@ const LoginWithPasswordMutation = gql`
     $email: String!
     $plainPassword: String
     $password: HashedPasswordInput
-    $forceLocale: String
     $currency: String
   ) {
     loginWithPassword(
@@ -48,7 +47,6 @@ const useLoginWithPassword = (): any => {
     const variables = {
       username,
       email: normalizedEmail,
-      forceLocale: locale,
       plainPassword: password,
       password: null,
       currency: selectedCurrency,

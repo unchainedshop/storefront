@@ -19,7 +19,7 @@ const CategoryDetail = () => {
   const [currentUrl, setCurrentUrl] = useState('');
 
   const { assortmentTree, loading: categoryTreeLoading } = useCategoriesTree({
-    slugs: slug,
+    slugs: [slug],
     includeLeaves: true,
   });
 

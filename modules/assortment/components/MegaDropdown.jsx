@@ -13,10 +13,10 @@ const findChildBySlug = (node, slug) => {
 };
 
 const getColumn = (node, hoverPath, columnIndex) => {
-  if (hoverPath.length <= columnIndex || !node) {
+  if (hoverPath?.length <= columnIndex || !node) {
     return [null, null];
   }
-  if (hoverPath.includes(node.slug)) {
+  if (hoverPath?.includes(node.slug)) {
     return findChildBySlug(node, hoverPath[columnIndex]) || [null, null];
   }
   return [null, null];

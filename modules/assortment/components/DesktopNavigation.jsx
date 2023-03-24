@@ -23,7 +23,7 @@ const DesktopNavigation = () => {
     }),
     [setHoverPath, hoverPath, isTouching],
   );
-  const { assortmentTree } = useCategoriesTree({ root: 'shop' });
+  const { assortmentTree } = useCategoriesTree({ includeLeaves: false });
 
   const handleClick = (node) => (event) => {
     if (isTouching && node.children) {
@@ -64,7 +64,7 @@ const DesktopNavigation = () => {
           <Link
             href="/shop"
             className="nav--main__item flex items-center py-4"
-            data-in-hover-path={hoverPath.includes(assortmentTree.slug)}
+            data-in-hover-path={hoverPath?.includes(assortmentTree.slug)}
             ref={ref}
             onMouseEnter={() => {
               if (!isTouching) {
@@ -82,7 +82,7 @@ const DesktopNavigation = () => {
             <MenuIcon className="mr-2 h-6 w-6 text-slate-900 dark:text-slate-100" />
             {formatMessage({ id: 'menu', defaultMessage: 'Menu' })}
           </Link>
-          {hoverPath.includes(assortmentTree.slug) && (
+          {hoverPath?.includes(assortmentTree.slug) && (
             <MegaDropdown
               {...assortmentTree}
               dataInHoverPath={dataInHoverPath}

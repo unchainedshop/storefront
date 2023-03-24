@@ -5,16 +5,17 @@ import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
 import getMediaUrl from '../../common/utils/getMediaUrl';
 
 const CategoryListItem = ({ category }) => {
+  const mediaUrl = getMediaUrl(category);
   return (
     <Link href={`shop/${category.texts.slug}`} className="group block">
-      {getMediaUrl(category) ? (
+      {mediaUrl ? (
         <>
           <div
             aria-hidden="true"
             className="aspect-w-3 aspect-h-2 relative overflow-hidden rounded-lg  group-hover:opacity-75 lg:aspect-w-5 lg:aspect-h-6"
           >
             <Image
-              src={getMediaUrl(category)}
+              src={mediaUrl}
               alt={category?.texts.title}
               layout="fill"
               placeholder="blur"

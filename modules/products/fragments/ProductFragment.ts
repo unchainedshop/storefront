@@ -22,7 +22,7 @@ const ProductFragment = gql`
       review
     }
     ... on PlanProduct {
-      texts(forceLocale: $forceLocale) {
+      texts {
         _id
         title
         subtitle
@@ -34,7 +34,7 @@ const ProductFragment = gql`
       }
     }
     ... on SimpleProduct {
-      texts(forceLocale: $forceLocale) {
+      texts {
         _id
         title
         subtitle
@@ -53,7 +53,7 @@ const ProductFragment = gql`
     }
 
     ... on BundleProduct {
-      texts(forceLocale: $forceLocale) {
+      texts {
         _id
         title
         subtitle
@@ -91,7 +91,7 @@ const ProductFragment = gql`
       }
     }
     ... on ConfigurableProduct {
-      texts(forceLocale: $forceLocale) {
+      texts {
         _id
         title
         subtitle
@@ -103,7 +103,7 @@ const ProductFragment = gql`
       }
       variations {
         _id
-        texts(forceLocale: $forceLocale) {
+        texts {
           _id
           title
           subtitle
@@ -112,7 +112,7 @@ const ProductFragment = gql`
         key
         options {
           _id
-          texts(forceLocale: $forceLocale) {
+          texts {
             _id
             title
             subtitle
