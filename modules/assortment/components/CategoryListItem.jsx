@@ -40,15 +40,13 @@ const CategoryListItem = ({ category }) => {
         <div className="group relative m-2 rounded-tl-lg rounded-tr-lg  border-2  p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:rounded-tr-none ">
           <div className="mt-8">
             <h3 className="text-lg font-medium">
-              <a href="#" className="focus:outline-none">
-                <span className="absolute inset-0" aria-hidden="true" />
-                <h3 className="mt-4 text-base font-semibold text-slate-900 dark:text-slate-100">
-                  {category.texts?.title}
-                </h3>
-                <p className="mt-1 text-center text-sm text-slate-500 dark:text-slate-400">
-                  {category.texts?.subtitle}
-                </p>
-              </a>
+              <span className="absolute inset-0" aria-hidden="true" />
+              <h3 className="mt-4 text-base font-semibold text-slate-900 dark:text-slate-100">
+                {category.texts?.title}
+              </h3>
+              <p className="mt-1 text-center text-sm text-slate-500 dark:text-slate-400">
+                {category.texts?.subtitle}
+              </p>
             </h3>
             <p className="mt-2 text-sm text-gray-500">
               {category.texts?.description}

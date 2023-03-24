@@ -49,16 +49,6 @@ const OrderDetailComponent = ({ order }) => {
               {formatDateTime(order?.ordered)}
             </time>
           </p>
-          <a
-            href="#"
-            className="text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:hidden"
-          >
-            {formatMessage({
-              id: 'invoice_mobile',
-              defaultMessage: 'View invoice',
-            })}
-            <span aria-hidden="true"> &rarr;</span>
-          </a>
         </div>
 
         {/* Products */}

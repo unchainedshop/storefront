@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
 
@@ -16,23 +16,11 @@ const {
 
 const Home = () => {
   const { assortments, loading } = useAssortments();
-  const [currentUrl, setCurrentUrl] = useState('');
   const { formatMessage } = useIntl();
-
-  useEffect(() => {
-    setCurrentUrl(window.location.href);
-
-    return () => {
-      setCurrentUrl('');
-    };
-  }, []);
 
   return (
     <>
-      <MetaTags
-        title={formatMessage({ id: 'home', defaultMessage: 'Home' })}
-        url={currentUrl}
-      />
+      <MetaTags title={formatMessage({ id: 'home', defaultMessage: 'Home' })} />
       <div className="w-full bg-white px-4 dark:bg-slate-600 sm:px-0">
         <div className="relative h-[442px] w-full">
           <Image

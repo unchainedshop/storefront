@@ -1,15 +1,9 @@
-import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import MetaTags from '../modules/common/components/MetaTags';
-import Footer from '../modules/layout/components/Footer';
 
 const Conditions = () => {
-  const [currentUrl, setcurrentUrl] = useState('');
   const intl = useIntl();
-  useEffect(() => {
-    setcurrentUrl(window.location.href);
-  }, []);
 
   return (
     <>
@@ -18,7 +12,6 @@ const Conditions = () => {
           id: 'conditions',
           defaultMessage: 'Conditions',
         })}
-        url={currentUrl}
       />
       <div className="container">
         <div className="row">
@@ -33,7 +26,6 @@ const Conditions = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

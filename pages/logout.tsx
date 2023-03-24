@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 
 import useLogoutMutation from '../modules/auth/hooks/useLogout';
-import Footer from '../modules/layout/components/Footer';
 import MetaTags from '../modules/common/components/MetaTags';
 
 const Logout = () => {
@@ -33,7 +32,6 @@ const Logout = () => {
           defaultMessage: 'Logged out successfully',
         })}
       </div>
-      <Footer />
     </>
   );
 };

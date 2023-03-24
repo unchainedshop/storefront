@@ -1,6 +1,4 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import Image from 'next/legacy/image';
 import CategoriesList from '../../modules/assortment/components/CategoriesList';
 import useAssortmentProducts from '../../modules/assortment/hooks/useAssortmentProducts';
 import getAssortmentPath from '../../modules/assortment/utils/getAssortmentPath';
@@ -10,13 +8,11 @@ import MetaTags from '../../modules/common/components/MetaTags';
 import useCategoriesTree from '../../modules/assortment/hooks/useCategoriesTree';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import getMediaUrl from '../../modules/common/utils/getMediaUrl';
-import defaultNextImageLoader from '../../modules/common/utils/defaultNextImageLoader';
 
 const CategoryDetail = () => {
   const router = useRouter();
   const { slug: slugs } = router.query;
   const slug = slugs?.length ? slugs[(slugs?.length || 0) - 1] : '';
-  const [currentUrl, setCurrentUrl] = useState('');
 
   const { assortmentTree, loading: categoryTreeLoading } = useCategoriesTree({
     slugs: [slug],
@@ -37,10 +33,6 @@ const CategoryDetail = () => {
 
   const assortmentPaths = getAssortmentPath(paths);
 
-  useEffect(() => {
-    setCurrentUrl(window.location.href);
-  }, []);
-
   let currentPath;
   if (typeof slugs === 'string') {
     currentPath = slugs;
@@ -53,7 +45,6 @@ const CategoryDetail = () => {
       <MetaTags
         title={texts?.title}
         description={texts?.description}
-        url={currentUrl}
         imageUrl={getMediaUrl({ media })}
       />
       <div className="flex flex-wrap px-4 sm:px-0">

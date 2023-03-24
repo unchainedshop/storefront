@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import CategoryListItem from '../../modules/assortment/components/CategoryListItem';
@@ -8,12 +7,7 @@ import MetaTags from '../../modules/common/components/MetaTags';
 
 const Categories = () => {
   const { assortments, loading } = useAssortments();
-  const [currentUrl, setCurrentUrl] = useState('');
   const { formatMessage } = useIntl();
-
-  useEffect(() => {
-    setCurrentUrl(window.location.href);
-  }, []);
 
   return (
     <>
@@ -22,7 +16,6 @@ const Categories = () => {
           id: 'product_categories',
           defaultMessage: 'Product Categories',
         })}
-        url={currentUrl}
       />
       <div className="relative w-full bg-white dark:bg-slate-600">
         {loading ? (

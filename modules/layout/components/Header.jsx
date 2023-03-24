@@ -32,90 +32,71 @@ const Header = () => {
   if (router?.events) {
     router.events.on('routeChangeStart', () => setNavOpen(false));
   }
-
-  const topNavigationText = formatMessage({
-    id: 'top_notification',
-    defaultMessage: 'Top Notification',
-  });
-
-  const showTopNav =
-    !topNavigationText || topNavigationText !== 'top_notification';
-
   return (
-    <>
-      {showTopNav && (
-        <div className="bg-slate-900">
-          <div className="container py-2 text-center font-bold text-white">
-            <p className="my-0 overflow-x-hidden">{topNavigationText}</p>
-          </div>
-        </div>
-      )}
-
-      <header className="sticky top-0 z-[1020] overflow-visible bg-white text-black opacity-100 dark:bg-slate-600 dark:text-white">
-        <div className="relative">
-          <SideCart isOpen={isCartOpen} />
-          <div className="container relative mx-auto hidden w-full sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
-            <div className="flex items-center justify-start">
-              <DesktopNavigation />
-              <Link href="/" className="relative ml-4 h-10 w-36 rounded">
-                <Image
-                  src={theme.assets.logo}
-                  alt={formatMessage({
-                    id: 'shop_logo',
-                    defaultMessage: 'Shop logo',
-                  })}
-                  layout="fill"
-                  placeholder="blur"
-                  blurDataURL="/placeholder.png"
-                  className="rounded"
-                  loader={defaultNextImageLoader}
-                />
-              </Link>
-            </div>
-            <div className="mr-10 flex">
-              <LoginCart />
-            </div>
-          </div>
-          <div className="container flex flex-wrap items-center justify-between px-4 py-2 sm:hidden">
-            <div className="flex items-center">
-              <button
-                type="button"
-                aria-label="menu"
-                className="mr-4 flex cursor-pointer appearance-none items-center border-0 bg-transparent p-0 py-1 text-left text-inherit"
-                onClick={() => setNavOpen(true)}
-              >
-                <MenuIcon className="h-6 w-6 text-slate-900 dark:text-slate-100" />
-              </button>
-
-              <MobileNavigation
-                isNavOpen={isNavOpen}
-                doClose={() => setNavOpen(false)}
+    <header className="sticky top-0 z-[1020] overflow-visible bg-white text-black opacity-100 dark:bg-slate-600 dark:text-white">
+      <div className="relative">
+        <SideCart isOpen={isCartOpen} />
+        <div className="container relative mx-auto hidden w-full sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
+          <div className="flex items-center justify-start">
+            <DesktopNavigation />
+            <Link href="/" className="relative ml-4 h-10 w-36 rounded">
+              <Image
+                src={theme.assets.logo}
+                alt={formatMessage({
+                  id: 'shop_logo',
+                  defaultMessage: 'Shop logo',
+                })}
+                layout="fill"
+                placeholder="blur"
+                blurDataURL="/placeholder.png"
+                className="rounded"
+                loader={defaultNextImageLoader}
               />
-
-              <Link href="/" className="relative h-7 w-24 rounded">
-                <Image
-                  src={theme.assets.logo}
-                  alt={formatMessage({
-                    id: 'shop_logo_mobile',
-                    defaultMessage: 'Shop logo',
-                  })}
-                  layout="fill"
-                  placeholder="blur"
-                  blurDataURL="/placeholder.png"
-                  className="rounded"
-                  loader={defaultNextImageLoader}
-                />
-              </Link>
-            </div>
-
-            <div className="mr-8 flex">
-              <LoginCart />
-            </div>
+            </Link>
           </div>
-          <ThemeToggle />
+          <div className="mr-10 flex">
+            <LoginCart />
+          </div>
         </div>
-      </header>
-    </>
+        <div className="container flex flex-wrap items-center justify-between px-4 py-2 sm:hidden">
+          <div className="flex items-center">
+            <button
+              type="button"
+              aria-label="menu"
+              className="mr-4 flex cursor-pointer appearance-none items-center border-0 bg-transparent p-0 py-1 text-left text-inherit"
+              onClick={() => setNavOpen(true)}
+            >
+              <MenuIcon className="h-6 w-6 text-slate-900 dark:text-slate-100" />
+            </button>
+
+            <MobileNavigation
+              isNavOpen={isNavOpen}
+              doClose={() => setNavOpen(false)}
+            />
+
+            <Link href="/" className="relative h-7 w-24 rounded">
+              <Image
+                src={theme.assets.logo}
+                alt={formatMessage({
+                  id: 'shop_logo_mobile',
+                  defaultMessage: 'Shop logo',
+                })}
+                layout="fill"
+                placeholder="blur"
+                blurDataURL="/placeholder.png"
+                className="rounded"
+                loader={defaultNextImageLoader}
+              />
+            </Link>
+          </div>
+
+          <div className="mr-8 flex">
+            <LoginCart />
+          </div>
+        </div>
+        <ThemeToggle />
+      </div>
+    </header>
   );
 };
 

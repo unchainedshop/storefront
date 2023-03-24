@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
-import Footer from '../modules/layout/components/Footer';
 import MetaTags from '../modules/common/components/MetaTags';
 
 const ServerError = () => {
@@ -35,7 +34,6 @@ const ServerError = () => {
         </div>
         <div />
       </div>
-      <Footer />
     </>
   );
 };

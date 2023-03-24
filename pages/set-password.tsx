@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl';
 
 import useResetPassword from '../modules/auth/hooks/useResetPassword';
 import MetaTags from '../modules/common/components/MetaTags';
-import Footer from '../modules/layout/components/Footer';
 
 const SetPasswordPage = () => {
   const router = useRouter();
@@ -113,7 +112,6 @@ const SetPasswordPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

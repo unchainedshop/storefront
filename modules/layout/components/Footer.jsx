@@ -63,7 +63,7 @@ const Footer = () => {
                       {footerNavigation.products.map((item) => (
                         <li key={item.name} className="text-base">
                           <Link
-                            href="#"
+                            href={item.href}
                             className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
                           >
                             {item.name}
@@ -83,7 +83,7 @@ const Footer = () => {
                       {footerNavigation.customerService.map((item) => (
                         <li key={item.name} className="text-base">
                           <Link
-                            href="#"
+                            href={item.href}
                             className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
                           >
                             {item.name}
@@ -106,7 +106,7 @@ const Footer = () => {
                       {footerNavigation.company.map((item) => (
                         <li key={item.name} className="text-base">
                           <Link
-                            href="#"
+                            href={item.href}
                             className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
                           >
                             {item.name}
@@ -123,7 +123,7 @@ const Footer = () => {
                       {footerNavigation.legal.map((item) => (
                         <li key={item.name} className="text-sm">
                           <Link
-                            href="#"
+                            href={item.href}
                             className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
                           >
                             {item.name}
@@ -157,7 +157,7 @@ const Footer = () => {
               {footerNavigation.bottomLinks.map((item) => (
                 <Link
                   key={item.name}
-                  href="#"
+                  href={item.href}
                   className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
                 >
                   {item.name}

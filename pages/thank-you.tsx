@@ -8,7 +8,6 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import useOrderDetail from '../modules/orders/hooks/useOrderDetail';
 import MetaTags from '../modules/common/components/MetaTags';
 import CartItem from '../modules/cart/components/CartItem';
-import OrderPriceSummary from '../modules/checkout/components/OrderPriceSummary';
 import useFormatDateTime from '../modules/common/utils/useFormatDateTime';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
 import renderPrice from '../modules/common/utils/renderPrice';
@@ -143,7 +142,6 @@ const ThankYou = () => {
                       <CartItem key={item._id} {...item} enableUpdate={false} />
                     ))}
                   </ul>
-                  <OrderPriceSummary order={order} />
                 </div>
               </div>
 

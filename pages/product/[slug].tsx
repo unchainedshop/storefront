@@ -1,11 +1,9 @@
 /* eslint-disable react/no-danger */
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import ImageGallery from 'react-image-gallery';
 import { useIntl } from 'react-intl';
 
 import useProductDetail from '../../modules/products/hooks/useProductDetail';
-import Footer from '../../modules/layout/components/Footer';
 import AddToCartButton from '../../modules/cart/components/AddToCartButton';
 import renderPrice from '../../modules/common/utils/renderPrice';
 import LoadingItem from '../../modules/common/components/LoadingItem';
@@ -19,15 +17,11 @@ import NotFound from '../404';
 const Detail = () => {
   const router = useRouter();
   const intl = useIntl();
-  const [currentUrl, setcurrentUrl] = useState('');
   const { product, paths, loading } = useProductDetail({
     slug: router.query.slug,
   });
 
   const productPath = getAssortmentPath(paths);
-  useEffect(() => {
-    setcurrentUrl(window.location.href);
-  }, []);
 
   if (!product && !loading)
     return (
@@ -43,7 +37,6 @@ const Detail = () => {
       <MetaTags
         title={product?.texts?.title}
         imageUrl={getMediaUrl(product)}
-        url={currentUrl}
         description={product?.texts?.description}
       />
       {loading ? (
@@ -91,7 +84,6 @@ const Detail = () => {
           </div>
         </div>
       )}
-      <Footer />
     </>
   );
 };

@@ -1,21 +1,14 @@
-import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import MetaTags from '../modules/common/components/MetaTags';
-import Footer from '../modules/layout/components/Footer';
 
 const Imprint = () => {
-  const [currentUrl, setcurrentUrl] = useState('');
   const intl = useIntl();
-  useEffect(() => {
-    setcurrentUrl(window.location.href);
-  }, []);
 
   return (
     <>
       <MetaTags
         title={intl.formatMessage({ id: 'imprint', defaultMessage: 'Imprint' })}
-        url={currentUrl}
       />
       <div className="container">
         <div className="row">
@@ -27,7 +20,6 @@ const Imprint = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
