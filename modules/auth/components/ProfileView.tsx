@@ -2,15 +2,15 @@ import classNames from 'classnames';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
-import useAddEmail from '../../auth/hooks/useAddEmail';
-import useRemoveEmail from '../../auth/hooks/useRemoveEmail';
-import useResendVerificationEmail from '../../auth/hooks/useResendVerificationEmail';
-import useUpdateUserProfile from '../../auth/hooks/useUpdateUserProfile';
-import Button from './Button';
-import UserName from './UserName';
-import Verified from './Verified';
+import useAddEmail from '../hooks/useAddEmail';
+import useRemoveEmail from '../hooks/useRemoveEmail';
+import useResendVerificationEmail from '../hooks/useResendVerificationEmail';
+import useUpdateUserProfile from '../hooks/useUpdateUserProfile';
+import Button from '../../common/components/Button';
+import UserName from '../../common/components/UserName';
+import Verified from '../../common/components/Verified';
 
-const General = ({ user }) => {
+const ProfileView = ({ user }) => {
   const { formatMessage } = useIntl();
   const {
     register,
@@ -26,7 +26,8 @@ const General = ({ user }) => {
   const [updateProfile, setUpdateProfile] = useState(false);
   const [newEmail, setNewEmail] = useState('');
 
-  const showUsername = user?.roles?.includes('admin');
+  if (!user) return null;
+  const showUsername = user.roles?.includes('admin');
   const { profile = {} } = user;
 
   const onProfileUpdateComplete = (value) => {
@@ -64,7 +65,7 @@ const General = ({ user }) => {
 
   return (
     <section
-      id="general"
+      id="profileview"
       className="space-y-6 sm:px-6 lg:col-span-9 lg:col-start-4 lg:px-0"
       aria-labelledby="payment-details-heading"
     >
@@ -301,4 +302,4 @@ const General = ({ user }) => {
   );
 };
 
-export default General;
+export default ProfileView;

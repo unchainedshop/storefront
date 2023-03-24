@@ -21,6 +21,8 @@ const Address = ({ user }) => {
     if (value) setUpdateProfile(false);
   };
 
+  if (!user) return null;
+
   const { profile = {} } = user;
 
   const onSubmit = async (form) => {

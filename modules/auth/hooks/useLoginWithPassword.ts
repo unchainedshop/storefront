@@ -1,15 +1,9 @@
 import { useMutation, gql } from '@apollo/client';
-import { useIntl } from 'react-intl';
 import { useAppContext } from '../../common/components/AppContextWrapper';
-
 import CurrentUserFragment from '../fragments/CurrentUserFragment';
 
 const LoginWithPasswordMutation = gql`
-  mutation LoginWithPassword(
-    $email: String!
-    $plainPassword: String
-    $currency: String
-  ) {
+  mutation LoginWithPassword($email: String!, $plainPassword: String) {
     loginWithPassword(email: $email, plainPassword: $plainPassword) {
       id
       token
@@ -24,11 +18,9 @@ const LoginWithPasswordMutation = gql`
 const useLoginWithPassword = (): any => {
   const { selectedCurrency } = useAppContext();
 
-  const [logInWithPasswordMutation, { error }] = useMutation(
+  const [logInWithPasswordMutation, { client }] = useMutation(
     LoginWithPasswordMutation,
-    {
-      errorPolicy: 'all',
-    },
+    { errorPolicy: 'all' },
   );
 
   const logInWithPassword = async ({
@@ -45,14 +37,18 @@ const useLoginWithPassword = (): any => {
       currency: selectedCurrency,
     };
 
-    return logInWithPasswordMutation({
+    const result = await logInWithPasswordMutation({
       variables,
     });
+
+    if (result.data?.loginWithPassword?.id) {
+      await client.resetStore();
+    }
+    return result;
   };
 
   return {
     logInWithPassword,
-    error,
   };
 };
 export default useLoginWithPassword;

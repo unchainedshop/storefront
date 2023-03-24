@@ -1,10 +1,7 @@
-import { useMutation, useApolloClient, gql } from '@apollo/client';
-import { useIntl } from 'react-intl';
-
+import { useMutation, gql } from '@apollo/client';
 import CurrentUserFragment from '../fragments/CurrentUserFragment';
-import { UserQuery } from './useUser';
 
-export const ResetPassword = gql`
+export const RESET_PASSWORD_MUTATION = gql`
   mutation ResetPassword($newPassword: String!, $token: String!) {
     resetPassword(newPlainPassword: $newPassword, token: $token) {
       id
@@ -19,26 +16,16 @@ export const ResetPassword = gql`
 `;
 
 const useResetPassword = () => {
-  const client = useApolloClient();
-  const [resetPasswordMutation] = useMutation(ResetPassword, {
-    update(cache, result) {
-      const newUser = result?.data?.resetPassword?.user;
-
-      if (newUser) {
-        cache.writeQuery({
-          query: UserQuery,
-          data: { me: newUser },
-        });
-      }
-    },
-  });
+  const [resetPasswordMutation, { client }] = useMutation(
+    RESET_PASSWORD_MUTATION,
+  );
 
   const resetPassword = async ({ newPassword, token }) => {
-    const { errors } = await resetPasswordMutation({
+    const result = await resetPasswordMutation({
       variables: { newPassword, token },
     });
     await client.resetStore();
-    return errors;
+    return result;
   };
 
   return {

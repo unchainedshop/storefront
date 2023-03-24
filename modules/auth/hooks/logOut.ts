@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { ApolloClient, gql } from '@apollo/client';
 
-const logOut = async (apollo) => {
+const logOut = async (apollo: ApolloClient<any>) => {
   await apollo.mutate({
     mutation: gql`
       mutation logout {
@@ -11,7 +11,7 @@ const logOut = async (apollo) => {
     `,
     awaitRefetchQueries: false,
   });
-  await apollo.resetCache();
+  await apollo.resetStore();
 };
 
 export default logOut;

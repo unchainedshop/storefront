@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const SimpleProductPrice = gql`
   fragment SimpleProductPrice on SimpleProduct {
-    simulatedPrice(currency: $currency) {
+    simulatedPrice {
       _id
       isTaxable
       isNetPrice

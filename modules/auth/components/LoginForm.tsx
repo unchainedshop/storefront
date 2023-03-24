@@ -1,16 +1,12 @@
 import classNames from 'classnames';
-import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import toast from 'react-hot-toast';
-import LoadingItem from '../../common/components/LoadingItem';
 import PasswordVisible from '../../common/components/PasswordVisible';
-
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
-import useUser from '../hooks/useUser';
 
-const LoginForm = ({ onLogin = null }) => {
+const LoginForm = ({ onLogin = null, children }) => {
   const {
     register,
     handleSubmit,
@@ -19,8 +15,6 @@ const LoginForm = ({ onLogin = null }) => {
   } = useForm<any, any>();
   const { formatMessage } = useIntl();
   const { logInWithPassword } = useLoginWithPassword();
-  const hasErrors = Object.keys(errors).length > 0;
-  const { loading } = useUser();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const onSubmit = async ({ email, password }) => {
@@ -30,30 +24,20 @@ const LoginForm = ({ onLogin = null }) => {
         password,
       });
       if (loginResult.errors?.length) throw loginResult.errors.pop();
+      toast.success('Login successful');
       onLogin?.();
-      toast.success('Login is successfully');
     } catch (error: any) {
-      if (error?.extensions?.code) {
-        setError('account', {
-          type: 'manual',
-          message: `👷‍♀️ ${formatMessage({
-            id: `login_error_${error.extensions.code.toLowerCase()}`,
-            defaultMessage: error.message,
-          })}`,
-        });
-      } else {
-        setError('account', {
-          type: 'manual',
-          message: error.message,
-        });
-      }
+      setError('root', {
+        message: `👷‍♀️ ${formatMessage({
+          id: `login_error_${
+            error?.extensions?.code?.toLowerCase?.() ?? 'unknown'
+          }`,
+          defaultMessage: error.message || error.name,
+        })}`,
+      });
       toast.error(`Login failed, try again`);
     }
   };
-
-  if (loading) {
-    <LoadingItem />;
-  }
 
   return (
     <div className="mt-8 sm:mx-auto sm:max-w-md">
@@ -129,28 +113,11 @@ const LoginForm = ({ onLogin = null }) => {
             </div>
           </div>
 
-          <div className="flex items-center justify-end">
-            <div className="text-sm">
-              <Link
-                href="/account/forget-password"
-                className="font-medium text-slate-600 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-400"
-              >
-                {formatMessage({
-                  id: 'forgot_password',
-                  defaultMessage: 'Forgot your password?',
-                })}
-              </Link>
-            </div>
-          </div>
+          {children}
 
-          {hasErrors
-            ? Object.values(errors).map((err, key) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <div key={`${err.message}${key}`} className="text-red-600">
-                  {err.message as string}
-                </div>
-              ))
-            : ''}
+          {errors.root?.message && (
+            <div className="text-red-600">{errors.root.message as string}</div>
+          )}
 
           <div>
             <button

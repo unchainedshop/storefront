@@ -9,17 +9,16 @@ const ForgotPasswordMutation = gql`
 `;
 
 const useForgotPassword = () => {
-  const [forgotPasswordMutation, { loading, error }] = useMutation(
-    ForgotPasswordMutation,
-  );
+  const [forgotPasswordMutation] = useMutation(ForgotPasswordMutation, {
+    errorPolicy: 'all',
+  });
 
   const forgotPassword = async ({ email }) => {
-    const { data } = await forgotPasswordMutation({ variables: { email } });
-
-    return data?.forgotPassword;
+    const result = await forgotPasswordMutation({ variables: { email } });
+    return result;
   };
 
-  return { forgotPassword, error, loading };
+  return { forgotPassword };
 };
 
 export default useForgotPassword;

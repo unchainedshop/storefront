@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-
+import Link from 'next/link';
 import Image from 'next/legacy/image';
 import getConfig from 'next/config';
 import LoginForm from '../modules/auth/components/LoginForm';
@@ -14,6 +14,7 @@ const {
 const LogIn = () => {
   const { formatMessage } = useIntl();
   useRedirect({ to: '/account', matchUsers: true });
+
   return (
     <>
       <MetaTags
@@ -44,7 +45,21 @@ const LogIn = () => {
             </h2>
           </div>
 
-          <LoginForm />
+          <LoginForm>
+            <div className="flex items-center justify-end">
+              <div className="text-sm">
+                <Link
+                  href="/forgot-password"
+                  className="font-medium text-slate-600 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-400"
+                >
+                  {formatMessage({
+                    id: 'forgot_password',
+                    defaultMessage: 'Forgot your password?',
+                  })}
+                </Link>
+              </div>
+            </div>
+          </LoginForm>
         </div>
       </div>
     </>

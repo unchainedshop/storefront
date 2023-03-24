@@ -4,7 +4,7 @@ import { useAppContext } from '../../common/components/AppContextWrapper';
 import CurrentUserFragment from '../fragments/CurrentUserFragment';
 
 export const UserQuery = gql`
-  query user($currency: String) {
+  query user {
     me {
       ...CurrentUserFragment
     }

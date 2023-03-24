@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 
@@ -7,17 +7,17 @@ import useResetPassword from '../modules/auth/hooks/useResetPassword';
 import MetaTags from '../modules/common/components/MetaTags';
 import Footer from '../modules/layout/components/Footer';
 
-const PasswordReset = () => {
+const SetPasswordPage = () => {
   const router = useRouter();
   const intl = useIntl();
   const { token } = router.query;
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
     watch,
   } = useForm<any>();
-  const [error, setError] = useState([]);
   const password = useRef({});
 
   password.current = watch('newPassword', '');
@@ -28,8 +28,10 @@ const PasswordReset = () => {
       await resetPassword({ newPassword, token });
       router.replace('/account');
       return true;
-    } catch (e) {
-      setError([e]);
+    } catch (e: any) {
+      setError('root', {
+        message: e.message as string,
+      });
     }
     return false;
   };
@@ -45,7 +47,12 @@ const PasswordReset = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-8 offset-md-2">
-            <h1>reset Password</h1>
+            <h1>
+              {intl.formatMessage({
+                id: 'reset_password',
+                defaultMessage: 'Reset Password',
+              })}
+            </h1>
             <form className="form" onSubmit={handleSubmit(onSubmit)}>
               <div
                 className={`col-md-6 mb-3 ${
@@ -60,7 +67,6 @@ const PasswordReset = () => {
                 </label>
                 <input
                   className="form-control"
-                  name="newPassword"
                   type="password"
                   {...register('newPassword', { required: true })}
                 />
@@ -78,7 +84,6 @@ const PasswordReset = () => {
                 </label>
                 <input
                   className="form-control"
-                  name="password2"
                   type="password"
                   {...register('password2', {
                     validate: (value) =>
@@ -90,11 +95,9 @@ const PasswordReset = () => {
                   <p>{errors.password2.message as string}</p>
                 )}
               </div>
-              {error && (
+              {errors?.root?.message && (
                 <ul className="form-error">
-                  {error.map((e) => (
-                    <li className="error-message">{e.message}</li>
-                  ))}
+                  <li className="error-message">{errors.root.message}</li>
                 </ul>
               )}
               <button
@@ -115,4 +118,4 @@ const PasswordReset = () => {
   );
 };
 
-export default PasswordReset;
+export default SetPasswordPage;
