@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 
 import useProductDetail from '../../modules/products/hooks/useProductDetail';
 import AddToCartButton from '../../modules/cart/components/AddToCartButton';
-import renderPrice from '../../modules/common/utils/renderPrice';
+import formatPrice from '../../modules/common/utils/formatPrice';
 import LoadingItem from '../../modules/common/components/LoadingItem';
 import MetaTags from '../../modules/common/components/MetaTags';
 import getAssortmentPath from '../../modules/assortment/utils/getAssortmentPath';
@@ -67,7 +67,7 @@ const Detail = () => {
                 dangerouslySetInnerHTML={{ __html: product?.texts?.title }}
               />
               <div className="p-2">
-                <h3 className="my-0">{renderPrice(product?.simulatedPrice)}</h3>
+                <h3 className="my-0">{formatPrice(product?.simulatedPrice)}</h3>
                 <h4
                   className="mb-3"
                   dangerouslySetInnerHTML={{ __html: product?.texts?.subtitle }}

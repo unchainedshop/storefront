@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { CheckCircleIcon, PaperClipIcon } from '@heroicons/react/solid';
 import Image from 'next/legacy/image';
 
-import renderPrice from '../../common/utils/renderPrice';
+import formatPrice from '../../common/utils/formatPrice';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
 import useUser from '../../auth/hooks/useUser';
 
@@ -95,7 +95,7 @@ const OrderDetailComponent = ({ order }) => {
                     </div>
                   </div>
                   <p className="text-right font-medium text-slate-900 dark:text-slate-100">
-                    {renderPrice(item.total)}
+                    {formatPrice(item.total)}
                   </p>
                 </div>
               </Link>
@@ -167,7 +167,7 @@ const OrderDetailComponent = ({ order }) => {
                   </div>
                   <div className="ml-4 mt-4">
                     <span className="block text-slate-500 dark:text-slate-300">
-                      {renderPrice(order?.delivery?.fee)}
+                      {formatPrice(order?.delivery?.fee)}
                     </span>
                   </div>
                   <div className="ml-4 mt-4">
@@ -314,7 +314,7 @@ const OrderDetailComponent = ({ order }) => {
                       </div>
                       <div className="ml-4 mt-4">
                         <p className="text-slate-600 dark:text-slate-300">
-                          {renderPrice(order?.payment?.fee)}
+                          {formatPrice(order?.payment?.fee)}
                         </p>
                       </div>
                       <div className="ml-4 mt-4">
@@ -353,7 +353,7 @@ const OrderDetailComponent = ({ order }) => {
                   })}
                 </dt>
                 <dd className="font-medium text-slate-900 dark:text-sky-400">
-                  {renderPrice(order?.total)}
+                  {formatPrice(order?.total)}
                 </dd>
               </div>
               <div className="flex items-center justify-between py-4">
@@ -364,7 +364,7 @@ const OrderDetailComponent = ({ order }) => {
                   })}
                 </dt>
                 <dd className="font-medium text-slate-900 dark:text-slate-100">
-                  {renderPrice(order?.delivery?.fee)}
+                  {formatPrice(order?.delivery?.fee)}
                 </dd>
               </div>
               <div className="flex items-center justify-between py-4">
@@ -383,7 +383,7 @@ const OrderDetailComponent = ({ order }) => {
                   })}
                 </dt>
                 <dd className="font-medium text-indigo-600 dark:text-sky-400">
-                  {renderPrice(order.total)}
+                  {formatPrice(order.total)}
                 </dd>
               </div>
             </dl>

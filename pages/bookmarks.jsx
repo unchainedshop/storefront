@@ -10,7 +10,7 @@ import MetaTags from '../modules/common/components/MetaTags';
 import useRemoveBookmark from '../modules/common/hooks/useRemoveBookmark';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
 import getMediaUrl from '../modules/common/utils/getMediaUrl';
-import renderPrice from '../modules/common/utils/renderPrice';
+import formatPrice from '../modules/common/utils/formatPrice';
 
 const Bookmarks = () => {
   const { formatMessage } = useIntl();
@@ -82,7 +82,7 @@ const Bookmarks = () => {
                         </div>
                         <p className="absolute bottom-1 left-1 text-sm font-normal text-slate-900 dark:text-white">
                           <span className="ml-1">
-                            {renderPrice(bookmark?.product?.simulatedPrice)}
+                            {formatPrice(bookmark?.product?.simulatedPrice)}
                           </span>
                         </p>
                         <button

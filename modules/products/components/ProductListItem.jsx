@@ -12,7 +12,7 @@ import useConditionalBookmarkProduct from '../../cart/hooks/useConditionalBookma
 import useRemoveBookmark from '../../common/hooks/useRemoveBookmark';
 import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
 import getMediaUrl from '../../common/utils/getMediaUrl';
-import renderPrice from '../../common/utils/renderPrice';
+import formatPrice from '../../common/utils/formatPrice';
 import calculateProductRating from '../utils/calculateProductRating';
 
 const ProductListItem = ({ product }) => {
@@ -56,7 +56,7 @@ const ProductListItem = ({ product }) => {
           </Link>
         </div>
         <p className="absolute bottom-1 left-1 text-sm font-normal text-slate-900 dark:text-white">
-          <span className="ml-1">{renderPrice(product?.simulatedPrice)}</span>
+          <span className="ml-1">{formatPrice(product?.simulatedPrice)}</span>
         </p>
 
         <button

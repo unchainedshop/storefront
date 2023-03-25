@@ -230,7 +230,7 @@ const SignUp = () => {
       }
     }
 
-    router.replace({ pathname: '/review', query: { newSignUp: 'true' } });
+    router.replace({ pathname: '/checkout', query: { newSignUp: 'true' } });
     return true;
   };
 

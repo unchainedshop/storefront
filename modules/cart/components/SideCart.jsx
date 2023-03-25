@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useIntl } from 'react-intl';
 import classNames from 'classnames';
 import { ShoppingBagIcon, XIcon } from '@heroicons/react/outline';
-import renderPrice from '../../common/utils/renderPrice';
+import formatPrice from '../../common/utils/formatPrice';
 import useUser from '../../auth/hooks/useUser';
 import CartItem from './CartItem';
 import { useAppContext } from '../../common/components/AppContextWrapper';
@@ -132,11 +132,11 @@ const SideCart = ({ isOpen }) => {
                     defaultMessage: 'Subtotal',
                   })}{' '}
                 </div>
-                <div>{renderPrice(subtotal)}</div>
+                <div>{formatPrice(subtotal)}</div>
               </div>
             </div>
             <Link
-              href={{ pathname: '/review' }}
+              href={{ pathname: '/checkout' }}
               type="button"
               className="mb-4 block w-full rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-base font-medium uppercase text-white shadow-sm hover:bg-indigo-700 hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
               onClick={() => toggleCart(false)}

@@ -1,7 +1,7 @@
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
-import renderPrice from '../../common/utils/renderPrice';
+import formatPrice from '../../common/utils/formatPrice';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
 
 const OrderListItem = ({ order }) => {
@@ -64,7 +64,7 @@ const OrderListItem = ({ order }) => {
               defaultMessage: 'Total amount',
             })}
           </dt>
-          <dd className="sm:mt-1">{renderPrice(order.total)}</dd>
+          <dd className="sm:mt-1">{formatPrice(order.total)}</dd>
         </div>
         <div className="flex justify-between pt-6 sm:block sm:pt-0">
           <dt className="font-medium text-slate-900 dark:text-slate-100 sm:hidden">

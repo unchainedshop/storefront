@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/solid';
 import { useIntl } from 'react-intl';
 import getMediaUrl from '../../common/utils/getMediaUrl';
-import renderPrice from '../../common/utils/renderPrice';
+import formatPrice from '../../common/utils/formatPrice';
 import useRemoveCartItem from '../hooks/useRemoveCartItem';
 import useUpdateCartItemMutation from '../hooks/useUpdateCartItem';
 import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
@@ -105,7 +105,7 @@ const CartItem = ({ _id, quantity, product, enableUpdate = true }) => {
 
         <div className="flex flex-1 items-end justify-between pt-2">
           <p className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">
-            {renderPrice(product?.simulatedPrice)}
+            {formatPrice(product?.simulatedPrice)}
           </p>
 
           <div className="ml-4">

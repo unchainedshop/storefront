@@ -10,7 +10,7 @@ import MetaTags from '../modules/common/components/MetaTags';
 import CartItem from '../modules/cart/components/CartItem';
 import useFormatDateTime from '../modules/common/utils/useFormatDateTime';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
-import renderPrice from '../modules/common/utils/renderPrice';
+import formatPrice from '../modules/common/utils/formatPrice';
 
 const {
   publicRuntimeConfig: { theme },
@@ -213,7 +213,7 @@ const ThankYou = () => {
                     </div>
                     <div className="ml-4 mt-4">
                       <p className="text-slate-600 dark:text-slate-300">
-                        {renderPrice(order?.payment?.fee)}
+                        {formatPrice(order?.payment?.fee)}
                       </p>
                     </div>
                     <div className="ml-4 mt-4">
