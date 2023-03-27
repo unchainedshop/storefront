@@ -91,11 +91,7 @@ const Checkout = () => {
         isAddressesMissing ? 'lg:grid-cols-2' : 'lg:grid-cols-2'
       }`}
     >
-      <CheckoutAddresses
-        cart={data.me.cart}
-        profile={data.me.profile}
-        isInitial={isAddressesMissing}
-      />
+      <CheckoutAddresses cart={data.me.cart} isInitial={isAddressesMissing} />
       {!isAddressesMissing && <CheckoutContact cart={data.me.cart} />}
       {!isAddressesMissing && !isContactDataMissing && (
         <CheckoutPaymentMethod cart={data.me.cart} />

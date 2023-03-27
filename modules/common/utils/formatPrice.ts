@@ -5,7 +5,7 @@ export const roundUp = (amount, decimals) => {
   return Math.ceil(amount * 100000) / 100000;
 };
 
-const formatPrice = ({ amount, currency, decimals = 2, hack = true }) => {
+const formatPrice = ({ amount, currency, decimals = 2, hack = true } = {}) => {
   if (amount === undefined || amount === null) return 'N/A';
 
   let fixedAmount = amount;

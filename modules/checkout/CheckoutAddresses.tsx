@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import AddressForm from './AddressForm';
+import AddressPanel from './AddressPanel';
 
 export const UPDATE_CART_BILLING_ADDRESS_MUTATION = gql`
   mutation UpdateCartBillingAddress($billingAddress: AddressInput) {
@@ -44,7 +45,15 @@ export const UPDATE_ORDER_DELIVERY_ADDRESS_MUTATION = gql`
   }
 `;
 
-const CheckoutAddresses = ({ cart, profile, isInitial }) => {
+const EditableAddressPanel = ({ editing, address, onSubmit, onToggle }) => {
+  if (editing)
+    return (
+      <AddressForm address={address} onSubmit={onSubmit} onCancel={onToggle} />
+    );
+  return <AddressPanel address={address} onEdit={onToggle} />;
+};
+
+const CheckoutAddresses = ({ cart, isInitial }) => {
   const [lastBillingAddress, setLastBillingAddress] = useState(null);
   const [billingAddressEditMode, setBillingAddressEditMode] = useState(false);
   const [deliveryAddressEditMode, setDeliveryAddressEditMode] = useState(false);
@@ -86,8 +95,7 @@ const CheckoutAddresses = ({ cart, profile, isInitial }) => {
     setBillingAddressEditMode(false);
   };
 
-  const updateDeliveryAddress = async (address, ...rest) => {
-    console.log(rest);
+  const updateDeliveryAddress = async (address) => {
     if (isBillingAddressDifferent) {
       await updateOrderDeliveryAddressMutation({
         variables: {
@@ -139,26 +147,24 @@ const CheckoutAddresses = ({ cart, profile, isInitial }) => {
     }
   };
 
-  const enableDeliveryAddressEditMode = () => setDeliveryAddressEditMode(true);
-  const enableBillingAddressEditMode = () => setBillingAddressEditMode(true);
+  const toggleDeliveryAddressEditMode = () =>
+    setDeliveryAddressEditMode(!deliveryAddressEditMode);
+  const toggleBillingAddressEditMode = () =>
+    setBillingAddressEditMode(!billingAddressEditMode);
 
   return (
     <>
-      <div className="mb-6" disabled={billingAddressEditMode}>
-        <h2 className="text-lg font-medium ">Delivery Address</h2>
-        <AddressForm
+      <div className="mb-6">
+        <h2 className="text-lg font-medium">Delivery Address</h2>
+        <EditableAddressPanel
           editing={deliveryAddressEditMode}
-          onEdit={enableDeliveryAddressEditMode}
           address={deliveryAddress}
           onSubmit={updateDeliveryAddress}
+          onToggle={toggleDeliveryAddressEditMode}
         />
       </div>
 
-      <div
-        className="mb-6"
-        disabled={deliveryAddressEditMode}
-        hidden={isInitial}
-      >
+      <div className="mb-6" hidden={isInitial}>
         <h2 className="text-lg font-medium  mb-4">Billing Address</h2>
         <div className="flex items-center">
           <input
@@ -176,12 +182,11 @@ const CheckoutAddresses = ({ cart, profile, isInitial }) => {
           </label>
         </div>
         {isBillingAddressDifferent && (
-          <AddressForm
+          <EditableAddressPanel
             editing={billingAddressEditMode}
-            onEdit={enableBillingAddressEditMode}
-            label="Billing Address"
             address={billingAddress}
             onSubmit={updateBillingAddress}
+            onToggle={toggleBillingAddressEditMode}
           />
         )}
       </div>

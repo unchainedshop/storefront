@@ -58,7 +58,7 @@ const CheckoutPaymentMethod = ({ cart }) => {
   return (
     <div className="mt-6">
       <form>
-        <h2 className="text-lg font-medium  mb-4">Zahlungsmittel</h2>
+        <h2 className="text-lg font-medium  mb-4">Payment Method</h2>
         <div className="space-y-4">
           {cart.supportedPaymentProviders.map((provider) => (
             <div className="flex items-center" key={provider._id}>
