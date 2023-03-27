@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
 

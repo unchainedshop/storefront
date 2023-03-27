@@ -77,8 +77,6 @@ const Checkout = () => {
   if (error) return <ErrorMessage message="Error loading cart" />;
   if (!data?.me?.cart) return <div>Loading</div>;
 
-  if (!data?.me?.cart) return null;
-
   const isAddressesMissing =
     !data.me.cart.delivery?.address?.firstName &&
     !data.me.cart.billingAddress?.firstName;
@@ -92,7 +90,9 @@ const Checkout = () => {
       }`}
     >
       <CheckoutAddresses cart={data.me.cart} isInitial={isAddressesMissing} />
-      {!isAddressesMissing && <CheckoutContact cart={data.me.cart} />}
+      {!isAddressesMissing && (
+        <CheckoutContact cart={data.me.cart} isInitial={isContactDataMissing} />
+      )}
       {!isAddressesMissing && !isContactDataMissing && (
         <CheckoutPaymentMethod cart={data.me.cart} />
       )}

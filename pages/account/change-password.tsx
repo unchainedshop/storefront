@@ -40,7 +40,7 @@ const ChangePassword = () => {
 
   useEffect(() => {
     if (error?.message?.includes('Invalid credentials')) {
-      setError('oldPassword', {
+      setError('root', {
         type: 'manual',
         message: formatMessage({
           id: 'old_password_not_correct',

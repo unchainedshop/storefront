@@ -6,14 +6,25 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<any>({
     defaultValues: contact,
   });
   const intl = useIntl();
 
+  const submitHandler = handleSubmit(async (data) => {
+    try {
+      await onSubmit(data);
+    } catch (e: any) {
+      setError('root', {
+        message: e.message as string,
+      });
+    }
+  });
+
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="form" onSubmit={handleSubmit(submitHandler)}>
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
           {intl.formatMessage({
@@ -57,6 +68,9 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
           {...register('telNumber', { required: true })}
         />
       </div>
+      {errors.root?.message && (
+        <div className="text-red-600">{errors.root.message as string}</div>
+      )}
       <div className="pt-3">
         <input
           type="submit"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   PaymentElement,
   useStripe,
@@ -12,36 +12,31 @@ export default ({ returnUrl }) => {
   const [message, setMessage] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  React.useEffect(() => {
-    if (!stripe) {
-      return;
-    }
-
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      'payment_intent_client_secret',
-    );
-
-    if (!clientSecret) {
-      return;
-    }
-
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case 'succeeded':
-          setMessage('Payment succeeded!');
-          break;
-        case 'processing':
-          setMessage('Your payment is processing.');
-          break;
-        case 'requires_payment_method':
-          setMessage('Your payment was not successful, please try again.');
-          break;
-        default:
-          setMessage('Something went wrong.');
-          break;
+  useEffect(() => {
+    if (stripe) {
+      const clientSecret = new URLSearchParams(window.location.search).get(
+        'payment_intent_client_secret',
+      );
+      if (clientSecret) {
+        stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+          switch (paymentIntent.status) {
+            case 'succeeded':
+              setMessage('Payment succeeded!');
+              break;
+            case 'processing':
+              setMessage('Your payment is processing.');
+              break;
+            case 'requires_payment_method':
+              setMessage('Your payment was not successful, please try again.');
+              break;
+            default:
+              setMessage('Something went wrong.');
+              break;
+          }
+        });
       }
-    });
-  }, [stripe]);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

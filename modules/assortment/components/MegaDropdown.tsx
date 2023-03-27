@@ -7,7 +7,7 @@ const findChildBySlug = (node, slug) => {
   return (
     node.children &&
     Object.entries(node.children).find(
-      ([, childNode]) => childNode.slug === slug,
+      ([, childNode]: any) => childNode.slug === slug,
     )
   );
 };

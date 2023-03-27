@@ -28,7 +28,7 @@ const MegaDropdownItem = ({
   type,
   path,
   media = [],
-}: Node) => {
+}: Partial<Node>) => {
   const intl = useIntl();
   const { setHoverPath, hoverPath, isTouching } = useDesktopNavigationContext();
   const handleClick = () => {
@@ -88,7 +88,7 @@ const MegaDropdownItem = ({
 const MegaDropdownColumn = ({
   columnIndex = null,
   ...rest
-}: Node & { columnIndex?: number }) => {
+}: Partial<Node> & { columnIndex?: number }) => {
   const intl = useIntl();
   return (
     <div className="inline-block w-1/3 border-r border-color-grey-lightest">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import AddressForm from './AddressForm';
 import AddressPanel from './AddressPanel';
@@ -56,7 +56,8 @@ const EditableAddressPanel = ({ editing, address, onSubmit, onToggle }) => {
 const CheckoutAddresses = ({ cart, isInitial }) => {
   const [lastBillingAddress, setLastBillingAddress] = useState(null);
   const [billingAddressEditMode, setBillingAddressEditMode] = useState(false);
-  const [deliveryAddressEditMode, setDeliveryAddressEditMode] = useState(false);
+  const [deliveryAddressEditMode, setDeliveryAddressEditMode] =
+    useState(isInitial);
 
   const [updateCartMutation] = useMutation(
     UPDATE_CART_BILLING_ADDRESS_MUTATION,
@@ -64,12 +65,6 @@ const CheckoutAddresses = ({ cart, isInitial }) => {
   const [updateOrderDeliveryAddressMutation] = useMutation(
     UPDATE_ORDER_DELIVERY_ADDRESS_MUTATION,
   );
-
-  useEffect(() => {
-    if (isInitial) {
-      setDeliveryAddressEditMode(true);
-    }
-  }, [isInitial]);
 
   const deliveryAddress = {
     ...(cart.delivery?.address || cart.billingAddress || {}),

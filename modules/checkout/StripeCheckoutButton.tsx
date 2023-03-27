@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import getConfig from 'next/config';
 import { gql, useMutation } from '@apollo/client';
-import { loadStripe } from '@stripe/stripe-js';
+import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import StripeCheckoutForm from './StripeCheckoutForm';
 
@@ -49,18 +49,17 @@ const StripeCheckoutButton = ({ order }) => {
     sign();
   }, []);
 
-  const appearance = {
-    theme: 'stripe',
-  };
-  const options = {
+  const options: StripeElementsOptions = {
     clientSecret,
-    appearance,
+    appearance: {
+      theme: 'flat',
+    },
   };
 
   if (clientSecret) {
     return (
       <Elements options={options} stripe={stripePromise}>
-        <StripeCheckoutForm orderId={order._id} returnUrl={successUrl} />
+        <StripeCheckoutForm returnUrl={successUrl} />
       </Elements>
     );
   }

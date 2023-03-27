@@ -7,6 +7,7 @@ import COUNTRIES from '../common/data/countries-list';
 const AddressForm = ({ address, onSubmit, onCancel }) => {
   const {
     register,
+    setError,
     handleSubmit,
     formState: { errors },
   } = useForm<any>({
@@ -17,8 +18,18 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
   });
   const intl = useIntl();
 
+  const submitHandler = handleSubmit(async (data) => {
+    try {
+      await onSubmit(data);
+    } catch (e: any) {
+      setError('root', {
+        message: e.message as string,
+      });
+    }
+  });
+
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="form" onSubmit={submitHandler}>
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
           {intl.formatMessage({
@@ -196,6 +207,9 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
           ))}
         </select>
       </div>
+      {errors.root?.message && (
+        <div className="text-red-600">{errors.root.message as string}</div>
+      )}
       <div className="pt-3">
         <input
           type="submit"

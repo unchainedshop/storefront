@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import getConfig from 'next/config';
@@ -25,7 +25,7 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
     setError,
     watch,
   } = useForm<any>();
-  const { createUser, error } = useCreateUser();
+  const { createUser } = useCreateUser();
   const password = useRef({});
   password.current = watch('password', '');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -69,24 +69,21 @@ const SignUpForm = ({ onSuccessGoTo = '/login' }) => {
       await createUser(userProfile);
       toast.success('User created successfully');
       router.push(onSuccessGoTo);
-    } catch (e) {
+    } catch (error: any) {
       // eslint-disable-next-line no-console
+      if (error?.message?.includes('E-Mail already exists')) {
+        setError('root', {
+          type: 'manual',
+          message: `👬 ${formatMessage({
+            id: 'email_exists_please_login',
+            defaultMessage:
+              'A User with the same email exists already. Please sign-in',
+          })}`,
+        });
+      }
       console.error(e);
     }
   };
-
-  useEffect(() => {
-    if (error?.message?.includes('E-Mail already exists')) {
-      setError('emailAddress', {
-        type: 'manual',
-        message: `👬 ${formatMessage({
-          id: 'email_exists_please_login',
-          defaultMessage:
-            'A User with the same email exists already. Please sign-in',
-        })}`,
-      });
-    }
-  }, [error]);
 
   return (
     <div className="bg-slate-100 dark:bg-slate-600 lg:grid lg:grid-cols-2">

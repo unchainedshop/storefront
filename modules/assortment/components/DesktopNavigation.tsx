@@ -68,7 +68,7 @@ const DesktopNavigation = () => {
             ref={ref}
             onMouseEnter={() => {
               if (!isTouching) {
-                setHoverPath(assortmentTree.slug);
+                setHoverPath(assortmentTree.slug as any);
               }
             }}
             onMouseOut={() => {

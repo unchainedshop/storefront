@@ -34,10 +34,10 @@ export const UPDATE_CART_CONTACT_MUTATION = gql`
   }
 `;
 
-const CheckoutContact = ({ cart }) => {
+const CheckoutContact = ({ cart, isInitial }) => {
   const intl = useIntl();
   const [updateCartContactMutation] = useMutation(UPDATE_CART_CONTACT_MUTATION);
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(isInitial);
   const [addEmailMutation] = useMutation(ADD_EMAIL_MUTATION);
   const [showLogin, setShowLogin] = useState(false);
 
@@ -60,6 +60,7 @@ const CheckoutContact = ({ cart }) => {
       setEditMode(false);
     } catch (error) {
       if (error.message.includes('duplicate')) setShowLogin(true);
+      throw error;
     }
   };
 

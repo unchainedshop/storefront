@@ -8,7 +8,7 @@ import useUpdateCartItem from '../hooks/useUpdateCartItem';
 import useRemoveCartItem from '../hooks/useRemoveCartItem';
 
 const AddToCartButton = ({ productId }) => {
-  const { register, setValue } = useForm();
+  const { register, setValue } = useForm<any>();
   const intl = useIntl();
   const { cart } = useUser();
   const { conditionalAddCartProduct } = useConditionalAddCartProduct();

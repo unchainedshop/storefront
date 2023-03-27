@@ -16,7 +16,7 @@ const ProfileView = ({ user }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<any>();
 
   const { updateUserProfile } = useUpdateUserProfile();
   const { removeEmail } = useRemoveEmail();
