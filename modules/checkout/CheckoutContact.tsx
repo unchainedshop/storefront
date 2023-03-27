@@ -71,7 +71,7 @@ const CheckoutContact = ({ cart }) => {
   return (
     <div className="mt-6">
       <h2 className="text-lg font-medium ">Contact Data</h2>
-      {showLogin && (
+      {showLogin && editMode && (
         <div className="text-red-500">
           E-Mail address is not available, please
           <Link href="/log-in" legacyBehavior>
@@ -82,7 +82,6 @@ const CheckoutContact = ({ cart }) => {
           or choose another one
         </div>
       )}
-
       {editMode ? (
         <ContactForm
           contact={contact}
