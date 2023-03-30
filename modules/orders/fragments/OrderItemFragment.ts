@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 
 const OrderItemFragment = gql`
   fragment OrderItemFragment on OrderItem {
+    _id
     product {
       _id
       media {

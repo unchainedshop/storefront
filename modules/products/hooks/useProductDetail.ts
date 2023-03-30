@@ -1,6 +1,7 @@
 import { useQuery, gql } from '@apollo/client';
 import { ProductAssortmentPathFragment } from '../../assortment/fragments/AssortmentPath';
 import ProductFragment from '../fragments/ProductFragment';
+import SimpleProductPrice from '../fragments/SimpleProductPrice';
 
 const ProductDetailQuery = gql`
   query ProductDetailQuery($slug: String) {
@@ -9,9 +10,11 @@ const ProductDetailQuery = gql`
         ...ProductAssortmentPathFragment
       }
       ...ProductFragment
+      ...SimpleProductPrice
     }
   }
   ${ProductFragment}
+  ${SimpleProductPrice}
   ${ProductAssortmentPathFragment}
 `;
 

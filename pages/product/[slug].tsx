@@ -27,8 +27,8 @@ const Detail = () => {
     return (
       <NotFound
         page={intl.formatMessage({
-          id: 'products',
-          defaultMessage: 'Products',
+          id: 'product',
+          defaultMessage: 'Product',
         })}
       />
     );
@@ -79,7 +79,7 @@ const Detail = () => {
                   }}
                 />
               </div>
-              <AddToCartButton productId={product?._id} />
+              <AddToCartButton productId={product?._id} {...product} />
             </div>
           </div>
         </div>

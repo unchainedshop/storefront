@@ -125,57 +125,6 @@ const Account = () => {
               </div>
             </div>
           </section>
-
-          {showDebugInfo && (
-            <section
-              aria-labelledby="password"
-              className="lg:col-span-9 lg:col-start-4"
-            >
-              <div className="mt-6 bg-white px-4 pt-6 shadow dark:bg-slate-500 dark:text-slate-200 sm:overflow-hidden sm:rounded-md sm:px-6">
-                <div className="m-2 flex flex-col sm:flex-row">
-                  <span className="mb-1">
-                    {formatMessage({
-                      id: 'guest',
-                      defaultMessage: 'Guest',
-                    })}
-                  </span>
-                  <span className="mx-4 mb-1">
-                    {user?.isGuest ? (
-                      <b>
-                        {formatMessage({
-                          id: 'yes',
-                          defaultMessage: 'Yes',
-                        })}
-                      </b>
-                    ) : (
-                      <b>
-                        {formatMessage({
-                          id: 'no',
-                          defaultMessage: 'No',
-                        })}
-                      </b>
-                    )}
-                  </span>
-                </div>
-                <div className="m-2 flex flex-col sm:flex-row">
-                  <Link
-                    href="/orders"
-                    className="link mb-1 text-indigo-600 hover:text-indigo-600 dark:text-sky-400 dark:hover:text-sky-500"
-                  >
-                    {formatMessage(
-                      {
-                        id: 'number_of_orders',
-                        defaultMessage: 'Number Of Orders: {count}',
-                      },
-                      {
-                        count: user?.orders?.length || 0,
-                      },
-                    )}
-                  </Link>
-                </div>
-              </div>
-            </section>
-          )}
         </div>
       </div>
     </>

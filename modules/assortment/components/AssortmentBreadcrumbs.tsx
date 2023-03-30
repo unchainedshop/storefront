@@ -24,7 +24,8 @@ const AssortmentBreadcrumbs = ({ paths = [], currentAssortment }) => {
       <a className="breadcrumb-link">
         <b>{currentAssortment?.title}</b>
       </a>
-      <style>
+      {/* eslint-disable-next-line */}
+      <style jsx global>
         {`
           .breadcrumb-link {
             font-size: 0.875rem;

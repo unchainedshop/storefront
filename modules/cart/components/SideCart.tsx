@@ -37,7 +37,7 @@ const SideCart = ({ isOpen }) => {
           'fixed top-0 right-0 bottom-0 left-0 z-50 cursor-pointer bg-black opacity-0':
             isOpen,
         })}
-        onClick={() => toggleCart(!isCartOpen)}
+        onClick={() => toggleCart(false)}
       />
       {!user?.cart?.items.length ? (
         <div
@@ -146,17 +146,6 @@ const SideCart = ({ isOpen }) => {
                 defaultMessage: 'To checkout',
               })}
             </Link>
-
-            <button
-              type="button"
-              className="my-4 block w-full text-sm font-semibold uppercase text-indigo-600 dark:text-indigo-400"
-              onClick={() => toggleCart(false)}
-            >
-              {intl.formatMessage({
-                id: 'continue_shopping',
-                defaultMessage: 'Continue shopping',
-              })}
-            </button>
           </div>
         </div>
       )}

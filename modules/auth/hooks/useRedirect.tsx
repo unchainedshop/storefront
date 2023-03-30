@@ -11,9 +11,10 @@ const useRedirect = ({
   matchGuests = false,
 }) => {
   const router = useRouter();
-  const { user } = useUser();
+  const { user, loading } = useUser();
 
   useEffect(() => {
+    if (loading) return;
     if (typeof window === 'undefined') return;
 
     const isAnonymousMatched = !user && matchAnonymous;
@@ -28,7 +29,7 @@ const useRedirect = ({
         router.push({ pathname: to });
       }
     }
-  }, [user]);
+  }, [user, loading]);
 
   return null;
 };

@@ -7,8 +7,7 @@ import useRemoveEmail from '../hooks/useRemoveEmail';
 import useResendVerificationEmail from '../hooks/useResendVerificationEmail';
 import useUpdateUserProfile from '../hooks/useUpdateUserProfile';
 import Button from '../../common/components/Button';
-import UserName from '../../common/components/UserName';
-import Verified from '../../common/components/Verified';
+import VerifiedStatus from '../../common/components/VerifiedStatus';
 
 const ProfileView = ({ user }) => {
   const { formatMessage } = useIntl();
@@ -27,7 +26,6 @@ const ProfileView = ({ user }) => {
   const [newEmail, setNewEmail] = useState('');
 
   if (!user) return null;
-  const showUsername = user.roles?.includes('admin');
   const { profile = {} } = user;
 
   const onProfileUpdateComplete = (value) => {
@@ -83,12 +81,6 @@ const ProfileView = ({ user }) => {
               </div>
               <div className="mt-6">
                 <div className="divide-y divide-slate-200">
-                  {showUsername && (
-                    <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-                      <UserName user={user} />
-                    </div>
-                  )}
-
                   <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
                     <div className="text-sm font-medium text-slate-500 dark:text-slate-200">
                       {formatMessage({
@@ -162,12 +154,31 @@ const ProfileView = ({ user }) => {
                       </div>
                     </div>
                   </div>
-
+                  <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-b sm:border-slate-200 sm:py-5">
+                    <div className="mb-1 text-sm font-medium text-slate-500 dark:text-slate-200">
+                      {formatMessage({
+                        id: 'company',
+                        defaultMessage: 'Company',
+                      })}
+                    </div>
+                    {updateProfile ? (
+                      <input
+                        className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
+                        name="company"
+                        defaultValue={profile?.address?.company}
+                        {...register('company')}
+                      />
+                    ) : (
+                      <div className="mb-1">
+                        {user?.profile?.address?.company}
+                      </div>
+                    )}
+                  </div>
                   <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
                     <h2 className="text-sm font-medium text-slate-500 dark:text-slate-200">
                       {formatMessage({
-                        id: 'email',
-                        defaultMessage: 'Email',
+                        id: 'emails',
+                        defaultMessage: 'Email Addresses',
                       })}
                     </h2>
                     <div className="sm:col-span-2">
@@ -178,16 +189,16 @@ const ProfileView = ({ user }) => {
                             className="mb-1 flex flex-wrap items-center"
                           >
                             <span className="text-lg font-extrabold dark:text-slate-100">
-                              {i + 1}. {e.address}
+                              {e.address}
                             </span>
-                            <Verified isActive={e.verified} />
+                            <VerifiedStatus isActive={e.verified} />
                             <div>
-                              {!e.verified && (
+                              {!e.verified && updateProfile && (
                                 <Button
                                   type="button"
                                   text={formatMessage({
-                                    id: 'resend',
-                                    defaultMessage: 'ReSend',
+                                    id: 'send_verification_email',
+                                    defaultMessage: 'Send Verification Link',
                                   })}
                                   className="my-2 mr-2 border-0 bg-slate-900 text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
                                   onClick={() =>
@@ -211,53 +222,34 @@ const ProfileView = ({ user }) => {
                         ))}
                       </div>
 
-                      <div>
-                        <div className="form-row">
-                          <label className="form-label">
-                            {formatMessage({
+                      {updateProfile && (
+                        <div>
+                          <div className="form-row">
+                            <label className="form-label">
+                              {formatMessage({
+                                id: 'add_email',
+                                defaultMessage: 'Add Email',
+                              })}
+                            </label>
+                            <input
+                              className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
+                              type="text"
+                              onChange={(e) => setNewEmail(e.target.value)}
+                              value={newEmail}
+                            />
+                          </div>
+                          <Button
+                            type="button"
+                            text={formatMessage({
                               id: 'add_email',
                               defaultMessage: 'Add Email',
                             })}
-                          </label>
-                          <input
-                            className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
-                            type="text"
-                            onChange={(e) => setNewEmail(e.target.value)}
-                            value={newEmail}
+                            className="mt-2 border-0 bg-slate-900 font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+                            onClick={() => addEmail(newEmail)}
                           />
                         </div>
-                        <Button
-                          type="button"
-                          text={formatMessage({
-                            id: 'add_email',
-                            defaultMessage: 'Add Email',
-                          })}
-                          className="mt-2 border-0 bg-slate-900 font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
-                          onClick={() => addEmail(newEmail)}
-                        />
-                      </div>
+                      )}
                     </div>
-                  </div>
-
-                  <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-b sm:border-slate-200 sm:py-5">
-                    <div className="mb-1 text-sm font-medium text-slate-500 dark:text-slate-200">
-                      {formatMessage({
-                        id: 'company',
-                        defaultMessage: 'Company',
-                      })}
-                    </div>
-                    {updateProfile ? (
-                      <input
-                        className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
-                        name="company"
-                        defaultValue={profile?.address?.company}
-                        {...register('company')}
-                      />
-                    ) : (
-                      <div className="mb-1">
-                        {user?.profile?.address?.company}
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>

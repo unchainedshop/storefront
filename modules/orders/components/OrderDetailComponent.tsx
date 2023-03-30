@@ -24,6 +24,8 @@ const OrderDetailComponent = ({ order }) => {
 
   const { user } = useUser();
 
+  console.log(order);
+
   return (
     <div className="bg-slate-50 dark:bg-slate-600">
       <div className="mx-auto max-w-full px-4 pt-16 sm:py-24 sm:px-6 lg:max-w-full lg:px-8">
@@ -356,25 +358,19 @@ const OrderDetailComponent = ({ order }) => {
                   {formatPrice(order?.total)}
                 </dd>
               </div>
-              <div className="flex items-center justify-between py-4">
-                <dt className="text-slate-600 dark:text-slate-300">
-                  {formatMessage({
-                    id: 'shipping',
-                    defaultMessage: 'Shipping',
-                  })}
-                </dt>
-                <dd className="font-medium text-slate-900 dark:text-slate-100">
-                  {formatPrice(order?.delivery?.fee)}
-                </dd>
-              </div>
-              <div className="flex items-center justify-between py-4">
-                <dt className="text-slate-600 dark:text-slate-300">
-                  {formatMessage({ id: 'Tax', defaultMessage: 'Taxable' })}
-                </dt>
-                <dd className="font-medium text-slate-900 dark:text-slate-100">
-                  {order?.total?.isTaxable ? 'Yes' : 'No'}
-                </dd>
-              </div>
+              {order?.delivery?.fee && (
+                <div className="flex items-center justify-between py-4">
+                  <dt className="text-slate-600 dark:text-slate-300">
+                    {formatMessage({
+                      id: 'shipping',
+                      defaultMessage: 'Shipping',
+                    })}
+                  </dt>
+                  <dd className="font-medium text-slate-900 dark:text-slate-100">
+                    {formatPrice(order.delivery.fee)}
+                  </dd>
+                </div>
+              )}
               <div className="flex items-center justify-between pt-4">
                 <dt className="font-medium text-slate-900 dark:text-slate-100">
                   {formatMessage({
@@ -383,7 +379,7 @@ const OrderDetailComponent = ({ order }) => {
                   })}
                 </dt>
                 <dd className="font-medium text-indigo-600 dark:text-sky-400">
-                  {formatPrice(order.total)}
+                  {formatPrice(order?.total)}
                 </dd>
               </div>
             </dl>
