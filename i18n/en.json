@@ -87,7 +87,6 @@
   "make_reservation": "Make a reservation",
   "product_categories": "Product categories",
   "404_sorry": "Sorry, the page you were looking for was not found! ",
-  "back_to_home": "Back to home",
   "505_sorry": "oops, Something went wrong when performing your request, please try again later!",
   "about_detail": "...",
   "order_review": "Order Review",
@@ -123,6 +122,5 @@
   "old_password_not_correct": "Wrong password, please try again",
   "confirm_order": "OK, ok, ok. Just let me pay",
   "remove_email": "Remove this e-mail",
-  "back_to_website": "Back to website",
   "load_more": "Load more..."
 }

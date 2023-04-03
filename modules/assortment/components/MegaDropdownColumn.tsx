@@ -1,10 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import getConfig from 'next/config';
-
 import { useIntl } from 'react-intl';
 import classNames from 'classnames';
-import { HomeIcon } from '@heroicons/react/solid';
 import { useDesktopNavigationContext } from './DesktopNavigationContext';
 import Thumbnail from '../../common/components/thumbnail';
 
@@ -16,10 +13,6 @@ export type Node = {
   type: 'default' | 'show_all';
   media: any[];
 };
-
-const {
-  publicRuntimeConfig: { theme },
-} = getConfig();
 
 const MegaDropdownItem = ({
   slug,
@@ -86,26 +79,10 @@ const MegaDropdownItem = ({
 };
 
 const MegaDropdownColumn = ({
-  columnIndex = null,
   ...rest
 }: Partial<Node> & { columnIndex?: number }) => {
-  const intl = useIntl();
   return (
     <div className="inline-block w-1/3 border-r border-color-grey-lightest">
-      {columnIndex === 0 && (
-        <a
-          className="mb-1 block cursor-pointer py-1 pr-7 pl-6 text-base uppercase hover:underline lg:text-lg lg:font-medium lg:tracking-wider"
-          href={theme.websiteUrl}
-        >
-          <HomeIcon className="mr-2 inline-flex h-8 w-8 items-center" />
-          <span className="align-bottom">
-            {intl.formatMessage({
-              id: 'back_to_website',
-              defaultMessage: 'Back to website',
-            })}
-          </span>
-        </a>
-      )}
       <MegaDropdownItem {...rest} type="show_all" />
 
       {rest.children &&

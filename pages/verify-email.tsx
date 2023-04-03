@@ -42,20 +42,12 @@ const VerifiedEmail = () => {
               <br /> <br /> ...
             </h1>
           ) : (
-            <>
-              <h1>
-                {intl.formatMessage({
-                  id: 'email_verified_success',
-                  defaultMessage: 'Your email has been successfully verified',
-                })}
-              </h1>
-              <Link href="/" className="button button--secondary my-3">
-                {intl.formatMessage({
-                  id: 'back_to_home',
-                  defaultMessage: 'Back to Home',
-                })}
-              </Link>
-            </>
+            <h1>
+              {intl.formatMessage({
+                id: 'email_verified_success',
+                defaultMessage: 'Your email has been successfully verified',
+              })}
+            </h1>
           )}
         </div>
       </div>

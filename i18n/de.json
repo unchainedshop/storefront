@@ -89,7 +89,6 @@
   "make_reservation": "Termin resevieren",
   "product_categories": "Produktkategorien",
   "404_sorry": "Entschuldigung, die gesuchte Seite wurde nicht gefunden!",
-  "back_to_home": "Zurück nach Hause",
   "505_sorry": "Hoppla, bei der Ausführung Ihrer Anfrage ist bitte ein Fehler aufgetreten Versuchen Sie es später noch einmal!",
   "about_detail": "...",
   "log_out": "Ausloggen",
@@ -123,7 +122,6 @@
   "email_exists_please_login": "Es existiert ein Benutzer mit dieser E-Mail Adresse. Bitte anmelden.",
   "old_password_not_correct": "Altes Passwort ist nicht korrekt",
   "confirm_order": "OK, ok, ok. Just let me pay",
-  "back_to_website": "Zurück zur Webseite",
   "change_username": "Benutzername ändern",
   "load_more": "Weitere laden ..."
 }

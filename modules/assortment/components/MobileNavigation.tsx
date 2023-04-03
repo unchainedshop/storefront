@@ -133,19 +133,6 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
               {intl.formatMessage({ id: 'close', defaultMessage: 'Close' })}
             </small>
           </button>
-
-          <Link
-            href="/"
-            className="ml-3 flex cursor-pointer items-baseline py-2 text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500"
-          >
-            <HomeIcon className="mr-3  h-4 w-5 select-none " />
-            <span className="text-lg font-medium">
-              {intl.formatMessage({
-                id: 'back_to_website',
-                defaultMessage: 'Back to website',
-              })}
-            </span>
-          </Link>
           {Object.entries(assortmentTree.children).map(
             ([pageId, node]: any) => (
               <Subtree
