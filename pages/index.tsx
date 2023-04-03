@@ -3,18 +3,18 @@ import { useIntl } from 'react-intl';
 
 import Link from 'next/link';
 import Image from 'next/legacy/image';
-import useAssortments from '../modules/assortment/hooks/useAssortments';
 import LoadingItem from '../modules/common/components/LoadingItem';
 import MetaTags from '../modules/common/components/MetaTags';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
-import CategoryListItem from '../modules/assortment/components/CategoryListItem';
+import useProducts from '../modules/products/hooks/useProducts';
+import ProductListItem from '../modules/products/components/ProductListItem';
 
 const {
   publicRuntimeConfig: { theme },
 } = getConfig();
 
 const Home = () => {
-  const { assortments, loading } = useAssortments();
+  const { products, loading } = useProducts({ tags: ['featured'] });
   const { formatMessage } = useIntl();
 
   return (
@@ -39,14 +39,14 @@ const Home = () => {
         {loading ? (
           <LoadingItem />
         ) : (
-          assortments.length !== 0 && (
+          products.length !== 0 && (
             <div>
               <div className="mx-auto max-w-full pt-16 sm:pt-20">
                 <div className="sm:flex sm:items-baseline sm:justify-between">
                   <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100">
                     {formatMessage({
-                      id: 'shop_by_category',
-                      defaultMessage: 'Shop by Category',
+                      id: 'featured_products',
+                      defaultMessage: 'Featured Products',
                     })}
                   </h2>
                   <Link
@@ -75,11 +75,13 @@ const Home = () => {
                 </div>
               </div>
               <div className="mt-10 space-y-12 divide-gray-200 lg:grid lg:grid-cols-3 lg:gap-x-5  lg:space-y-0">
-                {assortments.map((assortment) => (
-                  <CategoryListItem
-                    key={assortment._id}
-                    category={assortment}
-                  />
+                {products.map((product) => (
+                  <div
+                    key={product?._id}
+                    className="group relative rounded-lg border-y border-r border-b border-slate-200 p-4 dark:border-slate-500 sm:p-6"
+                  >
+                    <ProductListItem product={product} />
+                  </div>
                 ))}
               </div>
             </div>
