@@ -1,6 +1,6 @@
 import { useMutation, gql } from '@apollo/client';
 
-const VERIFY_EMAIL_MUTATION = gql`
+const VerifyEmailMutation = gql`
   mutation VerifyEmail($token: String!) {
     verifyEmail(token: $token) {
       id
@@ -8,27 +8,28 @@ const VERIFY_EMAIL_MUTATION = gql`
       tokenExpires
       user {
         _id
-        emails {
-          address
-          verified
-        }
       }
     }
   }
 `;
 
 const useVerifyEmail = () => {
-  const [verifyEmailMutation, { error }] = useMutation(VERIFY_EMAIL_MUTATION);
-
+  const [verifyEmailMutation, { client, ...props }] =
+    useMutation(VerifyEmailMutation);
   const verifyEmail = async ({ token }) => {
-    return verifyEmailMutation({
-      variables: { token },
+    const result = await verifyEmailMutation({
+      variables: {
+        token,
+      },
+      awaitRefetchQueries: true,
     });
+    await client.resetStore();
+    return result;
   };
 
   return {
     verifyEmail,
-    error,
+    ...props,
   };
 };
 

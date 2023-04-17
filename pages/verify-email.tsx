@@ -1,57 +1,108 @@
-import { useEffect, useState } from 'react';
-import { useIntl } from 'react-intl';
+import React, { useEffect, useState } from 'react';
+import classNames from 'classnames';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-
-import MetaTags from '../modules/common/components/MetaTags';
+import Loading from '../modules/common/components/Loading';
 import useVerifyEmail from '../modules/auth/hooks/useVerifyEmail';
-import useRedirect from '../modules/auth/hooks/useRedirect';
 
-const VerifiedEmail = () => {
-  const intl = useIntl();
-  const router = useRouter();
+const VerifyEmail = () => {
+  const { query } = useRouter();
   const { verifyEmail } = useVerifyEmail();
-  const [loading, setLoading] = useState(true);
-
-  const { token } = router.query;
-
-  useRedirect({ to: '/account', matchUsers: true });
+  const [result, setResult] = useState({ success: null, message: null });
 
   useEffect(() => {
-    verifyEmail({ token }).then(() => {
-      setLoading(false);
-    });
-  }, [token]);
+    const verify = async () => {
+      try {
+        await verifyEmail({ token: query.token });
+        setResult({
+          ...result,
+          success: true,
+        });
+      } catch (e) {
+        if (e.message.includes('expired'))
+          setResult({
+            success: false,
+            message: 'Verification token expired',
+          });
+        else
+          setResult({
+            success: false,
+            message: 'Email verification failed',
+          });
+      }
+    };
+    if (query.token) verify();
+  }, [query.token]);
 
+  if (result.success === null) return <Loading />;
   return (
-    <>
-      <MetaTags
-        title={intl.formatMessage({
-          id: 'email_verified_success',
-          defaultMessage: 'Your email has been successfully verified',
-        })}
-      />
-      <div className="mx-4 flex flex-wrap">
-        <div className="relative w-full px-4 md:ml-[16.666667%] md:max-w-2/3 md:flex-6">
-          {loading ? (
-            <h1>
-              {intl.formatMessage({
-                id: 'email_verifying',
-                defaultMessage: 'Verifying your email address',
-              })}
-              <br /> <br /> ...
-            </h1>
+    <div className="flex items-center justify-center min-h-screen p-5 bg-blue-100 min-w-screen">
+      <div
+        className={classNames(
+          'max-w-xl p-8 text-center  bg-white shadow-xl lg:max-w-3xl rounded-3xl lg:p-12',
+          {
+            'text-stone-800': result.success,
+            'text-red-800': !result.success,
+          },
+        )}
+      >
+        <h3 className="text-2xl">
+          {result.success ? 'Email Verified successfully' : result.message}
+        </h3>
+        <div className="flex justify-center">
+          {result.success ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-24 h-24 text-green-400"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z"
+              />
+            </svg>
           ) : (
-            <h1>
-              {intl.formatMessage({
-                id: 'email_verified_success',
-                defaultMessage: 'Your email has been successfully verified',
-              })}
-            </h1>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="w-24 h-24 text-red-400"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
           )}
         </div>
+
+        <p>
+          {result.success
+            ? 'Thank you for verifying your email address'
+            : 'Please resend another verification email and try to verify again'}
+        </p>
+        <div className="mt-4">
+          <Link href="/" legacyBehavior>
+            <a
+              type="button"
+              className="px-4 py-2 text-blue-200 bg-blue-600 rounded"
+            >
+              Go to home
+            </a>
+          </Link>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default VerifiedEmail;
+export default VerifyEmail;
+
+VerifyEmail.getLayout = (page) => page;
