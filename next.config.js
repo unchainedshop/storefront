@@ -32,6 +32,7 @@ module.exports = {
     UNCHAINED_ENDPOINT,
     theme,
     localizations,
+    oAuthClientId: process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID,
   },
   i18n: {
     locales: Object.keys(theme.locales),
