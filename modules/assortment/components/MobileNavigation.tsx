@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  HomeIcon,
-  XIcon,
-} from '@heroicons/react/solid';
+import { ArrowDownIcon, ArrowUpIcon, XIcon } from '@heroicons/react/solid';
 import useCategoriesTree from '../hooks/useCategoriesTree';
 import Thumbnail from '../../common/components/thumbnail';
 import changeLanguage from '../../common/utils/changeLanguage';

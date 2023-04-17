@@ -1,49 +1,62 @@
 import { useMutation, gql } from '@apollo/client';
-import { useAppContext } from '../../common/components/AppContextWrapper';
-import CurrentUserFragment from '../fragments/CurrentUserFragment';
+import isEmail from '../../common/utils/isEmail';
 
-const LoginWithPasswordMutation = gql`
-  mutation LoginWithPassword($email: String!, $plainPassword: String) {
-    loginWithPassword(email: $email, plainPassword: $plainPassword) {
+const LogInWithPasswordMutation = gql`
+  mutation LoginWithPassword(
+    $username: String
+    $email: String
+    $plainPassword: String
+    $totpCode: String
+  ) {
+    loginWithPassword(
+      username: $username
+      email: $email
+      plainPassword: $plainPassword
+      totpCode: $totpCode
+    ) {
       id
       token
       tokenExpires
       user {
-        ...CurrentUserFragment
+        _id
+        allowedActions
+        roles
+        isTwoFactorEnabled
       }
     }
   }
-  ${CurrentUserFragment}
 `;
-const useLoginWithPassword = (): any => {
-  const { selectedCurrency } = useAppContext();
 
+const useLoginWithPassword = () => {
   const [logInWithPasswordMutation, { client }] = useMutation(
-    LoginWithPasswordMutation,
-    { errorPolicy: 'all' },
+    LogInWithPasswordMutation,
+    {
+      errorPolicy: 'all',
+    },
   );
 
-  const logInWithPassword = async ({
-    username = '',
-    email,
-    password,
-  }): Promise<any> => {
-    const normalizedEmail = email?.trim();
-
-    const variables = {
-      username,
-      email: normalizedEmail,
-      plainPassword: password,
-      currency: selectedCurrency,
+  const logInWithPassword = async ({ usernameOrEmail, password, totpCode }) => {
+    const variables: any = {
+      username: null,
+      totpCode,
+      plainPassword: null,
     };
+
+    if (isEmail(usernameOrEmail)) {
+      const normalizedEmail = usernameOrEmail?.trim();
+      variables.email = normalizedEmail;
+    } else {
+      variables.username = usernameOrEmail;
+    }
+
+    variables.plainPassword = password;
 
     const result = await logInWithPasswordMutation({
       variables,
+      awaitRefetchQueries: true,
     });
 
-    if (result.data?.loginWithPassword?.id) {
-      await client.resetStore();
-    }
+    await client.resetStore();
     return result;
   };
 
@@ -51,4 +64,5 @@ const useLoginWithPassword = (): any => {
     logInWithPassword,
   };
 };
+
 export default useLoginWithPassword;

@@ -29,7 +29,7 @@ const Account = () => {
   const { user, loading } = useUser();
   const router = useRouter();
   const { formatMessage } = useIntl();
-  const showDebugInfo = true;
+
   useRedirect({ to: '/login', matchAnonymous: true, matchGuests: true });
 
   if (loading) {

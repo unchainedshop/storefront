@@ -183,7 +183,7 @@ const ProfileView = ({ user }) => {
                     </h2>
                     <div className="sm:col-span-2">
                       <div className="gap-2 md:grid md:grid-cols-2">
-                        {user?.emails?.map((e, i) => (
+                        {user?.emails?.map((e) => (
                           <div
                             key={e.address}
                             className="mb-1 flex flex-wrap items-center"

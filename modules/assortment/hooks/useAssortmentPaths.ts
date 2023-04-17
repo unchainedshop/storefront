@@ -1,5 +1,4 @@
 import { useQuery, gql } from '@apollo/client';
-import { useIntl } from 'react-intl';
 
 import AssortmentFragment from '../fragments/assortment';
 import AssortmentPathFragment from '../fragments/AssortmentPath';

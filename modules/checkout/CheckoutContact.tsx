@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import Link from 'next/link';
-import { useIntl } from 'react-intl';
+
 import ContactForm from './ContactForm';
 import ContactPanel from './ContactPanel';
 
@@ -35,13 +35,10 @@ export const UPDATE_CART_CONTACT_MUTATION = gql`
 `;
 
 const CheckoutContact = ({ cart, isInitial }) => {
-  const intl = useIntl();
   const [updateCartContactMutation] = useMutation(UPDATE_CART_CONTACT_MUTATION);
   const [editMode, setEditMode] = useState(isInitial);
   const [addEmailMutation] = useMutation(ADD_EMAIL_MUTATION);
   const [showLogin, setShowLogin] = useState(false);
-
-  const { formatMessage } = intl;
 
   const updateContact = async (contactInfo) => {
     try {
@@ -59,7 +56,7 @@ const CheckoutContact = ({ cart, isInitial }) => {
       setShowLogin(false);
       setEditMode(false);
     } catch (error) {
-      if (error.message.includes('duplicate')) setShowLogin(true);
+      if ((error as any)?.message.includes('duplicate')) setShowLogin(true);
       throw error;
     }
   };

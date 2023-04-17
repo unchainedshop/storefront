@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 import MetaTags from '../modules/common/components/MetaTags';
 import useVerifyEmail from '../modules/auth/hooks/useVerifyEmail';
