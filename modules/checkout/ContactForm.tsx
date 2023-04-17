@@ -74,7 +74,7 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
       <div className="pt-3">
         <input
           type="submit"
-          className="mr-1 rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2 focus:ring-offset-stone-50"
+          className="mr-1 rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2 focus:ring-offset-slate-50"
           value={intl.formatMessage({
             id: 'save_contact',
             defaultMessage: 'Save Contact Data',

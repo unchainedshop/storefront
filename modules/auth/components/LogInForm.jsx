@@ -24,7 +24,7 @@ const GetCurrentStep = ({
   switch (parseInt(step, 10)) {
     case 2:
       return (
-        <div className="bg-amber-50">
+        <div className="bg-white-50">
           <label
             htmlFor="password"
             className="block text-sm font-medium text-brown-600"
@@ -41,7 +41,7 @@ const GetCurrentStep = ({
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-beige block w-full appearance-none rounded-md border border-stone-300 px-3 py-2 shadow-sm focus:border-red-500 focus:outline-none focus:ring-red-800 sm:text-sm"
+              className="bg-beige block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 shadow-sm focus:border-red-500 focus:outline-none focus:ring-red-800 sm:text-sm"
             />
           </div>
         </div>
@@ -59,7 +59,7 @@ const GetCurrentStep = ({
             <input
               id="username-or-email"
               name="usernameOrEmail"
-              className="bg-beige block w-full appearance-none rounded-md border border-stone-300 px-3 py-2 shadow-sm focus:border-red-500 focus:outline-none focus:ring-red-800 sm:text-sm"
+              className="bg-beige block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 shadow-sm focus:border-red-500 focus:outline-none focus:ring-red-800 sm:text-sm"
               type="text"
               autoComplete="email username"
               required
@@ -175,7 +175,7 @@ const LogInForm = () => {
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight ">
             Anmelden
           </h2>
-          <p className="mt-2 text-center text-sm text-stone-600">
+          <p className="mt-2 text-center text-sm text-slate-600">
             Hast du dein
             <Link href="/forgot-password" legacyBehavior>
               <a className="ml-1 font-medium text-red-600 hover:text-red-500">
@@ -196,7 +196,7 @@ const LogInForm = () => {
           </button>
         )}
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md bg-amber-50">
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md bg-white-50">
           <div
             className={classNames('py-8 px-4 shadow sm:rounded-lg sm:px-10')}
           >
@@ -229,7 +229,7 @@ const LogInForm = () => {
                   />
                 </div>
               </form>
-              <div className="text-sm text-stone-400 dark:text-stone-200">
+              <div className="text-sm text-slate-400 dark:text-slate-200">
                 Hast du keinen Account?
                 <Link href="/sign-up" legacyBehavior>
                   <a className="ml-1 font-medium text-red-600 hover:text-red-500 dark:text-red-400 dark:hover:text-red-300">
@@ -239,10 +239,10 @@ const LogInForm = () => {
               </div>
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-stone-300" />
+                  <div className="w-full border-t border-slate-300" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-amber-50 px-2 text-stone-500">
+                  <span className="bg-white-50 px-2 text-slate-500">
                     Oder weiter mit
                   </span>
                 </div>

@@ -29,7 +29,7 @@ const GoogleOauth = () => {
               +https://www.googleapis.com/auth/user.addresses.read
               +https://www.googleapis.com/auth/user.birthday.read                  
               &state=GOOGLE`.replaceAll(' ', '')}
-      className="group relative flex w-full rounded-md border border-stone-300 hover:bg-stone-50 py-2 px-4 items-center font-medium  focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2"
+      className="group relative flex w-full rounded-md border border-slate-300 hover:bg-slate-50 py-2 px-4 items-center font-medium  focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2"
     >
       <svg
         className="h-10 w-10"

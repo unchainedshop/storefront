@@ -1,39 +1,61 @@
-import { useMutation, useApolloClient, gql } from '@apollo/client';
-import CurrentUserFragment from '../fragments/CurrentUserFragment';
+import { useMutation, gql } from '@apollo/client';
 
 const CreateUserMutation = gql`
-  mutation createUser($email: String!, $password: String!) {
-    createUser(email: $email, plainPassword: $password) {
+  mutation CreateUser(
+    $username: String
+    $email: String
+    $plainPassword: String
+    $profile: UserProfileInput
+    $webAuthnPublicKeyCredentials: JSON
+  ) {
+    createUser(
+      username: $username
+      email: $email
+      plainPassword: $plainPassword
+      profile: $profile
+      webAuthnPublicKeyCredentials: $webAuthnPublicKeyCredentials
+    ) {
       id
       token
       tokenExpires
-      user {
-        ...CurrentUserFragment
-      }
     }
   }
-  ${CurrentUserFragment}
 `;
 
 const useCreateUser = () => {
-  const client = useApolloClient();
-  const [createUserMutation, { error, loading }] =
+  const [createUserMutation, { data, error, loading }] =
     useMutation(CreateUserMutation);
 
-  const createUser = async ({ email, password, profile }) => {
-    const result = await createUserMutation({
-      variables: {
-        email,
-        password,
-        profile,
-      },
+  const createUser = async ({
+    username,
+    email,
+    password,
+    profile,
+    webAuthnPublicKeyCredentials,
+  }) => {
+    const variables = {
+      username: null,
+      email: null,
+      profile,
+      plainPassword: null,
+      webAuthnPublicKeyCredentials,
+    };
+    if (email) {
+      variables.email = email;
+    }
+    if (username) {
+      variables.username = username;
+    }
+    variables.plainPassword = password;
+    return createUserMutation({
+      variables,
     });
-    await client.resetStore();
-    return result;
   };
+  const newUser = data?.createUser;
 
   return {
     createUser,
+    newUser,
     error,
     loading,
   };

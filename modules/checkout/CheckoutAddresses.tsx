@@ -167,7 +167,7 @@ const CheckoutAddresses = ({ cart, isInitial }) => {
             type="checkbox"
             defaultChecked={!isBillingAddressDifferent}
             onChange={toggleBillingAddress}
-            className="h-4 w-4 rounded border-stone-300 text-red-600 focus:ring-red-800"
+            className="h-4 w-4 rounded border-slate-300 text-red-600 focus:ring-red-800"
           />
           <label
             htmlFor="isBillingAddressDifferent"

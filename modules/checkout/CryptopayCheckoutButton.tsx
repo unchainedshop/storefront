@@ -132,7 +132,7 @@ const CryptopayCheckoutButton = ({ order }) => {
             role="dialog"
             aria-modal="true"
           >
-            <div className="fixed inset-0 bg-stone-500 bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 bg-slate-500 bg-opacity-75 transition-opacity" />
             <div className="fixed inset-0 z-10 overflow-y-auto">
               <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                 <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-fit">
@@ -217,10 +217,10 @@ const CryptopayCheckoutButton = ({ order }) => {
                           className="absolute inset-0 flex items-center"
                           aria-hidden="true"
                         >
-                          <div className="w-full border-t border-stone-300" />
+                          <div className="w-full border-t border-slate-300" />
                         </div>
                         <div className="relative flex justify-center">
-                          <span className="bg-white px-2 text-sm text-stone-500">
+                          <span className="bg-white px-2 text-sm text-slate-500">
                             or
                           </span>
                         </div>
@@ -240,10 +240,10 @@ const CryptopayCheckoutButton = ({ order }) => {
                           className="absolute inset-0 flex items-center"
                           aria-hidden="true"
                         >
-                          <div className="w-full border-t border-stone-300" />
+                          <div className="w-full border-t border-slate-300" />
                         </div>
                         <div className="relative flex justify-center">
-                          <span className="bg-white px-2 text-sm text-stone-500">
+                          <span className="bg-white px-2 text-sm text-slate-500">
                             or
                           </span>
                         </div>
@@ -253,7 +253,7 @@ const CryptopayCheckoutButton = ({ order }) => {
                         <p className="mt-3">Scan this QR code</p>
                         <div
                           onClick={copyToClipboard}
-                          className="mx-auto relative w-fit after:invisible after:absolute after:left-2 after:top-0 after:z-10 after:h-fit after:rounded after:bg-stone-900 after:px-2 after:py-1 after:text-white after:opacity-0 after:transition after:content-['Click_to_copy'] hover:cursor-pointer hover:after:visible hover:after:opacity-100"
+                          className="mx-auto relative w-fit after:invisible after:absolute after:left-2 after:top-0 after:z-10 after:h-fit after:rounded after:bg-slate-900 after:px-2 after:py-1 after:text-white after:opacity-0 after:transition after:content-['Click_to_copy'] hover:cursor-pointer hover:after:visible hover:after:opacity-100"
                         >
                           <div className="sm:flex sm:items-center sm:justify-center flex-col">
                             <QRCode
@@ -279,7 +279,7 @@ const CryptopayCheckoutButton = ({ order }) => {
                       <button
                         onClick={cancel}
                         type="button"
-                        className="inline-flex items-center rounded border border-stone-300 bg-white px-2.5 py-1.5 text-xs font-medium text-brown-600 shadow-sm hover:bg-stone-50 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2"
+                        className="inline-flex items-center rounded border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-medium text-brown-600 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2"
                       >
                         Abbrechen
                       </button>
@@ -295,7 +295,7 @@ const CryptopayCheckoutButton = ({ order }) => {
       <button
         type="button"
         onClick={sign}
-        className="mt-6 w-full rounded-md border border-transparent bg-red-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2 focus:ring-offset-stone-50"
+        className="mt-6 w-full rounded-md border border-transparent bg-red-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2 focus:ring-offset-slate-50"
       >
         Pay with Crypto
       </button>
