@@ -1,28 +1,27 @@
 import { useMutation, gql } from '@apollo/client';
-import CurrentUserFragment from '../fragments/CurrentUserFragment';
 
-export const RESET_PASSWORD_MUTATION = gql`
-  mutation ResetPassword($newPassword: String!, $token: String!) {
-    resetPassword(newPlainPassword: $newPassword, token: $token) {
+const ResetPasswordMutation = gql`
+  mutation ResetPassword($newPlainPassword: String, $token: String!) {
+    resetPassword(newPlainPassword: $newPlainPassword, token: $token) {
       id
       token
       tokenExpires
-      user {
-        ...CurrentUserFragment
-      }
     }
   }
-  ${CurrentUserFragment}
 `;
 
 const useResetPassword = () => {
   const [resetPasswordMutation, { client }] = useMutation(
-    RESET_PASSWORD_MUTATION,
+    ResetPasswordMutation,
   );
 
-  const resetPassword = async ({ newPassword, token }) => {
+  const resetPassword = async (variables: {
+    newPlainPassword: string;
+    token: string;
+  }) => {
     const result = await resetPasswordMutation({
-      variables: { newPassword, token },
+      variables,
+      awaitRefetchQueries: true,
     });
     await client.resetStore();
     return result;

@@ -51,7 +51,7 @@ const ProductListItem = ({ product }) => {
       </div>
       <button
         type="button"
-        className="bg-white-500 absolute top-1 right-1 dark:text-white"
+        className="bg-white absolute top-1 right-1 dark:text-white"
         onClick={() =>
           filteredBookmark
             ? removeBookmark({

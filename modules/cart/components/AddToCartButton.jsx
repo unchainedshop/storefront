@@ -35,7 +35,7 @@ const AddToCartButton = ({ productId, ...product }) => {
       <div
         className={`${
           t.visible ? 'animate-enter' : 'animate-leave'
-        } max-w-lg w-full bg-white-50 shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5 animate-enter`}
+        } max-w-lg w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5 animate-enter`}
       >
         <div className="flex-1 w-0 p-4">
           <div className="flex items-start">
@@ -64,7 +64,7 @@ const AddToCartButton = ({ productId, ...product }) => {
               toast.dismiss(t.id);
               router.push('/checkout');
             }}
-            className="bg-white-50 border border-transparent rounded-none rounded-r-lg p-4 justify-center flex-col align-middle text-sm font-medium text-red-600 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-800"
+            className="bg-white border border-transparent rounded-none rounded-r-lg p-4 justify-center flex-col align-middle text-sm font-medium text-red-600 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-800"
           >
             <svg
               className="h-6 w-6 inline"
@@ -97,7 +97,7 @@ const AddToCartButton = ({ productId, ...product }) => {
             aria-label="decrease"
             type="button"
             onClick={decreaseQuantity}
-            className="w-20 h-9 hover:bg-white-50 focus:outline-none focus:ring-2 focus:ring-red-800 rounded-tl-md flex items-center justify-center"
+            className="w-20 h-9 hover:bg-white focus:outline-none focus:ring-2 focus:ring-red-800 rounded-tl-md flex items-center justify-center"
           >
             <span aria-label="minus icon">
               <MinusIcon className="h-5 w-5" />
@@ -105,7 +105,7 @@ const AddToCartButton = ({ productId, ...product }) => {
           </button>
 
           <input
-            className="text-center block w-full -my-px mx-[2px] border-slate-300 focus:ring-red-800 sm:text-sm bg-white-50"
+            className="text-center block w-full -my-px mx-[2px] border-slate-300 focus:ring-red-800 sm:text-sm bg-white"
             type="text"
             min={1}
             max={maxQuantity}
@@ -116,7 +116,7 @@ const AddToCartButton = ({ productId, ...product }) => {
             aria-label="increase"
             type="button"
             onClick={increaseQuantity}
-            className="w-20 h-9 hover:bg-white-50 focus:outline-none focus:ring-2 focus:ring-red-800 rounded-tr-md flex items-center justify-center"
+            className="w-20 h-9 hover:bg-white focus:outline-none focus:ring-2 focus:ring-red-800 rounded-tr-md flex items-center justify-center"
           >
             <span aria-label="plus icon">
               <PlusIcon className="h-5 w-5" />

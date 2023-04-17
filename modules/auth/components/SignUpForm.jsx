@@ -78,7 +78,7 @@ const SignUpForm = () => {
 
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8 bg-white-50">
+      <div className="w-full max-w-md space-y-8 bg-white">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold  dark:text-slate-200">
             Account erstellen
@@ -202,7 +202,7 @@ const SignUpForm = () => {
 
           <div className="text-sm text-slate-400 dark:text-slate-200">
             Already got a user?
-            <Link href="/log-in" legacyBehavior>
+            <Link href="/login" legacyBehavior>
               <a className=" ml-2 font-medium text-red-600 hover:text-red-500 dark:text-red-400 dark:hover:text-red-300">
                 Log in
               </a>

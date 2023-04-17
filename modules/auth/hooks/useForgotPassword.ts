@@ -1,7 +1,7 @@
 import { useMutation, gql } from '@apollo/client';
 
 const ForgotPasswordMutation = gql`
-  mutation forgotPassword($email: String!) {
+  mutation ForgotPassword($email: String!) {
     forgotPassword(email: $email) {
       success
     }
@@ -9,16 +9,17 @@ const ForgotPasswordMutation = gql`
 `;
 
 const useForgotPassword = () => {
-  const [forgotPasswordMutation] = useMutation(ForgotPasswordMutation, {
-    errorPolicy: 'all',
-  });
+  const [forgotPasswordMutation] = useMutation(ForgotPasswordMutation);
 
   const forgotPassword = async ({ email }) => {
-    const result = await forgotPasswordMutation({ variables: { email } });
-    return result;
+    return forgotPasswordMutation({
+      variables: { email },
+    });
   };
 
-  return { forgotPassword };
+  return {
+    forgotPassword,
+  };
 };
 
 export default useForgotPassword;

@@ -72,7 +72,7 @@ const CheckoutContact = ({ cart, isInitial }) => {
       {showLogin && editMode && (
         <div className="text-red-500">
           E-Mail address is not available, please
-          <Link href="/log-in" legacyBehavior>
+          <Link href="/login" legacyBehavior>
             <a className="inline-flex  items-center justify-center text-center text-sm font-medium leading-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-800 text-red-700 hover:text-red-500">
               <span className="ml-2">sign in</span>
             </a>

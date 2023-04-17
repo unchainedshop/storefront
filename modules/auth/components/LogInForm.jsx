@@ -24,7 +24,7 @@ const GetCurrentStep = ({
   switch (parseInt(step, 10)) {
     case 2:
       return (
-        <div className="bg-white-50">
+        <div className="bg-white">
           <label
             htmlFor="password"
             className="block text-sm font-medium text-brown-600"
@@ -196,7 +196,7 @@ const LogInForm = () => {
           </button>
         )}
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md bg-white-50">
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md bg-white">
           <div
             className={classNames('py-8 px-4 shadow sm:rounded-lg sm:px-10')}
           >
@@ -242,7 +242,7 @@ const LogInForm = () => {
                   <div className="w-full border-t border-slate-300" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-white-50 px-2 text-slate-500">
+                  <span className="bg-white px-2 text-slate-500">
                     Oder weiter mit
                   </span>
                 </div>
