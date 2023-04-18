@@ -19,7 +19,7 @@ const VerifyEmail = () => {
           success: true,
         });
       } catch (e) {
-        if (e.message.includes('expired'))
+        if ((e as any).message.includes('expired'))
           setResult({
             success: false,
             message: 'Verification token expired',
@@ -36,17 +36,17 @@ const VerifyEmail = () => {
 
   if (result.success === null) return <Loading />;
   return (
-    <div className="flex items-center justify-center min-h-screen p-5 bg-blue-100 min-w-screen">
+    <div className="flex items-center justify-center min-h-screen p-5 dark:bg-slate-500 min-w-screen">
       <div
         className={classNames(
-          'max-w-xl p-8 text-center  bg-white shadow-xl lg:max-w-3xl rounded-3xl lg:p-12',
+          'max-w-xl p-8 text-center  bg-white shadow-xl lg:max-w-3xl rounded-3xl lg:p-12 ',
           {
             'text-stone-800': result.success,
             'text-red-800': !result.success,
           },
         )}
       >
-        <h3 className="text-2xl">
+        <h3 className="text-2xl text-slate-800">
           {result.success ? 'Email Verified successfully' : result.message}
         </h3>
         <div className="flex justify-center">
@@ -83,7 +83,7 @@ const VerifyEmail = () => {
           )}
         </div>
 
-        <p>
+        <p className="text-slate-800">
           {result.success
             ? 'Thank you for verifying your email address'
             : 'Please resend another verification email and try to verify again'}
@@ -92,7 +92,7 @@ const VerifyEmail = () => {
           <Link href="/" legacyBehavior>
             <a
               type="button"
-              className="px-4 py-2 text-blue-200 bg-blue-600 rounded"
+              className="px-4 py-2 text-white bg-slate-800 rounded"
             >
               Go to home
             </a>

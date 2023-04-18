@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import dynamic from 'next/dynamic';
+import { useIntl } from 'react-intl';
 import useGenerateLoginCredentials from '../hooks/useGenerateLoginCredentials';
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
 
@@ -74,6 +75,7 @@ const GetCurrentStep = ({
 
 const LogInForm = () => {
   const router = useRouter();
+  const { formatMessage } = useIntl();
   const { logInWithPassword } = useLoginWithPassword();
   const { loginWithWebAuthn } = useLoginWithWebAuthn();
   const [showPasswordNav, setShowPasswordNav] = useState(false);
@@ -172,13 +174,13 @@ const LogInForm = () => {
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight ">
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight dark:text-white ">
             Anmelden
           </h2>
-          <p className="mt-2 text-center text-sm text-slate-600">
+          <p className="mt-2 text-center text-sm text-slate-600 dark:text-white">
             Hast du dein
             <Link href="/forgot-password" legacyBehavior>
-              <a className="ml-1 font-medium text-red-600 hover:text-red-500">
+              <a className="ml-1 font-medium text-slate-600 hover:text-slate-800 dark:text-white">
                 Passwort vergessen?
               </a>
             </Link>
@@ -196,7 +198,7 @@ const LogInForm = () => {
           </button>
         )}
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md bg-white">
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md bg-white dark:bg-slate-500">
           <div
             className={classNames('py-8 px-4 shadow sm:rounded-lg sm:px-10')}
           >
@@ -224,15 +226,18 @@ const LogInForm = () => {
                     type="submit"
                     id="submit"
                     name="submit"
-                    value="Continue"
-                    className="flex w-full justify-center rounded-md border border-transparent bg-red-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2"
+                    value={formatMessage({
+                      id: 'continue',
+                      defaultMessage: 'Continue',
+                    })}
+                    className="flex w-full justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"
                   />
                 </div>
               </form>
-              <div className="text-sm text-slate-400 dark:text-slate-200">
+              <div className="text-sm text-slate-800 dark:text-slate-200">
                 Hast du keinen Account?
                 <Link href="/sign-up" legacyBehavior>
-                  <a className="ml-1 font-medium text-red-600 hover:text-red-500 dark:text-red-400 dark:hover:text-red-300">
+                  <a className="ml-1 font-medium text-slate-600 hover:text-slate-800 dark:text-slate-800 ">
                     Jetzt Registrieren
                   </a>
                 </Link>

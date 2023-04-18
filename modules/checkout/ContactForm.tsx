@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
+import Button from '../common/components/Button';
 
 const ContactForm = ({ contact, onSubmit, onCancel }) => {
   const {
@@ -11,7 +12,7 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
   } = useForm<any>({
     defaultValues: contact,
   });
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
 
   const submitHandler = handleSubmit(async (data) => {
     try {
@@ -27,7 +28,7 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
     <form className="form" onSubmit={handleSubmit(submitHandler)}>
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {intl.formatMessage({
+          {formatMessage({
             id: 'email',
             defaultMessage: 'E-Mail Address',
           })}
@@ -49,7 +50,7 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
       </div>
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {intl.formatMessage({
+          {formatMessage({
             id: 'telNumber',
             defaultMessage: 'Mobile Phone',
           })}
@@ -72,21 +73,21 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
         <div className="text-red-600">{errors.root.message as string}</div>
       )}
       <div className="pt-3">
-        <input
-          type="submit"
-          className="mr-1 rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2 focus:ring-offset-slate-50"
-          value={intl.formatMessage({
+        <Button
+          text={formatMessage({
             id: 'save_contact',
             defaultMessage: 'Save Contact Data',
           })}
+          type="submit"
+          className="inline-flex justify-center mt-2 mr-1 rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
         />
-        <input
-          type="button"
-          className="inline-flex items-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2"
-          value={intl.formatMessage({
+        <Button
+          text={formatMessage({
             id: 'cancel',
             defaultMessage: 'Cancel',
           })}
+          type="button"
+          className="inline-flex justify-center mt-2 mr-1 rounded-md border border-transparent bg-white py-2 px-4 text-sm font-medium  slate-800 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:ring-offset-2"
           onClick={onCancel}
         />
       </div>

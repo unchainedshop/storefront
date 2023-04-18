@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
+import Button from '../common/components/Button';
 
 import COUNTRIES from '../common/data/countries-list';
 
@@ -16,7 +17,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
       ...address,
     },
   });
-  const intl = useIntl();
+  const { formatMessage } = useIntl();
 
   const submitHandler = handleSubmit(async (data) => {
     try {
@@ -32,7 +33,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
     <form className="form" onSubmit={submitHandler}>
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {intl.formatMessage({
+          {formatMessage({
             id: 'first_name',
             defaultMessage: 'Firstname',
           })}
@@ -53,7 +54,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
       </div>
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {intl.formatMessage({
+          {formatMessage({
             id: 'last_name',
             defaultMessage: 'Lastname',
           })}
@@ -73,11 +74,11 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
       </div>
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {intl.formatMessage({
+          {formatMessage({
             id: 'company',
             defaultMessage: 'Company Name',
           })}{' '}
-          {intl.formatMessage({
+          {formatMessage({
             id: 'optional',
             defaultMessage: '(Optional)',
           })}
@@ -97,7 +98,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
       </div>
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {intl.formatMessage({ id: 'address', defaultMessage: 'Address' })}
+          {formatMessage({ id: 'address', defaultMessage: 'Address' })}
         </label>
         <input
           className={classNames(
@@ -126,7 +127,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
       </div>
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {intl.formatMessage({
+          {formatMessage({
             id: 'postal_code',
             defaultMessage: 'Postal Code / ZIP',
           })}
@@ -163,9 +164,8 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
       </div>
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {intl.formatMessage({ id: 'region', defaultMessage: 'Region' })}{' '}
-          {'  '}{' '}
-          {intl.formatMessage({
+          {formatMessage({ id: 'region', defaultMessage: 'Region' })} {'  '}{' '}
+          {formatMessage({
             id: 'optional',
             defaultMessage: '(Optional)',
           })}
@@ -185,7 +185,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
       </div>
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {intl.formatMessage({ id: 'country', defaultMessage: 'Country' })}
+          {formatMessage({ id: 'country', defaultMessage: 'Country' })}
         </label>
         <select
           className={classNames(
@@ -211,23 +211,25 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
         <div className="text-red-600">{errors.root.message as string}</div>
       )}
       <div className="pt-3">
-        <input
-          type="submit"
-          className="mr-1 rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2 focus:ring-offset-slate-50"
-          value={intl.formatMessage({
-            id: 'save_address',
-            defaultMessage: 'Save Address',
-          })}
-        />
-        <input
-          type="button"
-          className="inline-flex items-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-700 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2"
-          value={intl.formatMessage({
-            id: 'cancel',
-            defaultMessage: 'Cancel',
-          })}
-          onClick={onCancel}
-        />
+        <div className="pt-3">
+          <Button
+            text={formatMessage({
+              id: 'save_address',
+              defaultMessage: 'Save Address',
+            })}
+            type="submit"
+            className="inline-flex justify-center mt-2 mr-1 rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+          />
+          <Button
+            text={formatMessage({
+              id: 'cancel',
+              defaultMessage: 'Cancel',
+            })}
+            type="button"
+            className="inline-flex justify-center mt-2 mr-1 rounded-md border border-transparent bg-white py-2 px-4 text-sm font-medium  slate-800 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:ring-offset-2"
+            onClick={onCancel}
+          />
+        </div>
       </div>
     </form>
   );

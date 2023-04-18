@@ -24,8 +24,6 @@ const OrderDetailComponent = ({ order }) => {
 
   const { user } = useUser();
 
-  console.log(order);
-
   return (
     <div className="bg-slate-50 dark:bg-slate-600">
       <div className="mx-auto max-w-full px-4 pt-16 sm:py-24 sm:px-6 lg:max-w-full lg:px-8">
@@ -62,12 +60,12 @@ const OrderDetailComponent = ({ order }) => {
             })}
           </h2>
 
-          <div className="mt-6 grid grid-cols-1 gap-8 border-slate-200 text-sm font-medium text-slate-500 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 flex flex-wrap  justify-between">
             {order?.items?.map((item) => (
               <Link
                 key={item._id}
                 href={`/product/${item?.product?.texts?.slug}`}
-                className="flex w-full rounded-lg border border-t border-b border-slate-200 bg-white shadow-sm transition-transform hover:scale-105 hover:border-indigo-600 dark:bg-slate-600 dark:hover:border-sky-400 md:px-0"
+                className="rounded-lg w-50 border border-t border-b border-slate-200 bg-white shadow-sm transition-transform hover:scale-105 hover:border-indigo-600 dark:bg-slate-600 dark:hover:border-sky-400 md:px-0"
               >
                 <div className="flex w-full justify-between p-4">
                   <div className="flex">
