@@ -38,7 +38,6 @@ const httpLink = new HttpLink({
 
 function createApolloClient({ locale }) {
   const middlewareLink = new ApolloLink((operation, forward) => {
-    // add the authorization to the headers
     const headers = {};
     if (locale) {
       headers['accept-language'] = locale;
@@ -70,7 +69,10 @@ function createApolloClient({ locale }) {
   });
 }
 
-export function initializeApollo(initialState = null, { locale } = {}) {
+export function initializeApollo(
+  initialState = null,
+  { locale } = { locale: null },
+) {
   const tempApolloClient =
     apolloClient ??
     createApolloClient({

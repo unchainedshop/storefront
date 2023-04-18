@@ -1,22 +1,10 @@
-import { useState, useEffect } from 'react';
+const GoogleOauth = ({ providers }) => {
+  const googleClientProvider = (providers || []).find(
+    ({ name }) => name === 'google',
+  );
+  if (!googleClientProvider) return null;
 
-const getClientId = async () => {
-  const result = await fetch('/api/runtime-config');
-  const json = await result.json();
-  return json.oAuthClientId;
-};
-
-let getClientIdPromise;
-
-const GoogleOauth = () => {
-  const [clientId, setClientId] = useState(null);
-
-  useEffect(() => {
-    getClientIdPromise = getClientIdPromise || getClientId();
-    getClientIdPromise.then(setClientId);
-  }, []);
-
-  if (!clientId) return null;
+  const { clientId } = googleClientProvider;
 
   const redirectUrl = `${window.location.origin}/oauth`;
   return (
@@ -28,7 +16,7 @@ const GoogleOauth = () => {
               +https://www.googleapis.com/auth/userinfo.profile
               +https://www.googleapis.com/auth/user.addresses.read
               +https://www.googleapis.com/auth/user.birthday.read                  
-              &state=GOOGLE`.replaceAll(' ', '')}
+              &state=google`.replaceAll(' ', '')}
       className="group relative flex w-full rounded-md border border-slate-300 hover:bg-slate-50 py-2 px-4 items-center font-medium  focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2"
     >
       <svg

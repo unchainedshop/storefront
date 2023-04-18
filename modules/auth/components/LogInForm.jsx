@@ -10,6 +10,8 @@ import useGenerateLoginCredentials from '../hooks/useGenerateLoginCredentials';
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
 
 import useLoginWithWebAuthn from '../hooks/useLoginWithWebAuthn';
+import useShopInfo from '../../common/hooks/useShopInfo';
+import LinkedInOauth from './LinkedInOauth';
 
 const GoogleOauth = dynamic(() => import('./GoogleOauth'), {
   ssr: false,
@@ -75,6 +77,7 @@ const GetCurrentStep = ({
 
 const LogInForm = () => {
   const router = useRouter();
+  const { shopInfo } = useShopInfo();
   const { formatMessage } = useIntl();
   const { logInWithPassword } = useLoginWithPassword();
   const { loginWithWebAuthn } = useLoginWithWebAuthn();
@@ -253,7 +256,8 @@ const LogInForm = () => {
                 </div>
               </div>
               <div>
-                <GoogleOauth />
+                <GoogleOauth providers={shopInfo?.oauthProviders} />
+                <LinkedInOauth providers={shopInfo?.oauthProviders} />
               </div>
             </div>
           </div>
