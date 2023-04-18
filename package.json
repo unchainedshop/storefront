@@ -10,7 +10,7 @@
     "npm": ">=8.0.0"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.10",
+    "@apollo/client": "^3.7.12",
     "@coingecko/cryptoformat": "^0.5.4",
     "@formatjs/intl-datetimeformat": "^6.5.1",
     "@formatjs/intl-numberformat": "^8.3.5",
