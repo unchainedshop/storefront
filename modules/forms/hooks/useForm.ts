@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useFormik, FormikValues, FormikErrors, FormikTouched } from 'formik';
 import { useIntl } from 'react-intl';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import clean from '../lib/clean';
 
 type OnSubmitSuccessType = (

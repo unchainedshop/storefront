@@ -2,7 +2,6 @@ import React from 'react';
 import { Toaster } from 'react-hot-toast';
 import { ApolloProvider } from '@apollo/client';
 
-import { ToastContainer } from 'react-toastify';
 import IntlWrapper from '../modules/i18n/components/IntlWrapper';
 import { useApollo } from '../modules/apollo/apolloClient';
 import Layout from '../modules/layout/components/Layout';
@@ -25,15 +24,6 @@ const UnchainedApp = ({ Component, pageProps, router }) => {
       <AppContextWrapper defaultCurrency={defaultCurrency}>
         <ApolloProvider client={apollo}>
           <Toaster />
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            newestOnTop={false}
-            closeOnClick
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
           <Layout>
             <Component {...pageProps} />
           </Layout>
