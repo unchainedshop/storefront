@@ -1,6 +1,7 @@
 import { useIntl } from 'react-intl';
 import useUser from '../modules/auth/hooks/useUser';
-import LoadingItem from '../modules/common/components/LoadingItem';
+import Loading from '../modules/common/components/Loading';
+
 import MetaTags from '../modules/common/components/MetaTags';
 import ProductList from '../modules/products/components/ProductList';
 
@@ -23,7 +24,7 @@ const Bookmarks = () => {
             })}
           </h1>
           {loading ? (
-            <LoadingItem />
+            <Loading />
           ) : (
             <ProductList
               onLoadMore={undefined}

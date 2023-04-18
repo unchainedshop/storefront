@@ -2,7 +2,7 @@ import { useIntl } from 'react-intl';
 
 import CategoryListItem from '../../modules/assortment/components/CategoryListItem';
 import useAssortments from '../../modules/assortment/hooks/useAssortments';
-import LoadingItem from '../../modules/common/components/LoadingItem';
+import Loading from '../../modules/common/components/Loading';
 import MetaTags from '../../modules/common/components/MetaTags';
 
 const Categories = () => {
@@ -19,7 +19,7 @@ const Categories = () => {
       />
       <div className="relative w-full bg-white dark:bg-slate-600">
         {loading ? (
-          <LoadingItem />
+          <Loading />
         ) : (
           <section aria-labelledby="favorites-heading">
             <div className="max-w-full pl-4 pt-16 sm:pl-6 sm:pt-24 lg:pl-8">

@@ -3,11 +3,12 @@ import { useIntl } from 'react-intl';
 
 import Link from 'next/link';
 import Image from 'next/legacy/image';
-import LoadingItem from '../modules/common/components/LoadingItem';
+
 import MetaTags from '../modules/common/components/MetaTags';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
 import useProducts from '../modules/products/hooks/useProducts';
 import ProductListItem from '../modules/products/components/ProductListItem';
+import Loading from '../modules/common/components/Loading';
 
 const {
   publicRuntimeConfig: { theme },
@@ -37,7 +38,7 @@ const Home = () => {
         </div>
 
         {loading ? (
-          <LoadingItem />
+          <Loading />
         ) : (
           products.length !== 0 && (
             <div>

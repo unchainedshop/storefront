@@ -118,7 +118,8 @@ const CryptopayCheckoutButton = ({ order }) => {
     }
   };
 
-  const payWithMetaMask = async () => {
+  // eslint-disable-next-line no-unused-vars
+  const payWithMetaMask = async (orderId, price) => {
     // TODO: DO THIS!
   };
 

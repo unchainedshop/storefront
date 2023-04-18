@@ -1,10 +1,11 @@
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
-import LoadingItem from '../../modules/common/components/LoadingItem';
+
 import MetaTags from '../../modules/common/components/MetaTags';
 import OrderList from '../../modules/orders/components/OrderList';
 import useOrderList from '../../modules/orders/hooks/useUserOrderList';
 import useRedirect from '../../modules/auth/hooks/useRedirect';
+import Loading from '../../modules/common/components/Loading';
 
 const Order = () => {
   const { orders, loading } = useOrderList();
@@ -36,7 +37,7 @@ const Order = () => {
         title={formatMessage({ id: 'my_orders', defaultMessage: 'My orders' })}
       />
       {loading ? (
-        <LoadingItem />
+        <Loading />
       ) : (
         <OrderList
           orders={orders}

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useIntl } from 'react-intl';
 import Loading from '../modules/common/components/Loading';
 import useVerifyEmail from '../modules/auth/hooks/useVerifyEmail';
 
 const VerifyEmail = () => {
   const { query } = useRouter();
   const { verifyEmail } = useVerifyEmail();
+  const { formatMessage } = useIntl();
   const [result, setResult] = useState({ success: null, message: null });
 
   useEffect(() => {
@@ -22,12 +24,18 @@ const VerifyEmail = () => {
         if ((e as any).message.includes('expired'))
           setResult({
             success: false,
-            message: 'Verification token expired',
+            message: formatMessage({
+              id: 'verification-token-expired',
+              defaultMessage: 'Verification token expired',
+            }),
           });
         else
           setResult({
             success: false,
-            message: 'Email verification failed',
+            message: formatMessage({
+              id: 'verification-failed',
+              defaultMessage: 'Verification Failed',
+            }),
           });
       }
     };
@@ -85,8 +93,15 @@ const VerifyEmail = () => {
 
         <p className="text-slate-800">
           {result.success
-            ? 'Thank you for verifying your email address'
-            : 'Please resend another verification email and try to verify again'}
+            ? formatMessage({
+                id: 'thank-you-for-verifying',
+                defaultMessage: 'Thank you for verifying your email address',
+              })
+            : formatMessage({
+                id: 'resend-another-verification',
+                defaultMessage:
+                  'Please resend another verification email and try to verify again',
+              })}
         </p>
         <div className="mt-4">
           <Link href="/" legacyBehavior>
@@ -94,7 +109,10 @@ const VerifyEmail = () => {
               type="button"
               className="px-4 py-2 text-white bg-slate-800 rounded"
             >
-              Go to home
+              {formatMessage({
+                id: 'go-home',
+                defaultMessage: 'Go to home',
+              })}
             </a>
           </Link>
         </div>

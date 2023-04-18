@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 
-import LoadingItem from '../../../modules/common/components/LoadingItem';
 import MetaTags from '../../../modules/common/components/MetaTags';
 import useOrderDetail from '../../../modules/orders/hooks/useOrderDetail';
 import NotFound from '../../404';
 import useRedirect from '../../../modules/auth/hooks/useRedirect';
+import Loading from '../../../modules/common/components/Loading';
 
 const OrderDetail = () => {
   const router = useRouter();
@@ -33,7 +33,7 @@ const OrderDetail = () => {
           },
         )}`}
       />
-      {loading && !order ? <LoadingItem /> : <span>🙌</span>}
+      {loading && !order ? <Loading /> : <span>🙌</span>}
     </>
   );
 };

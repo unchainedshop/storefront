@@ -6,8 +6,9 @@ import AssortmentBreadcrumbs from '../../modules/assortment/components/Assortmen
 import ProductList from '../../modules/products/components/ProductList';
 import MetaTags from '../../modules/common/components/MetaTags';
 import useCategoriesTree from '../../modules/assortment/hooks/useCategoriesTree';
-import LoadingItem from '../../modules/common/components/LoadingItem';
+
 import getMediaUrl from '../../modules/common/utils/getMediaUrl';
+import Loading from '../../modules/common/components/Loading';
 
 const CategoryDetail = () => {
   const router = useRouter();
@@ -56,7 +57,7 @@ const CategoryDetail = () => {
         </div>
         <div className="relative w-full p-4 pl-1 md:max-w-1/3 md:flex-4 lg:max-w-1/4 lg:flex-5">
           {categoryTreeLoading ? (
-            <LoadingItem />
+            <Loading />
           ) : (
             <CategoriesList
               assortment={assortmentTree.children}
@@ -73,7 +74,7 @@ const CategoryDetail = () => {
             <p>{texts?.description}</p>
           </div>
           {productsLoading ? (
-            <LoadingItem />
+            <Loading />
           ) : (
             <ProductList
               onLoadMore={loadMore}

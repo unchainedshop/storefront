@@ -1,8 +1,10 @@
+import { useIntl } from 'react-intl';
 import ForgotPasswordForm from '../modules/auth/components/ForgotPasswordForm';
 import useForgotPassword from '../modules/auth/hooks/useForgotPassword';
 
 const ForgotPassword = () => {
   const { forgotPassword } = useForgotPassword();
+  const { formatMessage } = useIntl();
   const onSubmit = async ({ email }) => {
     const { data } = await forgotPassword({ email });
     return data.forgotPassword;
@@ -12,11 +14,17 @@ const ForgotPassword = () => {
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 dark:text-white">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight ">
-          Forgot your password?
+          {formatMessage({
+            id: 'forgot-password',
+            defaultMessage: 'Forgot your password?',
+          })}
         </h2>
         <p className="mt-2 text-center text-sm text-slate-600 dark:text-white">
-          Enter your email address below and we&apos;ll send you an email with a
-          link to reset your password!
+          {formatMessage({
+            id: 'forgot-password-description',
+            defaultMessage:
+              "Enter your email address below and we'll send you an email with a link to reset your password!",
+          })}
         </p>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <ForgotPasswordForm onSubmit={onSubmit} />

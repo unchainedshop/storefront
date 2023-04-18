@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 
 import useChangePassword from '../../modules/auth/hooks/useChangePassword';
-import LoadingItem from '../../modules/common/components/LoadingItem';
+import Loading from '../../modules/common/components/Loading';
 import MetaTags from '../../modules/common/components/MetaTags';
 import PasswordVisible from '../../modules/common/components/PasswordVisible';
 
@@ -60,7 +60,7 @@ const ChangePassword = () => {
       />
       <div className="bg-slate-100 dark:bg-slate-600">
         {loading ? (
-          <LoadingItem />
+          <Loading />
         ) : (
           <div className="mx-auto mt-5 w-full p-10 sm:max-w-md md:max-w-lg lg:max-w-xl">
             <div className="rounded-lg border bg-white p-4 shadow-sm dark:bg-slate-500">

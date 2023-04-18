@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useIntl } from 'react-intl';
 import Toggle from '../../common/components/Toggle';
 import useCreateUser from '../hooks/useCreateUser';
 
@@ -8,6 +9,7 @@ import useGenerateWebAuthCredentials from '../hooks/useGenerateWebAuthCredential
 
 const SignUpForm = () => {
   const router = useRouter();
+  const { formatMessage } = useIntl();
   const { generateWebAuthCredentials } = useGenerateWebAuthCredentials();
   const [username, setUserName] = useState(null);
   const [email, setEmail] = useState(null);
@@ -81,7 +83,10 @@ const SignUpForm = () => {
       <div className="w-full max-w-md space-y-8 bg-white dark:bg-slate-500">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold  dark:text-slate-200">
-            Account erstellen
+            {formatMessage({
+              id: 'create-account',
+              defaultMessage: 'Create account',
+            })}
           </h2>
         </div>
         <form
@@ -96,7 +101,10 @@ const SignUpForm = () => {
                   htmlFor="username"
                   className="block text-sm font-medium text-brown-600"
                 >
-                  Username
+                  {formatMessage({
+                    id: 'username',
+                    defaultMessage: 'Username',
+                  })}
                 </label>
                 <input
                   id="username"
@@ -118,7 +126,10 @@ const SignUpForm = () => {
                     htmlFor="email"
                     className="block text-sm font-medium text-brown-600"
                   >
-                    Email
+                    {formatMessage({
+                      id: 'email',
+                      defaultMessage: 'Email',
+                    })}
                   </label>
                   <input
                     id="email"
@@ -137,7 +148,10 @@ const SignUpForm = () => {
                     htmlFor="password"
                     className="block text-sm font-medium text-brown-600"
                   >
-                    Password
+                    {formatMessage({
+                      id: 'password',
+                      defaultMessage: 'Password',
+                    })}
                   </label>
                   <input
                     id="password"
@@ -145,9 +159,7 @@ const SignUpForm = () => {
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
                     value={password || ''}
-                    autoComplete="current-password"
                     required
-                    label="Password"
                     className="bg-beige mt-1 block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 shadow-sm focus:border-red-500 focus:outline-none focus:ring-red-800 sm:text-sm"
                   />
                 </div>
@@ -160,17 +172,21 @@ const SignUpForm = () => {
               className="my-3 flex items-center"
             />
             <p className="text-sm text-slate-500 dark:text-white">
-              Authenticator give you a simple and secure way to sign in without
-              passwords by relying on Face ID or Touch ID using your phone or
-              external Passkeys eg. Apple passkey to identify you when you sign
-              in.
+              {formatMessage({
+                id: 'webauthn-brief-description',
+                defaultMessage:
+                  'Authenticator give you a simple and secure way to sign in without passwords by relying on Face ID or Touch ID using your phone or external Passkeys eg. Apple passkey to identify you when you sign in.',
+              })}
+
               <a
                 href="https://webauthn.guide/#intro"
                 target="__blank"
                 className="font-medium text-red-600 hover:text-red-500 dark:text-red-400 dark:hover:text-red-300"
               >
-                {' '}
-                More info
+                {formatMessage({
+                  id: 'more-info',
+                  defaultMessage: 'More info',
+                })}
               </a>
             </p>
           </div>
@@ -196,15 +212,24 @@ const SignUpForm = () => {
                   />
                 </svg>
               </span>
-              Sign up
+              {formatMessage({
+                id: 'sign-up',
+                defaultMessage: 'Sign up',
+              })}
             </button>
           </div>
 
           <div className="text-sm text-slate-800 dark:text-slate-800">
-            Already got a user?
+            {formatMessage({
+              id: 'already-registered',
+              defaultMessage: 'Already registered?',
+            })}
             <Link href="/login" legacyBehavior>
               <a className=" ml-2 font-medium text-slate-600 hover:text-slate-500 dark:text-slate-800 dark:hover:text-slate-700">
-                Log in
+                {formatMessage({
+                  id: 'log-in',
+                  defaultMessage: 'Log in',
+                })}
               </a>
             </Link>
           </div>

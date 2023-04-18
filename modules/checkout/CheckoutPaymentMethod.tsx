@@ -1,32 +1,14 @@
-import { gql, useMutation } from '@apollo/client';
 import dynamic from 'next/dynamic';
 
+import { useIntl } from 'react-intl';
 import CryptopayCheckoutButton from './CryptopayCheckoutButton';
 import InvoiceCheckoutButton from './InvoiceCheckoutButton';
 import DatatransCheckoutButton from './DatatransCheckoutButton';
+import useUpdateCartPayment from '../cart/hooks/useUpdateCartPayment';
 
 const StripeCheckoutButton = dynamic(() => import('./StripeCheckoutButton'), {
   ssr: false,
 });
-
-export const UPDATE_CART_PAYMENT_PROVIDER_MUTATION = gql`
-  mutation UpdateCartPaymentProvider($paymentProviderId: ID) {
-    updateCart(paymentProviderId: $paymentProviderId) {
-      _id
-      payment {
-        _id
-        provider {
-          _id
-        }
-      }
-      status
-      total {
-        amount
-        currency
-      }
-    }
-  }
-`;
 
 const CheckoutButtons = {
   'shop.unchained.payment.cryptopay': CryptopayCheckoutButton,
@@ -36,16 +18,15 @@ const CheckoutButtons = {
 };
 
 const CheckoutPaymentMethod = ({ cart }) => {
-  const [updateOrderPaymentProviderMutation] = useMutation(
-    UPDATE_CART_PAYMENT_PROVIDER_MUTATION,
-  );
+  const { updateCartPayment } = useUpdateCartPayment();
+  const { formatMessage } = useIntl();
 
   const setPaymentProvider = async (event) => {
     const formData = new FormData(event.target.form);
     const paymentProviderId = formData.get('paymentProviderId');
     try {
-      await updateOrderPaymentProviderMutation({
-        variables: { paymentProviderId },
+      await updateCartPayment({
+        paymentProviderId,
       });
     } catch (e) {
       event.target.form.reset();
@@ -58,7 +39,12 @@ const CheckoutPaymentMethod = ({ cart }) => {
   return (
     <div className="mt-6">
       <form>
-        <h2 className="text-lg font-medium  mb-4">Payment Method</h2>
+        <h2 className="text-lg font-medium  mb-4">
+          {formatMessage({
+            id: 'payment-method',
+            defaultMessage: 'Payment method',
+          })}
+        </h2>
         <div className="space-y-4">
           {cart.supportedPaymentProviders.map((provider) => (
             <div className="flex items-center" key={provider._id}>

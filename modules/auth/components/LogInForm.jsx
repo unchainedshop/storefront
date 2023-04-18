@@ -24,6 +24,7 @@ const GetCurrentStep = ({
   password,
   setPassword,
 }) => {
+  const { formatMessage } = useIntl();
   switch (parseInt(step, 10)) {
     case 2:
       return (
@@ -32,7 +33,10 @@ const GetCurrentStep = ({
             htmlFor="password"
             className="block text-sm font-medium text-brown-600"
           >
-            Password
+            {formatMessage({
+              id: 'password',
+              defaultMessage: 'Password',
+            })}
           </label>
           <div className="mt-1">
             <input
@@ -40,7 +44,6 @@ const GetCurrentStep = ({
               name="password"
               type="password"
               autoFocus // eslint-disable-line
-              autoComplete="current-password password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -56,7 +59,10 @@ const GetCurrentStep = ({
             htmlFor="username-or-email"
             className="block text-sm font-medium text-brown-600"
           >
-            Username / Email
+            {formatMessage({
+              id: 'username-or-email',
+              defaultMessage: 'Username / Email',
+            })}
           </label>
           <div className="mt-1">
             <input
@@ -112,14 +118,34 @@ const LogInForm = () => {
   const handleError = (formError) => {
     const message = formError?.message?.toLowerCase();
     if (message.includes('invalid credentials')) {
-      setError('Invalid credential, please try again');
+      setError(
+        formatMessage({
+          id: 'invalid-credential-error',
+          defaultMessage: 'Invalid credential, please try again',
+        }),
+      );
     } else if (message.includes('no password set')) {
-      setError('User password not set');
+      setError(
+        formatMessage({
+          id: 'no-password-set-error',
+          defaultMessage: 'User password not set',
+        }),
+      );
     } else if (message.includes('operation either timed out')) {
       setShowPasswordNav(true);
-      setError('Operation timed out, please try again.');
+      setError(
+        formatMessage({
+          id: 'operation-timeout-error',
+          defaultMessage: 'Operation timed out, please try again.',
+        }),
+      );
     } else if (message.includes('you have provided all required parameters')) {
-      setError('Email is required when logging in with password');
+      setError(
+        formatMessage({
+          id: 'email-required-login-error',
+          defaultMessage: 'Email is required when logging in with password',
+        }),
+      );
     } else {
       setError(message);
     }
@@ -178,14 +204,18 @@ const LogInForm = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight dark:text-white ">
-            Anmelden
+            {formatMessage({ id: 'register', defaultMessage: 'Register' })}
           </h2>
           <p className="mt-2 text-center text-sm text-slate-600 dark:text-white">
-            Hast du dein
-            <Link href="/forgot-password" legacyBehavior>
-              <a className="ml-1 font-medium text-slate-600 hover:text-slate-800 dark:text-white">
-                Passwort vergessen?
-              </a>
+            {formatMessage({ id: 'did-you-forget', defaultMessage: 'Did you' })}
+            <Link
+              href="/forgot-password"
+              className="ml-1 font-medium text-slate-600 hover:text-slate-800 dark:text-white"
+            >
+              {formatMessage({
+                id: 'forgot-password',
+                defaultMessage: 'Forgot password?',
+              })}
             </Link>
           </p>
         </div>
@@ -197,7 +227,10 @@ const LogInForm = () => {
             onClick={previousStep}
             className="text-red-600 text-sm mx-auto block mt-5"
           >
-            ← Back
+            {formatMessage({
+              id: 'back',
+              defaultMessage: '← Back',
+            })}
           </button>
         )}
 
@@ -220,7 +253,10 @@ const LogInForm = () => {
                 {showPasswordNav && (
                   <p className="text-center font-extrabold text-red-700 cursor-pointer">
                     <button type="button" onClick={nextStep}>
-                      Or Use password to authenticate
+                      {formatMessage({
+                        id: 'use-password-to-authenticate',
+                        defaultMessage: 'Or Use password to authenticate',
+                      })}
                     </button>
                   </p>
                 )}
@@ -238,10 +274,16 @@ const LogInForm = () => {
                 </div>
               </form>
               <div className="text-sm text-slate-800 dark:text-slate-200">
-                Hast du keinen Account?
+                {formatMessage({
+                  id: 'dont-have-account',
+                  defaultMessage: `Don't have an account?`,
+                })}
                 <Link href="/sign-up" legacyBehavior>
                   <a className="ml-1 font-medium text-slate-600 hover:text-slate-800 dark:text-slate-800 ">
-                    Jetzt Registrieren
+                    {formatMessage({
+                      id: 'join-now',
+                      defaultMessage: 'Join now',
+                    })}
                   </a>
                 </Link>
               </div>
@@ -251,7 +293,10 @@ const LogInForm = () => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="bg-white px-2 text-slate-500">
-                    Oder weiter mit
+                    {formatMessage({
+                      id: 'log-in-or-continue',
+                      defaultMessage: 'Or continue',
+                    })}
                   </span>
                 </div>
               </div>

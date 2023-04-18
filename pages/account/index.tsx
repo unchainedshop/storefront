@@ -12,8 +12,9 @@ import useUser from '../../modules/auth/hooks/useUser';
 import MetaTags from '../../modules/common/components/MetaTags';
 import useRedirect from '../../modules/auth/hooks/useRedirect';
 import Address from '../../modules/common/components/Address';
-import LoadingItem from '../../modules/common/components/LoadingItem';
+
 import ProfileView from '../../modules/auth/components/ProfileView';
+import Loading from '../../modules/common/components/Loading';
 
 const subNavigation = [
   { name: 'General', href: '#profileview', icon: UserCircleIcon },
@@ -33,7 +34,7 @@ const Account = () => {
   useRedirect({ to: '/login', matchAnonymous: true, matchGuests: true });
 
   if (loading) {
-    return <LoadingItem />;
+    return <Loading />;
   }
 
   return (

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
+import { useIntl } from 'react-intl';
 import AddressForm from './AddressForm';
 import AddressPanel from './AddressPanel';
 
@@ -54,6 +55,7 @@ const EditableAddressPanel = ({ editing, address, onSubmit, onToggle }) => {
 };
 
 const CheckoutAddresses = ({ cart, isInitial }) => {
+  const { formatMessage } = useIntl();
   const [lastBillingAddress, setLastBillingAddress] = useState(null);
   const [billingAddressEditMode, setBillingAddressEditMode] = useState(false);
   const [deliveryAddressEditMode, setDeliveryAddressEditMode] =
@@ -150,7 +152,12 @@ const CheckoutAddresses = ({ cart, isInitial }) => {
   return (
     <>
       <div className="mb-6">
-        <h2 className="text-lg font-medium">Delivery Address</h2>
+        <h2 className="text-lg font-medium">
+          {formatMessage({
+            id: 'delivery-address',
+            defaultMessage: 'Delivery address',
+          })}
+        </h2>
         <EditableAddressPanel
           editing={deliveryAddressEditMode}
           address={deliveryAddress}
@@ -160,7 +167,12 @@ const CheckoutAddresses = ({ cart, isInitial }) => {
       </div>
 
       <div className="mb-6" hidden={isInitial}>
-        <h2 className="text-lg font-medium  mb-4">Billing Address</h2>
+        <h2 className="text-lg font-medium  mb-4">
+          {formatMessage({
+            id: 'billing-address',
+            defaultMessage: 'Billing address',
+          })}
+        </h2>
         <div className="flex items-center">
           <input
             id="isBillingAddressDifferent"
@@ -173,7 +185,10 @@ const CheckoutAddresses = ({ cart, isInitial }) => {
             htmlFor="isBillingAddressDifferent"
             className="ml-3 block text-sm font-medium text-brown-600"
           >
-            Billing Address Same as Delivery
+            {formatMessage({
+              id: 'billing-same-as-delivery',
+              defaultMessage: 'Billing Address Same as Delivery',
+            })}
           </label>
         </div>
         {isBillingAddressDifferent && (

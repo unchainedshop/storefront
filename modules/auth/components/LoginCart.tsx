@@ -19,7 +19,7 @@ const LoginCart = () => {
   const { formatMessage } = useIntl();
   const { isCartOpen, toggleCart } = useAppContext();
   const router = useRouter();
-  const apollo = useApollo({ locale: router.locale });
+  const apollo = useApollo({ locale: router.locale }, {});
 
   const onLogout = async () => {
     await logOut(apollo);

@@ -1,8 +1,10 @@
 import classNames from 'classnames';
 import { useState } from 'react';
+import { useIntl } from 'react-intl';
 
 const ForgotPasswordForm = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
+  const { formatMessage } = useIntl();
 
   const [message, setMessage] = useState(null);
   return (
@@ -35,7 +37,10 @@ const ForgotPasswordForm = ({ onSubmit }) => {
             htmlFor="email-address"
             className="block text-sm font-medium text-brown-600 dark:text-white"
           >
-            Email Address
+            {formatMessage({
+              id: 'email-address',
+              defaultMessage: 'Email Address',
+            })}
           </label>
           <div className="mt-1">
             <input
@@ -54,7 +59,10 @@ const ForgotPasswordForm = ({ onSubmit }) => {
           type="submit"
           className="flex w-full justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"
         >
-          Send reset link
+          {formatMessage({
+            id: 'send-reset-link',
+            defaultMessage: 'Send reset link',
+          })}
         </button>
         {message?.text && (
           <div

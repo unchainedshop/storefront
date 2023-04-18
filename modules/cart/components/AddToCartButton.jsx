@@ -8,9 +8,11 @@ import {
   CogIcon,
   CheckCircleIcon,
 } from '@heroicons/react/outline';
+import { useIntl } from 'react-intl';
 import useUnchainedAddToCartButton from '../hooks/useUnchainedAddToCartButton';
 
 const AddToCartButton = ({ productId, ...product }) => {
+  const { formatMessage } = useIntl();
   const {
     submitForm,
     increaseQuantity,
@@ -50,7 +52,11 @@ const AddToCartButton = ({ productId, ...product }) => {
               <p className="text-sm font-medium ">
                 {productTitle}
                 <div className="mt-2 text-sm font-medium text-green-600">
-                  {quantity} x zum Warenkorb hinzugefügt
+                  {quantity} x{' '}
+                  {formatMessage({
+                    id: 'added-to-cart',
+                    defaultMessage: 'Added to cart',
+                  })}
                 </div>
               </p>
               <p className="mt-1 text-sm text-slate-500">{productSubTitle}</p>
@@ -82,7 +88,12 @@ const AddToCartButton = ({ productId, ...product }) => {
               />
             </svg>
 
-            <div className="w-20">Checkout</div>
+            <div className="w-20">
+              {formatMessage({
+                id: 'checkout',
+                defaultMessage: 'Checkout',
+              })}
+            </div>
           </button>
         </div>
       </div>
@@ -132,7 +143,10 @@ const AddToCartButton = ({ productId, ...product }) => {
           {!isAddInProgress && !isAddedToCart && (
             <span aria-label="ok icon" className="flex justify-center w-full">
               <ShoppingCartIcon className="inline-block -ml-1 mr-2 h-5 w-5" />
-              In den Warenkorb
+              {formatMessage({
+                id: 'in-cart',
+                defaultMessage: 'In cart',
+              })}
             </span>
           )}
           {isAddedToCart && !isAddInProgress && (

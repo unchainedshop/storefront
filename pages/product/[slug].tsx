@@ -6,13 +6,13 @@ import { useIntl } from 'react-intl';
 import useProductDetail from '../../modules/products/hooks/useProductDetail';
 import AddToCartButton from '../../modules/cart/components/AddToCartButton';
 import formatPrice from '../../modules/common/utils/formatPrice';
-import LoadingItem from '../../modules/common/components/LoadingItem';
 import MetaTags from '../../modules/common/components/MetaTags';
 import getAssortmentPath from '../../modules/assortment/utils/getAssortmentPath';
 import AssortmentBreadcrumbs from '../../modules/assortment/components/AssortmentBreadcrumbs';
 import getMediaUrl from '../../modules/common/utils/getMediaUrl';
 import getMediaUrls from '../../modules/common/utils/getMediaUrls';
 import NotFound from '../404';
+import Loading from '../../modules/common/components/Loading';
 
 const Detail = () => {
   const router = useRouter();
@@ -40,7 +40,7 @@ const Detail = () => {
         description={product?.texts?.description}
       />
       {loading ? (
-        <LoadingItem />
+        <Loading />
       ) : (
         <div className="container mt-1">
           <div className="row">
