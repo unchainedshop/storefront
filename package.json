@@ -15,7 +15,7 @@
     "@formatjs/intl-datetimeformat": "^6.5.1",
     "@formatjs/intl-numberformat": "^8.3.5",
     "@formatjs/intl-pluralrules": "^5.1.10",
-    "@formatjs/intl-relativetimeformat": "^11.1.10",
+    "@formatjs/intl-relativetimeformat": "^11.2.0",
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^1.0.6",
     "@stripe/react-stripe-js": "^2.1.0",
