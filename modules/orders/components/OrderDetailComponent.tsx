@@ -65,7 +65,7 @@ const OrderDetailComponent = ({ order }) => {
               <Link
                 key={item._id}
                 href={`/product/${item?.product?.texts?.slug}`}
-                className="rounded-lg w-50 border border-t border-b border-slate-200 bg-white shadow-sm transition-transform hover:scale-105 hover:border-indigo-600 dark:bg-slate-600 dark:hover:border-sky-400 md:px-0"
+                className="rounded-lg w-50 border border-t border-b border-slate-200 bg-white shadow-sm transition-transform hover:scale-105 hover:border-slate-600 dark:bg-slate-600 dark:hover:border-dslate-400 md:px-0"
               >
                 <div className="flex w-full justify-between p-4">
                   <div className="flex">
@@ -352,7 +352,7 @@ const OrderDetailComponent = ({ order }) => {
                     defaultMessage: 'Subtotal',
                   })}
                 </dt>
-                <dd className="font-medium text-slate-900 dark:text-sky-400">
+                <dd className="font-medium text-slate-900 dark:text-dslate-400">
                   {formatPrice(order?.total)}
                 </dd>
               </div>
@@ -376,7 +376,7 @@ const OrderDetailComponent = ({ order }) => {
                     defaultMessage: 'Order total',
                   })}
                 </dt>
-                <dd className="font-medium text-indigo-600 dark:text-sky-400">
+                <dd className="font-medium text-slate-600 dark:text-dslate-400">
                   {formatPrice(order?.total)}
                 </dd>
               </div>

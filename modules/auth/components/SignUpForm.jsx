@@ -2,34 +2,29 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
+import ImageWithFallback from '../../common/components/ImageWithFallback';
 import Toggle from '../../common/components/Toggle';
-import useCreateUser from '../hooks/useCreateUser';
+import getLogo from '../../common/utils/getLogo';
 
+import Form from '../../forms/components/Form';
+import FormErrors from '../../forms/components/FormErrors';
+import PasswordField from '../../forms/components/PasswordField';
+import TextField from '../../forms/components/TextField';
+
+import useForm from '../../forms/hooks/useForm';
+import useCreateUser from '../hooks/useCreateUser';
 import useGenerateWebAuthCredentials from '../hooks/useGenerateWebAuthCredentials';
+import { storeLoginToken } from '../utils/store';
 
 const SignUpForm = () => {
-  const router = useRouter();
   const { formatMessage } = useIntl();
+  const [authenticateWithDevice, setAuthenticateWithDevice] = useState(true);
   const { generateWebAuthCredentials } = useGenerateWebAuthCredentials();
-  const [username, setUserName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [error, setError] = useState(null);
   const { createUser } = useCreateUser();
-
-  const isAuthenticatorActive = router?.query?.authenticator === '1';
-
-  const onToggleAuthenticator = () => {
-    if (!isAuthenticatorActive)
-      return router.push({ query: { ...router.query, authenticator: '1' } });
-    const { authenticator, ...queryWithoutAuthenticator } = router.query;
-    router.push({ query: queryWithoutAuthenticator });
-    return null;
-  };
-
-  const registerWithWebAuth = async (name) => {
+  const { push } = useRouter();
+  const registerWithWebAuth = async (username) => {
     const webAuthnPublicKeyCredentials = await generateWebAuthCredentials({
-      username: name,
+      username,
     });
 
     const { data } = await createUser({
@@ -37,169 +32,151 @@ const SignUpForm = () => {
       webAuthnPublicKeyCredentials,
     });
 
-    if (data && data?.createUser && data.createUser?.id) {
-      router.push('/');
+    if (data && data?.createUser) {
+      const { id, token, tokenExpires } = data.createUser;
+      await storeLoginToken(id, token, new Date(tokenExpires));
     }
   };
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      if (isAuthenticatorActive) {
-        await registerWithWebAuth(username);
-        return true;
-      }
-
-      const { data } = await createUser({
-        username,
-        email,
-        password,
-      });
-      const { id } = data.createUser;
-      if (id) {
-        setError(null);
-        router.push('/');
-        return true;
-      }
-      return false;
-    } catch (e) {
-      if (error?.message?.toLowerCase().includes('email already exists'))
-        setError('Email already exists');
-      else if (
-        error?.message?.includes('challenge mismatch') ||
-        error?.message?.includes('already exists')
-      )
-        setError('Username taken, Please provided different username');
-      else if (e.message.includes('The operation either timed'))
-        setError('Operation timed out, please try again.');
-      else setError(e.message);
+  const onSubmit = async ({ username, email, password }) => {
+    if (authenticateWithDevice) {
+      await registerWithWebAuth(username);
+      return true;
     }
+
+    const { data } = await createUser({
+      username,
+      email,
+      password,
+    });
+    const { id, token, tokenExpires } = data.createUser;
+    await storeLoginToken(id, token, new Date(tokenExpires));
+    if (id) return true;
 
     return false;
   };
 
+  const onSubmitSuccess = () => {
+    push('/account');
+  };
+  const form = useForm({
+    getSubmitErrorMessage: (error) => {
+      if (error?.message?.toLowerCase().includes('email already exists'))
+        return formatMessage({
+          id: 'email_exists_error',
+          defaultMessage: 'Email already exists',
+        });
+      if (
+        error?.message?.includes('challenge mismatch') ||
+        error?.message?.includes('already exists')
+      )
+        return formatMessage({
+          id: 'username_or_email_taken',
+          defaultMessage: 'Username taken, Please provided different username',
+        });
+
+      return error?.message || '';
+    },
+    submit: onSubmit,
+    onSubmitSuccess,
+    initialValues: {
+      username: null,
+      email: null,
+      password: null,
+    },
+  });
+  const logo = getLogo();
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8 bg-white dark:bg-slate-500">
+      <div className="w-full max-w-md space-y-8 text-center">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold  dark:text-slate-200">
+          <ImageWithFallback
+            className="mx-auto"
+            src={logo}
+            width={160}
+            height={100}
+            alt={formatMessage({
+              id: 'unchained_logo',
+              defaultMessage: 'Unchained Logo',
+            })}
+          />
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-200">
             {formatMessage({
-              id: 'create-account',
-              defaultMessage: 'Create account',
+              id: 'sign_up_header',
+              defaultMessage: 'Create new account',
             })}
           </h2>
         </div>
-        <form
-          onSubmit={onSubmit}
+
+        <Form
+          form={form}
           className="mt-8 space-y-6 pt-4 pb-8 shadow sm:rounded-lg sm:px-10"
         >
           <input type="hidden" name="remember" value="true" />
-          <div className="space-y-6">
-            {isAuthenticatorActive && (
-              <div>
-                <label
-                  htmlFor="username"
-                  className="block text-sm font-medium text-brown-600"
-                >
-                  {formatMessage({
-                    id: 'username',
-                    defaultMessage: 'Username',
-                  })}
-                </label>
-                <input
-                  id="username"
-                  name="username"
-                  onChange={(e) => setUserName(e.target.value)}
-                  value={username || ''}
-                  required={isAuthenticatorActive}
-                  type="text"
-                  label="Username"
-                  autoComplete="username"
-                  className="bg-beige mt-1 block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 shadow-sm focus:border-red-500 focus:outline-none focus:ring-red-800 sm:text-sm"
-                />
-              </div>
-            )}
-            {!isAuthenticatorActive && (
+          <div className="space-y-6 rounded-md shadow-sm">
+            <div>
+              <TextField
+                id="username"
+                name="username"
+                required={authenticateWithDevice}
+                type="text"
+                label={formatMessage({
+                  id: 'username',
+                  defaultMessage: 'Username',
+                })}
+              />
+            </div>
+            {!authenticateWithDevice && (
               <>
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-brown-600"
-                  >
-                    {formatMessage({
-                      id: 'email',
-                      defaultMessage: 'Email',
-                    })}
-                  </label>
-                  <input
+                  <TextField
                     id="email"
                     name="email"
                     type="email"
-                    autoComplete="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email || ''}
                     required
-                    label="Email"
-                    className="bg-beige mt-1 block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 shadow-sm focus:border-red-500 focus:outline-none focus:ring-red-800 sm:text-sm"
+                    label={formatMessage({
+                      id: 'email',
+                      defaultMessage: 'Email',
+                    })}
                   />
                 </div>
                 <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-brown-600"
-                  >
-                    {formatMessage({
+                  <PasswordField
+                    id="password"
+                    name="password"
+                    autoComplete="current-password"
+                    required
+                    label={formatMessage({
                       id: 'password',
                       defaultMessage: 'Password',
                     })}
-                  </label>
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password || ''}
-                    required
-                    className="bg-beige mt-1 block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 shadow-sm focus:border-red-500 focus:outline-none focus:ring-red-800 sm:text-sm"
                   />
                 </div>
               </>
             )}
             <Toggle
-              onToggle={onToggleAuthenticator}
-              active={isAuthenticatorActive}
-              label="Use authenticator"
-              className="my-3 flex items-center"
-            />
-            <p className="text-sm text-slate-500 dark:text-white">
-              {formatMessage({
-                id: 'webauthn-brief-description',
-                defaultMessage:
-                  'Authenticator give you a simple and secure way to sign in without passwords by relying on Face ID or Touch ID using your phone or external Passkeys eg. Apple passkey to identify you when you sign in.',
+              onToggle={() =>
+                setAuthenticateWithDevice(!authenticateWithDevice)
+              }
+              toggleText={formatMessage({
+                id: 'use_authenticator',
+                defaultMessage: 'Use authenticator',
               })}
-
-              <a
-                href="https://webauthn.guide/#intro"
-                target="__blank"
-                className="font-medium text-red-600 hover:text-red-500 dark:text-red-400 dark:hover:text-red-300"
-              >
-                {formatMessage({
-                  id: 'more-info',
-                  defaultMessage: 'More info',
-                })}
-              </a>
-            </p>
+              className="ml-2 my-3"
+              toggleKey="totp"
+              active={authenticateWithDevice}
+            />
           </div>
-          {error && <div className="mt-3 text-red-600">{error}</div>}
+          <FormErrors />
 
           <div className="my-2">
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"
+              className="group relative flex w-full justify-center rounded-md border border-transparent bg-slate-500 py-2 px-4 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
             >
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg
-                  className="h-5 w-5 text-red-500 group-hover:text-red-400"
+                  className="h-5 w-5 text-slate-500 group-hover:text-slate-400"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
@@ -212,28 +189,30 @@ const SignUpForm = () => {
                   />
                 </svg>
               </span>
+
               {formatMessage({
-                id: 'sign-up',
+                id: 'sign_up',
                 defaultMessage: 'Sign up',
               })}
             </button>
           </div>
 
-          <div className="text-sm text-slate-800 dark:text-slate-800">
+          <div className="text-sm text-slate-400 dark:text-slate-200">
             {formatMessage({
-              id: 'already-registered',
-              defaultMessage: 'Already registered?',
+              id: 'already_got_a_user',
+              defaultMessage: 'Already got a user?',
             })}
-            <Link href="/login" legacyBehavior>
-              <a className=" ml-2 font-medium text-slate-600 hover:text-slate-500 dark:text-slate-800 dark:hover:text-slate-700">
-                {formatMessage({
-                  id: 'log-in',
-                  defaultMessage: 'Log in',
-                })}
-              </a>
+            <Link
+              href="/login"
+              className=" ml-2 font-medium text-slate-600 hover:text-slate-500 dark:text-slate-400 dark:hover:text-slate-300"
+            >
+              {formatMessage({
+                id: 'log_in',
+                defaultMessage: 'Log in',
+              })}
             </Link>
           </div>
-        </form>
+        </Form>
       </div>
     </div>
   );

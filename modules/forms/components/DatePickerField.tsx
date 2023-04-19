@@ -33,7 +33,7 @@ const DatePickerField = ({
         id={field.id}
         name={field.name}
         className={classnames(
-          'relative mt-0 block w-full appearance-none rounded-md rounded-b-md border-2 border-slate-200 dark:border-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-slate-200 dark:bg-slate-900 placeholder-slate-400 shadow-sm focus:z-10 focus:border-indigo-400 focus:outline-none focus:ring-indigo-400',
+          'relative mt-0 block w-full appearance-none rounded-md rounded-b-md border-2 border-slate-200 dark:border-slate-800 px-4 py-2.5 text-sm text-slate-900 dark:text-slate-200 dark:bg-slate-900 placeholder-slate-400 shadow-sm focus:z-10 focus:border-slate-400 focus:outline-none focus:ring-slate-400',
           className,
           {
             'border-red-300': !!field.error,

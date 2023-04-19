@@ -36,7 +36,7 @@ const Subtree = ({
   ];
 
   return Object.keys(children).length ? (
-    <div key={pageId} className="border-t border-color-grey-lightest">
+    <div key={pageId} className="border-t border-color-slate-300">
       <button
         aria-label="Expand"
         type="button"
@@ -57,7 +57,7 @@ const Subtree = ({
         <div>
           <Link
             href={createPathFromArray(path)}
-            className={`link block border-t border-color-grey-lightest uppercase text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500 ${
+            className={`link block border-t border-color-slate-300 uppercase text-slate-600 hover:text-slate-500 dark:text-slate-400 dark:hover:text-slate-500 ${
               levelClassMap[level + 1]
             }`}
           >
@@ -89,7 +89,7 @@ const Subtree = ({
   ) : (
     <Link
       href={createPathFromArray(path)}
-      className={`block border-t border-color-grey-lightest uppercase hover:bg-slate-100 dark:hover:bg-slate-500 ${levelClassMap[level]}`}
+      className={`block border-t border-color-slate-300 uppercase hover:bg-slate-100 dark:hover:bg-slate-500 ${levelClassMap[level]}`}
     >
       <Thumbnail media={media} />
       {navigationTitle}
@@ -142,7 +142,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
           )}
         </div>
 
-        <div className="my-3 border-t border-color-grey-lightest pl-3 pt-3">
+        <div className="my-3 border-t border-color-slate-300 pl-3 pt-3">
           {Object.entries(theme.locales)?.map(([lang]) => (
             <button
               key={lang}

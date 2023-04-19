@@ -1,33 +1,27 @@
 import { useRouter } from 'next/router';
-import { useCallback, useState } from 'react';
+import toast from 'react-hot-toast';
+
 import { useIntl } from 'react-intl';
-import SetPasswordForm from '../modules/auth/components/SetPasswordForm';
+import ResetPasswordForm from '../modules/auth/components/ResetPasswordForm';
 import useResetPassword from '../modules/auth/hooks/useResetPassword';
-import ErrorMessage from '../modules/common/components/ErrorMessage';
 
 const ResetPassword = () => {
   const { query, ...router } = useRouter();
   const { resetPassword } = useResetPassword();
   const { formatMessage } = useIntl();
   const { token } = query;
-  const [error, setError] = useState();
-
-  const onSubmit = useCallback(
-    async ({ newPassword }) => {
-      try {
-        setError('');
-        await resetPassword({ newPlainPassword: newPassword, token });
-        router.push('/');
-      } catch (e) {
-        if (e?.message?.match(/token does not exist/i)) {
-          setError('Token existiert nicht oder ist abgelaufen');
-        } else {
-          setError(e.message);
-        }
-      }
-    },
-    [token],
-  );
+  const onSubmit = async ({ newPassword }) => {
+    return resetPassword({ newPassword, token });
+  };
+  const onPasswordChangedSuccessfully = () => {
+    toast.success(
+      formatMessage({
+        id: 'password_changed_success',
+        defaultMessage: 'Password changed successfully.',
+      }),
+    );
+    router.push('/');
+  };
 
   return (
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -45,9 +39,12 @@ const ResetPassword = () => {
           })}
         </p>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <SetPasswordForm onSubmit={onSubmit} />
+          <ResetPasswordForm
+            onSubmit={onSubmit}
+            token={token}
+            onSubmitSuccess={onPasswordChangedSuccessfully}
+          />
         </div>
-        <ErrorMessage message={error} />
       </div>
     </div>
   );

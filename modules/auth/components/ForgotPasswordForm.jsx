@@ -1,80 +1,83 @@
-import classNames from 'classnames';
-import { useState } from 'react';
+import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
-const ForgotPasswordForm = ({ onSubmit }) => {
-  const [email, setEmail] = useState('');
+import EmailField from '../../forms/components/EmailField';
+import Form from '../../forms/components/Form';
+import FormErrors from '../../forms/components/FormErrors';
+import SubmitButton from '../../forms/components/SubmitButton';
+import useForm from '../../forms/hooks/useForm';
+
+const ForgotPasswordForm = ({ onSubmit, onSubmitSuccess = () => true }) => {
   const { formatMessage } = useIntl();
 
-  const [message, setMessage] = useState(null);
+  const form = useForm({
+    submit: onSubmit,
+    onSubmitSuccess,
+    getSubmitErrorMessage: async () => {
+      form.formik.setFieldError(
+        'email',
+        formatMessage({
+          id: 'email_address_not_exist',
+          defaultMessage: 'Provided email does not exist',
+        }),
+      );
+    },
+    initialValues: {
+      email: '',
+    },
+  });
   return (
-    <div className="bg-white dark:bg-slate-500 py-8 px-4 shadow sm:rounded-lg sm:px-10">
-      <form
-        className="space-y-6"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          try {
-            await onSubmit({ email });
-            setMessage({
-              success: true,
-              text: 'Der Link zum Zurücksetzen des Passworts wurde an die obige E-Mail gesendet. Bitte verwenden Sie den in der E-Mail gesendeten Link, um Ihr Passwort zurückzusetzen',
-            });
-          } catch (err) {
-            if (err.message.toLowerCase().includes('user not found')) {
-              setMessage({
-                success: false,
-                text: 'Konto mit der E-Mail-Adresse existiert nicht, bitte überprüfen Sie die E-Mail-Adresse und versuchen Sie es erneut',
-              });
-            } else {
-              setMessage({ success: false, text: err.message });
-            }
-          }
-        }}
-      >
-        <div>
-          <label
-            htmlFor="email-address"
-            className="block text-sm font-medium text-brown-600 dark:text-white"
-          >
-            {formatMessage({
-              id: 'email-address',
-              defaultMessage: 'Email Address',
-            })}
-          </label>
-          <div className="mt-1">
-            <input
-              type="email"
-              name="email"
-              id="email-address"
-              className="bg-beige block w-full appearance-none rounded-md border border-slate-300 px-3 py-2 placeholder-slate-400 shadow-sm focus:border-red-500 focus:outline-none focus:ring-red-800 sm:text-sm"
-              value={email}
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-        </div>
-
-        <button
-          type="submit"
-          className="flex w-full justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"
-        >
+    <Form
+      form={form}
+      className="mt-8 space-y-6 px-4 pt-3 pb-8 shadow sm:rounded-lg sm:px-10"
+    >
+      <div>
+        <p className="py-4">
           {formatMessage({
-            id: 'send-reset-link',
+            id: 'forgot_password_header_description',
+            defaultMessage:
+              "Enter your email address below and we'll send you a link to reset your password!",
+          })}
+        </p>
+        <EmailField
+          name="email"
+          id="email-address"
+          label={formatMessage({
+            id: 'email_address',
+            defaultMessage: 'Email Address',
+          })}
+          placeholder={formatMessage({
+            id: 'email_address',
+            defaultMessage: 'Email Address',
+          })}
+          required
+        />
+      </div>
+      <FormErrors />
+      <div className="mb-6">
+        <SubmitButton
+          className="w-full "
+          label={formatMessage({
+            id: 'send_rest_link',
             defaultMessage: 'Send reset link',
           })}
-        </button>
-        {message?.text && (
-          <div
-            className={classNames('text-red-500', {
-              'text-green-500': message?.text && message.success === true,
-            })}
-          >
-            {message.text}
-          </div>
-        )}
-      </form>
-    </div>
+        />
+      </div>
+      <p className="text-center text-sm text-slate-400">
+        {formatMessage({
+          id: 'dont_have_account',
+          defaultMessage: "Don't have an account yet?",
+        })}
+        {'  '}
+        <Link
+          href="/sign-up"
+          className="font-semibold text-slate-500 dark:text-slate-400 focus:text-slate-600 dark:hover:text-slate-300 focus:underline focus:outline-none"
+        >
+          {formatMessage({ id: 'sign_up', defaultMessage: 'Sign up' })}
+        </Link>
+        .
+      </p>
+    </Form>
   );
 };
 

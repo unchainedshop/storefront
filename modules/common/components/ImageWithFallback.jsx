@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import defaultNextImageLoader from '../utils/defaultNextImageLoader';
 
-const ImageWithFallback = ({ fallbackSrc, src, ...props }) => {
+const ImageWithFallback = ({ fallbackSrc = '', src, ...props }) => {
   const [imageSrc, setImageSrc] = useState(src);
 
   return (

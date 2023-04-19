@@ -54,9 +54,9 @@ const Account = () => {
                   href={item.href}
                   key={item.name}
                   className={classNames(
-                    'group flex items-center rounded-md px-3 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-indigo-400 dark:bg-slate-600 dark:text-white dark:hover:text-sky-400',
+                    'group flex items-center rounded-md px-3 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50 hover:text-slate-400 dark:bg-slate-600 dark:text-white dark:hover:text-slate-400',
                     {
-                      'bg-slate-50 text-indigo-600 hover:bg-white dark:bg-slate-500 dark:text-sky-400':
+                      'bg-slate-50 text-slate-600 hover:bg-white dark:bg-slate-500 dark:text-slate-400':
                         item.name.toLowerCase() ===
                         (router.asPath.includes('#')
                           ? router.asPath.split('#')[1]
@@ -66,9 +66,9 @@ const Account = () => {
                 >
                   <item.icon
                     className={classNames(
-                      '-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-slate-400 group-hover:text-indigo-400 dark:group-hover:text-sky-500',
+                      '-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-slate-400 group-hover:text-slate-400 dark:group-hover:text-slate-500',
                       {
-                        'text-indigo-600 dark:text-sky-400':
+                        'text-slate-600 dark:text-slate-400':
                           item.name.toLowerCase() ===
                           (router.asPath.includes('#')
                             ? router.asPath.split('#')[1]
@@ -113,7 +113,7 @@ const Account = () => {
                     <div className="overflow-hidden border-t border-slate-200 py-8">
                       <Link
                         href="account/change-password"
-                        className=" text-lg font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
                       >
                         {formatMessage({
                           id: 'change_password',

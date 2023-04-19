@@ -117,7 +117,7 @@ const CartItem = ({ _id, quantity, product, enableUpdate = true }) => {
                 <div className="flex items-end justify-center gap-1">
                   <button
                     type="button"
-                    className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:text-slate-200 dark:shadow-white sm:text-sm"
+                    className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500 dark:text-slate-200 dark:shadow-white sm:text-sm"
                     aria-label="Increase cart item"
                     disabled={currentQuantity === 1}
                     onClick={() =>
@@ -138,7 +138,7 @@ const CartItem = ({ _id, quantity, product, enableUpdate = true }) => {
                     value={currentQuantity}
                   />
                   <button
-                    className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:text-slate-200 dark:shadow-white sm:text-sm"
+                    className="rounded-md border border-slate-300 text-left text-base font-medium text-slate-700 shadow-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500 dark:text-slate-200 dark:shadow-white sm:text-sm"
                     aria-label="Decrease cart item"
                     type="button"
                     onClick={() =>

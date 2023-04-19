@@ -66,7 +66,7 @@ const ThankYou = () => {
               />
             </div>
             <div className="lg:col-start-2">
-              <h1 className="text-sm font-medium text-indigo-600 dark:text-sky-400">
+              <h1 className="text-sm font-medium text-slate-600 dark:text-slate-400">
                 {formatMessage({
                   id: 'thank_you',
                   defaultMessage: 'Thank you!',
@@ -103,7 +103,7 @@ const ThankYou = () => {
                         </dt>
                       ),
                       dd: (chunks) => (
-                        <dd className="mt-2 text-indigo-600 dark:text-sky-400">
+                        <dd className="mt-2 text-slate-600 dark:text-slate-400">
                           {chunks}
                         </dd>
                       ),
@@ -126,7 +126,7 @@ const ThankYou = () => {
                         </dt>
                       ),
                       dd: (chunks) => (
-                        <dd className="mt-2 text-indigo-600 dark:text-sky-400">
+                        <dd className="mt-2 text-slate-600 dark:text-slate-400">
                           {chunks}
                         </dd>
                       ),
@@ -244,7 +244,7 @@ const ThankYou = () => {
               <div className="mt-8 border-t border-slate-200 py-6 text-center">
                 <Link
                   href="/shop"
-                  className="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-400 dark:hover:text-sky-500"
+                  className="text-sm font-medium text-slate-600 hover:text-slate-500 dark:text-slate-400 dark:hover:text-slate-500"
                 >
                   {formatMessage({
                     id: 'continue_shopping',

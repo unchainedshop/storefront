@@ -37,7 +37,7 @@ const CategoryListItem = ({ category }) => {
           </p>
         </>
       ) : (
-        <div className="group relative m-2 rounded-tl-lg rounded-tr-lg  border-2  p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 sm:rounded-tr-none ">
+        <div className="group relative m-2 rounded-tl-lg rounded-tr-lg  border-2  p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-slate-500 sm:rounded-tr-none ">
           <div className="mt-8">
             <h3 className="text-lg font-medium">
               <span className="absolute inset-0" aria-hidden="true" />
