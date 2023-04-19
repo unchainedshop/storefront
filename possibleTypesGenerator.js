@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/no-var-requires */
+
 const fetch = require('cross-fetch');
 const fs = require('fs');
 
-const { UNCHAINED_ENDPOINT } = process.env;
+const { UNCHAINED_ENDPOINT = 'http://localhost:4010/graphql' } = process.env;
+console.log(UNCHAINED_ENDPOINT);
 
 fetch(UNCHAINED_ENDPOINT, {
   method: 'POST',

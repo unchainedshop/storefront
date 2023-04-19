@@ -7,9 +7,10 @@ import {
   ApolloLink,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import { concatPagination } from '@apollo/client/utilities';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
+import typePolicies from './typepolicies';
+import possibleTypes from './possibleTypes.json';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -50,21 +51,8 @@ function createApolloClient({ locale }) {
     ssrMode: typeof window === 'undefined',
     link: from([middlewareLink, errorLink, httpLink]),
     cache: new InMemoryCache({
-      possibleTypes: {
-        Product: [
-          'TokenizedProduct',
-          'SimpleProduct',
-          'ConfigurableProduct',
-          'BundleProduct',
-        ],
-      },
-      typePolicies: {
-        Query: {
-          fields: {
-            allPosts: concatPagination(),
-          },
-        },
-      },
+      possibleTypes,
+      typePolicies,
     }),
   });
 }
