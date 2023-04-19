@@ -186,7 +186,7 @@ const ThankYou = () => {
                 <div>
                   <dt className="font-medium text-slate-900 dark:text-white">
                     {formatMessage({
-                      id: 'payment_information',
+                      id: 'payment-information',
                       defaultMessage: 'Payment Information',
                     })}
                   </dt>

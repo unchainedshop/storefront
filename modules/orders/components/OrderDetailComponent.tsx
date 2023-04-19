@@ -285,8 +285,8 @@ const OrderDetailComponent = ({ order }) => {
               <div>
                 <dt className="text-lg font-medium text-slate-900 dark:text-slate-100">
                   {formatMessage({
-                    id: 'payment_information',
-                    defaultMessage: 'Payment information',
+                    id: 'payment-information',
+                    defaultMessage: 'Payment Information',
                   })}
                 </dt>
                 <div className="flex items-center gap-2">

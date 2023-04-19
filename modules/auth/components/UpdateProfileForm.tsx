@@ -71,8 +71,8 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
           >
             <label className="form-label">
               {intl.formatMessage({
-                id: 'last_name',
-                defaultMessage: 'lastname',
+                id: 'last-name',
+                defaultMessage: 'Lastname',
               })}
             </label>
             <input
@@ -87,7 +87,7 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
           >
             <label className="form-label">
               {intl.formatMessage({
-                id: 'company',
+                id: 'company-name',
                 defaultMessage: 'Company Name',
               })}{' '}
               {intl.formatMessage({
@@ -122,7 +122,7 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
           >
             <label className="form-label">
               {intl.formatMessage({
-                id: 'postal_code',
+                id: 'postal-code-or-zip',
                 defaultMessage: 'Postal Code / ZIP',
               })}
             </label>
@@ -186,7 +186,7 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
           >
             <label className="form-label">
               {intl.formatMessage({
-                id: 'telephone',
+                id: 'telephone-number',
                 defaultMessage: 'Telephone Number',
               })}
             </label>

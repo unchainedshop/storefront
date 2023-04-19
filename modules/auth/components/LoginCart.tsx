@@ -92,7 +92,7 @@ const LoginCart = () => {
           >
             <LogoutIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
             <span className="hidden lg:block">
-              {formatMessage({ id: 'log_out', defaultMessage: 'Log Out' })}
+              {formatMessage({ id: 'log-out', defaultMessage: 'Logout' })}
             </span>
           </a>
         </>

@@ -21,7 +21,7 @@ const Logout = () => {
     <>
       <MetaTags
         title={intl.formatMessage({
-          id: 'log_out',
+          id: 'log-out',
           defaultMessage: 'Logout',
         })}
       />

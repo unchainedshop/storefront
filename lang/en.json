@@ -1,0 +1,651 @@
+{
+  "404-not-found-header": {
+    "defaultMessage": "404: Requested {page} not found"
+  },
+  "404_not-found-message": {
+    "defaultMessage": "Sorry, the page you were looking for was not found!"
+  },
+  "500-error-description": {
+    "defaultMessage": "oops, Something went wrong when performing your request, please try again later!"
+  },
+  "500-error-header": {
+    "defaultMessage": "500 - Server-side error occurred"
+  },
+  "79i0Kd": {
+    "defaultMessage": "Language X"
+  },
+  "Delivery_status": {
+    "defaultMessage": "Delivery status"
+  },
+  "EW1jgi": {
+    "defaultMessage": "default_input_name",
+    "description": "DO not translate Skip this as it's the default given label when a component is not provided explicit label"
+  },
+  "Products purchased": {
+    "defaultMessage": "products_purchased"
+  },
+  "about": {
+    "defaultMessage": "About"
+  },
+  "about_detail": {
+    "defaultMessage": "About blablabla ..."
+  },
+  "accept_terms_popup_header": {
+    "defaultMessage": "Accept Terms and Conditions"
+  },
+  "accept_terms_popup_subtitle": {
+    "defaultMessage": "By connecting my wallet to this webapp, I confirm that I have read and understood the"
+  },
+  "account": {
+    "defaultMessage": "Account"
+  },
+  "add_email": {
+    "defaultMessage": "Add Email"
+  },
+  "added-to-cart": {
+    "defaultMessage": "Added to cart"
+  },
+  "address": {
+    "defaultMessage": "Address"
+  },
+  "address2_optional": {
+    "defaultMessage": "Optional"
+  },
+  "address_2": {
+    "defaultMessage": "Address 2"
+  },
+  "already-registered": {
+    "defaultMessage": "Already registered?"
+  },
+  "back": {
+    "defaultMessage": "← Back"
+  },
+  "billing-address": {
+    "defaultMessage": "Billing address"
+  },
+  "billing-same-as-delivery": {
+    "defaultMessage": "Billing Address Same as Delivery"
+  },
+  "billing_address": {
+    "defaultMessage": "Billing address"
+  },
+  "billing_summary": {
+    "defaultMessage": "Billing Summary"
+  },
+  "bookmarks": {
+    "defaultMessage": "Bookmarks"
+  },
+  "bookmarks_title": {
+    "defaultMessage": "Bookmarks"
+  },
+  "browse_all_category": {
+    "defaultMessage": "Browse all categories"
+  },
+  "browse_all_category_mobile": {
+    "defaultMessage": "Browse all categories"
+  },
+  "cancel": {
+    "defaultMessage": "Cancel"
+  },
+  "cart": {
+    "defaultMessage": "Cart"
+  },
+  "change_password": {
+    "defaultMessage": "Change Password"
+  },
+  "checkout": {
+    "defaultMessage": "Checkout"
+  },
+  "choose_language": {
+    "defaultMessage": "Choose language"
+  },
+  "city": {
+    "defaultMessage": "City"
+  },
+  "close": {
+    "defaultMessage": "Close"
+  },
+  "company": {
+    "defaultMessage": "Company"
+  },
+  "company-name": {
+    "defaultMessage": "Company Name"
+  },
+  "conditions": {
+    "defaultMessage": "Conditions"
+  },
+  "confirm_and_connect": {
+    "defaultMessage": "Confirm and Connect"
+  },
+  "confirmed": {
+    "defaultMessage": "Confirmed"
+  },
+  "contact-info": {
+    "defaultMessage": "Contact info"
+  },
+  "continue": {
+    "defaultMessage": "Continue"
+  },
+  "continue_shopping": {
+    "defaultMessage": "Continue Shopping"
+  },
+  "country": {
+    "defaultMessage": "Country"
+  },
+  "create-account": {
+    "defaultMessage": "Create account"
+  },
+  "current_password": {
+    "defaultMessage": "Current password"
+  },
+  "customer_service": {
+    "defaultMessage": "Customer Service"
+  },
+  "delivered_on": {
+    "defaultMessage": "Delivered on"
+  },
+  "delivery-address": {
+    "defaultMessage": "Delivery address"
+  },
+  "delivery_address": {
+    "defaultMessage": "Delivery address"
+  },
+  "delivery_information": {
+    "defaultMessage": "Delivery Information"
+  },
+  "delivery_status": {
+    "defaultMessage": "Delivery status"
+  },
+  "delivery_summary": {
+    "defaultMessage": "Delivery Summary"
+  },
+  "did-you-forget": {
+    "defaultMessage": "Did you"
+  },
+  "document": {
+    "defaultMessage": "Document"
+  },
+  "dont-have-account": {
+    "defaultMessage": "Don't have an account?"
+  },
+  "download": {
+    "defaultMessage": "Download"
+  },
+  "edit-address": {
+    "defaultMessage": "Edit Address"
+  },
+  "edit-contact-data": {
+    "defaultMessage": "Edit Contact Data"
+  },
+  "editor": {
+    "defaultMessage": "Editor"
+  },
+  "email": {
+    "defaultMessage": "Email"
+  },
+  "email-address": {
+    "defaultMessage": "Email Address"
+  },
+  "email-addresses": {
+    "defaultMessage": "Email Addresses"
+  },
+  "email-not-available": {
+    "defaultMessage": "E-Mail address is not available, please"
+  },
+  "email-required-login-error": {
+    "defaultMessage": "Email is required when logging in with password"
+  },
+  "email_exists_error": {
+    "defaultMessage": "Email already exists"
+  },
+  "error_addressLine": {
+    "defaultMessage": "Address is required"
+  },
+  "error_city": {
+    "defaultMessage": "City is required"
+  },
+  "error_commerce_quantity_null_required": {
+    "defaultMessage": "{label} should have one price with null max quantity"
+  },
+  "error_contract_address": {
+    "defaultMessage": "Invalid contract address"
+  },
+  "error_country_code": {
+    "defaultMessage": "Invalid country code"
+  },
+  "error_currency_code": {
+    "defaultMessage": "Invalid currency code"
+  },
+  "error_date_after": {
+    "defaultMessage": "{label} must be after {dateToCompare}."
+  },
+  "error_date_before": {
+    "defaultMessage": "{label} must be before {dateToCompare}."
+  },
+  "error_email": {
+    "defaultMessage": "{label} must be a valid email address"
+  },
+  "error_firstName": {
+    "defaultMessage": "First Name is required"
+  },
+  "error_invalid_date": {
+    "defaultMessage": "{label} is not a valid date"
+  },
+  "error_language_code": {
+    "defaultMessage": "Invalid language code"
+  },
+  "error_lastName": {
+    "defaultMessage": "Last Name is required"
+  },
+  "error_number_not_int": {
+    "defaultMessage": "Invalid value please provide integer value"
+  },
+  "error_phone_number_invalid": {
+    "defaultMessage": "Invalid phone number"
+  },
+  "error_postalCode": {
+    "defaultMessage": "Postal code is required"
+  },
+  "error_required": {
+    "defaultMessage": "{label} is a required field"
+  },
+  "error_same_product_prices": {
+    "defaultMessage": "{label} can not be equal for a price with the same country and currency"
+  },
+  "error_server": {
+    "defaultMessage": "{details}"
+  },
+  "error_tag_required": {
+    "defaultMessage": "{label} you must provide at least one tag"
+  },
+  "error_telNumber": {
+    "defaultMessage": "Telephone number is required"
+  },
+  "error_text_area_required": {
+    "defaultMessage": "{label} is required"
+  },
+  "featured_products": {
+    "defaultMessage": "Featured Products"
+  },
+  "first_name": {
+    "defaultMessage": "Firstname"
+  },
+  "footer": {
+    "defaultMessage": "Footer"
+  },
+  "forgot-password": {
+    "defaultMessage": "Forgot your password?"
+  },
+  "forgot-password-description": {
+    "defaultMessage": "Enter your email address below and we'll send you an email with a link to reset your password!"
+  },
+  "fulfilled": {
+    "defaultMessage": "FulFilled"
+  },
+  "full_name": {
+    "defaultMessage": "Full Name"
+  },
+  "go-home": {
+    "defaultMessage": "Go to home"
+  },
+  "go-to-login": {
+    "defaultMessage": "Go to Login"
+  },
+  "hero": {
+    "defaultMessage": "Hero"
+  },
+  "home": {
+    "defaultMessage": "Home"
+  },
+  "imprint": {
+    "defaultMessage": "Imprint"
+  },
+  "in-cart": {
+    "defaultMessage": "In cart"
+  },
+  "in_cart": {
+    "defaultMessage": "In cart"
+  },
+  "invalid-credential-error": {
+    "defaultMessage": "Invalid credential, please try again"
+  },
+  "invalid-token": {
+    "defaultMessage": "Token does not exist or has expired"
+  },
+  "join-now": {
+    "defaultMessage": "Join now"
+  },
+  "language_en": {
+    "defaultMessage": "English"
+  },
+  "last-name": {
+    "defaultMessage": "Lastname"
+  },
+  "legal": {
+    "defaultMessage": "Legal"
+  },
+  "load_more": {
+    "defaultMessage": "Load More"
+  },
+  "loading": {
+    "defaultMessage": "Loading..."
+  },
+  "log-in": {
+    "defaultMessage": "Log in"
+  },
+  "log-in-or-continue": {
+    "defaultMessage": "Or continue"
+  },
+  "log-in-with-google": {
+    "defaultMessage": "Log in with LinkedIn"
+  },
+  "log-in-with-linkedin": {
+    "defaultMessage": "Log in with LinkedIn"
+  },
+  "log-out": {
+    "defaultMessage": "Logout"
+  },
+  "log_in": {
+    "defaultMessage": "Log In"
+  },
+  "logged_out": {
+    "defaultMessage": "Logged out successfully"
+  },
+  "manage_orders": {
+    "defaultMessage": "Check the status of recent orders, manage returns, and download invoices."
+  },
+  "menu": {
+    "defaultMessage": "Menu"
+  },
+  "more-info": {
+    "defaultMessage": "More info"
+  },
+  "my_orders": {
+    "defaultMessage": "My orders"
+  },
+  "new-password": {
+    "defaultMessage": "New password"
+  },
+  "new_password": {
+    "defaultMessage": "New password"
+  },
+  "no-password-set-error": {
+    "defaultMessage": "User password not set"
+  },
+  "no_data_message": {
+    "defaultMessage": "<p>No <span> {message} available</span> </p>"
+  },
+  "no_product_in_cart": {
+    "defaultMessage": "There are no products in your Cart. Browse our"
+  },
+  "oauth-failed-header": {
+    "defaultMessage": "Oauth failed"
+  },
+  "old_password_not_correct": {
+    "defaultMessage": "Wrong password, please try again"
+  },
+  "on": {
+    "defaultMessage": "on"
+  },
+  "operation-timeout-error": {
+    "defaultMessage": "Operation timed out, please try again."
+  },
+  "optional": {
+    "defaultMessage": "(Optional)"
+  },
+  "or-choose-another": {
+    "defaultMessage": "or choose another one"
+  },
+  "order": {
+    "defaultMessage": "Order"
+  },
+  "order_date": {
+    "defaultMessage": "Order date"
+  },
+  "order_history": {
+    "defaultMessage": "Order History"
+  },
+  "order_num": {
+    "defaultMessage": "Order #"
+  },
+  "order_number": {
+    "defaultMessage": "Order number"
+  },
+  "order_numbered": {
+    "defaultMessage": "Order: {orderNumber}"
+  },
+  "order_pickup": {
+    "defaultMessage": "Order is pick up"
+  },
+  "order_placed": {
+    "defaultMessage": "Order placed"
+  },
+  "order_status": {
+    "defaultMessage": "Order status"
+  },
+  "order_total": {
+    "defaultMessage": "Order total"
+  },
+  "ordered": {
+    "defaultMessage": "Ordered"
+  },
+  "paid_on": {
+    "defaultMessage": "paid on"
+  },
+  "password": {
+    "defaultMessage": "Password"
+  },
+  "password_not_match": {
+    "defaultMessage": "Password not match"
+  },
+  "pay-with-card": {
+    "defaultMessage": "Pay with card/Twint"
+  },
+  "payment-information": {
+    "defaultMessage": "Payment Information"
+  },
+  "payment-method": {
+    "defaultMessage": "Payment method"
+  },
+  "payment_status": {
+    "defaultMessage": "Payment status"
+  },
+  "pending": {
+    "defaultMessage": "Pending"
+  },
+  "permission_missing": {
+    "defaultMessage": "You don't have the required permission"
+  },
+  "please_select": {
+    "defaultMessage": "Please select..."
+  },
+  "postal-code": {
+    "defaultMessage": "Postal code"
+  },
+  "postal-code-or-zip": {
+    "defaultMessage": "Postal Code / ZIP"
+  },
+  "preview": {
+    "defaultMessage": "preview"
+  },
+  "privacy": {
+    "defaultMessage": "Privacy"
+  },
+  "product": {
+    "defaultMessage": "Product"
+  },
+  "product_categories": {
+    "defaultMessage": "Product Categories"
+  },
+  "products": {
+    "defaultMessage": "Products"
+  },
+  "quantity": {
+    "defaultMessage": "Quantity"
+  },
+  "recent_orders": {
+    "defaultMessage": "Recent orders"
+  },
+  "region": {
+    "defaultMessage": "Region"
+  },
+  "region_optional": {
+    "defaultMessage": "Optional"
+  },
+  "register": {
+    "defaultMessage": "Register"
+  },
+  "remove": {
+    "defaultMessage": "Remove"
+  },
+  "repeat_password": {
+    "defaultMessage": "Repeat Password"
+  },
+  "resend-another-verification": {
+    "defaultMessage": "Please resend another verification email and try to verify again"
+  },
+  "reset-password-header": {
+    "defaultMessage": "Reset password"
+  },
+  "reset-password-subtitle": {
+    "defaultMessage": "Set a password for your account"
+  },
+  "reset_password": {
+    "defaultMessage": "Reset password"
+  },
+  "right": {
+    "defaultMessage": "All Rights Reserved"
+  },
+  "save": {
+    "defaultMessage": "save"
+  },
+  "save_address": {
+    "defaultMessage": "Save Address"
+  },
+  "save_contact": {
+    "defaultMessage": "Save Contact Data"
+  },
+  "search": {
+    "defaultMessage": "Search"
+  },
+  "select_tab": {
+    "defaultMessage": "Select a tab"
+  },
+  "send-order": {
+    "defaultMessage": "Send Order"
+  },
+  "send-reset-link": {
+    "defaultMessage": "Send reset link"
+  },
+  "send_verification_email": {
+    "defaultMessage": "Send Verification Link"
+  },
+  "set-password": {
+    "defaultMessage": "Set password"
+  },
+  "set-password-header": {
+    "defaultMessage": "Set password"
+  },
+  "set-password-subtitle": {
+    "defaultMessage": "Set a password for your account"
+  },
+  "shipping": {
+    "defaultMessage": "Shipping"
+  },
+  "shipping_address": {
+    "defaultMessage": "Shipping Address"
+  },
+  "shop": {
+    "defaultMessage": "Shop"
+  },
+  "shop_by_category": {
+    "defaultMessage": "Shop by Category"
+  },
+  "shop_logo": {
+    "defaultMessage": "Shop logo"
+  },
+  "shop_logo_mobile": {
+    "defaultMessage": "Shop logo"
+  },
+  "show_all": {
+    "defaultMessage": "Show all"
+  },
+  "sign-in": {
+    "defaultMessage": "Sign in"
+  },
+  "sign-up": {
+    "defaultMessage": "Sign up"
+  },
+  "sign_up": {
+    "defaultMessage": "Sign up"
+  },
+  "status": {
+    "defaultMessage": "Status"
+  },
+  "subtotal": {
+    "defaultMessage": "Subtotal"
+  },
+  "telNumber": {
+    "defaultMessage": "Mobile Phone"
+  },
+  "telephone": {
+    "defaultMessage": "Telephone"
+  },
+  "telephone-number": {
+    "defaultMessage": "Telephone Number"
+  },
+  "terms_and_condition_main": {
+    "defaultMessage": "In particular, I confirm that I know what I am doing and that I am not violating any governing jurisdictions law. The company Unchained Commerce GmbH or any of its employees can not be held liable for any loss of funds, hacks or other damages that might have happend by using this webapp."
+  },
+  "terms_and_conditions": {
+    "defaultMessage": "Terms and Conditions"
+  },
+  "thank-you-for-verifying": {
+    "defaultMessage": "Thank you for verifying your email address"
+  },
+  "thank_you": {
+    "defaultMessage": "Thank you!"
+  },
+  "thank_you_description": {
+    "defaultMessage": "It has reached us and an email with the order placement confirmation is on its way. To avoid any potential miscommunication, please check your spam, perhaps the email landed there."
+  },
+  "thank_you_header": {
+    "defaultMessage": "Thank You for Placing this Order with Us!"
+  },
+  "thank_you_order_date": {
+    "defaultMessage": "<dl> <dt> The Date you placed the order is: </dt> <dd> {orderDate} </dd> </dl>"
+  },
+  "thank_you_order_number": {
+    "defaultMessage": "<dl> <dt> Your Order Number is: </dt> <dd> {orderNumber} </dd> </dl>"
+  },
+  "to_checkout": {
+    "defaultMessage": "To checkout"
+  },
+  "total_amount": {
+    "defaultMessage": "Total amount"
+  },
+  "update": {
+    "defaultMessage": "update"
+  },
+  "update_password": {
+    "defaultMessage": "Update Password"
+  },
+  "use-password-to-authenticate": {
+    "defaultMessage": "Or Use password to authenticate"
+  },
+  "username": {
+    "defaultMessage": "Username"
+  },
+  "username-or-email": {
+    "defaultMessage": "Username / Email"
+  },
+  "verification-failed": {
+    "defaultMessage": "Verification Failed"
+  },
+  "verification-token-expired": {
+    "defaultMessage": "Verification token expired"
+  },
+  "webauthn-brief-description": {
+    "defaultMessage": "Authenticator give you a simple and secure way to sign in without passwords by relying on Face ID or Touch ID using your phone or external Passkeys eg. Apple passkey to identify you when you sign in."
+  }
+}

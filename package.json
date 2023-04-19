@@ -48,6 +48,7 @@
     "validator": "^13.9.0"
   },
   "devDependencies": {
+    "@formatjs/cli": "^6.1.0",
     "@types/node": "^18.15.5",
     "@types/react": "^18.0.28",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
@@ -75,6 +76,8 @@
     "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx modules pages i18n",
     "test": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit",
-    "start": "next start"
+    "start": "next start",
+    "extract-translation": "formatjs extract '(pages|modules)/**/*.{ts,tsx,jsx}' --out-file lang/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
+    "compile-translation": "formatjs compile  ./lang/en.json  --out-file ./i18n/en.json --format custom-formatter.js"
   }
 }

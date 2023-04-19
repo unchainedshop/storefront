@@ -191,7 +191,7 @@ const Address = ({ user }) => {
                 <div className="col-span-4 sm:col-span-2">
                   <div className="mb-1">
                     {formatMessage({
-                      id: 'postal_code',
+                      id: 'postal-code',
                       defaultMessage: 'Postal code',
                     })}
                   </div>

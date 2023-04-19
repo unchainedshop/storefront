@@ -29,8 +29,8 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
           {formatMessage({
-            id: 'email',
-            defaultMessage: 'E-Mail Address',
+            id: 'email-address',
+            defaultMessage: 'Email Address',
           })}
         </label>
 

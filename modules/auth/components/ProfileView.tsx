@@ -177,7 +177,7 @@ const ProfileView = ({ user }) => {
                   <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
                     <h2 className="text-sm font-medium text-slate-500 dark:text-slate-200">
                       {formatMessage({
-                        id: 'emails',
+                        id: 'email-addresses',
                         defaultMessage: 'Email Addresses',
                       })}
                     </h2>

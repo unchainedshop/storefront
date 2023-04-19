@@ -55,7 +55,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
           {formatMessage({
-            id: 'last_name',
+            id: 'last-name',
             defaultMessage: 'Lastname',
           })}
         </label>
@@ -75,7 +75,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
           {formatMessage({
-            id: 'company',
+            id: 'company-name',
             defaultMessage: 'Company Name',
           })}{' '}
           {formatMessage({
@@ -128,7 +128,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
       <div className="mb-3">
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
           {formatMessage({
-            id: 'postal_code',
+            id: 'postal-code-or-zip',
             defaultMessage: 'Postal Code / ZIP',
           })}
         </label>

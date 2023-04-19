@@ -214,7 +214,7 @@ const LogInForm = () => {
             >
               {formatMessage({
                 id: 'forgot-password',
-                defaultMessage: 'Forgot password?',
+                defaultMessage: 'Forgot your password?',
               })}
             </Link>
           </p>
