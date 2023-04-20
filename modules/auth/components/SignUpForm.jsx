@@ -1,17 +1,18 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useIntl } from 'react-intl';
+import ErrorMessage from '../../common/components/ErrorMessage';
 import ImageWithFallback from '../../common/components/ImageWithFallback';
 import Toggle from '../../common/components/Toggle';
 import getLogo from '../../common/utils/getLogo';
+import EmailField from '../../forms/components/EmailField';
 
-import Form from '../../forms/components/Form';
-import FormErrors from '../../forms/components/FormErrors';
 import PasswordField from '../../forms/components/PasswordField';
 import TextField from '../../forms/components/TextField';
 
-import useForm from '../../forms/hooks/useForm';
 import useCreateUser from '../hooks/useCreateUser';
 import useGenerateWebAuthCredentials from '../hooks/useGenerateWebAuthCredentials';
 import { storeLoginToken } from '../utils/store';
@@ -22,6 +23,13 @@ const SignUpForm = () => {
   const { generateWebAuthCredentials } = useGenerateWebAuthCredentials();
   const { createUser } = useCreateUser();
   const { push } = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm();
+
   const registerWithWebAuth = async (username) => {
     const webAuthnPublicKeyCredentials = await generateWebAuthCredentials({
       username,
@@ -38,53 +46,67 @@ const SignUpForm = () => {
     }
   };
 
-  const onSubmit = async ({ username, email, password }) => {
-    if (authenticateWithDevice) {
-      await registerWithWebAuth(username);
-      return true;
-    }
+  const onSubmit = async ({ email, username, password }) => {
+    try {
+      if (authenticateWithDevice) {
+        await registerWithWebAuth(username);
+      }
 
-    const { data } = await createUser({
-      username,
-      email,
-      password,
-    });
-    const { id, token, tokenExpires } = data.createUser;
-    await storeLoginToken(id, token, new Date(tokenExpires));
-    if (id) return true;
+      const { data } = await createUser({
+        username,
+        email,
+        password,
+      });
+      const { id, token, tokenExpires } = data.createUser;
+      await storeLoginToken(id, token, new Date(tokenExpires));
 
-    return false;
-  };
-
-  const onSubmitSuccess = () => {
-    push('/account');
-  };
-  const form = useForm({
-    getSubmitErrorMessage: (error) => {
-      if (error?.message?.toLowerCase().includes('email already exists'))
-        return formatMessage({
-          id: 'email_exists_error',
-          defaultMessage: 'Email already exists',
+      toast.success(
+        formatMessage(
+          {
+            id: 'reset_link_sent',
+            defaultMessage: 'Password reset link sent to {email} ',
+          },
+          {
+            email,
+          },
+        ),
+      );
+      push('/account');
+    } catch (e) {
+      if (e.message?.toLowerCase()?.includes('not found')) {
+        setError('email', {
+          type: 'manual',
+          message: formatMessage({
+            id: 'email_address_not_exist',
+            defaultMessage: 'Provided email does not exist',
+          }),
         });
+      }
+      if (e.message?.toLowerCase().includes('email already exist')) {
+        setError('email', {
+          type: 'manual',
+          message: formatMessage({
+            id: 'email_exists_error',
+            defaultMessage: 'Email already exists',
+          }),
+        });
+      }
       if (
-        error?.message?.includes('challenge mismatch') ||
-        error?.message?.includes('already exists')
-      )
-        return formatMessage({
-          id: 'username_or_email_taken',
-          defaultMessage: 'Username taken, Please provided different username',
+        e.message?.includes('challenge mismatch') ||
+        e.message?.includes('already exists')
+      ) {
+        setError('email', {
+          type: 'manual',
+          message: formatMessage({
+            id: 'username_or_email_taken',
+            defaultMessage:
+              'Username taken, Please provided different username',
+          }),
         });
+      }
+    }
+  };
 
-      return error?.message || '';
-    },
-    submit: onSubmit,
-    onSubmitSuccess,
-    initialValues: {
-      username: null,
-      email: null,
-      password: null,
-    },
-  });
   const logo = getLogo();
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -107,51 +129,49 @@ const SignUpForm = () => {
             })}
           </h2>
         </div>
-
-        <Form
-          form={form}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
           className="mt-8 space-y-6 pt-4 pb-8 shadow sm:rounded-lg sm:px-10"
         >
           <input type="hidden" name="remember" value="true" />
           <div className="space-y-6 rounded-md shadow-sm">
-            <div>
-              <TextField
-                id="username"
-                name="username"
-                required={authenticateWithDevice}
-                type="text"
-                label={formatMessage({
-                  id: 'username',
-                  defaultMessage: 'Username',
-                })}
-              />
-            </div>
+            <TextField
+              id="username"
+              name="username"
+              error={errors.username}
+              required={authenticateWithDevice}
+              type="text"
+              label={formatMessage({
+                id: 'username',
+                defaultMessage: 'Username',
+              })}
+              {...register('username')}
+            />
+
             {!authenticateWithDevice && (
               <>
-                <div>
-                  <TextField
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    label={formatMessage({
-                      id: 'email',
-                      defaultMessage: 'Email',
-                    })}
-                  />
-                </div>
-                <div>
-                  <PasswordField
-                    id="password"
-                    name="password"
-                    autoComplete="current-password"
-                    required
-                    label={formatMessage({
-                      id: 'password',
-                      defaultMessage: 'Password',
-                    })}
-                  />
-                </div>
+                <EmailField
+                  id="email"
+                  name="email"
+                  error={errors.email}
+                  label={formatMessage({
+                    id: 'email',
+                    defaultMessage: 'Email',
+                  })}
+                  {...register('email', { required: true })}
+                />
+
+                <PasswordField
+                  id="password"
+                  name="password"
+                  error={errors.password}
+                  autoComplete="current-password"
+                  label={formatMessage({
+                    id: 'password',
+                    defaultMessage: 'Password',
+                  })}
+                  {...register('password', { required: true })}
+                />
               </>
             )}
             <Toggle
@@ -167,7 +187,7 @@ const SignUpForm = () => {
               active={authenticateWithDevice}
             />
           </div>
-          <FormErrors />
+          <ErrorMessage />
 
           <div className="my-2">
             <button
@@ -212,7 +232,7 @@ const SignUpForm = () => {
               })}
             </Link>
           </div>
-        </Form>
+        </form>
       </div>
     </div>
   );

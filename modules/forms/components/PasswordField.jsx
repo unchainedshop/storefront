@@ -1,9 +1,7 @@
-import classNames from 'classnames';
-import { useState } from 'react';
-
+import React, { useState } from 'react';
 import TextField from './TextField';
 
-const PasswordField = ({ autoComplete = 'on', ...props }: any) => {
+const PasswordField = React.forwardRef((props, ref) => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
 
   const togglePassword = (event) => {
@@ -12,16 +10,14 @@ const PasswordField = ({ autoComplete = 'on', ...props }: any) => {
   };
 
   return (
-    <div className={classNames('relative', props.className)}>
+    <div>
       <TextField
-        {...{
-          autoComplete: autoComplete || 'on',
-          name: 'password',
-          ...props,
-          type: isPasswordVisible ? 'text' : 'password',
-        }}
+        {...props}
+        ref={ref}
+        type={isPasswordVisible ? 'text' : 'password'}
       />
-      <div className="relative">
+      ;
+      <div className="relative bottom-5">
         <span
           role="button"
           tabIndex={-1}
@@ -71,6 +67,6 @@ const PasswordField = ({ autoComplete = 'on', ...props }: any) => {
       </div>
     </div>
   );
-};
+});
 
 export default PasswordField;

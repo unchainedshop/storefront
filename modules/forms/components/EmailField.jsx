@@ -1,18 +1,8 @@
+import React from 'react';
 import TextField from './TextField';
-import { validateEmail } from '../lib/validators';
 
-const EmailField = ({ validators = [], value, ...props }) => {
-  return (
-    <TextField
-      {...{
-        value,
-        autoComplete: props?.autoComplete || 'on',
-        name: 'email',
-        validators: [...validators, validateEmail],
-        ...props,
-      }}
-    />
-  );
-};
+const EmailField = React.forwardRef(({ ...props }, ref) => {
+  return <TextField {...props} ref={ref} type="email" />;
+});
 
 export default EmailField;
