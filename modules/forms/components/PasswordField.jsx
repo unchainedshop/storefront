@@ -16,8 +16,7 @@ const PasswordField = React.forwardRef((props, ref) => {
         ref={ref}
         type={isPasswordVisible ? 'text' : 'password'}
       />
-      ;
-      <div className="relative bottom-5">
+      <div className="relative">
         <span
           role="button"
           tabIndex={-1}
