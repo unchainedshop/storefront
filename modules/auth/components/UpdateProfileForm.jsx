@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 
 import COUNTRIES from '../../common/data/countries-list';
+import TextField from '../../forms/components/TextField';
 import useUpdateUserProfile from '../hooks/useUpdateUserProfile';
 
 const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
@@ -9,7 +10,7 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<any>();
+  } = useForm();
   const intl = useIntl();
   const { profile = {} } = user;
   const { updateUserProfile } = useUpdateUserProfile();
@@ -50,67 +51,54 @@ const UpdateProfileForm = ({ user, onSuccess, onCancel }) => {
     <div className="container">
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-row">
-          <div
-            className={`mb-3 col-md-6 ${errors.firstName ? 'form-error' : ''}`}
-          >
-            <label className="form-label">
-              {intl.formatMessage({
+          <div className="mb-3 col-md-6">
+            <TextField
+              label={intl.formatMessage({
                 id: 'first_name',
                 defaultMessage: 'Firstname',
               })}
-            </label>
-            <input
               className="form-control"
               defaultValue={profile?.address?.firstName}
               name="firstName"
+              error={errors.firstName}
               {...register('firstName', { required: true })}
             />
           </div>
-          <div
-            className={`mb-3 col-md-6 ${errors.lastName ? 'form-error' : ''}`}
-          >
-            <label className="form-label">
-              {intl.formatMessage({
+          <div className="mb-3 col-md-6 ">
+            <TextField
+              className={`form-control ${errors.lastName && 'form-error'}`}
+              name="lastName"
+              label={intl.formatMessage({
                 id: 'last-name',
                 defaultMessage: 'Lastname',
               })}
-            </label>
-            <input
-              className={`form-control ${errors.lastName && 'form-error'}`}
-              name="lastName"
+              error={errors.lastName}
               defaultValue={profile?.address?.lastName}
               {...register('lastName', { required: true })}
             />
           </div>
-          <div
-            className={`mb-3 col-md-6 ${errors.company ? 'form-error' : ''}`}
-          >
-            <label className="form-label">
-              {intl.formatMessage({
+          <div className={`mb-3 col-md-6 `}>
+            <TextField
+              label={`${intl.formatMessage({
                 id: 'company-name',
                 defaultMessage: 'Company Name',
-              })}{' '}
-              {intl.formatMessage({
-                id: 'optional',
-                defaultMessage: '(Optional)',
-              })}
-            </label>
-            <input
+              })} 
+            ${intl.formatMessage({
+              id: 'optional',
+              defaultMessage: '(Optional)',
+            })}`}
               className="form-control"
               name="company"
               defaultValue={profile?.address?.company}
               {...register('company')}
             />
           </div>
-          <div
-            className={`mb-3 col-md-6 ${
-              errors.addressLine ? 'form-error' : ''
-            }`}
-          >
-            <label className="form-label">
-              {intl.formatMessage({ id: 'address', defaultMessage: 'Address' })}
-            </label>
-            <input
+          <div className="mb-3 col-md-6">
+            <TextField
+              label={intl.formatMessage({
+                id: 'address',
+                defaultMessage: 'Address',
+              })}
               className={`form-control ${errors.addressLine && 'form-error'}`}
               name="addressLine"
               defaultValue={profile?.address?.addressLine}

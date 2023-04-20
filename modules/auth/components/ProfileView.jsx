@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
@@ -8,14 +7,11 @@ import useResendVerificationEmail from '../hooks/useResendVerificationEmail';
 import useUpdateUserProfile from '../hooks/useUpdateUserProfile';
 import Button from '../../common/components/Button';
 import VerifiedStatus from '../../common/components/VerifiedStatus';
+import TextField from '../../forms/components/TextField';
 
 const ProfileView = ({ user }) => {
   const { formatMessage } = useIntl();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<any>();
+  const { register, handleSubmit } = useForm();
 
   const { updateUserProfile } = useUpdateUserProfile();
   const { removeEmail } = useRemoveEmail();
@@ -91,29 +87,11 @@ const ProfileView = ({ user }) => {
                     <div className="mb-2 flex items-center gap-x-16 sm:col-span-2">
                       <div className="mt-1 flex text-sm text-slate-900 dark:text-slate-100 sm:mt-0">
                         {updateProfile ? (
-                          <div className="mt-1">
-                            <input
-                              type="text"
-                              name="firstName"
-                              defaultValue={profile?.address?.firstName}
-                              {...register('firstName')}
-                              className={classNames(
-                                'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
-                                {
-                                  'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                                    errors.firstName,
-                                },
-                              )}
-                            />
-                            {errors.firstName && (
-                              <p className="text-sm text-red-600">
-                                {formatMessage({
-                                  id: 'error_firstName',
-                                  defaultMessage: 'First Name is required',
-                                })}
-                              </p>
-                            )}
-                          </div>
+                          <TextField
+                            name="firstName"
+                            defaultValue={profile?.address?.firstName}
+                            {...register('firstName')}
+                          />
                         ) : (
                           <span className="mb-1">
                             {user?.profile?.address?.firstName}
@@ -123,29 +101,11 @@ const ProfileView = ({ user }) => {
 
                       <div className="mt-1 flex text-sm text-slate-900 dark:text-slate-100 sm:mt-0">
                         {updateProfile ? (
-                          <div className="mt-1">
-                            <input
-                              type="text"
-                              name="lastName"
-                              defaultValue={profile?.address?.lastName}
-                              {...register('lastName')}
-                              className={classNames(
-                                'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
-                                {
-                                  'border-red-300 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                                    errors.lastName,
-                                },
-                              )}
-                            />
-                            {errors.lastName && (
-                              <p className="text-sm text-red-600">
-                                {formatMessage({
-                                  id: 'error_lastName',
-                                  defaultMessage: 'Last Name is required',
-                                })}
-                              </p>
-                            )}
-                          </div>
+                          <TextField
+                            name="lastName"
+                            defaultValue={profile?.address?.lastName}
+                            {...register('lastName')}
+                          />
                         ) : (
                           <span className="mb-1">
                             {user?.profile?.address?.lastName}
@@ -162,8 +122,7 @@ const ProfileView = ({ user }) => {
                       })}
                     </div>
                     {updateProfile ? (
-                      <input
-                        className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
+                      <TextField
                         name="company"
                         defaultValue={profile?.address?.company}
                         {...register('company')}
@@ -244,7 +203,6 @@ const ProfileView = ({ user }) => {
                               id: 'add_email',
                               defaultMessage: 'Add Email',
                             })}
-                            className="mt-2 border-0 bg-slate-900 font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
                             onClick={() => addEmail(newEmail)}
                           />
                         </div>
@@ -257,7 +215,7 @@ const ProfileView = ({ user }) => {
           </div>
           <div className="bg-slate-50 px-4 py-3 text-right dark:bg-slate-400 sm:px-6">
             {updateProfile ? (
-              <>
+              <div className="flex">
                 <Button
                   type="button"
                   text={formatMessage({
@@ -265,7 +223,7 @@ const ProfileView = ({ user }) => {
                     defaultMessage: 'Cancel',
                   })}
                   onClick={onProfileUpdateComplete}
-                  className="mx-4 inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+                  className=" bg-white sm:text-black text-black hover:bg-slate-200"
                 />
                 <Button
                   text={formatMessage({
@@ -273,9 +231,8 @@ const ProfileView = ({ user }) => {
                     defaultMessage: 'save',
                   })}
                   type="submit"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
                 />
-              </>
+              </div>
             ) : (
               <Button
                 type="button"
@@ -283,7 +240,6 @@ const ProfileView = ({ user }) => {
                   id: 'update',
                   defaultMessage: 'update',
                 })}
-                className="inline-flex justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
                 onClick={() => setUpdateProfile(true)}
               />
             )}

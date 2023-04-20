@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useIntl } from 'react-intl';
-import SubmitButton from '../../forms/components/SubmitButton';
+import Button from './Button';
 
 const SaveAndCancelButtons = ({
   cancelText,
@@ -36,8 +36,8 @@ const SaveAndCancelButtons = ({
         </button>
       ) : null}
       {showSubmit ? (
-        <SubmitButton
-          label={
+        <Button
+          text={
             submitText ||
             formatMessage({
               id: 'save',

@@ -1,19 +1,15 @@
-import classNames from 'classnames';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import useUpdateUserProfile from '../../auth/hooks/useUpdateUserProfile';
+import TextField from '../../forms/components/TextField';
 import COUNTRIES from '../data/countries-list';
 import Button from './Button';
 
 const Address = ({ user }) => {
   const { formatMessage } = useIntl();
   const { updateUserProfile } = useUpdateUserProfile();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<any>();
+  const { register, handleSubmit } = useForm();
 
   const [updateProfile, setUpdateProfile] = useState(false);
 
@@ -89,27 +85,11 @@ const Address = ({ user }) => {
                   </div>
                   {updateProfile ? (
                     <div className="mt-1">
-                      <input
-                        type="text"
+                      <TextField
                         name="addressLine"
                         defaultValue={profile?.address?.addressLine}
                         {...register('addressLine')}
-                        className={classNames(
-                          'block w-full rounded-md border border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-slate-900 dark:text-slate-600',
-                          {
-                            'border-red-900 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                              errors.addressLine,
-                          },
-                        )}
                       />
-                      {errors.addressLine && (
-                        <p className="text-sm text-red-600">
-                          {formatMessage({
-                            id: 'error_addressLine',
-                            defaultMessage: 'Address is required',
-                          })}
-                        </p>
-                      )}
                     </div>
                   ) : (
                     <div className="mb-1">
@@ -136,15 +116,11 @@ const Address = ({ user }) => {
                     )}
                   </div>
                   {updateProfile ? (
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        name="addressLine2"
-                        defaultValue={user?.profile?.address?.addressLine2}
-                        {...register('addressLine2')}
-                        className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
-                      />
-                    </div>
+                    <TextField
+                      name="addressLine2"
+                      defaultValue={user?.profile?.address?.addressLine2}
+                      {...register('addressLine2')}
+                    />
                   ) : (
                     <div className="mb-1">
                       {user?.profile?.address?.addressLine2}
@@ -161,27 +137,11 @@ const Address = ({ user }) => {
                   </div>
                   {updateProfile ? (
                     <div className="mt-1">
-                      <input
-                        type="tel"
+                      <TextField
                         name="telNumber"
                         defaultValue={profile?.phoneMobile}
                         {...register('telNumber')}
-                        className={classNames(
-                          'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
-                          {
-                            'border-red-900 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                              errors.telNumber,
-                          },
-                        )}
                       />
-                      {errors.telNumber && (
-                        <p className="text-sm text-red-600">
-                          {formatMessage({
-                            id: 'error_telNumber',
-                            defaultMessage: 'Telephone number is required',
-                          })}
-                        </p>
-                      )}
                     </div>
                   ) : (
                     <div className="mb-1">{user?.profile?.phoneMobile}</div>
@@ -197,27 +157,11 @@ const Address = ({ user }) => {
                   </div>
                   {updateProfile ? (
                     <div className="mt-1">
-                      <input
-                        type="text"
+                      <TextField
                         name="postalCode"
                         defaultValue={profile?.address?.postalCode}
                         {...register('postalCode')}
-                        className={classNames(
-                          'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
-                          {
-                            'border-red-900 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                              errors.postalCode,
-                          },
-                        )}
                       />
-                      {errors.postalCode && (
-                        <p className="text-sm text-red-600">
-                          {formatMessage({
-                            id: 'error_postalCode',
-                            defaultMessage: 'Postal code is required',
-                          })}
-                        </p>
-                      )}
                     </div>
                   ) : (
                     <div className="mb-1">
@@ -278,12 +222,10 @@ const Address = ({ user }) => {
                   </div>
                   {updateProfile ? (
                     <div className="mt-1">
-                      <input
-                        type="text"
+                      <TextField
                         name="regionCode"
                         defaultValue={profile?.address?.regionCode}
                         {...register('regionCode')}
-                        className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
                       />
                     </div>
                   ) : (
@@ -302,27 +244,11 @@ const Address = ({ user }) => {
                   </div>
                   {updateProfile ? (
                     <div className="mt-1">
-                      <input
-                        type="text"
+                      <TextField
                         name="city"
                         defaultValue={profile?.address?.city}
                         {...register('city')}
-                        className={classNames(
-                          'block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600',
-                          {
-                            'border-red-900 focus:border-red-600 focus:outline-none focus:ring-red-600':
-                              errors.postalCode,
-                          },
-                        )}
                       />
-                      {errors.city && (
-                        <p className="text-sm text-red-600">
-                          {formatMessage({
-                            id: 'error_city',
-                            defaultMessage: 'City is required',
-                          })}
-                        </p>
-                      )}
                     </div>
                   ) : (
                     <div className="mb-1">{user?.profile?.address?.city}</div>
@@ -332,7 +258,7 @@ const Address = ({ user }) => {
             </div>
             <div className="bg-slate-50 px-4 py-3 text-right dark:bg-slate-400 sm:px-6">
               {updateProfile ? (
-                <>
+                <div className="flex ">
                   <Button
                     type="button"
                     text={formatMessage({
@@ -340,7 +266,7 @@ const Address = ({ user }) => {
                       defaultMessage: 'Cancel',
                     })}
                     onClick={onProfileUpdateComplete}
-                    className="mx-4 inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+                    className=" bg-white sm:text-black text-black hover:bg-slate-200"
                   />
                   <Button
                     text={formatMessage({
@@ -348,9 +274,8 @@ const Address = ({ user }) => {
                       defaultMessage: 'save',
                     })}
                     type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
                   />
-                </>
+                </div>
               ) : (
                 <Button
                   text={formatMessage({
@@ -358,7 +283,6 @@ const Address = ({ user }) => {
                     defaultMessage: 'update',
                   })}
                   type="button"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
                   onClick={() => setUpdateProfile(true)}
                 />
               )}
