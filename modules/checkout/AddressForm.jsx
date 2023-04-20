@@ -1,10 +1,10 @@
-import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import Button from '../common/components/Button';
 import ErrorMessage from '../common/components/ErrorMessage';
 
 import COUNTRIES from '../common/data/countries-list';
+import SelectField from '../forms/components/SelectField';
 import TextField from '../forms/components/TextField';
 
 const AddressForm = ({ address, onSubmit, onCancel }) => {
@@ -104,20 +104,10 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
         />
       </div>
       <div className="mb-3">
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {formatMessage({ id: 'country', defaultMessage: 'Country' })}
-        </label>
-        <select
-          className={classNames(
-            'mt-1 block w-full appearance-none rounded-md border focus:outline-none px-3 py-2 text-slate-900 placeholder-slate-400 shadow-sm dark:bg-slate-300 sm:text-sm',
-            {
-              'border-slate-300 focus:border-slate-900 focus:ring-slate-900':
-                !errors.countryCode,
-              'border-red-300 focus:border-red-500 focus:ring-red-500':
-                errors.countryCode,
-            },
-          )}
+        <SelectField
+          label={formatMessage({ id: 'country', defaultMessage: 'Country' })}
           {...register('countryCode', { required: true })}
+          error={errors.countryCode}
         >
           {COUNTRIES.map((c) => (
             <option key={c.code} value={c.code}>
@@ -125,28 +115,27 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
               {c.name}{' '}
             </option>
           ))}
-        </select>
+        </SelectField>
       </div>
       {errors.root?.message && <ErrorMessage message={errors.root.message} />}
+
       <div className="pt-3">
-        <div className="pt-3">
-          <Button
-            text={formatMessage({
-              id: 'save_address',
-              defaultMessage: 'Save Address',
-            })}
-            type="submit"
-          />
-          <Button
-            text={formatMessage({
-              id: 'cancel',
-              defaultMessage: 'Cancel',
-            })}
-            className=" bg-white sm:text-black text-black hover:bg-slate-200"
-            type="button"
-            onClick={onCancel}
-          />
-        </div>
+        <Button
+          text={formatMessage({
+            id: 'save_address',
+            defaultMessage: 'Save Address',
+          })}
+          type="submit"
+        />
+        <Button
+          text={formatMessage({
+            id: 'cancel',
+            defaultMessage: 'Cancel',
+          })}
+          className=" bg-white sm:text-black text-black hover:bg-slate-200"
+          type="button"
+          onClick={onCancel}
+        />
       </div>
     </form>
   );

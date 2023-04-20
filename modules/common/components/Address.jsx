@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import useUpdateUserProfile from '../../auth/hooks/useUpdateUserProfile';
+import SelectField from '../../forms/components/SelectField';
 import TextField from '../../forms/components/TextField';
 import COUNTRIES from '../data/countries-list';
 import Button from './Button';
@@ -171,26 +172,23 @@ const Address = ({ user }) => {
                 </div>
 
                 <div className="col-span-4 sm:col-span-2">
-                  <div className="mb-1">
-                    {formatMessage({
-                      id: 'country',
-                      defaultMessage: 'Country',
-                    })}
-                  </div>
                   {updateProfile ? (
                     <div className="mt-1">
-                      <select
+                      <SelectField
+                        label={formatMessage({
+                          id: 'country',
+                          defaultMessage: 'Country',
+                        })}
                         name="countryCode"
                         defaultValue={profile?.address?.countryCode}
                         {...register('countryCode')}
-                        className="block w-full rounded-md border border-solid border-slate-900 bg-slate-100 py-2 px-2 text-sm placeholder-slate-500 transition focus:border-slate-900 focus:text-slate-900 focus:placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-900 dark:text-slate-600"
                       >
                         {COUNTRIES.map((c) => (
                           <option key={c.code} value={c.code}>
                             {c.name}
                           </option>
                         ))}
-                      </select>
+                      </SelectField>
                     </div>
                   ) : (
                     <div className="mb-1">
