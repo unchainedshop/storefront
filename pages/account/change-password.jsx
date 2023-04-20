@@ -1,17 +1,16 @@
 import { KeyIcon } from '@heroicons/react/solid';
 
 import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import { useIntl } from 'react-intl';
 
 import useChangePassword from '../../modules/auth/hooks/useChangePassword';
+import Button from '../../modules/common/components/Button';
+import ErrorMessage from '../../modules/common/components/ErrorMessage';
 import MetaTags from '../../modules/common/components/MetaTags';
-import Form from '../../modules/forms/components/Form';
-import FormErrors from '../../modules/forms/components/FormErrors';
 import PasswordField from '../../modules/forms/components/PasswordField';
-import SubmitButton from '../../modules/forms/components/SubmitButton';
-import useForm from '../../modules/forms/hooks/useForm';
 
 const ChangePassword = () => {
   const { formatMessage } = useIntl();
@@ -19,82 +18,84 @@ const ChangePassword = () => {
 
   const { changePassword } = useChangePassword();
 
-  const onSubmit = async ({ oldPassword, newPassword }) => {
-    const { data } = await changePassword({ oldPassword, newPassword });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm();
 
-    return data?.changePassword;
-  };
+  const onSubmit = async ({ newPassword, confirmPassword, oldPassword }) => {
+    if (confirmPassword && newPassword && newPassword !== confirmPassword) {
+      setError('confirmPassword', {
+        type: 'manual',
+        message: formatMessage({
+          id: 'password-does-not-match',
+          defaultMessage: 'Password does not match',
+        }),
+      });
+      return;
+    }
+    if (newPassword === oldPassword) {
+      setError('newPassword', {
+        type: 'manual',
+        message: formatMessage({
+          id: 'password_identical',
+          defaultMessage:
+            'Provided new password identical to previous password',
+        }),
+      });
+      return;
+    }
 
-  const form = useForm({
-    submit: onSubmit,
-    enableReinitialize: true,
-    onSubmitSuccess: () => {
+    try {
+      await changePassword({ oldPassword, newPassword });
       toast.success(
         formatMessage({
           id: 'password-change-success',
           defaultMessage: 'Password changed successfully.',
         }),
       );
-
       router.push('/account');
-      return true;
-    },
-    getSubmitErrorMessage: (error) => {
-      if (error?.message?.includes('Invalid credentials')) {
-        return formatMessage({
-          id: 'old_password_not_correct',
-          defaultMessage: 'Wrong password, please try again',
+    } catch (error) {
+      if (error?.message?.toLowerCase().includes('incorrect credential')) {
+        setError('oldPassword', {
+          type: 'manual',
+          message: formatMessage({
+            id: 'old_password_not_correct',
+            defaultMessage: 'Wrong password, please try again',
+          }),
         });
+        return;
       }
-      if (error?.message?.includes('Password is not set for account')) {
-        return formatMessage({
-          id: 'password-not-set-error',
-          defaultMessage:
-            'Password is not set for account. please assign a password using set password instead',
+      if (
+        error?.message
+          ?.toLowerCase()
+          ?.includes('password is not set for account')
+      ) {
+        setError('submit', {
+          type: 'manual',
+          message: formatMessage({
+            id: 'password-not-set-error',
+            defaultMessage:
+              'Password is not set for account. please assign a password using set password instead or contact system admin',
+          }),
         });
+        return;
       }
 
-      return formatMessage(
-        {
-          id: 'password_change_failed',
-          defaultMessage: 'Password change failed, try again later',
-        },
-        { error: error.message },
-      );
-    },
-    validate: ({ newPassword, oldPassword, confirmPassword }) => {
-      if (newPassword === oldPassword) {
-        return {
-          misMatchError: formatMessage({
-            id: 'password_identical',
-            defaultMessage:
-              'Provided new password identical to previous password',
-          }),
-        };
-      }
-      if (confirmPassword && newPassword && newPassword !== confirmPassword) {
-        form.formik.setFieldError(
-          'confirmPassword',
-          formatMessage({
-            id: 'password-does-not-match',
-            defaultMessage: 'Password does not match',
-          }),
-        );
-        return {
-          misMatchError: formatMessage({
-            id: 'password-does-not-match',
-            defaultMessage: 'Password does not match',
-          }),
-        };
-      }
-      return {};
-    },
-    initialValues: {
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-    },
-  });
+      setError('submit', {
+        type: 'manual',
+        message: formatMessage(
+          {
+            id: 'password_change_failed',
+            defaultMessage: 'Password change failed, try again later',
+          },
+          { error: error.message },
+        ),
+      });
+    }
+  };
 
   return (
     <>
@@ -117,8 +118,12 @@ const ChangePassword = () => {
               })}
             </h1>
 
-            <Form form={form} className="mt-10 space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-10 space-y-4">
               <PasswordField
+                {...register('oldPassword', {
+                  required: true,
+                })}
+                error={errors.oldPassword}
                 label={formatMessage({
                   id: 'current_password',
                   defaultMessage: 'Current password',
@@ -129,10 +134,12 @@ const ChangePassword = () => {
                 })}
                 name="oldPassword"
                 id="oldPassword"
-                required
-                className="text-sm"
               />
               <PasswordField
+                {...register('newPassword', {
+                  required: true,
+                })}
+                error={errors.newPassword}
                 label={formatMessage({
                   id: 'new_password',
                   defaultMessage: 'New password',
@@ -147,6 +154,10 @@ const ChangePassword = () => {
                 className="text-sm"
               />
               <PasswordField
+                error={errors.confirmPassword}
+                {...register('confirmPassword', {
+                  required: true,
+                })}
                 label={formatMessage({
                   id: 'confirm-password',
                   defaultMessage: 'Confirm password',
@@ -160,15 +171,18 @@ const ChangePassword = () => {
                 required
                 className="text-sm"
               />
-              <FormErrors displayFieldErrors />
-              <SubmitButton
+              {errors.submit && (
+                <ErrorMessage message={errors.submit.message} />
+              )}
+              <Button
+                type="submit"
                 className="w-full"
-                label={formatMessage({
+                text={formatMessage({
                   id: 'reset_password',
                   defaultMessage: 'Reset password',
                 })}
               />
-            </Form>
+            </form>
           </div>
         </div>
       </div>

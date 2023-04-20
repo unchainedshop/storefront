@@ -50,6 +50,14 @@ const SignUpForm = () => {
     try {
       if (authenticateWithDevice) {
         await registerWithWebAuth(username);
+        toast.success(
+          formatMessage({
+            id: 'registration-complete',
+            defaultMessage: 'Registered successfully',
+          }),
+        );
+        push('/account');
+        return;
       }
 
       const { data } = await createUser({
@@ -61,15 +69,10 @@ const SignUpForm = () => {
       await storeLoginToken(id, token, new Date(tokenExpires));
 
       toast.success(
-        formatMessage(
-          {
-            id: 'reset_link_sent',
-            defaultMessage: 'Password reset link sent to {email} ',
-          },
-          {
-            email,
-          },
-        ),
+        formatMessage({
+          id: 'registration-complete',
+          defaultMessage: 'Registered successfully',
+        }),
       );
       push('/account');
     } catch (e) {
