@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import DatePicker from 'react-datepicker';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
 
-import useField, { FieldHookProps } from '../hooks/useField';
+import useField from '../hooks/useField';
 import { validateDate } from '../lib/validators';
 import FieldWrapper from './FieldWrapper';
 
@@ -19,7 +19,7 @@ const DatePickerField = ({
   parseDate = defaultParseDate,
   datePickerOptions = {},
   ...props
-}: FieldHookProps) => {
+}) => {
   const field = useField({
     validators: [...validators, validateDate],
     ...props,

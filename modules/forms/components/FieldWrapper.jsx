@@ -1,11 +1,6 @@
 /* eslint-disable no-undef */
 import classnames from 'classnames';
-
-import { ComputedProps } from '../hooks/useField';
-
-interface FieldWrapperProps extends ComputedProps {
-  children: JSX.Element;
-}
+import { useIntl } from 'react-intl';
 
 const FieldWrapper = ({
   children,
@@ -17,7 +12,19 @@ const FieldWrapper = ({
   label,
   hideLabel,
   labelClassName,
-}: FieldWrapperProps) => {
+}) => {
+  const { formatMessage } = useIntl();
+  const errorsMap = {
+    required: formatMessage(
+      {
+        id: 'error_required',
+        defaultMessage: '{label} is a required field',
+      },
+      {
+        label: label || name,
+      },
+    ),
+  };
   return (
     <div
       className={classnames(
@@ -43,7 +50,7 @@ const FieldWrapper = ({
           labelClassName,
         )}
       >
-        {error || label}
+        {errorsMap[error?.type] || error?.message || label}
       </label>
       {children}
     </div>

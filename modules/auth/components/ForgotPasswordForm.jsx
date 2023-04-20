@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -6,6 +5,8 @@ import { useIntl } from 'react-intl';
 
 import Button from '../../common/components/Button';
 import ErrorMessage from '../../common/components/ErrorMessage';
+import EmailField from '../../forms/components/EmailField';
+
 import useForgotPassword from '../hooks/useForgotPassword';
 
 const ForgotPasswordForm = () => {
@@ -55,45 +56,28 @@ const ForgotPasswordForm = () => {
             "Enter your email address below and we'll send you a link to reset your password!",
         })}
       </p>
-      <div className="form-row">
-        <div className={`mb-3 col-md-6 ${errors.email ? 'text-red-500' : ''}`}>
-          <label className="form-label">
-            {formatMessage({
-              id: 'email',
-              defaultMessage: 'Email',
-            })}
-          </label>
-          <input
-            className={classNames(
-              'relative mt-1 block w-full dark:focus:autofill dark:hover:autofill dark:autofill  dark:placeholder:text-white dark:bg-slate-900 dark:text-slate-200 appearance-none rounded-md border-2 border-slate-200 dark:border-slate-700 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-400',
 
-              {
-                'border-2 border-color-danger-600  placeholder:text-red-500':
-                  !!errors?.email,
-              },
-            )}
-            name="email"
-            id="email-address"
-            type="email"
-            defaultValue=""
-            label={formatMessage({
-              id: 'email_address',
-              defaultMessage: 'Email Address',
-            })}
-            placeholder={formatMessage({
-              id: 'email_address',
-              defaultMessage: 'Email Address',
-            })}
-            {...register('email', { required: true })}
-          />
-        </div>
-      </div>
-      {errors?.email && <ErrorMessage message={errors.email?.message} />}
+      <EmailField
+        name="email"
+        id="email-address"
+        type="email"
+        error={errors?.email}
+        placeholder={formatMessage({
+          id: 'email_address',
+          defaultMessage: 'Email Address',
+        })}
+        label={formatMessage({
+          id: 'email_address',
+          defaultMessage: 'Email Address',
+        })}
+        {...register('email', { required: true })}
+      />
+
+      {errors?.submit && <ErrorMessage message={errors.submit?.message} />}
       <div className="mb-6 mt-6">
         <Button
           disabled={Object.keys(errors).length}
           type="submit"
-          className="flex w-full justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"
           text={formatMessage({
             id: 'send_rest_link',
             defaultMessage: 'Send reset link',

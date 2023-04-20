@@ -11,7 +11,7 @@ const Button = ({
   return (
     <button
       className={classNames(
-        'inline-flex cursor-pointer appearance-none items-center justify-center rounded-md border py-2 px-4 text-center text-base font-bold uppercase tracking-[1px] shadow-sm transition',
+        'flex w-full justify-center rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2',
         {
           'cursor-not-allowed opacity-30 outline-none': disabled,
         },

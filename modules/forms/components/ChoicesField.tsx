@@ -1,11 +1,9 @@
 import classNames from 'classnames';
 
 import useField, { FieldHookProps } from '../hooks/useField';
-import { SelectFieldOptions } from './SelectField';
 
 interface ChoicesFieldProps extends FieldHookProps {
   multiple?: boolean;
-  options: SelectFieldOptions;
   choiceClassName?: string;
   choiceContainerClassName?: string;
   labelClassName?: string;

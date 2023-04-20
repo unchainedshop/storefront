@@ -1,18 +1,10 @@
 /* eslint-disable no-undef */
 import classnames from 'classnames';
 
-import useField, { FieldHookProps } from '../hooks/useField';
+import useField from '../hooks/useField';
 import FieldWrapper from './FieldWrapper';
 
-export interface SelectFieldOptions {
-  [key: string]: string | JSX.Element;
-}
-
-interface SelectFieldProps extends FieldHookProps {
-  options: SelectFieldOptions;
-}
-
-const SelectField = (props: SelectFieldProps) => {
+const SelectField = (props) => {
   const { options, ...field } = useField(props);
   const { className } = props || { className: '' };
 
@@ -44,7 +36,7 @@ const SelectField = (props: SelectFieldProps) => {
               {field.placeholder || field.label}
             </option>
           )}
-          {Object.entries(options).map(([value, display]: any) => (
+          {Object.entries(options).map(([value, display]) => (
             <option className="dark:text-slate-200" key={value} value={value}>
               {display}
             </option>

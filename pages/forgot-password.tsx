@@ -1,32 +1,11 @@
-import toast from 'react-hot-toast';
 import { useIntl } from 'react-intl';
 import ForgotPasswordForm from '../modules/auth/components/ForgotPasswordForm';
-import useForgotPassword from '../modules/auth/hooks/useForgotPassword';
 import ImageWithFallback from '../modules/common/components/ImageWithFallback';
 import getLogo from '../modules/common/utils/getLogo';
 
 const ForgotPassword = () => {
-  const { forgotPassword } = useForgotPassword();
   const { formatMessage } = useIntl();
-  const onSubmitSuccess = (success, { email }) => {
-    if (success) {
-      toast.success(
-        formatMessage(
-          {
-            id: 'reset_link_sent',
-            defaultMessage: 'Password reset link sent to {email} ',
-          },
-          {
-            email,
-          },
-        ),
-      );
-    }
-  };
-  const onSubmit = async ({ email }) => {
-    const { data } = await forgotPassword({ email });
-    return data.forgotPassword;
-  };
+
   const logo = getLogo();
 
   return (
@@ -56,10 +35,7 @@ const ForgotPassword = () => {
           })}
         </p>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <ForgotPasswordForm
-            onSubmit={onSubmit}
-            onSubmitSuccess={onSubmitSuccess}
-          />
+          <ForgotPasswordForm />
         </div>
       </div>
     </div>
