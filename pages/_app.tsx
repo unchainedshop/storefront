@@ -10,6 +10,7 @@ import { AppContextWrapper } from '../modules/common/components/AppContextWrappe
 
 import '../public/static/css/all.css';
 import '../styles/globals.css';
+import { FormProvider } from '../modules/forms/lib/useFormWithContext';
 
 const UnchainedApp = ({ Component, pageProps, router }) => {
   const apollo = useApollo(pageProps, { locale: router.locale });
@@ -21,14 +22,16 @@ const UnchainedApp = ({ Component, pageProps, router }) => {
 
   return (
     <IntlWrapper locale={router.locale} messages={messages} key="intl-provider">
-      <AppContextWrapper defaultCurrency={defaultCurrency}>
-        <ApolloProvider client={apollo}>
-          <Toaster />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ApolloProvider>
-      </AppContextWrapper>
+      <FormProvider>
+        <AppContextWrapper defaultCurrency={defaultCurrency}>
+          <ApolloProvider client={apollo}>
+            <Toaster />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ApolloProvider>
+        </AppContextWrapper>
+      </FormProvider>
     </IntlWrapper>
   );
 };

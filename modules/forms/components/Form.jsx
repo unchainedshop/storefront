@@ -1,15 +1,12 @@
-import React from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useFormContext } from '../lib/useFormWithContext';
 
-const Form = ({ children, onSubmit, ...formProps }) => {
-  const methods = useForm();
+const Form = ({ children, onSubmit }) => {
+  const { handleSubmit } = useFormContext();
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} {...formProps}>
-        {children}
-      </form>
-    </FormProvider>
+    <form onSubmit={handleSubmit(onSubmit)} className="form">
+      {children}
+    </form>
   );
 };
 

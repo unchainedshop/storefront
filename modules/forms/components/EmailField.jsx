@@ -1,8 +1,9 @@
 import React from 'react';
+
 import TextField from './TextField';
 
-const EmailField = ({ ...props }, ref) => {
-  return <TextField {...props} ref={ref} type="email" />;
+const EmailField = ({ ...props }) => {
+  return <TextField {...props} type="email" />;
 };
 
 export default EmailField;

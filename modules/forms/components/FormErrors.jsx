@@ -1,7 +1,10 @@
 import React from 'react';
+import { useFormContext } from '../lib/useFormWithContext';
 
-const FormErrors = ({ errors }) => {
-  if (!Object.keys(errors || {}).length) return null;
+const FormErrors = () => {
+  const { formErrors } = useFormContext();
+
+  if (!Object.keys(formErrors || {}).length) return null;
   return (
     <div
       style={{
@@ -11,7 +14,7 @@ const FormErrors = ({ errors }) => {
         backgroundColor: 'darkred',
       }}
     >
-      {Object.entries(errors || {}).map(([name, error]) => (
+      {Object.entries(formErrors || {}).map(([name, error]) => (
         <p key={name}>{error.message}</p>
       ))}
     </div>

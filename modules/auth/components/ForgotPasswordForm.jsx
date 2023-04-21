@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useForm } from 'react-hook-form';
+
 import toast from 'react-hot-toast';
 import { useIntl } from 'react-intl';
 
@@ -7,16 +7,15 @@ import EmailField from '../../forms/components/EmailField';
 import Form from '../../forms/components/Form';
 import FormErrors from '../../forms/components/FormErrors';
 import SubmitButton from '../../forms/components/SubmitButton';
+import { useFormContext } from '../../forms/lib/useFormWithContext';
 
 import useForgotPassword from '../hooks/useForgotPassword';
 
 const ForgotPasswordForm = () => {
   const { formatMessage } = useIntl();
 
-  const {
-    setError,
-    formState: { errors },
-  } = useForm();
+  const { setError } = useFormContext();
+
   const { forgotPassword } = useForgotPassword();
 
   const onSubmit = async ({ email }) => {
@@ -71,7 +70,7 @@ const ForgotPasswordForm = () => {
         required
       />
 
-      <FormErrors errors={errors} />
+      <FormErrors />
       <div className="mb-6 mt-6">
         <SubmitButton>
           {formatMessage({
