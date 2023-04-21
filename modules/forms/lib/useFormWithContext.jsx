@@ -1,7 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
-const FormContext = createContext();
+import FormContext from './FormContext';
 
 const useFormWithContext = () => {
   const { register, handleSubmit, errors, setError, clearErrors, formState } =

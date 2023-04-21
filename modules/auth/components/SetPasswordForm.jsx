@@ -1,21 +1,18 @@
-import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useIntl } from 'react-intl';
-import Button from '../../common/components/Button';
-import ErrorMessage from '../../common/components/ErrorMessage';
+
+import Form from '../../forms/components/Form';
+import FormErrors from '../../forms/components/FormErrors';
+import SubmitButton from '../../forms/components/SubmitButton';
 import TextField from '../../forms/components/TextField';
+import { useFormContext } from '../../forms/lib/useFormWithContext';
 import useSetPassword from '../hooks/useSetPassword';
 
 const SetPasswordForm = ({ userId }) => {
   const { formatMessage } = useIntl();
   const { setPassword } = useSetPassword();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm();
+  const { setError } = useFormContext();
 
   const onSubmit = async ({ newPassword }) => {
     try {
@@ -59,7 +56,7 @@ const SetPasswordForm = ({ userId }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={onSubmit}>
       <TextField
         placeholder={formatMessage({
           id: 'new_password',
@@ -69,24 +66,21 @@ const SetPasswordForm = ({ userId }) => {
           id: 'new_password',
           defaultMessage: 'New password',
         })}
-        error={errors.newPassword}
         name="newPassword"
         id="newPassword"
         required
-        {...register('newPassword', { required: true })}
       />
 
-      {errors?.submit && <ErrorMessage message={errors?.submit.message} />}
+      <FormErrors />
       <div className="mt-6">
-        <Button
-          type="submit"
-          text={formatMessage({
+        <SubmitButton>
+          {formatMessage({
             id: 'set-password',
             defaultMessage: 'Set password',
           })}
-        />
+        </SubmitButton>
       </div>
-    </form>
+    </Form>
   );
 };
 

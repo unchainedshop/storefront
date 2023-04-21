@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useIntl } from 'react-intl';
-import Button from '../../common/components/Button';
-import ErrorMessage from '../../common/components/ErrorMessage';
+
+import Form from '../../forms/components/Form';
+import FormErrors from '../../forms/components/FormErrors';
 import PasswordField from '../../forms/components/PasswordField';
+import SubmitButton from '../../forms/components/SubmitButton';
+import { useFormContext } from '../../forms/lib/useFormWithContext';
 
 import useResetPassword from '../hooks/useResetPassword';
 
@@ -13,12 +15,7 @@ const ResetPasswordForm = ({ token }) => {
   const { resetPassword } = useResetPassword();
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm();
+  const { setError } = useFormContext();
 
   const onSubmit = async ({ newPassword, confirmPassword }) => {
     if (newPassword !== confirmPassword) {
@@ -51,12 +48,8 @@ const ResetPasswordForm = ({ token }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={onSubmit}>
       <PasswordField
-        {...register('newPassword', {
-          required: true,
-        })}
-        error={errors?.newPassword}
         name="newPassword"
         id="new-password"
         placeholder={formatMessage({
@@ -67,14 +60,12 @@ const ResetPasswordForm = ({ token }) => {
           id: 'new_password',
           defaultMessage: 'New password',
         })}
+        required
       />
 
       <PasswordField
-        {...register('confirmPassword', {
-          required: true,
-        })}
+        required
         name="confirmPassword"
-        error={errors?.confirmPassword}
         id="confirm-password"
         placeholder={formatMessage({
           id: 'confirm_password',
@@ -87,17 +78,15 @@ const ResetPasswordForm = ({ token }) => {
       />
 
       <div className="mt-2 mb-2 ">
-        {errors.submit && <ErrorMessage message={errors.submit.message} />}
+        <FormErrors />
       </div>
-      <Button
-        type="submit"
-        text={formatMessage({
+      <SubmitButton className="w-full">
+        {formatMessage({
           id: 'rest_password',
           defaultMessage: 'Reset password',
         })}
-        className="w-full"
-      />
-    </form>
+      </SubmitButton>
+    </Form>
   );
 };
 

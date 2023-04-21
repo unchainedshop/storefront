@@ -1,16 +1,18 @@
 import { KeyIcon } from '@heroicons/react/solid';
 
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import { useIntl } from 'react-intl';
 
 import useChangePassword from '../../modules/auth/hooks/useChangePassword';
-import Button from '../../modules/common/components/Button';
-import ErrorMessage from '../../modules/common/components/ErrorMessage';
+
 import MetaTags from '../../modules/common/components/MetaTags';
+import Form from '../../modules/forms/components/Form';
+import FormErrors from '../../modules/forms/components/FormErrors';
 import PasswordField from '../../modules/forms/components/PasswordField';
+import SubmitButton from '../../modules/forms/components/SubmitButton';
+import { useFormContext } from '../../modules/forms/lib/useFormWithContext';
 
 const ChangePassword = () => {
   const { formatMessage } = useIntl();
@@ -18,12 +20,7 @@ const ChangePassword = () => {
 
   const { changePassword } = useChangePassword();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm();
+  const { setError } = useFormContext();
 
   const onSubmit = async ({ newPassword, confirmPassword, oldPassword }) => {
     if (confirmPassword && newPassword && newPassword !== confirmPassword) {
@@ -118,12 +115,9 @@ const ChangePassword = () => {
               })}
             </h1>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="mt-10 space-y-4">
+            <Form onSubmit={onSubmit} className="mt-10 space-y-4">
               <PasswordField
-                {...register('oldPassword', {
-                  required: true,
-                })}
-                error={errors.oldPassword}
+                required
                 label={formatMessage({
                   id: 'current_password',
                   defaultMessage: 'Current password',
@@ -136,10 +130,7 @@ const ChangePassword = () => {
                 id="oldPassword"
               />
               <PasswordField
-                {...register('newPassword', {
-                  required: true,
-                })}
-                error={errors.newPassword}
+                required
                 label={formatMessage({
                   id: 'new_password',
                   defaultMessage: 'New password',
@@ -150,14 +141,10 @@ const ChangePassword = () => {
                 })}
                 name="newPassword"
                 id="newPassword"
-                required
                 className="text-sm"
               />
               <PasswordField
-                error={errors.confirmPassword}
-                {...register('confirmPassword', {
-                  required: true,
-                })}
+                required
                 label={formatMessage({
                   id: 'confirm-password',
                   defaultMessage: 'Confirm password',
@@ -168,21 +155,18 @@ const ChangePassword = () => {
                 })}
                 name="confirmPassword"
                 id="confirmPassword"
-                required
                 className="text-sm"
               />
-              {errors.submit && (
-                <ErrorMessage message={errors.submit.message} />
-              )}
-              <Button
-                type="submit"
-                className="w-full"
-                text={formatMessage({
+
+              <FormErrors />
+
+              <SubmitButton>
+                {formatMessage({
                   id: 'reset_password',
                   defaultMessage: 'Reset password',
                 })}
-              />
-            </form>
+              </SubmitButton>
+            </Form>
           </div>
         </div>
       </div>

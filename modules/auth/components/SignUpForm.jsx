@@ -1,19 +1,19 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useIntl } from 'react-intl';
-import ErrorMessage from '../../common/components/ErrorMessage';
 import ImageWithFallback from '../../common/components/ImageWithFallback';
 import Toggle from '../../common/components/Toggle';
 import getLogo from '../../common/utils/getLogo';
 import EmailField from '../../forms/components/EmailField';
 import Form from '../../forms/components/Form';
+import FormErrors from '../../forms/components/FormErrors';
 
 import PasswordField from '../../forms/components/PasswordField';
 import SubmitButton from '../../forms/components/SubmitButton';
 import TextField from '../../forms/components/TextField';
+import { useFormContext } from '../../forms/lib/useFormWithContext';
 
 import useCreateUser from '../hooks/useCreateUser';
 import useGenerateWebAuthCredentials from '../hooks/useGenerateWebAuthCredentials';
@@ -25,7 +25,7 @@ const SignUpForm = () => {
   const { generateWebAuthCredentials } = useGenerateWebAuthCredentials();
   const { createUser } = useCreateUser();
   const { push } = useRouter();
-  const { setError } = useForm();
+  const { setError } = useFormContext();
 
   const registerWithWebAuth = async (username) => {
     const webAuthnPublicKeyCredentials = await generateWebAuthCredentials({
@@ -182,7 +182,7 @@ const SignUpForm = () => {
               active={authenticateWithDevice}
             />
           </div>
-          <ErrorMessage />
+          <FormErrors />
 
           <div className="my-2">
             <SubmitButton>

@@ -1,16 +1,12 @@
 import React from 'react';
 
 const FormContext = React.createContext({
-  submitError: '',
-  form: {},
-  setSubmitError: () => {},
-  disabled: false,
   register: () => {},
+  handleSubmit: () => {},
+  formErrors: {},
   setError: () => {},
-  clearError: () => {},
-  validateField: () => {},
-  validateAllFields: () => {},
-  errors: {},
+  clearErrors: () => {},
+  formState: {},
 });
 
 export default FormContext;

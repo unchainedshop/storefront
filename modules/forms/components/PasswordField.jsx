@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import TextField from './TextField';
 
 const PasswordField = ({ ...props }) => {
@@ -10,7 +11,7 @@ const PasswordField = ({ ...props }) => {
   };
 
   return (
-    <div>
+    <>
       <TextField {...props} type={isPasswordVisible ? 'text' : 'password'} />
       <div className="relative">
         <span
@@ -60,7 +61,7 @@ const PasswordField = ({ ...props }) => {
           )}
         </span>
       </div>
-    </div>
+    </>
   );
 };
 
