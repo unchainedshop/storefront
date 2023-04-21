@@ -1,11 +1,17 @@
 import classnames from 'classnames';
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import FieldWrapper from './FieldWrapper';
 
-const TextField = React.forwardRef((props, ref) => {
+const TextField = ({ ...props }) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+  const error = errors[props.name];
   return (
-    <FieldWrapper {...props}>
+    <FieldWrapper {...props} error={error}>
       <input
         className={classnames(
           'relative mt-1 block w-full dark:focus:autofill dark:hover:autofill dark:autofill dark:placeholder:text-white dark:bg-slate-900 dark:text-slate-200 appearance-none rounded-md border-2  dark:border-slate-700 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-400',
@@ -13,10 +19,9 @@ const TextField = React.forwardRef((props, ref) => {
           {
             'border-2 border-color-danger-600 placeholder:text-red-300':
               !!props.error,
-            'border-slate-200': !props.error,
+            'border-slate-200': ![error],
           },
         )}
-        ref={ref}
         disabled={props.disabled}
         id={props.name}
         name={props.name}
@@ -26,9 +31,10 @@ const TextField = React.forwardRef((props, ref) => {
         autoComplete={props.autoComplete}
         type={props.type}
         value={props.value}
+        {...register(props.name, { required: !!props?.required })}
       />
     </FieldWrapper>
   );
-});
+};
 
 export default TextField;

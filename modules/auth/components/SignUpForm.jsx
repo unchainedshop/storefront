@@ -9,8 +9,10 @@ import ImageWithFallback from '../../common/components/ImageWithFallback';
 import Toggle from '../../common/components/Toggle';
 import getLogo from '../../common/utils/getLogo';
 import EmailField from '../../forms/components/EmailField';
+import Form from '../../forms/components/Form';
 
 import PasswordField from '../../forms/components/PasswordField';
+import SubmitButton from '../../forms/components/SubmitButton';
 import TextField from '../../forms/components/TextField';
 
 import useCreateUser from '../hooks/useCreateUser';
@@ -23,12 +25,7 @@ const SignUpForm = () => {
   const { generateWebAuthCredentials } = useGenerateWebAuthCredentials();
   const { createUser } = useCreateUser();
   const { push } = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setError,
-  } = useForm();
+  const { setError } = useForm();
 
   const registerWithWebAuth = async (username) => {
     const webAuthnPublicKeyCredentials = await generateWebAuthCredentials({
@@ -132,8 +129,8 @@ const SignUpForm = () => {
             })}
           </h2>
         </div>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
+        <Form
+          onSubmit={onSubmit}
           className="mt-8 space-y-6 pt-4 pb-8 shadow sm:rounded-lg sm:px-10"
         >
           <input type="hidden" name="remember" value="true" />
@@ -141,14 +138,12 @@ const SignUpForm = () => {
             <TextField
               id="username"
               name="username"
-              error={errors.username}
               required={authenticateWithDevice}
               type="text"
               label={formatMessage({
                 id: 'username',
                 defaultMessage: 'Username',
               })}
-              {...register('username')}
             />
 
             {!authenticateWithDevice && (
@@ -156,24 +151,21 @@ const SignUpForm = () => {
                 <EmailField
                   id="email"
                   name="email"
-                  error={errors.email}
+                  required={!authenticateWithDevice}
                   label={formatMessage({
                     id: 'email',
                     defaultMessage: 'Email',
                   })}
-                  {...register('email', { required: true })}
                 />
 
                 <PasswordField
                   id="password"
                   name="password"
-                  error={errors.password}
-                  autoComplete="current-password"
+                  required={!authenticateWithDevice}
                   label={formatMessage({
                     id: 'password',
                     defaultMessage: 'Password',
                   })}
-                  {...register('password', { required: true })}
                 />
               </>
             )}
@@ -193,10 +185,7 @@ const SignUpForm = () => {
           <ErrorMessage />
 
           <div className="my-2">
-            <button
-              type="submit"
-              className="group relative flex w-full justify-center rounded-md border border-transparent bg-slate-500 py-2 px-4 text-sm font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
-            >
+            <SubmitButton>
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg
                   className="h-5 w-5 text-slate-500 group-hover:text-slate-400"
@@ -217,7 +206,7 @@ const SignUpForm = () => {
                 id: 'sign_up',
                 defaultMessage: 'Sign up',
               })}
-            </button>
+            </SubmitButton>
           </div>
 
           <div className="text-sm text-slate-400 dark:text-slate-200">
@@ -235,7 +224,7 @@ const SignUpForm = () => {
               })}
             </Link>
           </div>
-        </form>
+        </Form>
       </div>
     </div>
   );

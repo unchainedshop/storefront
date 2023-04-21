@@ -3,9 +3,10 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useIntl } from 'react-intl';
 
-import Button from '../../common/components/Button';
-import ErrorMessage from '../../common/components/ErrorMessage';
 import EmailField from '../../forms/components/EmailField';
+import Form from '../../forms/components/Form';
+import FormErrors from '../../forms/components/FormErrors';
+import SubmitButton from '../../forms/components/SubmitButton';
 
 import useForgotPassword from '../hooks/useForgotPassword';
 
@@ -13,10 +14,8 @@ const ForgotPasswordForm = () => {
   const { formatMessage } = useIntl();
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
     setError,
+    formState: { errors },
   } = useForm();
   const { forgotPassword } = useForgotPassword();
 
@@ -35,7 +34,7 @@ const ForgotPasswordForm = () => {
         ),
       );
     } catch (e) {
-      if (e.message?.toLowerCase()?.includes('user not found')) {
+      if (e.message?.toLowerCase()?.includes('not found')) {
         setError('email', {
           type: 'manual',
           message: formatMessage({
@@ -48,7 +47,7 @@ const ForgotPasswordForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="form">
+    <Form onSubmit={onSubmit} className="form">
       <p className="py-4">
         {formatMessage({
           id: 'forgot_password_header_description',
@@ -61,7 +60,6 @@ const ForgotPasswordForm = () => {
         name="email"
         id="email-address"
         type="email"
-        error={errors?.email}
         placeholder={formatMessage({
           id: 'email_address',
           defaultMessage: 'Email Address',
@@ -70,26 +68,23 @@ const ForgotPasswordForm = () => {
           id: 'email_address',
           defaultMessage: 'Email Address',
         })}
-        {...register('email', { required: true })}
+        required
       />
 
-      {errors?.submit && <ErrorMessage message={errors.submit?.message} />}
+      <FormErrors errors={errors} />
       <div className="mb-6 mt-6">
-        <Button
-          disabled={Object.keys(errors).length}
-          type="submit"
-          text={formatMessage({
+        <SubmitButton>
+          {formatMessage({
             id: 'send_rest_link',
             defaultMessage: 'Send reset link',
           })}
-        />
+        </SubmitButton>
       </div>
       <p className="text-center text-sm text-slate-400">
         {formatMessage({
           id: 'dont_have_account',
           defaultMessage: "Don't have an account yet?",
         })}
-        {'  '}
         <Link
           href="/sign-up"
           className="font-semibold text-slate-500 dark:text-slate-400 focus:text-slate-600 dark:hover:text-slate-300 focus:underline focus:outline-none"
@@ -98,7 +93,7 @@ const ForgotPasswordForm = () => {
         </Link>
         .
       </p>
-    </form>
+    </Form>
   );
 };
 

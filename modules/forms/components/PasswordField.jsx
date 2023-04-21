@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TextField from './TextField';
 
-const PasswordField = React.forwardRef((props, ref) => {
+const PasswordField = ({ ...props }) => {
   const [isPasswordVisible, setPasswordVisible] = useState(false);
 
   const togglePassword = (event) => {
@@ -11,11 +11,7 @@ const PasswordField = React.forwardRef((props, ref) => {
 
   return (
     <div>
-      <TextField
-        {...props}
-        ref={ref}
-        type={isPasswordVisible ? 'text' : 'password'}
-      />
+      <TextField {...props} type={isPasswordVisible ? 'text' : 'password'} />
       <div className="relative">
         <span
           role="button"
@@ -66,6 +62,6 @@ const PasswordField = React.forwardRef((props, ref) => {
       </div>
     </div>
   );
-});
+};
 
 export default PasswordField;
