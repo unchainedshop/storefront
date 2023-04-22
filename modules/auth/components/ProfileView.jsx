@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import useAddEmail from '../hooks/useAddEmail';
 import useRemoveEmail from '../hooks/useRemoveEmail';
@@ -8,10 +7,11 @@ import useUpdateUserProfile from '../hooks/useUpdateUserProfile';
 import Button from '../../common/components/Button';
 import VerifiedStatus from '../../common/components/VerifiedStatus';
 import TextField from '../../forms/components/TextField';
+import Form from '../../forms/components/Form';
+import SubmitButton from '../../forms/components/SubmitButton';
 
 const ProfileView = ({ user }) => {
   const { formatMessage } = useIntl();
-  const { register, handleSubmit } = useForm();
 
   const { updateUserProfile } = useUpdateUserProfile();
   const { removeEmail } = useRemoveEmail();
@@ -63,7 +63,7 @@ const ProfileView = ({ user }) => {
       className="space-y-6 sm:px-6 lg:col-span-9 lg:col-start-4 lg:px-0"
       aria-labelledby="payment-details-heading"
     >
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={onSubmit}>
         <div className="shadow sm:overflow-hidden sm:rounded-md">
           <div className="bg-white py-6 px-4 dark:bg-slate-500 dark:text-slate-200 sm:p-6">
             <div className="divide-y divide-slate-200">
@@ -90,7 +90,6 @@ const ProfileView = ({ user }) => {
                           <TextField
                             name="firstName"
                             defaultValue={profile?.address?.firstName}
-                            {...register('firstName')}
                           />
                         ) : (
                           <span className="mb-1">
@@ -104,7 +103,6 @@ const ProfileView = ({ user }) => {
                           <TextField
                             name="lastName"
                             defaultValue={profile?.address?.lastName}
-                            {...register('lastName')}
                           />
                         ) : (
                           <span className="mb-1">
@@ -125,7 +123,6 @@ const ProfileView = ({ user }) => {
                       <TextField
                         name="company"
                         defaultValue={profile?.address?.company}
-                        {...register('company')}
                       />
                     ) : (
                       <div className="mb-1">
@@ -225,13 +222,12 @@ const ProfileView = ({ user }) => {
                   onClick={onProfileUpdateComplete}
                   className=" bg-white sm:text-black text-black hover:bg-slate-200"
                 />
-                <Button
-                  text={formatMessage({
+                <SubmitButton>
+                  {formatMessage({
                     id: 'save',
                     defaultMessage: 'save',
                   })}
-                  type="submit"
-                />
+                </SubmitButton>
               </div>
             ) : (
               <Button
@@ -245,7 +241,7 @@ const ProfileView = ({ user }) => {
             )}
           </div>
         </div>
-      </form>
+      </Form>
     </section>
   );
 };

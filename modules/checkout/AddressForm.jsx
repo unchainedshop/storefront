@@ -1,46 +1,41 @@
-import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import Button from '../common/components/Button';
-import ErrorMessage from '../common/components/ErrorMessage';
 
 import COUNTRIES from '../common/data/countries-list';
+import Form from '../forms/components/Form';
+import FormErrors from '../forms/components/FormErrors';
 import SelectField from '../forms/components/SelectField';
 import TextField from '../forms/components/TextField';
 
 const AddressForm = ({ address, onSubmit, onCancel }) => {
-  const {
-    register,
-    setError,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      countryCode: 'CH',
-      ...address,
-    },
-  });
   const { formatMessage } = useIntl();
 
-  const submitHandler = handleSubmit(async (data) => {
-    try {
-      await onSubmit(data);
-    } catch (e) {
-      setError('root', {
+  const submitHandler = async (data) => {
+    await onSubmit(data);
+  };
+
+  const onSubmitError = async (e) => {
+    return {
+      root: {
         message: e.message,
-      });
-    }
-  });
+      },
+    };
+  };
 
   return (
-    <form onSubmit={submitHandler}>
+    <Form
+      onSubmit={submitHandler}
+      onSubmitError={onSubmitError}
+      defaultValue={{ ...address }}
+    >
       <div className="mb-3">
         <TextField
           label={formatMessage({
             id: 'first_name',
             defaultMessage: 'First Name',
           })}
-          error={errors.firstName}
-          {...register('firstName', { required: true })}
+          name="firstName"
+          required
         />
       </div>
       <div className="mb-3">
@@ -49,8 +44,8 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
             id: 'last-name',
             defaultMessage: 'Last Name',
           })}
-          error={errors.lastName}
-          {...register('lastName', { required: true })}
+          name="lastName"
+          required
         />
       </div>
       <div className="mb-3">
@@ -62,16 +57,16 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
             id: 'optional',
             defaultMessage: '(Optional)',
           })}`}
-          {...register('company')}
+          name="company"
         />
       </div>
       <div className="mb-3">
         <TextField
           label={formatMessage({ id: 'address', defaultMessage: 'Address' })}
-          error={errors.addressLine}
-          {...register('addressLine', { required: true })}
+          name="addressLine"
+          required
         />
-        <TextField {...register('addressLine2')} />
+        <TextField name="addressLine2" />
       </div>
       <div className="mb-3">
         <TextField
@@ -79,8 +74,8 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
             id: 'postal-code-or-zip',
             defaultMessage: 'Postal Code / ZIP',
           })}
-          error={errors.postalCode}
-          {...register('postalCode', { required: true })}
+          name="postalCode"
+          required
         />
       </div>
       <div className="mb-3">
@@ -89,8 +84,8 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
             id: 'city',
             defaultMessage: 'City',
           })}
-          error={errors.city}
-          {...register('city', { required: true })}
+          name="city"
+          required
         />
       </div>
       <div className="mb-3">
@@ -100,14 +95,14 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
             id: 'optional',
             defaultMessage: '(Optional)',
           })}`}
-          {...register('regionCode')}
+          name="regionCode"
         />
       </div>
       <div className="mb-3">
         <SelectField
           label={formatMessage({ id: 'country', defaultMessage: 'Country' })}
-          {...register('countryCode', { required: true })}
-          error={errors.countryCode}
+          name="countryCode"
+          required
         >
           {COUNTRIES.map((c) => (
             <option key={c.code} value={c.code}>
@@ -117,7 +112,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
           ))}
         </SelectField>
       </div>
-      {errors.root?.message && <ErrorMessage message={errors.root.message} />}
+      <FormErrors />
 
       <div className="pt-3">
         <Button
@@ -137,7 +132,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
           onClick={onCancel}
         />
       </div>
-    </form>
+    </Form>
   );
 };
 

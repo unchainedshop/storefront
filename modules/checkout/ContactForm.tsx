@@ -1,86 +1,61 @@
-import classNames from 'classnames';
-import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import Button from '../common/components/Button';
+import EmailField from '../forms/components/EmailField';
+import Form from '../forms/components/Form';
+import FormErrors from '../forms/components/FormErrors';
+import SubmitButton from '../forms/components/SubmitButton';
+import TextField from '../forms/components/TextField';
 
 const ContactForm = ({ contact, onSubmit, onCancel }) => {
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<any>({
-    defaultValues: contact,
-  });
   const { formatMessage } = useIntl();
 
-  const submitHandler = handleSubmit(async (data) => {
-    try {
-      await onSubmit(data);
-    } catch (e: any) {
-      setError('root', {
+  const submitHandler = async (data) => {
+    await onSubmit(data);
+  };
+
+  const onSubmitError = (e) => {
+    return {
+      root: {
         message: e.message as string,
-      });
-    }
-  });
+      },
+    };
+  };
 
   return (
-    <form className="form" onSubmit={handleSubmit(submitHandler)}>
+    <Form
+      onSubmit={submitHandler}
+      onSubmitError={onSubmitError}
+      defaultValues={contact}
+    >
       <div className="mb-3">
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {formatMessage({
+        <EmailField
+          label={formatMessage({
             id: 'email-address',
             defaultMessage: 'Email Address',
           })}
-        </label>
-
-        <input
-          type="email"
-          className={classNames(
-            'mt-1 block w-full appearance-none rounded-md border focus:outline-none px-3 py-2 text-slate-900 placeholder-slate-400 shadow-sm dark:bg-slate-300 sm:text-sm',
-            {
-              'border-slate-300 focus:border-slate-900 focus:ring-slate-900':
-                !errors.emailAddress,
-              'border-red-300 focus:border-red-500 focus:ring-red-500':
-                errors.emailAddress,
-            },
-          )}
-          {...register('emailAddress', { required: true })}
+          required
+          name="emailAddress"
         />
       </div>
       <div className="mb-3">
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          {formatMessage({
+        <TextField
+          label={formatMessage({
             id: 'telNumber',
             defaultMessage: 'Mobile Phone',
           })}
-        </label>
-        <input
           type="tel"
-          className={classNames(
-            'mt-1 block w-full appearance-none rounded-md border focus:outline-none px-3 py-2 text-slate-900 placeholder-slate-400 shadow-sm dark:bg-slate-300 sm:text-sm',
-            {
-              'border-slate-300 focus:border-slate-900 focus:ring-slate-900':
-                !errors.telNumber,
-              'border-red-300 focus:border-red-500 focus:ring-red-500':
-                errors.telNumber,
-            },
-          )}
-          {...register('telNumber', { required: true })}
+          name="telNumber"
+          required
         />
       </div>
-      {errors.root?.message && (
-        <div className="text-red-600">{errors.root.message as string}</div>
-      )}
+      <FormErrors />
       <div className="pt-3">
-        <Button
-          text={formatMessage({
+        <SubmitButton>
+          {formatMessage({
             id: 'save_contact',
             defaultMessage: 'Save Contact Data',
           })}
-          type="submit"
-          className="inline-flex justify-center mt-2 mr-1 rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
-        />
+        </SubmitButton>
         <Button
           text={formatMessage({
             id: 'cancel',
@@ -91,7 +66,7 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
           onClick={onCancel}
         />
       </div>
-    </form>
+    </Form>
   );
 };
 

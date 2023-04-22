@@ -1,13 +1,14 @@
 import { FormProvider, useForm } from 'react-hook-form';
 
-const Form = ({ children, onSubmit, onSubmitError }) => {
-  const context = useForm();
+const Form = ({ children, onSubmit, onSubmitError, defaultValues }) => {
+  const context = useForm({
+    defaultValues,
+  });
 
   const handler = async (data) => {
     try {
       await onSubmit(data);
     } catch (e) {
-      alert('sssssssssss');
       const error = (await onSubmitError(e)) || {
         submit: {
           type: 'manual',

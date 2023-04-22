@@ -8,7 +8,7 @@ const TextField = ({ ...props }) => {
   const { register, formState } = useFormContext();
 
   const error = formState?.errors?.[props?.name];
-  console.log(formState.registeredFields);
+
   return (
     <FieldWrapper {...props} error={error}>
       <input
@@ -28,6 +28,7 @@ const TextField = ({ ...props }) => {
         onBlur={props.onBlur}
         placeholder={props.placeholder}
         autoComplete={props.autoComplete}
+        defaultValue={props.defaultValue}
         type={props.type}
         value={props.value}
         {...register(props.name, { required: !!props?.required })}

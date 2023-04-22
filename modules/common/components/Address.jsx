@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useIntl } from 'react-intl';
 import useUpdateUserProfile from '../../auth/hooks/useUpdateUserProfile';
+import Form from '../../forms/components/Form';
 import SelectField from '../../forms/components/SelectField';
+import SubmitButton from '../../forms/components/SubmitButton';
 import TextField from '../../forms/components/TextField';
 import COUNTRIES from '../data/countries-list';
 import Button from './Button';
@@ -10,7 +11,6 @@ import Button from './Button';
 const Address = ({ user }) => {
   const { formatMessage } = useIntl();
   const { updateUserProfile } = useUpdateUserProfile();
-  const { register, handleSubmit } = useForm();
 
   const [updateProfile, setUpdateProfile] = useState(false);
 
@@ -61,7 +61,7 @@ const Address = ({ user }) => {
       className="pt-6 sm:px-6 lg:col-span-9 lg:col-start-4 lg:px-0"
     >
       <div className="space-y-6 ">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={onSubmit}>
           <div className="shadow sm:overflow-hidden sm:rounded-md">
             <div className="bg-white py-6 px-4 dark:bg-slate-500 dark:text-slate-200 sm:p-6">
               <div>
@@ -89,7 +89,6 @@ const Address = ({ user }) => {
                       <TextField
                         name="addressLine"
                         defaultValue={profile?.address?.addressLine}
-                        {...register('addressLine')}
                       />
                     </div>
                   ) : (
@@ -120,7 +119,6 @@ const Address = ({ user }) => {
                     <TextField
                       name="addressLine2"
                       defaultValue={user?.profile?.address?.addressLine2}
-                      {...register('addressLine2')}
                     />
                   ) : (
                     <div className="mb-1">
@@ -141,7 +139,6 @@ const Address = ({ user }) => {
                       <TextField
                         name="telNumber"
                         defaultValue={profile?.phoneMobile}
-                        {...register('telNumber')}
                       />
                     </div>
                   ) : (
@@ -161,7 +158,6 @@ const Address = ({ user }) => {
                       <TextField
                         name="postalCode"
                         defaultValue={profile?.address?.postalCode}
-                        {...register('postalCode')}
                       />
                     </div>
                   ) : (
@@ -181,7 +177,6 @@ const Address = ({ user }) => {
                         })}
                         name="countryCode"
                         defaultValue={profile?.address?.countryCode}
-                        {...register('countryCode')}
                       >
                         {COUNTRIES.map((c) => (
                           <option key={c.code} value={c.code}>
@@ -223,7 +218,6 @@ const Address = ({ user }) => {
                       <TextField
                         name="regionCode"
                         defaultValue={profile?.address?.regionCode}
-                        {...register('regionCode')}
                       />
                     </div>
                   ) : (
@@ -245,7 +239,6 @@ const Address = ({ user }) => {
                       <TextField
                         name="city"
                         defaultValue={profile?.address?.city}
-                        {...register('city')}
                       />
                     </div>
                   ) : (
@@ -266,13 +259,12 @@ const Address = ({ user }) => {
                     onClick={onProfileUpdateComplete}
                     className=" bg-white sm:text-black text-black hover:bg-slate-200"
                   />
-                  <Button
-                    text={formatMessage({
+                  <SubmitButton>
+                    {formatMessage({
                       id: 'save',
                       defaultMessage: 'save',
                     })}
-                    type="submit"
-                  />
+                  </SubmitButton>
                 </div>
               ) : (
                 <Button
@@ -286,7 +278,7 @@ const Address = ({ user }) => {
               )}
             </div>
           </div>
-        </form>
+        </Form>
       </div>
     </section>
   );
