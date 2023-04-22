@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import React from 'react';
-import { useFormContext } from '../lib/useFormWithContext';
+import { useFormContext } from 'react-hook-form';
 
 import FieldWrapper from './FieldWrapper';
 
@@ -8,6 +8,7 @@ const TextField = ({ ...props }) => {
   const { register, formState } = useFormContext();
 
   const error = formState?.errors?.[props?.name];
+  console.log(formState.registeredFields);
   return (
     <FieldWrapper {...props} error={error}>
       <input

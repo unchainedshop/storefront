@@ -1,7 +1,9 @@
-import { useFormContext } from '../lib/useFormWithContext';
+import { useFormContext } from 'react-hook-form';
 
 const SubmitButton = ({ children }) => {
-  const { errors, isValid } = useFormContext();
+  const {
+    formState: { errors, isValid },
+  } = useFormContext();
   const isDisabled = !isValid && Object.keys(errors || {}).length;
   return (
     <button

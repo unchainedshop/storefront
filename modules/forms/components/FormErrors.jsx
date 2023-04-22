@@ -1,10 +1,14 @@
 import React from 'react';
-import { useFormContext } from '../lib/useFormWithContext';
+import { useFormContext } from 'react-hook-form';
 
 const FormErrors = () => {
-  const { formErrors } = useFormContext();
-
-  if (!Object.keys(formErrors || {}).length) return null;
+  const {
+    formState: { errors },
+  } = useFormContext();
+  const submitErrors = Object.entries(errors || {}).filter(
+    ([, error]) => error?.message,
+  );
+  if (!submitErrors.length) return null;
   return (
     <div
       style={{
@@ -14,7 +18,7 @@ const FormErrors = () => {
         backgroundColor: 'darkred',
       }}
     >
-      {Object.entries(formErrors || {}).map(([name, error]) => (
+      {submitErrors.map(([name, error]) => (
         <p key={name}>{error.message}</p>
       ))}
     </div>

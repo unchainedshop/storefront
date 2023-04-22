@@ -6,7 +6,6 @@ import Form from '../../forms/components/Form';
 import FormErrors from '../../forms/components/FormErrors';
 import PasswordField from '../../forms/components/PasswordField';
 import SubmitButton from '../../forms/components/SubmitButton';
-import { useFormContext } from '../../forms/lib/useFormWithContext';
 
 import useResetPassword from '../hooks/useResetPassword';
 
@@ -15,40 +14,42 @@ const ResetPasswordForm = ({ token }) => {
   const { resetPassword } = useResetPassword();
   const router = useRouter();
 
-  const { setError } = useFormContext();
-
-  const onSubmit = async ({ newPassword, confirmPassword }) => {
-    if (newPassword !== confirmPassword) {
+  const onSubmit = async ({ newPassword /* confirmPassword */ }) => {
+    /* if (newPassword !== confirmPassword) {
       setError('confirmPassword', {
         type: 'manual',
         message: 'Passwords do not match',
       });
       return;
-    }
-    try {
-      await resetPassword({ newPassword, token });
-      toast.success(
-        formatMessage({
-          id: 'password_changed_success',
-          defaultMessage: 'Password changed successfully.',
-        }),
-      );
-      router.push('/');
-    } catch (e) {
-      if (e?.message?.toLowerCase().includes('expired')) {
-        setError('submit', {
+    } */
+
+    await resetPassword({ newPassword, token });
+    toast.success(
+      formatMessage({
+        id: 'password_changed_success',
+        defaultMessage: 'Password changed successfully.',
+      }),
+    );
+    router.push('/');
+  };
+  const onSubmitError = async (e) => {
+    if (e?.message?.toLowerCase().includes('expired')) {
+      return {
+        submit: {
           type: 'manual',
           message: formatMessage({
             id: 'reset_token_expired',
             defaultMessage: 'Token link invalid or has expired',
           }),
-        });
-      }
+        },
+      };
     }
+
+    return null;
   };
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit} onSubmitError={onSubmitError}>
       <PasswordField
         name="newPassword"
         id="new-password"

@@ -7,46 +7,45 @@ import EmailField from '../../forms/components/EmailField';
 import Form from '../../forms/components/Form';
 import FormErrors from '../../forms/components/FormErrors';
 import SubmitButton from '../../forms/components/SubmitButton';
-import { useFormContext } from '../../forms/lib/useFormWithContext';
 
 import useForgotPassword from '../hooks/useForgotPassword';
 
 const ForgotPasswordForm = () => {
   const { formatMessage } = useIntl();
 
-  const { setError } = useFormContext();
-
   const { forgotPassword } = useForgotPassword();
 
   const onSubmit = async ({ email }) => {
-    try {
-      await forgotPassword({ email });
-      toast.success(
-        formatMessage(
-          {
-            id: 'reset_link_sent',
-            defaultMessage: 'Password reset link sent to {email} ',
-          },
-          {
-            email,
-          },
-        ),
-      );
-    } catch (e) {
-      if (e.message?.toLowerCase()?.includes('not found')) {
-        setError('email', {
+    await forgotPassword({ email });
+    toast.success(
+      formatMessage(
+        {
+          id: 'reset_link_sent',
+          defaultMessage: 'Password reset link sent to {email} ',
+        },
+        {
+          email,
+        },
+      ),
+    );
+  };
+  const onSubmitError = async (e) => {
+    if (e.message?.toLowerCase()?.includes('not found')) {
+      return {
+        email: {
           type: 'manual',
           message: formatMessage({
             id: 'email_address_not_exist',
             defaultMessage: 'Provided email does not exist',
           }),
-        });
-      }
+        },
+      };
     }
+    return null;
   };
 
   return (
-    <Form onSubmit={onSubmit} className="form">
+    <Form onSubmit={onSubmit} onSubmitError={onSubmitError} className="form">
       <p className="py-4">
         {formatMessage({
           id: 'forgot_password_header_description',

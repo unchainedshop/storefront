@@ -12,7 +12,6 @@ import Form from '../../modules/forms/components/Form';
 import FormErrors from '../../modules/forms/components/FormErrors';
 import PasswordField from '../../modules/forms/components/PasswordField';
 import SubmitButton from '../../modules/forms/components/SubmitButton';
-import { useFormContext } from '../../modules/forms/lib/useFormWithContext';
 
 const ChangePassword = () => {
   const { formatMessage } = useIntl();
@@ -20,10 +19,11 @@ const ChangePassword = () => {
 
   const { changePassword } = useChangePassword();
 
-  const { setError } = useFormContext();
-
-  const onSubmit = async ({ newPassword, confirmPassword, oldPassword }) => {
-    if (confirmPassword && newPassword && newPassword !== confirmPassword) {
+  const onSubmit = async ({
+    newPassword,
+    /* confirmPassword, */ oldPassword,
+  }) => {
+    /*     if (confirmPassword && newPassword && newPassword !== confirmPassword) {
       setError('confirmPassword', {
         type: 'manual',
         message: formatMessage({
@@ -44,44 +44,47 @@ const ChangePassword = () => {
       });
       return;
     }
+ */
 
-    try {
-      await changePassword({ oldPassword, newPassword });
-      toast.success(
-        formatMessage({
-          id: 'password-change-success',
-          defaultMessage: 'Password changed successfully.',
-        }),
-      );
-      router.push('/account');
-    } catch (error) {
-      if (error?.message?.toLowerCase().includes('incorrect credential')) {
-        setError('oldPassword', {
+    await changePassword({ oldPassword, newPassword });
+    toast.success(
+      formatMessage({
+        id: 'password-change-success',
+        defaultMessage: 'Password changed successfully.',
+      }),
+    );
+    router.push('/account');
+  };
+
+  const onSubmitError = async (error) => {
+    if (error?.message?.toLowerCase().includes('incorrect credential')) {
+      return {
+        oldPassword: {
           type: 'manual',
           message: formatMessage({
             id: 'old_password_not_correct',
             defaultMessage: 'Wrong password, please try again',
           }),
-        });
-        return;
-      }
-      if (
-        error?.message
-          ?.toLowerCase()
-          ?.includes('password is not set for account')
-      ) {
-        setError('submit', {
+        },
+      };
+    }
+    if (
+      error?.message?.toLowerCase()?.includes('password is not set for account')
+    ) {
+      return {
+        submit: {
           type: 'manual',
           message: formatMessage({
             id: 'password-not-set-error',
             defaultMessage:
               'Password is not set for account. please assign a password using set password instead or contact system admin',
           }),
-        });
-        return;
-      }
+        },
+      };
+    }
 
-      setError('submit', {
+    return {
+      submit: {
         type: 'manual',
         message: formatMessage(
           {
@@ -90,8 +93,8 @@ const ChangePassword = () => {
           },
           { error: error.message },
         ),
-      });
-    }
+      },
+    };
   };
 
   return (
@@ -115,7 +118,11 @@ const ChangePassword = () => {
               })}
             </h1>
 
-            <Form onSubmit={onSubmit} className="mt-10 space-y-4">
+            <Form
+              onSubmit={onSubmit}
+              className="mt-10 space-y-4"
+              onSubmitError={onSubmitError}
+            >
               <PasswordField
                 required
                 label={formatMessage({

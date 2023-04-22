@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+
 import toast from 'react-hot-toast';
 import { useIntl } from 'react-intl';
 import ImageWithFallback from '../../common/components/ImageWithFallback';
@@ -13,7 +14,6 @@ import FormErrors from '../../forms/components/FormErrors';
 import PasswordField from '../../forms/components/PasswordField';
 import SubmitButton from '../../forms/components/SubmitButton';
 import TextField from '../../forms/components/TextField';
-import { useFormContext } from '../../forms/lib/useFormWithContext';
 
 import useCreateUser from '../hooks/useCreateUser';
 import useGenerateWebAuthCredentials from '../hooks/useGenerateWebAuthCredentials';
@@ -25,7 +25,48 @@ const SignUpForm = () => {
   const { generateWebAuthCredentials } = useGenerateWebAuthCredentials();
   const { createUser } = useCreateUser();
   const { push } = useRouter();
-  const { setError } = useFormContext();
+
+  const onSubmitError = async (e) => {
+    if (e.message?.toLowerCase()?.includes('not found')) {
+      return {
+        email: {
+          type: 'manual',
+          message: formatMessage({
+            id: 'email_address_not_exist',
+            defaultMessage: 'Provided email does not exist',
+          }),
+        },
+      };
+    }
+    if (e.message?.toLowerCase().includes('email already exist')) {
+      return {
+        email: {
+          type: 'manual',
+          message: formatMessage({
+            id: 'email_exists_error',
+            defaultMessage: 'Email already exists',
+          }),
+        },
+      };
+    }
+    if (
+      e.message?.includes('challenge mismatch') ||
+      e.message?.includes('already exists')
+    ) {
+      return {
+        email: {
+          type: 'manual',
+          message: formatMessage({
+            id: 'username_or_email_taken',
+            defaultMessage:
+              'Username taken, Please provided different username',
+          }),
+        },
+      };
+    }
+
+    return null;
+  };
 
   const registerWithWebAuth = async (username) => {
     const webAuthnPublicKeyCredentials = await generateWebAuthCredentials({
@@ -44,27 +85,8 @@ const SignUpForm = () => {
   };
 
   const onSubmit = async ({ email, username, password }) => {
-    try {
-      if (authenticateWithDevice) {
-        await registerWithWebAuth(username);
-        toast.success(
-          formatMessage({
-            id: 'registration-complete',
-            defaultMessage: 'Registered successfully',
-          }),
-        );
-        push('/account');
-        return;
-      }
-
-      const { data } = await createUser({
-        username,
-        email,
-        password,
-      });
-      const { id, token, tokenExpires } = data.createUser;
-      await storeLoginToken(id, token, new Date(tokenExpires));
-
+    if (authenticateWithDevice) {
+      await registerWithWebAuth(username);
       toast.success(
         formatMessage({
           id: 'registration-complete',
@@ -72,39 +94,24 @@ const SignUpForm = () => {
         }),
       );
       push('/account');
-    } catch (e) {
-      if (e.message?.toLowerCase()?.includes('not found')) {
-        setError('email', {
-          type: 'manual',
-          message: formatMessage({
-            id: 'email_address_not_exist',
-            defaultMessage: 'Provided email does not exist',
-          }),
-        });
-      }
-      if (e.message?.toLowerCase().includes('email already exist')) {
-        setError('email', {
-          type: 'manual',
-          message: formatMessage({
-            id: 'email_exists_error',
-            defaultMessage: 'Email already exists',
-          }),
-        });
-      }
-      if (
-        e.message?.includes('challenge mismatch') ||
-        e.message?.includes('already exists')
-      ) {
-        setError('email', {
-          type: 'manual',
-          message: formatMessage({
-            id: 'username_or_email_taken',
-            defaultMessage:
-              'Username taken, Please provided different username',
-          }),
-        });
-      }
+      return;
     }
+
+    const { data } = await createUser({
+      username,
+      email,
+      password,
+    });
+    const { id, token, tokenExpires } = data.createUser;
+    await storeLoginToken(id, token, new Date(tokenExpires));
+
+    toast.success(
+      formatMessage({
+        id: 'registration-complete',
+        defaultMessage: 'Registered successfully',
+      }),
+    );
+    push('/account');
   };
 
   const logo = getLogo();
@@ -129,9 +136,12 @@ const SignUpForm = () => {
             })}
           </h2>
         </div>
+
         <Form
           onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
           className="mt-8 space-y-6 pt-4 pb-8 shadow sm:rounded-lg sm:px-10"
+          name="signUpForm"
         >
           <input type="hidden" name="remember" value="true" />
           <div className="space-y-6 rounded-md shadow-sm">
