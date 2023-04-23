@@ -1,6 +1,12 @@
 import { FormProvider, useForm } from 'react-hook-form';
 
-const Form = ({ children, onSubmit, onSubmitError, defaultValues }) => {
+const Form = ({
+  children,
+  onSubmit,
+  onSubmitError,
+  defaultValues,
+  onBeforeSubmitValidator,
+}) => {
   const context = useForm({
     mode: 'onTouched',
     defaultValues,
@@ -8,6 +14,14 @@ const Form = ({ children, onSubmit, onSubmitError, defaultValues }) => {
 
   const handler = async (data) => {
     try {
+      const error =
+        onBeforeSubmitValidator && (await onBeforeSubmitValidator(data));
+      if (error) {
+        const [key] = Object.keys(error);
+        context.setError(key, error[key]);
+        return;
+      }
+
       await onSubmit(data);
     } catch (e) {
       const error = (await onSubmitError(e)) || {

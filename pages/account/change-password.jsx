@@ -19,33 +19,36 @@ const ChangePassword = () => {
 
   const { changePassword } = useChangePassword();
 
-  const onSubmit = async ({
+  const onBeforeSubmitValidator = ({
     newPassword,
-    /* confirmPassword, */ oldPassword,
+    confirmPassword,
+    oldPassword,
   }) => {
-    /*     if (confirmPassword && newPassword && newPassword !== confirmPassword) {
-      setError('confirmPassword', {
-        type: 'manual',
-        message: formatMessage({
-          id: 'password-does-not-match',
-          defaultMessage: 'Password does not match',
-        }),
-      });
-      return;
-    }
-    if (newPassword === oldPassword) {
-      setError('newPassword', {
-        type: 'manual',
-        message: formatMessage({
-          id: 'password_identical',
-          defaultMessage:
-            'Provided new password identical to previous password',
-        }),
-      });
-      return;
-    }
- */
+    if (confirmPassword && newPassword && newPassword !== confirmPassword)
+      return {
+        confirmPassword: {
+          type: 'manual',
+          message: formatMessage({
+            id: 'password-does-not-match',
+            defaultMessage: 'Password does not match',
+          }),
+        },
+      };
+    if (newPassword === oldPassword)
+      return {
+        newPassword: {
+          type: 'manual',
+          message: formatMessage({
+            id: 'password_identical',
+            defaultMessage:
+              'Provided new password identical to previous password',
+          }),
+        },
+      };
 
+    return null;
+  };
+  const onSubmit = async ({ newPassword, oldPassword }) => {
     await changePassword({ oldPassword, newPassword });
     toast.success(
       formatMessage({
@@ -122,6 +125,7 @@ const ChangePassword = () => {
               onSubmit={onSubmit}
               className="mt-10 space-y-4"
               onSubmitError={onSubmitError}
+              onBeforeSubmitValidator={onBeforeSubmitValidator}
             >
               <PasswordField
                 required

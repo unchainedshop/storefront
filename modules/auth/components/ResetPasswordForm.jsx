@@ -14,15 +14,7 @@ const ResetPasswordForm = ({ token }) => {
   const { resetPassword } = useResetPassword();
   const router = useRouter();
 
-  const onSubmit = async ({ newPassword /* confirmPassword */ }) => {
-    /* if (newPassword !== confirmPassword) {
-      setError('confirmPassword', {
-        type: 'manual',
-        message: 'Passwords do not match',
-      });
-      return;
-    } */
-
+  const onSubmit = async ({ newPassword }) => {
     await resetPassword({ newPassword, token });
     toast.success(
       formatMessage({
@@ -48,8 +40,24 @@ const ResetPasswordForm = ({ token }) => {
     return null;
   };
 
+  const beforeSubmitValidator = ({ newPassword, confirmPassword }) => {
+    if (newPassword !== confirmPassword) {
+      return {
+        confirmPassword: {
+          type: 'manual',
+          message: 'Passwords do not match',
+        },
+      };
+    }
+    return null;
+  };
+
   return (
-    <Form onSubmit={onSubmit} onSubmitError={onSubmitError}>
+    <Form
+      onSubmit={onSubmit}
+      onSubmitError={onSubmitError}
+      onBeforeSubmitValidator={beforeSubmitValidator}
+    >
       <PasswordField
         name="newPassword"
         id="new-password"
