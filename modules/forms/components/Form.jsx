@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { FormProvider, useForm } from 'react-hook-form';
 
 const Form = ({
@@ -5,7 +6,8 @@ const Form = ({
   onSubmit,
   onSubmitError,
   defaultValues,
-  onBeforeSubmitValidator,
+  onBeforeSubmitValidator = null,
+  className = '',
 }) => {
   const context = useForm({
     mode: 'onTouched',
@@ -24,7 +26,7 @@ const Form = ({
 
       await onSubmit(data);
     } catch (e) {
-      const error = (await onSubmitError(e)) || {
+      const error = (onSubmitError && (await onSubmitError(e))) || {
         submit: {
           type: 'manual',
           message: e.message,
@@ -36,7 +38,10 @@ const Form = ({
   };
   return (
     <FormProvider {...context}>
-      <form onSubmit={context.handleSubmit(handler)} className="form">
+      <form
+        onSubmit={context.handleSubmit(handler)}
+        className={classNames('form', className)}
+      >
         {children}
       </form>
     </FormProvider>

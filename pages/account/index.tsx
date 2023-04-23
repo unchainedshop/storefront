@@ -15,12 +15,18 @@ import Address from '../../modules/common/components/Address';
 
 import ProfileView from '../../modules/auth/components/ProfileView';
 import Loading from '../../modules/common/components/Loading';
+import EmailAddresses from '../../modules/auth/components/EmailAddresses';
 
 const subNavigation = [
   { name: 'General', href: '#profileview', icon: UserCircleIcon },
   {
     name: 'Address',
     href: '#address',
+    icon: IdentificationIcon,
+  },
+  {
+    name: 'Emails',
+    href: '#email',
     icon: IdentificationIcon,
   },
   { name: 'Password', href: '#password', icon: KeyIcon },
@@ -85,6 +91,7 @@ const Account = () => {
 
           {/* General */}
           <ProfileView user={user} />
+          <EmailAddresses {...user} />
 
           {/* Address */}
           <Address user={user} />

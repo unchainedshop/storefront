@@ -27,17 +27,6 @@ const SignUpForm = () => {
   const { push } = useRouter();
 
   const onSubmitError = async (e) => {
-    if (e.message?.toLowerCase()?.includes('not found')) {
-      return {
-        email: {
-          type: 'manual',
-          message: formatMessage({
-            id: 'email_address_not_exist',
-            defaultMessage: 'Provided email does not exist',
-          }),
-        },
-      };
-    }
     if (e.message?.toLowerCase().includes('email already exist')) {
       return {
         email: {
