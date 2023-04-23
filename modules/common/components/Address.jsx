@@ -262,7 +262,7 @@ const Address = ({ user }) => {
                   <SubmitButton>
                     {formatMessage({
                       id: 'save',
-                      defaultMessage: 'save',
+                      defaultMessage: 'Save',
                     })}
                   </SubmitButton>
                 </div>

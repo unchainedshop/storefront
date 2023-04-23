@@ -219,7 +219,7 @@ const SignUpForm = () => {
             >
               {formatMessage({
                 id: 'log_in',
-                defaultMessage: 'Log in',
+                defaultMessage: 'Log In',
               })}
             </Link>
           </div>

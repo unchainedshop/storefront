@@ -75,7 +75,7 @@ const ProfileView = ({ user }) => {
                     <div className="text-sm font-medium text-slate-500 dark:text-slate-200">
                       {formatMessage({
                         id: 'full_name',
-                        defaultMessage: 'Full Name',
+                        defaultMessage: 'Full name',
                       })}
                     </div>
                     <div className="mb-2 flex items-center gap-x-16 sm:col-span-2">
@@ -143,7 +143,7 @@ const ProfileView = ({ user }) => {
                 <SubmitButton>
                   {formatMessage({
                     id: 'save',
-                    defaultMessage: 'save',
+                    defaultMessage: 'Save',
                   })}
                 </SubmitButton>
               </div>

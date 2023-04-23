@@ -17,10 +17,6 @@
   "Delivery_status": {
     "defaultMessage": "Delivery status"
   },
-  "EW1jgi": {
-    "defaultMessage": "default_input_name",
-    "description": "DO not translate Skip this as it's the default given label when a component is not provided explicit label"
-  },
   "Products purchased": {
     "defaultMessage": "products_purchased"
   },
@@ -29,12 +25,6 @@
   },
   "about_detail": {
     "defaultMessage": "About blablabla ..."
-  },
-  "accept_terms_popup_header": {
-    "defaultMessage": "Accept Terms and Conditions"
-  },
-  "accept_terms_popup_subtitle": {
-    "defaultMessage": "By connecting my wallet to this webapp, I confirm that I have read and understood the"
   },
   "account": {
     "defaultMessage": "Account"
@@ -54,8 +44,14 @@
   "address_2": {
     "defaultMessage": "Address 2"
   },
-  "already-registered": {
-    "defaultMessage": "Already registered?"
+  "address_line_1": {
+    "defaultMessage": "Address line 1 (Street, House no)"
+  },
+  "address_line_2": {
+    "defaultMessage": "Address line 2"
+  },
+  "already_got_a_user": {
+    "defaultMessage": "Already got a user?"
   },
   "back": {
     "defaultMessage": "← Back"
@@ -114,8 +110,11 @@
   "conditions": {
     "defaultMessage": "Conditions"
   },
-  "confirm_and_connect": {
-    "defaultMessage": "Confirm and Connect"
+  "confirm-password": {
+    "defaultMessage": "Confirm password"
+  },
+  "confirm_password": {
+    "defaultMessage": "Confirm password"
   },
   "confirmed": {
     "defaultMessage": "Confirmed"
@@ -132,8 +131,8 @@
   "country": {
     "defaultMessage": "Country"
   },
-  "create-account": {
-    "defaultMessage": "Create account"
+  "country_code": {
+    "defaultMessage": "Country code"
   },
   "current_password": {
     "defaultMessage": "Current password"
@@ -168,6 +167,9 @@
   "dont-have-account": {
     "defaultMessage": "Don't have an account?"
   },
+  "dont_have_account": {
+    "defaultMessage": "Don't have an account yet?"
+  },
   "download": {
     "defaultMessage": "Download"
   },
@@ -176,9 +178,6 @@
   },
   "edit-contact-data": {
     "defaultMessage": "Edit Contact Data"
-  },
-  "editor": {
-    "defaultMessage": "Editor"
   },
   "email": {
     "defaultMessage": "Email"
@@ -195,14 +194,14 @@
   "email-required-login-error": {
     "defaultMessage": "Email is required when logging in with password"
   },
+  "email_address": {
+    "defaultMessage": "Email Address"
+  },
+  "email_address_not_exist": {
+    "defaultMessage": "Provided email does not exist"
+  },
   "email_exists_error": {
     "defaultMessage": "Email already exists"
-  },
-  "error_addressLine": {
-    "defaultMessage": "Address is required"
-  },
-  "error_city": {
-    "defaultMessage": "City is required"
   },
   "error_commerce_quantity_null_required": {
     "defaultMessage": "{label} should have one price with null max quantity"
@@ -213,62 +212,26 @@
   "error_country_code": {
     "defaultMessage": "Invalid country code"
   },
-  "error_currency_code": {
-    "defaultMessage": "Invalid currency code"
-  },
-  "error_date_after": {
-    "defaultMessage": "{label} must be after {dateToCompare}."
-  },
-  "error_date_before": {
-    "defaultMessage": "{label} must be before {dateToCompare}."
-  },
   "error_email": {
     "defaultMessage": "{label} must be a valid email address"
-  },
-  "error_firstName": {
-    "defaultMessage": "First Name is required"
-  },
-  "error_invalid_date": {
-    "defaultMessage": "{label} is not a valid date"
   },
   "error_language_code": {
     "defaultMessage": "Invalid language code"
   },
-  "error_lastName": {
-    "defaultMessage": "Last Name is required"
+  "error_max_length": {
+    "defaultMessage": "{label} must not be longer than {maxLength} characters"
   },
   "error_number_not_int": {
     "defaultMessage": "Invalid value please provide integer value"
   },
-  "error_phone_number_invalid": {
-    "defaultMessage": "Invalid phone number"
-  },
-  "error_postalCode": {
-    "defaultMessage": "Postal code is required"
-  },
   "error_required": {
     "defaultMessage": "{label} is a required field"
-  },
-  "error_same_product_prices": {
-    "defaultMessage": "{label} can not be equal for a price with the same country and currency"
-  },
-  "error_server": {
-    "defaultMessage": "{details}"
-  },
-  "error_tag_required": {
-    "defaultMessage": "{label} you must provide at least one tag"
-  },
-  "error_telNumber": {
-    "defaultMessage": "Telephone number is required"
-  },
-  "error_text_area_required": {
-    "defaultMessage": "{label} is required"
   },
   "featured_products": {
     "defaultMessage": "Featured Products"
   },
   "first_name": {
-    "defaultMessage": "Firstname"
+    "defaultMessage": "First name"
   },
   "footer": {
     "defaultMessage": "Footer"
@@ -279,11 +242,14 @@
   "forgot-password-description": {
     "defaultMessage": "Enter your email address below and we'll send you an email with a link to reset your password!"
   },
+  "forgot_password_header_description": {
+    "defaultMessage": "Enter your email address below and we'll send you a link to reset your password!"
+  },
   "fulfilled": {
     "defaultMessage": "FulFilled"
   },
   "full_name": {
-    "defaultMessage": "Full Name"
+    "defaultMessage": "Full name"
   },
   "go-home": {
     "defaultMessage": "Go to home"
@@ -309,9 +275,6 @@
   "invalid-credential-error": {
     "defaultMessage": "Invalid credential, please try again"
   },
-  "invalid-token": {
-    "defaultMessage": "Token does not exist or has expired"
-  },
   "join-now": {
     "defaultMessage": "Join now"
   },
@@ -319,7 +282,10 @@
     "defaultMessage": "English"
   },
   "last-name": {
-    "defaultMessage": "Lastname"
+    "defaultMessage": "Last Name"
+  },
+  "last_Name": {
+    "defaultMessage": "Last name"
   },
   "legal": {
     "defaultMessage": "Legal"
@@ -329,9 +295,6 @@
   },
   "loading": {
     "defaultMessage": "Loading..."
-  },
-  "log-in": {
-    "defaultMessage": "Log in"
   },
   "log-in-or-continue": {
     "defaultMessage": "Or continue"
@@ -357,14 +320,11 @@
   "menu": {
     "defaultMessage": "Menu"
   },
-  "more-info": {
-    "defaultMessage": "More info"
-  },
   "my_orders": {
     "defaultMessage": "My orders"
   },
-  "new-password": {
-    "defaultMessage": "New password"
+  "need-permission-to-set-password": {
+    "defaultMessage": "You don't have the necessary permission to set password. Contact system admin"
   },
   "new_password": {
     "defaultMessage": "New password"
@@ -435,8 +395,26 @@
   "password": {
     "defaultMessage": "Password"
   },
-  "password_not_match": {
-    "defaultMessage": "Password not match"
+  "password-change-success": {
+    "defaultMessage": "Password changed successfully."
+  },
+  "password-does-not-match": {
+    "defaultMessage": "Password does not match"
+  },
+  "password-not-set-error": {
+    "defaultMessage": "Password is not set for account. please assign a password using set password instead or contact system admin"
+  },
+  "password_change_failed": {
+    "defaultMessage": "Password change failed, {error} try again later"
+  },
+  "password_changed_success": {
+    "defaultMessage": "Password changed successfully."
+  },
+  "password_identical": {
+    "defaultMessage": "Provided new password identical to previous password"
+  },
+  "password_success": {
+    "defaultMessage": "Password changed successfully."
   },
   "pay-with-card": {
     "defaultMessage": "Pay with card/Twint"
@@ -453,20 +431,14 @@
   "pending": {
     "defaultMessage": "Pending"
   },
-  "permission_missing": {
-    "defaultMessage": "You don't have the required permission"
-  },
-  "please_select": {
-    "defaultMessage": "Please select..."
-  },
   "postal-code": {
     "defaultMessage": "Postal code"
   },
   "postal-code-or-zip": {
     "defaultMessage": "Postal Code / ZIP"
   },
-  "preview": {
-    "defaultMessage": "preview"
+  "postal_code": {
+    "defaultMessage": "Postal/ZIP code"
   },
   "privacy": {
     "defaultMessage": "Privacy"
@@ -489,17 +461,20 @@
   "region": {
     "defaultMessage": "Region"
   },
+  "region_Code": {
+    "defaultMessage": "Region"
+  },
   "region_optional": {
     "defaultMessage": "Optional"
   },
   "register": {
     "defaultMessage": "Register"
   },
+  "registration-complete": {
+    "defaultMessage": "Registered successfully"
+  },
   "remove": {
     "defaultMessage": "Remove"
-  },
-  "repeat_password": {
-    "defaultMessage": "Repeat Password"
   },
   "resend-another-verification": {
     "defaultMessage": "Please resend another verification email and try to verify again"
@@ -510,14 +485,23 @@
   "reset-password-subtitle": {
     "defaultMessage": "Set a password for your account"
   },
+  "reset_link_sent": {
+    "defaultMessage": "Password reset link sent to {email}"
+  },
   "reset_password": {
+    "defaultMessage": "Reset password"
+  },
+  "reset_token_expired": {
+    "defaultMessage": "Token link invalid or has expired"
+  },
+  "rest_password": {
     "defaultMessage": "Reset password"
   },
   "right": {
     "defaultMessage": "All Rights Reserved"
   },
   "save": {
-    "defaultMessage": "save"
+    "defaultMessage": "Save"
   },
   "save_address": {
     "defaultMessage": "Save Address"
@@ -534,7 +518,7 @@
   "send-order": {
     "defaultMessage": "Send Order"
   },
-  "send-reset-link": {
+  "send_rest_link": {
     "defaultMessage": "Send reset link"
   },
   "send_verification_email": {
@@ -573,11 +557,11 @@
   "sign-in": {
     "defaultMessage": "Sign in"
   },
-  "sign-up": {
-    "defaultMessage": "Sign up"
-  },
   "sign_up": {
     "defaultMessage": "Sign up"
+  },
+  "sign_up_header": {
+    "defaultMessage": "Create new account"
   },
   "status": {
     "defaultMessage": "Status"
@@ -590,15 +574,6 @@
   },
   "telephone": {
     "defaultMessage": "Telephone"
-  },
-  "telephone-number": {
-    "defaultMessage": "Telephone Number"
-  },
-  "terms_and_condition_main": {
-    "defaultMessage": "In particular, I confirm that I know what I am doing and that I am not violating any governing jurisdictions law. The company Unchained Commerce GmbH or any of its employees can not be held liable for any loss of funds, hacks or other damages that might have happend by using this webapp."
-  },
-  "terms_and_conditions": {
-    "defaultMessage": "Terms and Conditions"
   },
   "thank-you-for-verifying": {
     "defaultMessage": "Thank you for verifying your email address"
@@ -624,6 +599,9 @@
   "total_amount": {
     "defaultMessage": "Total amount"
   },
+  "unchained_logo": {
+    "defaultMessage": "Unchained Logo"
+  },
   "update": {
     "defaultMessage": "update"
   },
@@ -633,19 +611,22 @@
   "use-password-to-authenticate": {
     "defaultMessage": "Or Use password to authenticate"
   },
+  "use_authenticator": {
+    "defaultMessage": "Use authenticator"
+  },
   "username": {
     "defaultMessage": "Username"
   },
   "username-or-email": {
     "defaultMessage": "Username / Email"
   },
+  "username_or_email_taken": {
+    "defaultMessage": "Username taken, Please provided different username"
+  },
   "verification-failed": {
     "defaultMessage": "Verification Failed"
   },
   "verification-token-expired": {
     "defaultMessage": "Verification token expired"
-  },
-  "webauthn-brief-description": {
-    "defaultMessage": "Authenticator give you a simple and secure way to sign in without passwords by relying on Face ID or Touch ID using your phone or external Passkeys eg. Apple passkey to identify you when you sign in."
   }
 }

@@ -92,7 +92,7 @@ const ChangePassword = () => {
         message: formatMessage(
           {
             id: 'password_change_failed',
-            defaultMessage: 'Password change failed, try again later',
+            defaultMessage: 'Password change failed, {error} try again later',
           },
           { error: error.message },
         ),

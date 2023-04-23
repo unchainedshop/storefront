@@ -32,7 +32,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
         <TextField
           label={formatMessage({
             id: 'first_name',
-            defaultMessage: 'First Name',
+            defaultMessage: 'First name',
           })}
           name="firstName"
           required
