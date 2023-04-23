@@ -50,7 +50,9 @@ const FieldWrapper = ({
           labelClassName,
         )}
       >
-        {errorsMap[error?.type] || error?.message || label}
+        {errorsMap[error?.type] ||
+          error?.message?.replace(/{label}/gi, label) ||
+          label}
       </label>
       {children}
     </div>

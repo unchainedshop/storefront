@@ -1,11 +1,13 @@
 import classnames from 'classnames';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import useValidators from '../lib/useValidators';
 
 import FieldWrapper from './FieldWrapper';
 
 const TextField = ({ ...props }) => {
   const { register, formState } = useFormContext();
+  const { validateRequired } = useValidators();
 
   const error = formState?.errors?.[props?.name];
 
@@ -31,7 +33,12 @@ const TextField = ({ ...props }) => {
         defaultValue={props.defaultValue}
         type={props.type}
         value={props.value}
-        {...register(props.name, { required: !!props?.required })}
+        {...register(props.name, {
+          required: props?.required ? validateRequired : false,
+          validate: {
+            ...props.validators,
+          },
+        })}
       />
     </FieldWrapper>
   );

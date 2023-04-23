@@ -2,6 +2,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 const Form = ({ children, onSubmit, onSubmitError, defaultValues }) => {
   const context = useForm({
+    mode: 'onTouched',
     defaultValues,
   });
 

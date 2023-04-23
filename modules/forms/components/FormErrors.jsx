@@ -19,7 +19,7 @@ const FormErrors = () => {
       }}
     >
       {submitErrors.map(([name, error]) => (
-        <p key={name}>{error.message}</p>
+        <p key={name}>{error.message?.replace(/{label}/gi, name)}</p>
       ))}
     </div>
   );
