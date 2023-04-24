@@ -12,7 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.12",
     "@coingecko/cryptoformat": "^0.5.4",
-    "@formatjs/intl-datetimeformat": "^6.5.1",
+    "@formatjs/intl-datetimeformat": "^6.7.0",
     "@formatjs/intl-numberformat": "^8.3.5",
     "@formatjs/intl-pluralrules": "^5.1.10",
     "@formatjs/intl-relativetimeformat": "^11.1.10",
