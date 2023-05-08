@@ -17,7 +17,6 @@ import TextField from '../../forms/components/TextField';
 
 import useCreateUser from '../hooks/useCreateUser';
 import useGenerateWebAuthCredentials from '../hooks/useGenerateWebAuthCredentials';
-import { storeLoginToken } from '../utils/store';
 
 const SignUpForm = () => {
   const { formatMessage } = useIntl();
@@ -62,15 +61,10 @@ const SignUpForm = () => {
       username,
     });
 
-    const { data } = await createUser({
+    await createUser({
       username,
       webAuthnPublicKeyCredentials,
     });
-
-    if (data && data?.createUser) {
-      const { id, token, tokenExpires } = data.createUser;
-      await storeLoginToken(id, token, new Date(tokenExpires));
-    }
   };
 
   const onSubmit = async ({ email, username, password }) => {
@@ -86,14 +80,11 @@ const SignUpForm = () => {
       return;
     }
 
-    const { data } = await createUser({
+    await createUser({
       username,
       email,
       password,
     });
-    const { id, token, tokenExpires } = data.createUser;
-    await storeLoginToken(id, token, new Date(tokenExpires));
-
     toast.success(
       formatMessage({
         id: 'registration-complete',

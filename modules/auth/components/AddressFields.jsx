@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-import SaveAndCancelButtons from '../../common/components/SaveAndCancelButtons';
+import SaveAndCancelButtons from './SaveAndCancelButtons';
 import TextField from '../../forms/components/TextField';
 
 const AddressFields = ({ isEdit, address, setIsEdit }) => {

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useIntl } from 'react-intl';
-import Button from './Button';
+import Button from '../../common/components/Button';
 
 const SaveAndCancelButtons = ({
   cancelText,
