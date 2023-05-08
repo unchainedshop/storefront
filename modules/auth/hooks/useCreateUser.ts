@@ -49,6 +49,7 @@ const useCreateUser = () => {
     variables.plainPassword = password;
     return createUserMutation({
       variables,
+      awaitRefetchQueries: true,
     });
   };
   const newUser = data?.createUser;

@@ -9,7 +9,7 @@ const logOut = async (apollo: ApolloClient<any>) => {
         }
       }
     `,
-    awaitRefetchQueries: false,
+    awaitRefetchQueries: true,
   });
   await apollo.resetStore();
 };

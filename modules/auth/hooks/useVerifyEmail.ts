@@ -8,6 +8,10 @@ const VerifyEmailMutation = gql`
       tokenExpires
       user {
         _id
+        emails {
+          address
+          verified
+        }
       }
     }
   }

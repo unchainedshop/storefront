@@ -20,6 +20,7 @@ const useLoginWithWebAuthn = () => {
   const loginWithWebAuthn = async ({ webAuthnPublicKeyCredentials }) => {
     const result = await loginWithWebAuthnMutation({
       variables: { webAuthnPublicKeyCredentials },
+      awaitRefetchQueries: true,
     });
     await client.resetStore();
     return result;
