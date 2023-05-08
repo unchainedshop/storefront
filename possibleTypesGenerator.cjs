@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 
-const fetch = require('cross-fetch');
 const fs = require('fs');
 
 const { UNCHAINED_ENDPOINT = 'http://localhost:4010/graphql' } = process.env;

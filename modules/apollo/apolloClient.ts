@@ -10,7 +10,7 @@ import { onError } from '@apollo/client/link/error';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 import typePolicies from './typepolicies';
-import possibleTypes from './possibleTypes.json';
+import possibleTypes from '../../possibleTypes.json';
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 

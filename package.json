@@ -75,6 +75,7 @@
     "test": "npm run lint && npm run typecheck",
     "typecheck": "tsc --noEmit",
     "start": "next start",
+    "update-types": "node possibleTypesGenerator.cjs",
     "extract-translation": "formatjs extract '(pages|modules)/**/*.{ts,tsx,jsx}' --out-file lang/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
     "compile-translation": "formatjs compile  ./lang/en.json  --out-file ./i18n/en.json --format custom-formatter.js"
   }
