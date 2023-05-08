@@ -68,23 +68,15 @@ const SignUpForm = () => {
   };
 
   const onSubmit = async ({ email, username, password }) => {
-    if (authenticateWithDevice) {
-      await registerWithWebAuth(username);
-      toast.success(
-        formatMessage({
-          id: 'registration-complete',
-          defaultMessage: 'Registered successfully',
-        }),
-      );
-      push('/account');
-      return;
-    }
+    if (authenticateWithDevice) await registerWithWebAuth(username);
 
-    await createUser({
-      username,
-      email,
-      password,
-    });
+    if (!authenticateWithDevice)
+      await createUser({
+        username,
+        email,
+        password,
+      });
+
     toast.success(
       formatMessage({
         id: 'registration-complete',
