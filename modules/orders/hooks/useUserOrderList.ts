@@ -2,7 +2,7 @@ import { useQuery, gql } from '@apollo/client';
 
 import OrderFragment from '../fragments/OrderFragment';
 
-const UserOrderListQuery = gql`
+export const USER_ORDERS_QUERY = gql`
   {
     me {
       _id
@@ -15,7 +15,7 @@ const UserOrderListQuery = gql`
 `;
 
 const useOrderList = () => {
-  const { data, loading, error } = useQuery(UserOrderListQuery);
+  const { data, loading, error } = useQuery(USER_ORDERS_QUERY);
 
   return {
     orders: data?.me?.orders || [],

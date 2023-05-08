@@ -1,6 +1,6 @@
 import { useMutation, gql } from '@apollo/client';
 
-const SetUsernameMutation = gql`
+export const SET_USERNAME_MUTATION = gql`
   mutation SetUsername($username: String!, $userId: ID!) {
     setUsername(username: $username, userId: $userId) {
       _id
@@ -10,7 +10,7 @@ const SetUsernameMutation = gql`
 `;
 
 const useSetUsername = () => {
-  const [setUsernameMutation, { error }] = useMutation(SetUsernameMutation);
+  const [setUsernameMutation, { error }] = useMutation(SET_USERNAME_MUTATION);
 
   const setUsername = async ({ username, userId }) => {
     return setUsernameMutation({

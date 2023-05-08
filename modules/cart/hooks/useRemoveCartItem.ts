@@ -1,7 +1,7 @@
 import { useMutation, gql } from '@apollo/client';
 
-const RemoveCartItemMutation = gql`
-  mutation removeCartItem($itemId: ID!) {
+export const REMOVE_CART_ITEM_MUTATION = gql`
+  mutation RemoveCartItem($itemId: ID!) {
     removeCartItem(itemId: $itemId) {
       _id
     }
@@ -9,7 +9,7 @@ const RemoveCartItemMutation = gql`
 `;
 
 const useRemoveCartItem = () => {
-  const [removeCartItemMutation] = useMutation(RemoveCartItemMutation, {
+  const [removeCartItemMutation] = useMutation(REMOVE_CART_ITEM_MUTATION, {
     refetchQueries: ['user', 'cart'],
   });
 

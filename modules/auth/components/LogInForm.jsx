@@ -117,7 +117,10 @@ const LogInForm = () => {
 
   const handleError = (formError) => {
     const message = formError?.message?.toLowerCase();
-    if (message.includes('invalid credentials')) {
+    if (
+      message.includes('invalid credential') ||
+      message.includes('incorrect credential')
+    ) {
       setError(
         formatMessage({
           id: 'invalid-credential-error',

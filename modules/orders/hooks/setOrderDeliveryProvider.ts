@@ -1,6 +1,6 @@
 import { useMutation, gql } from '@apollo/client';
 
-const SetOrderDeliveryProviderMutation = gql`
+const SET_ORDER_DELIVERY_PROVIDER_MUTATION = gql`
   mutation SetOrderDeliverProvider($orderId: ID!, $deliveryProviderId: ID!) {
     setOrderDeliveryProvider(
       orderId: $orderId
@@ -17,7 +17,7 @@ const SetOrderDeliveryProviderMutation = gql`
 
 const useSetOrderDeliveryProviderMutation = () => {
   const [setOrderDeliveryProviderMutation] = useMutation(
-    SetOrderDeliveryProviderMutation,
+    SET_ORDER_DELIVERY_PROVIDER_MUTATION,
   );
 
   const setOrderDeliveryProvider = async ({ orderId, deliveryProviderId }) => {

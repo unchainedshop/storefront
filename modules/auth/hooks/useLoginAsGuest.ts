@@ -1,6 +1,6 @@
 import { useMutation, useApolloClient, gql } from '@apollo/client';
 
-const LoginAsGuestMutation = gql`
+export const LOGIN_AS_GUEST_MUTATION = gql`
   mutation LoginAsGuest {
     loginAsGuest {
       id
@@ -12,7 +12,7 @@ const LoginAsGuestMutation = gql`
 
 const useLoginAsGuest = () => {
   const client = useApolloClient();
-  const [loginAsGuestMutation] = useMutation(LoginAsGuestMutation);
+  const [loginAsGuestMutation] = useMutation(LOGIN_AS_GUEST_MUTATION);
 
   const loginAsGuest = async () => {
     const result = await loginAsGuestMutation({

@@ -1,6 +1,6 @@
 import { useMutation, gql } from '@apollo/client';
 
-const SetOrderPaymentProviderMutation = gql`
+export const SET_ORDER_PAYMENT_PROVIDER_MUTATION = gql`
   mutation SetOrderPaymentProvider($orderId: ID!, $paymentProviderId: ID!) {
     setOrderPaymentProvider(
       orderId: $orderId
@@ -28,7 +28,7 @@ const SetOrderPaymentProviderMutation = gql`
 
 const useSetOrderPaymentProviderMutation = () => {
   const [setOrderPaymentProviderMutation] = useMutation(
-    SetOrderPaymentProviderMutation,
+    SET_ORDER_PAYMENT_PROVIDER_MUTATION,
   );
 
   const setOrderPaymentProvider = async ({ orderId, paymentProviderId }) => {

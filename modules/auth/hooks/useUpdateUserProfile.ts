@@ -1,7 +1,7 @@
 import { useMutation, gql } from '@apollo/client';
 import AddressFragment from '../../common/fragments/AddressFragment';
 
-const UpdateUserProfileMutation = gql`
+const UPDATE_USER_PROFILE_MUTATION = gql`
   mutation UpdateUserProfile($profile: UserProfileInput!, $userId: ID!) {
     updateUserProfile(profile: $profile, userId: $userId) {
       _id
@@ -18,7 +18,7 @@ const UpdateUserProfileMutation = gql`
 
 const useUpdateUserProfile = () => {
   const [updateUserProfileMutation, { error }] = useMutation(
-    UpdateUserProfileMutation,
+    UPDATE_USER_PROFILE_MUTATION,
   );
 
   const updateUserProfile = async ({ profile, userId }) => {

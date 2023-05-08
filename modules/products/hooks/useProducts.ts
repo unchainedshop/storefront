@@ -3,7 +3,7 @@ import ProductFragment from '../fragments/ProductFragment';
 import SimpleProductPrice from '../fragments/SimpleProductPrice';
 import { ProductAssortmentPathFragment } from '../../assortment/fragments/AssortmentPath';
 
-export const ProductsQuery = gql`
+export const PRODUCTS_QUERY = gql`
   query Products($tags: [LowerCaseString!]) {
     products(tags: $tags) {
       assortmentPaths {
@@ -19,7 +19,7 @@ export const ProductsQuery = gql`
 `;
 
 const useProducts = ({ tags = [] } = {}) => {
-  const { data, loading, error } = useQuery(ProductsQuery, {
+  const { data, loading, error } = useQuery(PRODUCTS_QUERY, {
     variables: {
       tags,
     },

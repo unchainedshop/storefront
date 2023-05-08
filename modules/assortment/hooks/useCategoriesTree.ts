@@ -3,8 +3,8 @@ import AssortmentFragment from '../fragments/assortment';
 import AssortmentMediaFragment from '../fragments/AssortmentMedia';
 import childrenArrayToNavigationIdObject from '../utils/childrenArrayToNavigationIdObject';
 
-const AssortmentTreeQuery = gql`
-  query assortmentTree($slugs: [String!], $includeLeaves: Boolean) {
+export const ASSORTMENT_TREE_QUERY = gql`
+  query AssortmentTree($slugs: [String!], $includeLeaves: Boolean) {
     assortments(slugs: $slugs, includeLeaves: $includeLeaves) {
       ...AssortmentFragment
       media {
@@ -37,7 +37,7 @@ const useCategoriesTree = ({
   includeLeaves?: boolean;
   root?: string;
 }) => {
-  const { loading, error, data } = useQuery(AssortmentTreeQuery, {
+  const { loading, error, data } = useQuery(ASSORTMENT_TREE_QUERY, {
     variables: {
       includeLeaves,
       slugs,

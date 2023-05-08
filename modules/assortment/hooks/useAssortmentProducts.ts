@@ -5,7 +5,7 @@ import AssortmentFragment from '../fragments/assortment';
 import AssortmentMediaFragment from '../fragments/AssortmentMedia';
 import AssortmentPathFragment from '../fragments/AssortmentPath';
 
-export const AssortmentsProductsQuery = gql`
+export const ASSORTMENT_PRODUCTS_QUERY = gql`
   query AssortmentsProductsQuery($slugs: String!, $offset: Int, $limit: Int) {
     assortment(slug: $slugs) {
       ...AssortmentFragment
@@ -42,7 +42,7 @@ const useAssortmentProducts = (
   },
 ) => {
   const { data, loading, error, fetchMore } = useQuery(
-    AssortmentsProductsQuery,
+    ASSORTMENT_PRODUCTS_QUERY,
     {
       variables: {
         includeLeaves,

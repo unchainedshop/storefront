@@ -1,6 +1,6 @@
 import { useMutation, useApolloClient, gql } from '@apollo/client';
 
-const LogoutMutation = gql`
+export const LOG_OUT_MUTATION = gql`
   mutation Logout {
     logout {
       success
@@ -10,7 +10,7 @@ const LogoutMutation = gql`
 
 const useLogoutMutation = () => {
   const client = useApolloClient();
-  const [logoutMutation] = useMutation(LogoutMutation);
+  const [logoutMutation] = useMutation(LOG_OUT_MUTATION);
 
   const logout = async () => {
     const result = await logoutMutation();

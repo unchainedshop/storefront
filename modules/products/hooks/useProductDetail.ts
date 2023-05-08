@@ -3,7 +3,7 @@ import { ProductAssortmentPathFragment } from '../../assortment/fragments/Assort
 import ProductFragment from '../fragments/ProductFragment';
 import SimpleProductPrice from '../fragments/SimpleProductPrice';
 
-const ProductDetailQuery = gql`
+const PRODUCT_DETAIL_QUERY = gql`
   query ProductDetailQuery($slug: String) {
     product(slug: $slug) {
       assortmentPaths {
@@ -19,7 +19,7 @@ const ProductDetailQuery = gql`
 `;
 
 const useProductDetail = ({ slug }) => {
-  const { data, loading, error } = useQuery(ProductDetailQuery, {
+  const { data, loading, error } = useQuery(PRODUCT_DETAIL_QUERY, {
     variables: { slug },
   });
 

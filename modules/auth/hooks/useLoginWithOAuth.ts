@@ -1,7 +1,7 @@
 import { useMutation, gql, useApolloClient } from '@apollo/client';
 
-const FORGOT = gql`
-  mutation logInWithOAuth(
+export const LOGIN_AS_WITH_OAUTH_MUTATION = gql`
+  mutation LogInWithOAuth(
     $authorizationCode: String!
     $provider: String!
     $redirectUrl: String!
@@ -20,7 +20,7 @@ const FORGOT = gql`
 
 const useLogInWithOAuth = () => {
   const apollo = useApolloClient();
-  const [logInWithOAuthMutation] = useMutation(FORGOT);
+  const [logInWithOAuthMutation] = useMutation(LOGIN_AS_WITH_OAUTH_MUTATION);
 
   const logInWithOAuth = async ({
     authorizationCode,

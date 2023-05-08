@@ -1,6 +1,6 @@
 import { useMutation, gql } from '@apollo/client';
 
-const CreateUserMutation = gql`
+export const CREATE_USER_MUTATION = gql`
   mutation CreateUser(
     $username: String
     $email: String
@@ -24,7 +24,7 @@ const CreateUserMutation = gql`
 
 const useCreateUser = () => {
   const [createUserMutation, { data, error, loading }] =
-    useMutation(CreateUserMutation);
+    useMutation(CREATE_USER_MUTATION);
 
   const createUser = async ({
     username,

@@ -1,6 +1,6 @@
 import { useQuery, gql } from '@apollo/client';
 
-export const ShopInfoQuery = gql`
+export const SHOP_INFO_QUERY = gql`
   query ShopInfo {
     shopInfo {
       _id
@@ -17,7 +17,7 @@ export const ShopInfoQuery = gql`
 `;
 
 const useShopInfo = () => {
-  const { data, loading, error } = useQuery(ShopInfoQuery);
+  const { data, loading, error } = useQuery(SHOP_INFO_QUERY);
 
   return {
     loading,

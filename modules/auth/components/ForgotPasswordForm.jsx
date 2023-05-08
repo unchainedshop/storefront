@@ -30,7 +30,8 @@ const ForgotPasswordForm = () => {
     );
   };
   const onSubmitError = async (e) => {
-    if (e.message?.toLowerCase()?.includes('not found')) {
+    const message = e.message?.toLowerCase();
+    if (message.includes('not found')) {
       return {
         email: {
           type: 'manual',

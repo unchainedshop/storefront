@@ -1,6 +1,6 @@
 import { useMutation, gql } from '@apollo/client';
 
-const UpdateCart = gql`
+export const UPDATE_CART_PAYMENT_PROVIDER_MUTATION = gql`
   mutation UpdateCartPaymentProvider($paymentProviderId: ID) {
     updateCart(paymentProviderId: $paymentProviderId) {
       _id
@@ -20,7 +20,9 @@ const UpdateCart = gql`
 `;
 
 const useUpdateCartPayment = () => {
-  const [updateCartPaymentMutation] = useMutation(UpdateCart);
+  const [updateCartPaymentMutation] = useMutation(
+    UPDATE_CART_PAYMENT_PROVIDER_MUTATION,
+  );
 
   const updateCartPayment = async ({ paymentProviderId }) => {
     await updateCartPaymentMutation({ variables: { paymentProviderId } });

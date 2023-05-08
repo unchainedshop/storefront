@@ -1,15 +1,6 @@
 import { gql, useMutation } from '@apollo/client';
+import { LOGIN_AS_GUEST_MUTATION } from '../../auth/hooks/useLoginAsGuest';
 import useUser from '../../auth/hooks/useUser';
-
-export const LOGIN_GUEST_MUTATION = gql`
-  mutation GuestLogin {
-    loginAsGuest {
-      id
-      token
-      tokenExpires
-    }
-  }
-`;
 
 export const ADD_CART_PRODUCT_MUTATION = gql`
   mutation AddCartProduct(
@@ -53,7 +44,7 @@ const useAddCartProduct = () => {
     ADD_CART_PRODUCT_MUTATION,
   );
   const { user } = useUser();
-  const [loginAsGuestMutation] = useMutation(LOGIN_GUEST_MUTATION);
+  const [loginAsGuestMutation] = useMutation(LOGIN_AS_GUEST_MUTATION);
 
   const addCartProduct = async (
     variables: {

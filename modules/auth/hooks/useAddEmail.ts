@@ -1,7 +1,7 @@
 import { useMutation, gql } from '@apollo/client';
 
-const AddEmailMutation = gql`
-  mutation addEmail($email: String!) {
+export const ADD_EMAIL_MUTATION = gql`
+  mutation AddEmail($email: String!) {
     addEmail(email: $email) {
       _id
       emails {
@@ -13,7 +13,7 @@ const AddEmailMutation = gql`
 `;
 
 const useAddEmail = () => {
-  const [addEmailMutation, { error }] = useMutation(AddEmailMutation);
+  const [addEmailMutation, { error }] = useMutation(ADD_EMAIL_MUTATION);
 
   const addEmail = async (email) => {
     return addEmailMutation({

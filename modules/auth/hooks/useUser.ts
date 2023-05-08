@@ -3,8 +3,8 @@ import { useAppContext } from '../../common/components/AppContextWrapper';
 
 import CurrentUserFragment from '../fragments/CurrentUserFragment';
 
-export const UserQuery = gql`
-  query user {
+export const USER_QUERY = gql`
+  query User {
     me {
       ...CurrentUserFragment
     }
@@ -15,7 +15,7 @@ export const UserQuery = gql`
 const useUser = () => {
   const { selectedCurrency } = useAppContext();
 
-  const { data, loading, error, refetch } = useQuery(UserQuery, {
+  const { data, loading, error, refetch } = useQuery(USER_QUERY, {
     variables: {
       currency: selectedCurrency,
     },

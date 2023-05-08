@@ -2,7 +2,7 @@ import { useQuery, gql } from '@apollo/client';
 import AssortmentFragment from '../fragments/assortment';
 import AssortmentMediaFragment from '../fragments/AssortmentMedia';
 
-export const AssortmentsQuery = gql`
+export const ASSORTMENTS_QUERY = gql`
   query AssortmentsQuery($includeLeaves: Boolean = false) {
     assortments(includeLeaves: $includeLeaves) {
       ...AssortmentFragment
@@ -16,7 +16,7 @@ export const AssortmentsQuery = gql`
 `;
 
 const useAssortments = ({ includeLeaves = false } = {}) => {
-  const { data, loading, error } = useQuery(AssortmentsQuery, {
+  const { data, loading, error } = useQuery(ASSORTMENTS_QUERY, {
     variables: {
       includeLeaves,
     },

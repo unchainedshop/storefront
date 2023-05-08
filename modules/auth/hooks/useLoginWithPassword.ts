@@ -1,7 +1,7 @@
 import { useMutation, gql } from '@apollo/client';
 import isEmail from '../../common/utils/isEmail';
 
-const LogInWithPasswordMutation = gql`
+const LOG_IN_WITH_PASSWORD_MUTATION = gql`
   mutation LoginWithPassword(
     $username: String
     $email: String
@@ -29,7 +29,7 @@ const LogInWithPasswordMutation = gql`
 
 const useLoginWithPassword = () => {
   const [logInWithPasswordMutation, { client }] = useMutation(
-    LogInWithPasswordMutation,
+    LOG_IN_WITH_PASSWORD_MUTATION,
     {
       errorPolicy: 'all',
     },

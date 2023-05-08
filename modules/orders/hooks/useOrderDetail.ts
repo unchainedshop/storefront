@@ -3,7 +3,7 @@ import { useQuery, gql } from '@apollo/client';
 import OrderFragment from '../fragments/OrderFragment';
 import OrderItemFragment from '../fragments/OrderItemFragment';
 
-const OrderDetailQuery = gql`
+export const ORDER_DETAIL_QUERY = gql`
   query OrderDetailQuery($orderId: ID!) {
     order(orderId: $orderId) {
       ...OrderFragment
@@ -17,7 +17,7 @@ const OrderDetailQuery = gql`
 `;
 
 const useOrderDetail = ({ orderId }) => {
-  const { data, loading, error, ...rest } = useQuery(OrderDetailQuery, {
+  const { data, loading, error, ...rest } = useQuery(ORDER_DETAIL_QUERY, {
     variables: { orderId },
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'no-cache',
