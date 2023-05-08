@@ -26,7 +26,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
     <Form
       onSubmit={submitHandler}
       onSubmitError={onSubmitError}
-      defaultValue={{ ...address }}
+      defaultValues={{ ...address }}
     >
       <div className="mb-3">
         <TextField

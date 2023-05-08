@@ -45,7 +45,6 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
           })}
           type="tel"
           name="telNumber"
-          required
         />
       </div>
       <FormErrors />
