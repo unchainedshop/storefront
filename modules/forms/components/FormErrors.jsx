@@ -2,11 +2,9 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 const FormErrors = () => {
-  const {
-    formState: { errors },
-  } = useFormContext();
-  const submitErrors = Object.entries(errors || {}).filter(
-    ([, error]) => error?.message,
+  const { formState } = useFormContext();
+  const submitErrors = Object.entries(formState?.errors || {}).filter(
+    ([name]) => name === 'root' || name === 'submit',
   );
   if (!submitErrors.length) return null;
   return (
