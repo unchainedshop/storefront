@@ -6,9 +6,9 @@ export const SHOP_INFO_QUERY = gql`
       _id
       vapidPublicKey
       version
-      oauthProviders {
+      oAuthProviders {
+        _id
         clientId
-        name
         scopes
         __typename
       }

@@ -3,16 +3,14 @@ import { useIntl } from 'react-intl';
 const GoogleOauth = ({ providers }) => {
   const { formatMessage } = useIntl();
   const googleClientProvider = (providers || []).find(
-    ({ name }) => name === 'google',
+    ({ _id }) => _id === 'google',
   );
-  if (!googleClientProvider) return null;
-
-  const { clientId } = googleClientProvider;
+  if (!googleClientProvider?.clientId) return null;
 
   const redirectUrl = `${window.location.origin}/oauth`;
   return (
     <a
-      href={`https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&redirect_uri=${redirectUrl}&
+      href={`https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${googleClientProvider.clientId}&redirect_uri=${redirectUrl}&
               scope=https://www.googleapis.com/auth/user.gender.read                      
               +https://www.googleapis.com/auth/userinfo.email
               +https://www.googleapis.com/auth/user.phonenumbers.read

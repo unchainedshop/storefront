@@ -304,8 +304,8 @@ const LogInForm = () => {
                 </div>
               </div>
               <div>
-                <GoogleOauth providers={shopInfo?.oauthProviders} />
-                <LinkedInOauth providers={shopInfo?.oauthProviders} />
+                <GoogleOauth providers={shopInfo?.oAuthProviders} />
+                <LinkedInOauth providers={shopInfo?.oAuthProviders} />
               </div>
             </div>
           </div>

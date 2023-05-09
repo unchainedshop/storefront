@@ -3,16 +3,14 @@ import { useIntl } from 'react-intl';
 const LinkedInOauth = ({ providers }) => {
   const { formatMessage } = useIntl();
   const googleClientProvider = (providers || []).find(
-    ({ name }) => name === 'linkedin',
+    ({ _id }) => _id === 'linkedin',
   );
-  if (!googleClientProvider) return null;
-
-  const { clientId } = googleClientProvider;
+  if (!googleClientProvider?.clientId) return null;
 
   const redirectUrl = `${window.location.origin}/oauth`;
   return (
     <a
-      href={`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${clientId}&redirect_uri=${redirectUrl}&state=linkedin&scope=r_liteprofile%20r_emailaddress%20openid%20profile%20email`.replaceAll(
+      href={`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${googleClientProvider.clientId}&redirect_uri=${redirectUrl}&state=linkedin&scope=r_liteprofile%20r_emailaddress%20openid%20profile%20email`.replaceAll(
         ' ',
         '',
       )}
