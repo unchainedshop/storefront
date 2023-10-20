@@ -2,8 +2,6 @@ import Head from 'next/head';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
 
-import getCurrentDomain from '../utils/getCurrentDomain';
-
 const {
   publicRuntimeConfig: { FRONTEND_URL, theme },
 } = getConfig();
@@ -23,7 +21,7 @@ const MetaTags = ({
           key={`${lang}${asPath}`}
           rel="alternate"
           hrefLang={lang}
-          href={`${getCurrentDomain()}/${lang}${asPath}`}
+          href={`${FRONTEND_URL}/${lang}${asPath}`}
         />
       ))}
       <meta
