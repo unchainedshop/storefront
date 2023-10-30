@@ -7,16 +7,16 @@ WORKDIR /usr/src/app
 # Install app dependencies
 COPY package* /usr/src/app/
 
-ARG UNCHAINED_ENDPOINT
-
-ENV UNCHAINED_ENDPOINT=$UNCHAINED_ENDPOINT
-ENV NEXT_TELEMETRY_DISABLED="1"
 ENV TZ="Europe/Amsterdam"
-ENV NODE_ENV="development"
 RUN npm install
 
 # Build app
 COPY . /usr/src/app/
+
+ARG UNCHAINED_ENDPOINT=http://localhost:4010/graphql
+
+ENV UNCHAINED_ENDPOINT=$UNCHAINED_ENDPOINT
+ENV NEXT_TELEMETRY_DISABLED="1"
 
 RUN npm run build && \
     rm -Rf node_modules
