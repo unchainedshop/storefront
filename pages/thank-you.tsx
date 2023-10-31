@@ -11,6 +11,7 @@ import CartItem from '../modules/cart/components/CartItem';
 import useFormatDateTime from '../modules/common/utils/useFormatDateTime';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
 import formatPrice from '../modules/common/utils/formatPrice';
+import FormattedPrice from '../modules/common/components/FormattedPrice';
 
 const {
   publicRuntimeConfig: { theme },
@@ -213,7 +214,7 @@ const ThankYou = () => {
                     </div>
                     <div className="ml-4 mt-4">
                       <p className="text-slate-600 dark:text-slate-300">
-                        {formatPrice(order?.payment?.fee)}
+                        <FormattedPrice price={order?.payment?.fee} />
                       </p>
                     </div>
                     <div className="ml-4 mt-4">

@@ -3,29 +3,15 @@ import Link from 'next/link';
 import { useIntl } from 'react-intl';
 import classNames from 'classnames';
 import { ShoppingBagIcon, XIcon } from '@heroicons/react/outline';
-import formatPrice from '../../common/utils/formatPrice';
 import useUser from '../../auth/hooks/useUser';
 import CartItem from './CartItem';
 import { useAppContext } from '../../common/components/AppContextWrapper';
+import FormattedPrice from '../../common/components/FormattedPrice';
 
 const SideCart = ({ isOpen }) => {
   const { user } = useUser();
   const intl = useIntl();
   const { isCartOpen, toggleCart } = useAppContext();
-
-  const subtotal = (user?.cart?.items || []).reduce(
-    (acc, item) => {
-      return {
-        ...acc,
-        amount:
-          parseInt(acc.amount, 10) + parseInt(item?.total?.amount || 0, 10),
-      };
-    },
-    {
-      currency: user?.cart?.itemsTotal?.currency,
-      amount: 0,
-    },
-  );
 
   return (
     <>
@@ -125,7 +111,9 @@ const SideCart = ({ isOpen }) => {
                     defaultMessage: 'Subtotal',
                   })}{' '}
                 </div>
-                <div>{formatPrice(subtotal)}</div>
+                <div>
+                  <FormattedPrice price={user?.cart?.itemsTotal} />
+                </div>
               </div>
             </div>
             <Link

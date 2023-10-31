@@ -5,6 +5,7 @@ export const SUPPORTED_CURRENCIES_QUERY = gql`
     currencies {
       _id
       isoCode
+      decimals
     }
   }
 `;

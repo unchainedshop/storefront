@@ -1,8 +1,8 @@
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
-import formatPrice from '../../common/utils/formatPrice';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
+import FormattedPrice from '../../common/components/FormattedPrice';
 
 const OrderListItem = ({ order }) => {
   const { formatMessage } = useIntl();
@@ -64,7 +64,9 @@ const OrderListItem = ({ order }) => {
               defaultMessage: 'Total amount',
             })}
           </dt>
-          <dd className="sm:mt-1">{formatPrice(order.total)}</dd>
+          <dd className="sm:mt-1">
+            <FormattedPrice price={order.total} />
+          </dd>
         </div>
         <div className="flex justify-between pt-6 sm:block sm:pt-0">
           <dt className="font-medium text-slate-900 dark:text-slate-100 sm:hidden">

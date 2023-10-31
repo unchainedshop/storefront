@@ -9,6 +9,7 @@ import useUser from '../../auth/hooks/useUser';
 
 import getMediaUrl from '../../common/utils/getMediaUrl';
 import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
+import FormattedPrice from '../../common/components/FormattedPrice';
 
 function getFlagEmoji(countryCode) {
   const codePoints = countryCode
@@ -95,7 +96,7 @@ const OrderDetailComponent = ({ order }) => {
                     </div>
                   </div>
                   <p className="text-right font-medium text-slate-900 dark:text-slate-100">
-                    {formatPrice(item.total)}
+                    <FormattedPrice price={item.total} />
                   </p>
                 </div>
               </Link>
@@ -167,7 +168,7 @@ const OrderDetailComponent = ({ order }) => {
                   </div>
                   <div className="ml-4 mt-4">
                     <span className="block text-slate-500 dark:text-slate-300">
-                      {formatPrice(order?.delivery?.fee)}
+                      <FormattedPrice price={order?.delivery?.fee} />
                     </span>
                   </div>
                   <div className="ml-4 mt-4">
@@ -314,7 +315,7 @@ const OrderDetailComponent = ({ order }) => {
                       </div>
                       <div className="ml-4 mt-4">
                         <p className="text-slate-600 dark:text-slate-300">
-                          {formatPrice(order?.payment?.fee)}
+                          <FormattedPrice price={order?.payment?.fee} />
                         </p>
                       </div>
                       <div className="ml-4 mt-4">
@@ -353,7 +354,7 @@ const OrderDetailComponent = ({ order }) => {
                   })}
                 </dt>
                 <dd className="font-medium text-slate-900 dark:text-dslate-400">
-                  {formatPrice(order?.total)}
+                  <FormattedPrice price={order?.total} />
                 </dd>
               </div>
               {order?.delivery?.fee && (
@@ -365,7 +366,7 @@ const OrderDetailComponent = ({ order }) => {
                     })}
                   </dt>
                   <dd className="font-medium text-slate-900 dark:text-slate-100">
-                    {formatPrice(order.delivery.fee)}
+                    <FormattedPrice price={order.delivery.fee} />
                   </dd>
                 </div>
               )}
@@ -377,7 +378,7 @@ const OrderDetailComponent = ({ order }) => {
                   })}
                 </dt>
                 <dd className="font-medium text-slate-600 dark:text-dslate-400">
-                  {formatPrice(order?.total)}
+                  <FormattedPrice price={order?.total} />
                 </dd>
               </div>
             </dl>

@@ -23,6 +23,26 @@ export const ADD_CART_PRODUCT_MUTATION = gql`
             amount
             currency
           }
+          unitPrice {
+            amount
+            currency
+          }
+        }
+        itemsTotal: total(category: ITEMS) {
+          amount
+          currency
+        }
+        taxes: total(category: TAXES) {
+          amount
+          currency
+        }
+        delivery: total(category: DELIVERY) {
+          amount
+          currency
+        }
+        payment: total(category: PAYMENT) {
+          amount
+          currency
         }
         total {
           amount

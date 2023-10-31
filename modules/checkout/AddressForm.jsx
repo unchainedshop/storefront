@@ -104,6 +104,7 @@ const AddressForm = ({ address, onSubmit, onCancel }) => {
           name="countryCode"
           required
         >
+          <option value=""> - </option>
           {COUNTRIES.map((c) => (
             <option key={c.code} value={c.code}>
               {' '}

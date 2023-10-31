@@ -9,6 +9,29 @@ export const UPDATE_CART_ITEM_MUTATION = gql`
         amount
         currency
       }
+      order {
+        _id
+        itemsTotal: total(category: ITEMS) {
+          amount
+          currency
+        }
+        taxes: total(category: TAXES) {
+          amount
+          currency
+        }
+        delivery: total(category: DELIVERY) {
+          amount
+          currency
+        }
+        payment: total(category: PAYMENT) {
+          amount
+          currency
+        }
+        total {
+          amount
+          currency
+        }
+      }
     }
   }
 `;

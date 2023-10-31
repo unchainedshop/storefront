@@ -14,6 +14,7 @@ import formatPrice from '../../common/utils/formatPrice';
 import useRemoveCartItem from '../hooks/useRemoveCartItem';
 import useUpdateCartItemMutation from '../hooks/useUpdateCartItem';
 import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
+import FormattedPrice from '../../common/components/FormattedPrice';
 
 const CartItem = ({
   _id,
@@ -111,7 +112,7 @@ const CartItem = ({
 
         <div className="flex flex-1 items-end justify-between pt-2">
           <p className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">
-            {formatPrice(unitPrice)}
+            <FormattedPrice price={unitPrice} />
           </p>
 
           <div className="ml-4">

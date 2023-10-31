@@ -7,7 +7,7 @@ import useUser from '../../auth/hooks/useUser';
 import useConditionalBookmarkProduct from '../../cart/hooks/useConditionalBookmarkProduct';
 import useRemoveBookmark from '../../common/hooks/useRemoveBookmark';
 import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
-import formatPrice from '../../common/utils/formatPrice';
+import FormattedPrice from '../../common/components/FormattedPrice';
 
 const ProductListItem = ({ product }) => {
   const { conditionalBookmarkProduct } = useConditionalBookmarkProduct();
@@ -75,7 +75,9 @@ const ProductListItem = ({ product }) => {
         <h3 className="text-sm font-medium text-slate-900 dark:text-white">
           {product?.texts?.title}
         </h3>
-        <span className="ml-1">{formatPrice(product?.simulatedPrice)}</span>
+        <span className="ml-1">
+          <FormattedPrice price={product?.simulatedPrice} />
+        </span>
       </div>
     </>
   );

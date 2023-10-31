@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl';
 
 import useProductDetail from '../../modules/products/hooks/useProductDetail';
 import AddToCartButton from '../../modules/cart/components/AddToCartButton';
-import formatPrice from '../../modules/common/utils/formatPrice';
 import MetaTags from '../../modules/common/components/MetaTags';
 import getAssortmentPath from '../../modules/assortment/utils/getAssortmentPath';
 import AssortmentBreadcrumbs from '../../modules/assortment/components/AssortmentBreadcrumbs';
@@ -13,6 +12,7 @@ import getMediaUrl from '../../modules/common/utils/getMediaUrl';
 import getMediaUrls from '../../modules/common/utils/getMediaUrls';
 import NotFound from '../404';
 import Loading from '../../modules/common/components/Loading';
+import FormattedPrice from '../../modules/common/components/FormattedPrice';
 
 const Detail = () => {
   const router = useRouter();
@@ -67,7 +67,9 @@ const Detail = () => {
                 dangerouslySetInnerHTML={{ __html: product?.texts?.title }}
               />
               <div className="p-2">
-                <h3 className="my-0">{formatPrice(product?.simulatedPrice)}</h3>
+                <h3 className="my-0">
+                  <FormattedPrice price={product?.simulatedPrice} />
+                </h3>
                 <h4
                   className="mb-3"
                   dangerouslySetInnerHTML={{ __html: product?.texts?.subtitle }}
