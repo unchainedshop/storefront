@@ -26,7 +26,7 @@
     "border-radius": "0"
   },
   "locales": {
-    
-    "en": "/i18n/en.json"
+    "en": "/i18n/en.json",
+    "de": "/i18n/de.json"
   }
 }
