@@ -90,7 +90,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="py-10  md:flex md:items-center md:justify-between lg:px-8">
+        <div className="py-10  md:flex md:items-center md:justify-between">
           <div className="text-center md:text-left">
             <p className="text-base text-slate-400 dark:text-slate-200">
               <span>&copy;</span>
