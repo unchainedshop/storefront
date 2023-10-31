@@ -1,4 +1,4 @@
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useIntl } from 'react-intl';
 
@@ -8,7 +8,7 @@ const OrderButton = () => {
 
   return (
     <Link href="/orders" className="flex items-center gap-x-2">
-      <CollectionIcon className="h-6 w-6" />
+      <RectangleStackIcon className="h-6 w-6" />
       <span className="hidden lg:block">
         {formatMessage({ id: 'my_orders', defaultMessage: 'My orders' })}
       </span>

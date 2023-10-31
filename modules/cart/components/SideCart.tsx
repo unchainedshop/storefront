@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { useIntl } from 'react-intl';
 import classNames from 'classnames';
-import { ShoppingBagIcon, XIcon } from '@heroicons/react/outline';
+import { ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import useUser from '../../auth/hooks/useUser';
 import CartItem from './CartItem';
 import { useAppContext } from '../../common/components/AppContextWrapper';
@@ -66,7 +66,7 @@ const SideCart = ({ isOpen }) => {
                 className="absolute cursor-pointer appearance-none p-2 text-left text-inherit opacity-100"
                 onClick={() => toggleCart(!isCartOpen)}
               >
-                <XIcon className="h-5 w-5" />
+                <XMarkIcon className="h-5 w-5" />
               </button>
             </div>
             <h3 className="m-0 block p-4 text-center text-lg">

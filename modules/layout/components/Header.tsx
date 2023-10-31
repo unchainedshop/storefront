@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 
-import { MenuIcon } from '@heroicons/react/solid';
+import { Bars3Icon } from '@heroicons/react/20/solid';
 import Image from 'next/legacy/image';
 import LoginCart from '../../auth/components/LoginCart';
 import SideCart from '../../cart/components/SideCart';
@@ -66,7 +66,7 @@ const Header = () => {
               className="mr-4 flex cursor-pointer appearance-none items-center border-0 bg-transparent p-0 py-1 text-left text-inherit"
               onClick={() => setNavOpen(true)}
             >
-              <MenuIcon className="h-6 w-6 text-slate-900 dark:text-slate-100" />
+              <Bars3Icon className="h-6 w-6 text-slate-900 dark:text-slate-100" />
             </button>
 
             <MobileNavigation

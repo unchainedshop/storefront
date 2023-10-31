@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
-import { ArrowDownIcon, ArrowUpIcon, XIcon } from '@heroicons/react/solid';
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  XMarkIcon,
+} from '@heroicons/react/20/solid';
 import useCategoriesTree from '../hooks/useCategoriesTree';
 import Thumbnail from '../../common/components/thumbnail';
 import changeLanguage from '../../common/utils/changeLanguage';
@@ -123,7 +127,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
             className="hover:bg-red-60 absolute top-0 -right-0 flex cursor-pointer appearance-none items-center rounded-full border-0 bg-transparent p-1 hover:bg-red-200 hover:text-red-400 active:text-red-600"
             onClick={doClose}
           >
-            <XIcon className="h-5 w-5 select-none" />
+            <XMarkIcon className="h-5 w-5 select-none" />
             <small className="sr-only">
               {intl.formatMessage({ id: 'close', defaultMessage: 'Close' })}
             </small>

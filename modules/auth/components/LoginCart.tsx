@@ -3,10 +3,10 @@ import { useIntl } from 'react-intl';
 
 import {
   BookmarkIcon,
-  LogoutIcon,
+  ArrowRightOnRectangleIcon,
   ShoppingCartIcon,
   UserCircleIcon,
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import OrderButton from '../../orders/components/UserOrderButton';
 import useUser from '../hooks/useUser';
@@ -90,7 +90,7 @@ const LoginCart = () => {
               await onLogout();
             }}
           >
-            <LogoutIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
+            <ArrowRightOnRectangleIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
             <span className="hidden lg:block">
               {formatMessage({ id: 'log-out', defaultMessage: 'Logout' })}
             </span>

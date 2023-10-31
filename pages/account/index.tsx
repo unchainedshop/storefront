@@ -5,7 +5,7 @@ import {
   IdentificationIcon,
   KeyIcon,
   UserCircleIcon,
-} from '@heroicons/react/solid';
+} from '@heroicons/react/20/solid';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import useUser from '../../modules/auth/hooks/useUser';

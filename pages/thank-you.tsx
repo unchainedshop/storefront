@@ -4,13 +4,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import Link from 'next/link';
 import Image from 'next/legacy/image';
 import getConfig from 'next/config';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import useOrderDetail from '../modules/orders/hooks/useOrderDetail';
 import MetaTags from '../modules/common/components/MetaTags';
 import CartItem from '../modules/cart/components/CartItem';
 import useFormatDateTime from '../modules/common/utils/useFormatDateTime';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
-import formatPrice from '../modules/common/utils/formatPrice';
 import FormattedPrice from '../modules/common/components/FormattedPrice';
 
 const {

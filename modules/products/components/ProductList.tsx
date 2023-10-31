@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-import { ChevronDoubleDownIcon } from '@heroicons/react/solid';
+import { ChevronDoubleDownIcon } from '@heroicons/react/20/solid';
 
 import ProductListItem from './ProductListItem';
 import Button from '../../common/components/Button';

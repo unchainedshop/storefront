@@ -4,13 +4,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import dynamic from 'next/dynamic';
 import { useIntl } from 'react-intl';
 import useGenerateLoginCredentials from '../hooks/useGenerateLoginCredentials';
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
-
 import useLoginWithWebAuthn from '../hooks/useLoginWithWebAuthn';
-import useShopInfo from '../../common/hooks/useShopInfo';
 
 const GetCurrentStep = ({
   step,
@@ -78,7 +75,6 @@ const GetCurrentStep = ({
 
 const LogInForm = () => {
   const router = useRouter();
-  const { shopInfo } = useShopInfo();
   const { formatMessage } = useIntl();
   const { logInWithPassword } = useLoginWithPassword();
   const { loginWithWebAuthn } = useLoginWithWebAuthn();

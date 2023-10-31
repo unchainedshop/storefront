@@ -1,4 +1,4 @@
-import { BookmarkIcon, PhotographIcon } from '@heroicons/react/solid';
+import { BookmarkIcon, PhotoIcon } from '@heroicons/react/20/solid';
 import classNames from 'classnames';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
@@ -43,7 +43,7 @@ const ProductListItem = ({ product }) => {
               />
             ) : (
               <div className="relative h-full w-full">
-                <PhotographIcon className="absolute inset-0 h-full w-full  dark:text-slate-500" />
+                <PhotoIcon className="absolute inset-0 h-full w-full  dark:text-slate-500" />
               </div>
             )}
           </Link>

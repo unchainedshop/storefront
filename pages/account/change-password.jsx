@@ -1,4 +1,4 @@
-import { KeyIcon } from '@heroicons/react/solid';
+import { KeyIcon } from '@heroicons/react/20/solid';
 
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';

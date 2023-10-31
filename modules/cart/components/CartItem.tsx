@@ -4,13 +4,12 @@ import React, { useEffect, useState } from 'react';
 
 import {
   MinusIcon,
-  PhotographIcon,
+  PhotoIcon,
   PlusIcon,
   TrashIcon,
-} from '@heroicons/react/solid';
+} from '@heroicons/react/20/solid';
 import { useIntl } from 'react-intl';
 import getMediaUrl from '../../common/utils/getMediaUrl';
-import formatPrice from '../../common/utils/formatPrice';
 import useRemoveCartItem from '../hooks/useRemoveCartItem';
 import useUpdateCartItemMutation from '../hooks/useUpdateCartItem';
 import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
@@ -77,7 +76,7 @@ const CartItem = ({
           />
         ) : (
           <div className="relative h-full w-full">
-            <PhotographIcon className="absolute inset-0 h-full w-full text-slate-200  dark:text-slate-500" />
+            <PhotoIcon className="absolute inset-0 h-full w-full text-slate-200  dark:text-slate-500" />
           </div>
         )}
       </div>

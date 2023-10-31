@@ -1,9 +1,7 @@
 import { useIntl } from 'react-intl';
 import Link from 'next/link';
-import { CheckCircleIcon, PaperClipIcon } from '@heroicons/react/solid';
+import { CheckCircleIcon, PaperClipIcon } from '@heroicons/react/20/solid';
 import Image from 'next/legacy/image';
-
-import formatPrice from '../../common/utils/formatPrice';
 import useFormatDateTime from '../../common/utils/useFormatDateTime';
 import useUser from '../../auth/hooks/useUser';
 
