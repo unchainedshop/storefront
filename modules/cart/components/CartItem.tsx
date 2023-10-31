@@ -15,7 +15,13 @@ import useRemoveCartItem from '../hooks/useRemoveCartItem';
 import useUpdateCartItemMutation from '../hooks/useUpdateCartItem';
 import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
 
-const CartItem = ({ _id, quantity, product, enableUpdate = true }) => {
+const CartItem = ({
+  _id,
+  quantity,
+  product,
+  unitPrice,
+  enableUpdate = true,
+}) => {
   const { updateCartItem } = useUpdateCartItemMutation();
   const { removeCartItem } = useRemoveCartItem();
   const [previousQuantity, setPreviousQuantity] = useState(quantity);
@@ -105,7 +111,7 @@ const CartItem = ({ _id, quantity, product, enableUpdate = true }) => {
 
         <div className="flex flex-1 items-end justify-between pt-2">
           <p className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-100">
-            {formatPrice(product?.simulatedPrice)}
+            {formatPrice(unitPrice)}
           </p>
 
           <div className="ml-4">

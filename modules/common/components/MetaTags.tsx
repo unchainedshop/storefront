@@ -3,11 +3,10 @@ import getConfig from 'next/config';
 import { useRouter } from 'next/router';
 
 const {
-  publicRuntimeConfig: { FRONTEND_URL, theme },
+  publicRuntimeConfig: { theme },
 } = getConfig();
 
 const MetaTags = ({
-  url = FRONTEND_URL,
   imageUrl = 'https://unchained.shop/img/unchained-commerce-snake.svg',
   title,
   description = '',
@@ -21,7 +20,7 @@ const MetaTags = ({
           key={`${lang}${asPath}`}
           rel="alternate"
           hrefLang={lang}
-          href={`${FRONTEND_URL}/${lang}${asPath}`}
+          href={`/${lang}${asPath}`}
         />
       ))}
       <meta
@@ -32,7 +31,6 @@ const MetaTags = ({
       <meta name="description" content={description || title} />
       <meta content="Unchained Commerce" property="og:site_name" />
       <meta content="website" property="og:type" />
-      <meta property="og:url" content={url} key="url" />
       <meta property="og:type" content="article" key="type" />
       <meta property="og:title" content={title} key="title" />
       <meta

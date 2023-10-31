@@ -59,7 +59,10 @@ const CurrentUserFragment = gql`
       items {
         _id
         quantity
-
+        unitPrice {
+          amount
+          currency
+        }
         total {
           amount
           currency

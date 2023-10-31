@@ -14,14 +14,10 @@ import '../styles/globals.css';
 const UnchainedApp = ({ Component, pageProps, router }) => {
   const apollo = useApollo(pageProps, { locale: router.locale });
   const messages = getMessages(router.locale);
-  const defaultCurrency =
-    typeof window === 'undefined'
-      ? undefined
-      : localStorage.getItem('selectedCurrency');
 
   return (
     <IntlWrapper locale={router.locale} messages={messages} key="intl-provider">
-      <AppContextWrapper defaultCurrency={defaultCurrency}>
+      <AppContextWrapper>
         <ApolloProvider client={apollo}>
           <Toaster />
           <Layout>

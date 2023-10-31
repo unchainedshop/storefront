@@ -7,14 +7,11 @@ import formatPrice from '../../common/utils/formatPrice';
 import useUser from '../../auth/hooks/useUser';
 import CartItem from './CartItem';
 import { useAppContext } from '../../common/components/AppContextWrapper';
-import CurrencySelector from '../../common/components/CurrencySelector';
 
 const SideCart = ({ isOpen }) => {
   const { user } = useUser();
   const intl = useIntl();
   const { isCartOpen, toggleCart } = useAppContext();
-
-  const { selectedCurrency, changeCurrency } = useAppContext();
 
   const subtotal = (user?.cart?.items || []).reduce(
     (acc, item) => {
@@ -93,10 +90,6 @@ const SideCart = ({ isOpen }) => {
               })}
             </h3>
           </div>
-          <CurrencySelector
-            onChange={(e) => changeCurrency(e.target.value)}
-            selectedCurrency={selectedCurrency}
-          />
           <div className="px-2">
             {user?.cart?.items.length === 0 ? (
               <p>

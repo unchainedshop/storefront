@@ -4,7 +4,6 @@ require('./node_env');
 const fs = require('fs');
 
 const {
-  FRONTEND_URL,
   GRAPHQL_ENDPOINT,
   NODE_ENV,
   SKIP_INVALID_REMOTES,
@@ -25,7 +24,6 @@ const localizations = Object.fromEntries(
 module.exports = {
   serverRuntimeConfig: {},
   publicRuntimeConfig: {
-    FRONTEND_URL,
     GRAPHQL_ENDPOINT,
     NODE_ENV,
     SKIP_INVALID_REMOTES: JSON.parse(SKIP_INVALID_REMOTES || 'false'),
