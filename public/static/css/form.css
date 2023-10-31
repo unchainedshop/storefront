@@ -90,19 +90,6 @@ select.form-control {
   position: relative;
 }
 
-.select-wrap::after {
-  position: absolute;
-  right: 0;
-  top: 25%;
-  content: '';
-  display: block;
-  width: 9px;
-  height: 9px;
-  background-repeat: no-repeat;
-  background-image: url(/static/img/icon-streamline/arrow-button-down.svg);
-  pointer-events: none;
-}
-
 .select-wrap select {
   width: 100% !important;
   line-height: 1.15;

@@ -5,19 +5,14 @@ import LanguageSwitch from '../../common/components/LanguageSwitch';
 
 const footerNavigation = {
   products: [],
-  customerService: [
-    { name: 'Contact', href: '#' },
-    { name: 'FAQ', href: '#' },
-  ],
+  customerService: [{ name: 'Contact', href: '#' }],
   company: [
     { name: 'About', href: '/about' },
     { name: 'Imprint', href: '/imprint' },
-    { name: 'Terms & Conditions', href: '/terms-conditions' },
-    { name: 'Privacy', href: '/privacy-policy' },
   ],
   legal: [
-    { name: 'Terms of Service', href: '#' },
-    { name: 'Return Policy', href: '#' },
+    { name: 'Terms & Conditions', href: '/terms-conditions' },
+    { name: 'Privacy', href: '/privacy-policy' },
   ],
   bottomLinks: [],
   social: [],
@@ -51,49 +46,6 @@ const Footer = () => {
             </div>
             <div className="mt-8 max-w-full xl:grid xl:grid-cols-2 xl:gap-8">
               <div className="grid grid-cols-2 gap-8 xl:col-span-2">
-                <div className="space-y-12 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
-                  <div>
-                    <h3 className="text-lg font-medium text-slate-900 dark:text-slate-50">
-                      {formatMessage({
-                        id: 'products',
-                        defaultMessage: 'Products',
-                      })}
-                    </h3>
-                    <ul className="mt-6 space-y-6">
-                      {footerNavigation.products.map((item) => (
-                        <li key={item.name} className="text-base">
-                          <Link
-                            href={item.href}
-                            className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
-                          >
-                            {item.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-slate-900 dark:text-slate-50">
-                      {formatMessage({
-                        id: 'customer_service',
-                        defaultMessage: 'Customer Service',
-                      })}
-                    </h3>
-                    <ul className="mt-6 space-y-6">
-                      {footerNavigation.customerService.map((item) => (
-                        <li key={item.name} className="text-base">
-                          <Link
-                            href={item.href}
-                            className="text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200"
-                          >
-                            {item.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
                 <div className="space-y-12 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
                   <div>
                     <h3 className="text-lg font-medium text-slate-900 dark:text-slate-50">
@@ -138,7 +90,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="py-10 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
+        <div className="py-10  md:flex md:items-center md:justify-between lg:px-8">
           <div className="text-center md:text-left">
             <p className="text-base text-slate-400 dark:text-slate-200">
               <span>&copy;</span>
@@ -165,7 +117,7 @@ const Footer = () => {
               ))}
             </div>
 
-            <div className="ml-6 border-l border-gray-200 pl-6">
+            <div className="ml-6 border-gray-200 pl-6">
               <div className="flex items-center text-base text-slate-400 hover:text-slate-500 dark:text-slate-300 dark:hover:text-slate-200">
                 <LanguageSwitch />
               </div>
