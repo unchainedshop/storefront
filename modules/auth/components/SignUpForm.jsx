@@ -4,9 +4,7 @@ import { useState } from 'react';
 
 import toast from 'react-hot-toast';
 import { useIntl } from 'react-intl';
-import ImageWithFallback from '../../common/components/ImageWithFallback';
 import Toggle from '../../common/components/Toggle';
-import getLogo from '../../common/utils/getLogo';
 import EmailField from '../../forms/components/EmailField';
 import Form from '../../forms/components/Form';
 import FormErrors from '../../forms/components/FormErrors';
@@ -86,21 +84,10 @@ const SignUpForm = () => {
     push('/account');
   };
 
-  const logo = getLogo();
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8 text-center">
         <div>
-          <ImageWithFallback
-            className="mx-auto"
-            src={logo}
-            width={160}
-            height={100}
-            alt={formatMessage({
-              id: 'unchained_logo',
-              defaultMessage: 'Unchained Logo',
-            })}
-          />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-200">
             {formatMessage({
               id: 'sign_up_header',
@@ -139,7 +126,6 @@ const SignUpForm = () => {
                     defaultMessage: 'Email',
                   })}
                 />
-
                 <PasswordField
                   id="password"
                   name="password"
@@ -160,7 +146,7 @@ const SignUpForm = () => {
                 defaultMessage: 'Use authenticator',
               })}
               className="ml-2 my-3"
-              toggleKey="totp"
+              toggleKey="webauthn"
               active={authenticateWithDevice}
             />
           </div>

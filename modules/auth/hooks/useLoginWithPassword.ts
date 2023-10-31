@@ -6,13 +6,11 @@ const LOG_IN_WITH_PASSWORD_MUTATION = gql`
     $username: String
     $email: String
     $plainPassword: String
-    $totpCode: String
   ) {
     loginWithPassword(
       username: $username
       email: $email
       plainPassword: $plainPassword
-      totpCode: $totpCode
     ) {
       id
       token
@@ -35,10 +33,9 @@ const useLoginWithPassword = () => {
     },
   );
 
-  const logInWithPassword = async ({ usernameOrEmail, password, totpCode }) => {
+  const logInWithPassword = async ({ usernameOrEmail, password }) => {
     const variables: any = {
       username: null,
-      totpCode,
       plainPassword: null,
     };
 

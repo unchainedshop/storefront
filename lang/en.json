@@ -296,15 +296,6 @@
   "loading": {
     "defaultMessage": "Loading..."
   },
-  "log-in-or-continue": {
-    "defaultMessage": "Or continue"
-  },
-  "log-in-with-google": {
-    "defaultMessage": "Log in with LinkedIn"
-  },
-  "log-in-with-linkedin": {
-    "defaultMessage": "Log in with LinkedIn"
-  },
   "log-out": {
     "defaultMessage": "Logout"
   },
@@ -337,9 +328,6 @@
   },
   "no_product_in_cart": {
     "defaultMessage": "There are no products in your Cart. Browse our"
-  },
-  "oauth-failed-header": {
-    "defaultMessage": "Oauth failed"
   },
   "old_password_not_correct": {
     "defaultMessage": "Wrong password, please try again"

@@ -11,11 +11,6 @@ import useLoginWithPassword from '../hooks/useLoginWithPassword';
 
 import useLoginWithWebAuthn from '../hooks/useLoginWithWebAuthn';
 import useShopInfo from '../../common/hooks/useShopInfo';
-import LinkedInOauth from './LinkedInOauth';
-
-const GoogleOauth = dynamic(() => import('./GoogleOauth'), {
-  ssr: false,
-});
 
 const GetCurrentStep = ({
   step,
@@ -289,23 +284,6 @@ const LogInForm = () => {
                     })}
                   </a>
                 </Link>
-              </div>
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-300" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="bg-white px-2 text-slate-500">
-                    {formatMessage({
-                      id: 'log-in-or-continue',
-                      defaultMessage: 'Or continue',
-                    })}
-                  </span>
-                </div>
-              </div>
-              <div>
-                <GoogleOauth providers={shopInfo?.oAuthProviders} />
-                <LinkedInOauth providers={shopInfo?.oAuthProviders} />
               </div>
             </div>
           </div>

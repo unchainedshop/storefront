@@ -1,26 +1,12 @@
 import { useIntl } from 'react-intl';
 import ForgotPasswordForm from '../modules/auth/components/ForgotPasswordForm';
-import ImageWithFallback from '../modules/common/components/ImageWithFallback';
-import getLogo from '../modules/common/utils/getLogo';
 
 const ForgotPassword = () => {
   const { formatMessage } = useIntl();
 
-  const logo = getLogo();
-
   return (
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 dark:text-white">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <ImageWithFallback
-          className="mx-auto"
-          src={logo}
-          width={160}
-          height={100}
-          alt={formatMessage({
-            id: 'unchained_logo',
-            defaultMessage: 'Unchained Logo',
-          })}
-        />
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight ">
           {formatMessage({
             id: 'forgot-password',
