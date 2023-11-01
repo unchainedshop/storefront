@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl';
 
-const Loading = () => {
+const Loading = ({ children }: any) => {
   const { formatMessage } = useIntl();
   return (
     <div className="my-5 flex h-full w-full items-center justify-center bg-white dark:bg-stone-900 py-5">
@@ -21,7 +21,8 @@ const Loading = () => {
 
         <div>
           {' '}
-          {formatMessage({ id: 'loading', defaultMessage: 'Loading...' })}
+          {children ||
+            formatMessage({ id: 'loading', defaultMessage: 'Loading...' })}
         </div>
       </div>
     </div>
