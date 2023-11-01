@@ -25,24 +25,54 @@ export const CHECK_ORDER_STATUS_QUERY = gql`
   }
 `;
 
-const QRCode = ({ address, value }) => {
+const QRCodeButton = ({ address, value }) => {
+  const payload = `ethereum:${address}?value=${value}`;
   const { path, viewBox } = useQRCodeGenerator(
-    `ethereum:${address}?value=${value}`,
+    payload,
     QRCODE_LEVEL,
     QRCODE_BORDER,
   );
+
+  const copyToClipboard = () => {
+    try {
+      if ('clipboard' in navigator) {
+        navigator.clipboard.writeText(payload);
+      }
+      document.execCommand('copy', true, payload);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+  };
   return (
-    <svg
-      width={QRCODE_SIZE}
-      height={QRCODE_SIZE}
-      viewBox={viewBox}
-      stroke="none"
+    <div
+      onClick={copyToClipboard}
+      className="mx-auto relative w-fit after:invisible after:absolute after:left-2 after:top-0 after:z-10 after:h-fit after:rounded after:bg-slate-900 after:px-2 after:py-1 after:text-white after:opacity-0 after:transition after:content-['Click_to_copy'] hover:cursor-pointer hover:after:visible hover:after:opacity-100"
     >
-      <rect width="100%" height="100%" fill="#ffffff" />
-      <path d={path} fill="#000000" />
-    </svg>
+      <div className="sm:flex sm:items-center sm:justify-center flex-col">
+        <svg
+          width={QRCODE_SIZE}
+          height={QRCODE_SIZE}
+          viewBox={viewBox}
+          stroke="none"
+        >
+          <rect width="100%" height="100%" fill="#ffffff" />
+          <path d={path} fill="#000000" />
+        </svg>
+      </div>
+    </div>
   );
 };
+
+const PayWithCryptoButton = ({ sign }) => (
+  <button
+    type="button"
+    onClick={sign}
+    className="mt-6 w-full rounded-md border border-transparent bg-red-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2 focus:ring-offset-slate-50"
+  >
+    Pay with Crypto
+  </button>
+);
 
 const CryptopayCheckoutButton = ({ order }) => {
   const router = useRouter();
@@ -66,9 +96,6 @@ const CryptopayCheckoutButton = ({ order }) => {
     }
   }, [orderData]);
 
-  const [
-    { currency, address, currencyConversionRate, currencyConversionExpiryDate },
-  ] = JSON.parse(data?.signPaymentProviderForCheckout || '[{}]');
   const { amount } = order.total || {};
 
   const sign = async () => {
@@ -88,35 +115,28 @@ const CryptopayCheckoutButton = ({ order }) => {
     setShowPaymentInformation(false);
   };
 
-  const contractAddress = address;
+  const pairs = JSON.parse(data?.signPaymentProviderForCheckout || '[]');
+  const signedETHDeal = pairs.find((pair) => pair.currency === 'ETH');
 
-  const expiryDate = new Date(currencyConversionExpiryDate);
-  const priceInEth = (amount / 100) * currencyConversionRate;
-  const priceInWei = Number.isNaN(priceInEth)
+  if (!signedETHDeal) return <PayWithCryptoButton sign={sign} />;
+
+  const contractAddress = signedETHDeal.address;
+  const expiryDate = new Date(signedETHDeal.currencyConversionExpiryDate);
+  const priceInGwei = amount * signedETHDeal.currencyConversionRate;
+
+  const priceInWei = Number.isNaN(priceInGwei)
     ? 0
     : // eslint-disable-next-line no-undef
-      BigInt(priceInEth * 10 ** 18);
+      BigInt(priceInGwei * 10 ** (18 - 9));
 
-  const formattedPrice = currency
+  const formattedPrice = signedETHDeal.currency
     ? formatPrice({
-        amount: priceInEth,
-        currency,
+        amount: priceInGwei,
+        currency: signedETHDeal.currency,
         decimals: 18,
-        hack: false,
+        hack: true,
       })
     : '';
-
-  const copyToClipboard = () => {
-    try {
-      if ('clipboard' in navigator) {
-        navigator.clipboard.writeText(contractAddress);
-      }
-      document.execCommand('copy', true, contractAddress);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    }
-  };
 
   // eslint-disable-next-line no-unused-vars
   const payWithMetaMask = async (orderId, price) => {
@@ -145,7 +165,7 @@ const CryptopayCheckoutButton = ({ order }) => {
                           onClick={async () => {
                             await payWithMetaMask(
                               { orderAddress: contractAddress },
-                              priceInEth,
+                              priceInWei,
                             );
                           }}
                           style={{ backgroundColor: '#f6851a' }}
@@ -252,17 +272,10 @@ const CryptopayCheckoutButton = ({ order }) => {
 
                       <div className="text-center">
                         <p className="mt-3">Scan this QR code</p>
-                        <div
-                          onClick={copyToClipboard}
-                          className="mx-auto relative w-fit after:invisible after:absolute after:left-2 after:top-0 after:z-10 after:h-fit after:rounded after:bg-slate-900 after:px-2 after:py-1 after:text-white after:opacity-0 after:transition after:content-['Click_to_copy'] hover:cursor-pointer hover:after:visible hover:after:opacity-100"
-                        >
-                          <div className="sm:flex sm:items-center sm:justify-center flex-col">
-                            <QRCode
-                              address={contractAddress}
-                              value={priceInWei.toString()}
-                            />
-                          </div>
-                        </div>
+                        <QRCodeButton
+                          address={contractAddress}
+                          value={priceInWei.toString()}
+                        />
                       </div>
                       <div className="mb-5 pt-2">
                         <p className="max-w-xs text-sm">
@@ -293,13 +306,7 @@ const CryptopayCheckoutButton = ({ order }) => {
         </Portal>
       )}
 
-      <button
-        type="button"
-        onClick={sign}
-        className="mt-6 w-full rounded-md border border-transparent bg-red-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800 focus:ring-offset-2 focus:ring-offset-slate-50"
-      >
-        Pay with Crypto
-      </button>
+      <PayWithCryptoButton sign={sign} />
     </>
   );
 };

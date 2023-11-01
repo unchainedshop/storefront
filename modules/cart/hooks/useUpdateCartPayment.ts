@@ -9,25 +9,9 @@ export const UPDATE_CART_PAYMENT_PROVIDER_MUTATION = gql`
         provider {
           _id
         }
-        total {
-          amount
-          currency
-        }
       }
       status
-      itemsTotal: total(category: ITEMS) {
-        amount
-        currency
-      }
       taxes: total(category: TAXES) {
-        amount
-        currency
-      }
-      delivery: total(category: DELIVERY) {
-        amount
-        currency
-      }
-      payment: total(category: PAYMENT) {
         amount
         currency
       }

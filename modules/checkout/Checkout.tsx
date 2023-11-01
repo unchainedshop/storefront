@@ -16,6 +16,10 @@ export const CART_CHECKOUT_QUERY = gql`
         }
         payment {
           _id
+          fee {
+            amount
+            currency
+          }
           provider {
             _id
             type

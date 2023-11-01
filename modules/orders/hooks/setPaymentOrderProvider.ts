@@ -14,6 +14,10 @@ export const SET_ORDER_PAYMENT_PROVIDER_MUTATION = gql`
       orderNumber
       payment {
         _id
+        fee {
+          amount
+          currency
+        }
         provider {
           _id
           type

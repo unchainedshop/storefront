@@ -36,6 +36,7 @@ class UnchainedDocument extends Document {
         <Head />
 
         <body className="dark:bg-slate-600">
+          <div id="app-portal" />
           <Main />
           <NextScript />
         </body>
