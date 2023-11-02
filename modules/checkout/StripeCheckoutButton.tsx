@@ -66,6 +66,4 @@ const StripeCheckoutButton = ({ order }) => {
   return <div>Loading...</div>;
 };
 
-StripeCheckoutButton.label = 'Karte';
-
 export default StripeCheckoutButton;

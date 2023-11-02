@@ -26,6 +26,4 @@ const InvoiceCheckoutButton = () => {
   );
 };
 
-InvoiceCheckoutButton.label = 'Rechnung';
-
 export default InvoiceCheckoutButton;

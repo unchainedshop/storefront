@@ -66,6 +66,4 @@ const DatatransCheckoutButton = ({ order }) => {
   );
 };
 
-DatatransCheckoutButton.label = 'Karte / Twint';
-
 export default DatatransCheckoutButton;

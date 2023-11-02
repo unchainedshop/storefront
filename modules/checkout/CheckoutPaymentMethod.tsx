@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 
-import { useIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import CryptopayCheckoutButton from './CryptopayCheckoutButton';
 import InvoiceCheckoutButton from './InvoiceCheckoutButton';
 import DatatransCheckoutButton from './DatatransCheckoutButton';
@@ -13,9 +13,33 @@ const StripeCheckoutButton = dynamic(() => import('./StripeCheckoutButton'), {
 const CheckoutButtons = {
   'shop.unchained.payment.cryptopay': CryptopayCheckoutButton,
   'shop.unchained.invoice': InvoiceCheckoutButton,
+  'shop.unchained.invoice-prepaid': InvoiceCheckoutButton,
   'shop.unchained.datatrans': DatatransCheckoutButton,
   'shop.unchained.payment.stripe': StripeCheckoutButton,
 };
+
+const PaymentLabels = defineMessages({
+  'shop.unchained.payment.cryptopay': {
+    id: 'shop.unchained.payment.cryptopay',
+    defaultMessage: 'Cryptocurrencies',
+  },
+  'shop.unchained.invoice': {
+    id: 'shop.unchained.invoice',
+    defaultMessage: 'Invoice Post-Paid',
+  },
+  'shop.unchained.invoice-prepaid': {
+    id: 'shop.unchained.invoice-prepaid',
+    defaultMessage: 'Invoice Pre-Paid',
+  },
+  'shop.unchained.datatrans': {
+    id: 'shop.unchained.datatrans',
+    defaultMessage: 'Online Payment Gateway (Datatrans)',
+  },
+  'shop.unchained.payment.stripe': {
+    id: 'shop.unchained.payment.stripe',
+    defaultMessage: 'Online Payment Gateway (Stripe)',
+  },
+});
 
 const CheckoutPaymentMethod = ({ cart }) => {
   const { updateCartPayment } = useUpdateCartPayment();
@@ -61,8 +85,7 @@ const CheckoutPaymentMethod = ({ cart }) => {
                 htmlFor={provider._id}
                 className="ml-3 block text-sm font-medium text-brown-600"
               >
-                {CheckoutButtons[provider.interface._id]?.label ||
-                  provider.interface._id}
+                <FormattedMessage {...PaymentLabels[provider.interface._id]} />
               </label>
             </div>
           ))}

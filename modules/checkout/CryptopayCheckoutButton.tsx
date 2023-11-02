@@ -323,6 +323,4 @@ const CryptopayCheckoutButton = ({ order }) => {
   );
 };
 
-CryptopayCheckoutButton.label = 'Cryptocurrency';
-
 export default CryptopayCheckoutButton;
