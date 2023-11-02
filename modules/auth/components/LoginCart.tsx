@@ -28,15 +28,10 @@ const LoginCart = () => {
 
   return user ? (
     <div className="flex items-center gap-x-3">
-      {user?.bookmarks && (
+      {Boolean(user?.bookmarks?.length) && (
         <Link href="/bookmarks" className="flex items-center gap-x-3">
           <BookmarkIcon className="h-6 w-6" />
-          {user?.bookmarks?.length ? (
-            <span>{user?.bookmarks?.length}</span>
-          ) : (
-            ''
-          )}
-
+          <span>{user?.bookmarks?.length}</span>
           <span className="hidden lg:block">
             {formatMessage({
               id: 'bookmarks',
