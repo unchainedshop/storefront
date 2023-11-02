@@ -192,10 +192,11 @@ const CryptopayCheckoutButton = ({ order }) => {
   const expiryDate = new Date(signedETHDeal.currencyConversionExpiryDate);
   const priceInGwei = amount * signedETHDeal.currencyConversionRate;
 
+  // We are loosing the comma stuff for wei... okay for now
   const priceInWei = Number.isNaN(priceInGwei)
     ? 0
     : // eslint-disable-next-line no-undef
-      BigInt(priceInGwei * 10 ** (18 - 9));
+      BigInt(Math.round(priceInGwei)) * BigInt(10 ** (18 - 9));
 
   const formattedPrice = signedETHDeal.currency
     ? formatPrice({
