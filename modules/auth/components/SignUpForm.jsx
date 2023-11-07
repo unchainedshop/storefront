@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import toast from 'react-hot-toast';
 import { useIntl } from 'react-intl';
+import { useAppContext } from '../../common/components/AppContextWrapper';
 import Toggle from '../../common/components/Toggle';
 import EmailField from '../../forms/components/EmailField';
 import Form from '../../forms/components/Form';
@@ -22,6 +23,7 @@ const SignUpForm = () => {
   const { generateWebAuthCredentials } = useGenerateWebAuthCredentials();
   const { createUser } = useCreateUser();
   const { push } = useRouter();
+  const { emailSupportDisabled } = useAppContext();
 
   const onSubmitError = async (e) => {
     if (e.message?.toLowerCase().includes('email already exist')) {
@@ -117,15 +119,17 @@ const SignUpForm = () => {
 
             {!authenticateWithDevice && (
               <>
-                <EmailField
-                  id="email"
-                  name="email"
-                  required={!authenticateWithDevice}
-                  label={formatMessage({
-                    id: 'email',
-                    defaultMessage: 'Email',
-                  })}
-                />
+                {!emailSupportDisabled ? (
+                  <EmailField
+                    id="email"
+                    name="email"
+                    required={!authenticateWithDevice}
+                    label={formatMessage({
+                      id: 'email',
+                      defaultMessage: 'Email',
+                    })}
+                  />
+                ) : null}
                 <PasswordField
                   id="password"
                   name="password"

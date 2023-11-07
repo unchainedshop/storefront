@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 import { useIntl } from 'react-intl';
+import { useAppContext } from '../../common/components/AppContextWrapper';
 import useGenerateLoginCredentials from '../hooks/useGenerateLoginCredentials';
 import useLoginWithPassword from '../hooks/useLoginWithPassword';
 import useLoginWithWebAuthn from '../hooks/useLoginWithWebAuthn';
@@ -15,6 +16,7 @@ const GetCurrentStep = ({
   setUsernameOrEmail,
   password,
   setPassword,
+  acceptEmail,
 }) => {
   const { formatMessage } = useIntl();
   switch (parseInt(step, 10)) {
@@ -51,10 +53,15 @@ const GetCurrentStep = ({
             htmlFor="username-or-email"
             className="block text-sm font-medium text-brown-600"
           >
-            {formatMessage({
-              id: 'username-or-email',
-              defaultMessage: 'Username / Email',
-            })}
+            {!acceptEmail
+              ? formatMessage({
+                  id: 'username',
+                  defaultMessage: 'Username',
+                })
+              : formatMessage({
+                  id: 'username-or-email',
+                  defaultMessage: 'Username / Email',
+                })}
           </label>
           <div className="mt-1">
             <input
@@ -75,6 +82,7 @@ const GetCurrentStep = ({
 
 const LogInForm = () => {
   const router = useRouter();
+  const { emailSupportDisabled } = useAppContext();
   const { formatMessage } = useIntl();
   const { logInWithPassword } = useLoginWithPassword();
   const { loginWithWebAuthn } = useLoginWithWebAuthn();
@@ -200,18 +208,23 @@ const LogInForm = () => {
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight dark:text-white ">
             {formatMessage({ id: 'register', defaultMessage: 'Register' })}
           </h2>
-          <p className="mt-2 text-center text-sm text-slate-600 dark:text-white">
-            {formatMessage({ id: 'did-you-forget', defaultMessage: 'Did you' })}
-            <Link
-              href="/forgot-password"
-              className="ml-1 font-medium text-slate-600 hover:text-slate-800 dark:text-white"
-            >
+          {!emailSupportDisabled ? (
+            <p className="mt-2 text-center text-sm text-slate-600 dark:text-white">
               {formatMessage({
-                id: 'forgot-password',
-                defaultMessage: 'Forgot your password?',
+                id: 'did-you-forget',
+                defaultMessage: 'Did you',
               })}
-            </Link>
-          </p>
+              <Link
+                href="/forgot-password"
+                className="ml-1 font-medium text-slate-600 hover:text-slate-800 dark:text-white"
+              >
+                {formatMessage({
+                  id: 'forgot-password',
+                  defaultMessage: 'Forgot your password?',
+                })}
+              </Link>
+            </p>
+          ) : null}
         </div>
         {step > 1 && (
           <button
@@ -242,6 +255,7 @@ const LogInForm = () => {
                     password,
                     setPassword,
                   }}
+                  acceptEmail={!emailSupportDisabled}
                 />
                 {error && <div className="mt-3 text-red-600">{error}</div>}
                 {showPasswordNav && (
