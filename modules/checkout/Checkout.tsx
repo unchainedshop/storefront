@@ -3,6 +3,7 @@ import ErrorMessage from '../common/components/ErrorMessage';
 import CheckoutContact from './CheckoutContact';
 import CheckoutAddresses from './CheckoutAddresses';
 import CheckoutPaymentMethod from './CheckoutPaymentMethod';
+import { useAppContext } from '../common/components/AppContextWrapper';
 
 export const CART_CHECKOUT_QUERY = gql`
   query CartCheckout {
@@ -74,6 +75,7 @@ export const CART_CHECKOUT_QUERY = gql`
 `;
 
 const Checkout = () => {
+  const { emailSupportDisabled } = useAppContext();
   const { loading, error, data } = useQuery(CART_CHECKOUT_QUERY, {
     notifyOnNetworkStatusChange: true,
   });
@@ -84,7 +86,8 @@ const Checkout = () => {
   const isAddressesMissing =
     !data.me.cart.delivery?.address?.firstName &&
     !data.me.cart.billingAddress?.firstName;
-  const isContactDataMissing = !data.me.cart.contact?.emailAddress;
+  const isContactDataMissing =
+    !data.me.cart.contact?.emailAddress && !emailSupportDisabled;
 
   return (
     <div
