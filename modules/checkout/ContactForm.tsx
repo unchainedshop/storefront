@@ -1,14 +1,18 @@
 import { useIntl } from 'react-intl';
+import { useAppContext } from '../common/components/AppContextWrapper';
 import Button from '../common/components/Button';
 import EmailField from '../forms/components/EmailField';
 import Form from '../forms/components/Form';
 import FormErrors from '../forms/components/FormErrors';
 import SubmitButton from '../forms/components/SubmitButton';
 import TextField from '../forms/components/TextField';
+import Toggle from '../common/components/Toggle';
+import usePushNotification from '../context/push-notification/usePushNotification';
 
 const ContactForm = ({ contact, onSubmit, onCancel }) => {
   const { formatMessage } = useIntl();
-
+  const { isSubscribed, subscribe, unsubscribe } = usePushNotification();
+  const { emailSupportDisabled } = useAppContext();
   const submitHandler = async (data) => {
     await onSubmit(data);
   };
@@ -33,7 +37,7 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
             id: 'email-address',
             defaultMessage: 'Email Address',
           })}
-          required
+          required={!emailSupportDisabled}
           name="emailAddress"
         />
       </div>
@@ -65,6 +69,19 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
           onClick={onCancel}
         />
       </div>
+      <Toggle
+        className=""
+        onToggle={async () => {
+          if (isSubscribed) {
+            await unsubscribe();
+          } else {
+            await subscribe();
+          }
+        }}
+        toggleText="Receive order confirmation / order status update"
+        toggleKey=""
+        active={isSubscribed}
+      />
     </Form>
   );
 };

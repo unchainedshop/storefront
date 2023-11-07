@@ -9,6 +9,12 @@ const CurrentUserFragment = gql`
     isGuest
     name
     username
+    pushSubscriptions {
+      endpoint
+      _id
+      userAgent
+      expirationTime
+    }
     emails {
       address
       verified
