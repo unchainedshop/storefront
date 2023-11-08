@@ -198,7 +198,7 @@ const LogInForm = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight dark:text-white ">
-            {formatMessage({ id: 'register', defaultMessage: 'Register' })}
+            {formatMessage({ id: 'sign_up', defaultMessage: 'Register' })}
           </h2>
           <p className="mt-2 text-center text-sm text-slate-600 dark:text-white">
             {formatMessage({ id: 'did-you-forget', defaultMessage: 'Did you' })}

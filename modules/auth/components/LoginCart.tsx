@@ -57,21 +57,9 @@ const LoginCart = () => {
           {formatMessage({ id: 'cart', defaultMessage: 'Cart' })}
         </span>
       </a>
-      {user?.isGuest ? (
-        <div className="ml-2 md:ml-4">
-          <Link href="/sign-up" className="my-1 mr-4">
-            {formatMessage({ id: 'sign_up', defaultMessage: 'Sign up' })}
-          </Link>
-          <Link href="/login" className="my-1">
-            {formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
-          </Link>
-        </div>
-      ) : (
-        <OrderButton />
-      )}
-
-      {!user.isGuest ? (
+      {!user?.isGuest && (
         <>
+          <OrderButton />
           <Link href="/account" className="flex items-center gap-x-3">
             <UserCircleIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
             <span className="hidden lg:block">
@@ -91,15 +79,10 @@ const LoginCart = () => {
             </span>
           </a>
         </>
-      ) : (
-        ' '
       )}
     </div>
   ) : (
     <div className="flex items-center gap-x-3">
-      <Link href="/sign-up">
-        {formatMessage({ id: 'sign_up', defaultMessage: 'Sign up' })}
-      </Link>
       <Link href="/login">
         {formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
       </Link>

@@ -103,7 +103,6 @@
   "new_here_message": "Checke als Gast aus oder erstelle ein Kundenkonto.",
   "create_an_account": "Ja, ich möchte ein Konto erstellen",
   "i_have_read_term": "Ja, ich habe die <a class=\"link\" href=\"/terms-conditions\">AGBs</a> gelesen",
-  "register": "Registrieren",
   "email_verified_success": "Ihre E-Mail wurde erfolgreich überprüft",
   "email_verifying": "Ihre E-Mail Addresse wird verifiziert",
   "confirmation_sent": "Eine Bestätigungs-E-Mail wird gesendet",
