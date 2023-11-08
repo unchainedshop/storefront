@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, {
   useEffect,
   useMemo,
@@ -38,31 +39,34 @@ const PushNotificationWrapper = ({ children }) => {
   const { storeSubscription } = useStorePushSubscription();
   const { removePushNotificationSubscription } =
     useRemovePushNotificationSubscription();
-  function urlBase64ToUint8Array(base64String) {
-    if (
-      urlBase64ToUint8ArrayCache.current &&
-      urlBase64ToUint8ArrayCache.current[base64String]
-    ) {
-      return urlBase64ToUint8ArrayCache.current[base64String];
-    }
 
-    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-    const base64 = (base64String + padding)
-      .replace(/-/g, '+')
-      .replace(/_/g, '/');
+  const urlBase64ToUint8Array = useMemo(() => {
+    return (base64String) => {
+      if (
+        urlBase64ToUint8ArrayCache.current &&
+        urlBase64ToUint8ArrayCache.current[base64String]
+      ) {
+        return urlBase64ToUint8ArrayCache.current[base64String];
+      }
 
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
+      const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+      const base64 = (base64String + padding)
+        .replace(/-/g, '+')
+        .replace(/_/g, '/');
 
-    for (let i = 0; i < rawData.length; i += 1) {
-      outputArray[i] = rawData.charCodeAt(i);
-    }
-    urlBase64ToUint8ArrayCache.current = {
-      ...urlBase64ToUint8ArrayCache.current,
-      [base64String]: outputArray,
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+
+      for (let i = 0; i < rawData.length; i += 1) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      urlBase64ToUint8ArrayCache.current = {
+        ...urlBase64ToUint8ArrayCache.current,
+        [base64String]: outputArray,
+      };
+      return outputArray;
     };
-    return outputArray;
-  }
+  }, []);
 
   const requestPermission = async () => {
     if (typeof window === 'undefined') return undefined;
@@ -89,6 +93,17 @@ const PushNotificationWrapper = ({ children }) => {
         .register('/service-worker.js')
         .then((registration) => {
           console.info('Service worker registered:', registration);
+          // eslint-disable-next-line no-param-reassign
+          registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            installingWorker.onstatechange = () => {
+              if (installingWorker.state === 'installed') {
+                if (navigator.serviceWorker.controller) {
+                  window.location.reload();
+                }
+              }
+            };
+          };
         })
         .catch((error) => {
           console.info('Service worker registration failed:', error);
