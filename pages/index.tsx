@@ -2,7 +2,7 @@ import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
 
 import Link from 'next/link';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 
 import MetaTags from '../modules/common/components/MetaTags';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
@@ -22,12 +22,14 @@ const Home = () => {
     <>
       <MetaTags title={formatMessage({ id: 'home', defaultMessage: 'Home' })} />
       <div className="w-full bg-white px-4 dark:bg-slate-600 sm:px-0">
-        <div className="relative h-[442px] w-full">
+        <div className="relative w-full" style={{ height: '35vh' }}>
           <Image
             src={theme.assets.hero}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="center"
+            fill
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'center',
+            }}
             quality={100}
             placeholder="blur"
             blurDataURL="/placeholder.png"
