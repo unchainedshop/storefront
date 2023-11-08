@@ -80,14 +80,18 @@ const PushNotificationWrapper = ({ children }) => {
   }
 
   useEffect(() => {
+    if (user) setSubscribed(!!localStorage.getItem(`p256dh-${user._id}`));
+  }, [user]);
+
+  useEffect(() => {
     if (navigator && 'serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/service-worker.js')
         .then((registration) => {
-          console.log('Service worker registered:', registration);
+          console.info('Service worker registered:', registration);
         })
         .catch((error) => {
-          console.log('Service worker registration failed:', error);
+          console.info('Service worker registration failed:', error);
         });
     }
   }, []);
@@ -98,20 +102,20 @@ const PushNotificationWrapper = ({ children }) => {
       return;
     }
     if (subscribed) {
-      console.log('User is already subscribed to push notifications.');
+      console.info('User is already subscribed to push notifications.');
       return;
     }
 
     const permission = await requestPermission();
     if (permission !== 'granted') {
-      console.log('Permission to send push notifications was denied.');
+      console.info('Permission to send push notifications was denied.');
       return;
     }
     const subscription = await registerSubscription(shopInfo?.vapidPublicKey);
     await storeSubscription({ subscription });
-    localStorage.setItem('p256dh', await getP256dh());
+    localStorage.setItem(`p256dh-${user._id}`, await getP256dh());
 
-    console.log('User is subscribed to push notifications:', subscription);
+    console.info('User is subscribed to push notifications:');
     setSubscribed(true);
   };
 
@@ -123,18 +127,18 @@ const PushNotificationWrapper = ({ children }) => {
         ({ _id }) => _id === currentPublicKey,
       );
 
-      const lastPublicKey = localStorage.getItem('p256dh');
+      const lastPublicKey = localStorage.getItem(`p256dh-${user._id}`);
 
       if (!isCurrentlySubscribed && lastPublicKey) {
         await removePushNotificationSubscription({
           p256dh: lastPublicKey,
         });
-        localStorage.removeItem('p256dh');
+        localStorage.removeItem(`p256dh-${user._id}`);
       }
       setSubscribed(isCurrentlySubscribed);
     };
     checkSubscription();
-  }, [user, removePushNotificationSubscription]);
+  }, [user]);
 
   useEffect(() => {
     const isPreviouslyDisabled = async () => {
@@ -148,12 +152,12 @@ const PushNotificationWrapper = ({ children }) => {
     const { subscription } = await getRegistrationAndSubscription();
     if (!subscription) return;
     await removePushNotificationSubscription({
-      p256dh: localStorage.getItem('p256dh'),
+      p256dh: localStorage.getItem(`p256dh-${user._id}`),
     });
     await subscription.unsubscribe();
-    localStorage.setItem('p256dh', '');
+    localStorage.setItem(`p256dh-${user._id}`, '');
     setSubscribed(false);
-  }, []);
+  }, [user]);
 
   const ctx = useMemo(() => {
     return {

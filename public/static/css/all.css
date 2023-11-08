@@ -29,14 +29,9 @@
 /* @import 'print.css'; */
 /* @import 'shame.css'; */
 
-.print-layout {
-    display: flex;
-  }
   
   @media print {
-    .print-layout {
-      flex-direction: row; /* Side-by-side layout when printing */
-    }
+    
     dl {
       width: 50%; /* Each dl takes up half of the printed page width */
       margin: 0;
