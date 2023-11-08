@@ -84,7 +84,7 @@ const PushNotificationWrapper = ({ children }) => {
   }
 
   useEffect(() => {
-    if (user) setSubscribed(!!localStorage.getItem(`p256dh-${user._id}`));
+    if (user) setSubscribed(!!localStorage.getItem(`p256dh`));
   }, [user]);
 
   useEffect(() => {
@@ -128,7 +128,7 @@ const PushNotificationWrapper = ({ children }) => {
     }
     const subscription = await registerSubscription(shopInfo?.vapidPublicKey);
     await storeSubscription({ subscription });
-    localStorage.setItem(`p256dh-${user._id}`, await getP256dh());
+    localStorage.setItem(`p256dh`, await getP256dh());
 
     console.info('User is subscribed to push notifications:');
     setSubscribed(true);
@@ -142,13 +142,13 @@ const PushNotificationWrapper = ({ children }) => {
         ({ _id }) => _id === currentPublicKey,
       );
 
-      const lastPublicKey = localStorage.getItem(`p256dh-${user._id}`);
+      const lastPublicKey = localStorage.getItem(`p256dh`);
 
       if (!isCurrentlySubscribed && lastPublicKey) {
         await removePushNotificationSubscription({
           p256dh: lastPublicKey,
         });
-        localStorage.removeItem(`p256dh-${user._id}`);
+        localStorage.removeItem(`p256dh`);
       }
       setSubscribed(isCurrentlySubscribed);
     };
@@ -165,12 +165,13 @@ const PushNotificationWrapper = ({ children }) => {
 
   const unsubscribe = useCallback(async () => {
     const { subscription } = await getRegistrationAndSubscription();
+    const lastPublicKey = localStorage.getItem(`p256dh`);
     if (!subscription) return;
     await removePushNotificationSubscription({
-      p256dh: localStorage.getItem(`p256dh-${user._id}`),
+      p256dh: lastPublicKey,
     });
     await subscription.unsubscribe();
-    localStorage.setItem(`p256dh-${user._id}`, '');
+    localStorage.setItem(`p256dh`, '');
     setSubscribed(false);
   }, [user]);
 

@@ -108,13 +108,10 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
         />
       </div>
       {isDisabled && (
-        <div className="bg-white p-8 rounded-lg shadow-md text-center print:hidden">
-          <h1 className="text-2xl font-semibold text-gray-800">
+        <div className="bg-white p-8 rounded-lg text-center print:hidden">
+          <h1 className="text-2xl font-semibold text-red-500">
             Contact address is require
           </h1>
-          <p className="text-gray-600 mt-4">
-            Thank you for choosing Unchained Commerce!
-          </p>
           <p className="text-gray-600">
             You have not selected any method we can use to contact you please
             select atleast one medium we can you send you information about your
