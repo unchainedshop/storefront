@@ -1,7 +1,6 @@
 import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
 
-import Link from 'next/link';
 import Image from 'next/image';
 
 import MetaTags from '../modules/common/components/MetaTags';

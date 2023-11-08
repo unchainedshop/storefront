@@ -144,8 +144,8 @@ const AddToCartButton = ({ productId, ...product }) => {
             <span aria-label="ok icon" className="flex justify-center w-full">
               <ShoppingCartIcon className="inline-block -ml-1 mr-2 h-5 w-5" />
               {formatMessage({
-                id: 'in-cart',
-                defaultMessage: 'In cart',
+                id: 'add-to-cart',
+                defaultMessage: 'Add to Cart',
               })}
             </span>
           )}
