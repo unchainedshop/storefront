@@ -9,7 +9,7 @@ import useRemoveBookmark from '../../common/hooks/useRemoveBookmark';
 import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
 import FormattedPrice from '../../common/components/FormattedPrice';
 
-const ProductListItem = ({ product }) => {
+const ProductListItem = ({ product, disableBookmark = false }) => {
   const { conditionalBookmarkProduct } = useConditionalBookmarkProduct();
   const { removeBookmark } = useRemoveBookmark();
 
@@ -49,28 +49,31 @@ const ProductListItem = ({ product }) => {
           </Link>
         </div>
       </div>
-      <button
-        type="button"
-        className="bg-white absolute top-1 right-1 dark:text-white"
-        onClick={() =>
-          filteredBookmark
-            ? removeBookmark({
-                bookmarkId: filteredBookmark?._id,
-              })
-            : conditionalBookmarkProduct({
-                productId: product?._id,
-              })
-        }
-      >
-        <BookmarkIcon
-          className={classNames('h-6 w-6', {
-            'text-purple-600 hover:text-purple-700 dark:text-yellow-500 dark:hover:text-yellow-700':
-              filteredBookmark,
-            'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300':
-              !filteredBookmark,
-          })}
-        />
-      </button>
+      {!disableBookmark && (
+        <button
+          type="button"
+          className="bg-white absolute top-1 right-1 dark:text-white"
+          onClick={() =>
+            filteredBookmark
+              ? removeBookmark({
+                  bookmarkId: filteredBookmark?._id,
+                })
+              : conditionalBookmarkProduct({
+                  productId: product?._id,
+                })
+          }
+        >
+          <BookmarkIcon
+            className={classNames('h-6 w-6', {
+              'text-purple-600 hover:text-purple-700 dark:text-yellow-500 dark:hover:text-yellow-700':
+                filteredBookmark,
+              'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300':
+                !filteredBookmark,
+            })}
+          />
+        </button>
+      )}
+
       <div className="pt-4 text-center">
         <h3 className="text-sm font-medium text-slate-900 dark:text-white">
           {product?.texts?.title}

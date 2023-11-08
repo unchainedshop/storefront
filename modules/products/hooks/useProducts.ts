@@ -6,6 +6,7 @@ import { ProductAssortmentPathFragment } from '../../assortment/fragments/Assort
 export const PRODUCTS_QUERY = gql`
   query Products($tags: [LowerCaseString!]) {
     products(tags: $tags) {
+      _id
       assortmentPaths {
         ...ProductAssortmentPathFragment
       }

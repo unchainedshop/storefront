@@ -30,9 +30,9 @@ const Footer = () => {
       </h2>
 
       <div className="max-w-full px-1">
-        <div className="pt-16">
+        <div className="pt-8">
           <div className="border-t border-gray-200">
-            <div className="mt-8 flex max-w-full space-x-6">
+            <div className="flex max-w-full space-x-6">
               {footerNavigation.social.map((item) => (
                 <a
                   key={item.name}
