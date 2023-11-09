@@ -4,6 +4,7 @@ import CheckoutContact from './CheckoutContact';
 import CheckoutAddresses from './CheckoutAddresses';
 import CheckoutPaymentMethod from './CheckoutPaymentMethod';
 import { useAppContext } from '../common/components/AppContextWrapper';
+import usePushNotification from '../context/push-notification/usePushNotification';
 
 export const CART_CHECKOUT_QUERY = gql`
   query CartCheckout {
@@ -79,6 +80,7 @@ const Checkout = () => {
   const { loading, error, data } = useQuery(CART_CHECKOUT_QUERY, {
     notifyOnNetworkStatusChange: true,
   });
+  const { isSubscribed } = usePushNotification();
 
   if (error) return <ErrorMessage message="Error loading cart" />;
   if (!data?.me?.cart) return <div>Loading</div>;
@@ -111,7 +113,7 @@ const Checkout = () => {
           />
         )}
       </div>
-      {!isContactDataMissing && (
+      {isContactDataMissing && !isSubscribed && (
         <div className="bg-white p-8 rounded-lg text-center print:hidden">
           <h1 className="text-2xl font-semibold text-red-500">
             Contact address is require
