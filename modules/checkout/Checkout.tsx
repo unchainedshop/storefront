@@ -90,20 +90,40 @@ const Checkout = () => {
     !data.me.cart.contact?.emailAddress && !emailSupportDisabled;
 
   return (
-    <div
-      data-loading={loading}
-      className={`mt-5 lg:grid lg:items-start lg:gap-x-12 ${
-        isAddressesMissing ? 'lg:grid-cols-2' : 'lg:grid-cols-2'
-      }`}
-    >
-      <CheckoutAddresses cart={data.me.cart} isInitial={isAddressesMissing} />
-      {!isAddressesMissing && (
-        <CheckoutContact cart={data.me.cart} isInitial={isContactDataMissing} />
+    <>
+      <div
+        data-loading={loading}
+        className={`mt-5 lg:grid lg:items-start lg:gap-x-12 ${
+          isAddressesMissing ? 'lg:grid-cols-2' : 'lg:grid-cols-2'
+        }`}
+      >
+        <CheckoutAddresses cart={data.me.cart} isInitial={isAddressesMissing} />
+        {!isAddressesMissing && (
+          <CheckoutContact
+            cart={data.me.cart}
+            isInitial={isContactDataMissing}
+          />
+        )}
+        {!isAddressesMissing && !isContactDataMissing && (
+          <CheckoutPaymentMethod
+            cart={data.me.cart}
+            disabled={!isContactDataMissing}
+          />
+        )}
+      </div>
+      {!isContactDataMissing && (
+        <div className="bg-white p-8 rounded-lg text-center print:hidden">
+          <h1 className="text-2xl font-semibold text-red-500">
+            Contact address is require
+          </h1>
+          <p className="text-gray-600">
+            You have not selected any method we can use to contact you. please
+            select atleast one medium we can you send you information about your
+            order status in order to complete your order
+          </p>
+        </div>
       )}
-      {!isAddressesMissing && !isContactDataMissing && (
-        <CheckoutPaymentMethod cart={data.me.cart} />
-      )}
-    </div>
+    </>
   );
 };
 

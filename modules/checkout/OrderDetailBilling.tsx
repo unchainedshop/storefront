@@ -1,9 +1,8 @@
 import { useIntl } from 'react-intl';
-import { useFormatPrice } from '../common/utils/utils';
+import FormattedPrice from '../common/components/FormattedPrice';
 
 const OrderDetailBilling = ({ order }) => {
   const { formatMessage } = useIntl();
-  const { formatPrice } = useFormatPrice();
 
   return (
     <section aria-labelledby="summary-heading">
@@ -50,7 +49,9 @@ const OrderDetailBilling = ({ order }) => {
                 defaultMessage: 'Order total',
               })}
             </dt>
-            <dd className="font-bold">{formatPrice(order?.total)}</dd>
+            <dd className="font-bold">
+              <FormattedPrice price={order?.total} />
+            </dd>
           </div>
           {order?.totalDiscount && order?.totalDiscount?.amount > 0 && (
             <div className="flex items-center justify-between py-1">
@@ -61,7 +62,7 @@ const OrderDetailBilling = ({ order }) => {
                 })}
               </dt>
               <dd className="font-medium">
-                {formatPrice(order?.totalDiscount)}
+                <FormattedPrice price={order?.totalDiscount} />
               </dd>
             </div>
           )}
@@ -74,7 +75,7 @@ const OrderDetailBilling = ({ order }) => {
                 })}
               </dt>
               <dd className="font-medium">
-                {formatPrice(order?.totalDelivery)}
+                <FormattedPrice price={order?.totalDelivery} />
               </dd>
             </div>
           )}
@@ -86,7 +87,9 @@ const OrderDetailBilling = ({ order }) => {
                   defaultMessage: 'Tax',
                 })}
               </dt>
-              <dd className="font-medium">{formatPrice(order?.totalTax)}</dd>
+              <dd className="font-medium">
+                <FormattedPrice price={order?.totalTax} />
+              </dd>
             </div>
           )}
           {order?.totalPayment && order?.totalPayment?.amount > 0 && (
@@ -98,7 +101,7 @@ const OrderDetailBilling = ({ order }) => {
                 })}
               </dt>
               <dd className="font-medium">
-                {formatPrice(order?.totalPayment)}
+                <FormattedPrice price={order?.totalPayment} />
               </dd>
             </div>
           )}
@@ -109,7 +112,9 @@ const OrderDetailBilling = ({ order }) => {
                 defaultMessage: 'Subtotal',
               })}
             </dt>
-            <dd className="font-medium">{formatPrice(order?.itemsTotal)}</dd>
+            <dd className="font-medium">
+              <FormattedPrice price={order?.itemsTotal} />
+            </dd>
           </div>
         </dl>
       </div>
