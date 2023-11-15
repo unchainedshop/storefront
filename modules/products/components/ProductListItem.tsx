@@ -62,6 +62,7 @@ const ProductListItem = ({ product }) => {
               })
         }
       >
+        <span className="sr-only">Bookmark</span>
         <BookmarkIcon
           className={classNames('h-6 w-6', {
             'text-purple-600 hover:text-purple-700 dark:text-yellow-500 dark:hover:text-yellow-700':

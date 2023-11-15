@@ -16,9 +16,10 @@ const CheckoutContact = ({ cart, isInitial }) => {
 
   const updateContact = async (contactInfo) => {
     try {
-      await addEmail({
-        email: contactInfo.emailAddress,
-      });
+      if (contactInfo.emailAddress)
+        await addEmail({
+          email: contactInfo.emailAddress,
+        });
 
       await updateCartContact({
         contact: contactInfo,

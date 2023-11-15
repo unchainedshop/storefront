@@ -2,13 +2,14 @@ import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 
 import MetaTags from '../../../modules/common/components/MetaTags';
-import OrderDetailComponent from '../../../modules/orders/components/OrderDetailComponent';
+
 import useOrderDetail from '../../../modules/orders/hooks/useOrderDetail';
 import NotFound from '../../404';
 import useRedirect from '../../../modules/auth/hooks/useRedirect';
 import Loading from '../../../modules/common/components/Loading';
+import OrderDetail from '../../../modules/checkout/OrderDetail';
 
-const OrderDetail = () => {
+const OrderDetailPage = () => {
   const router = useRouter();
   const intl = useIntl();
   const { order, loading } = useOrderDetail({
@@ -34,9 +35,9 @@ const OrderDetail = () => {
           },
         )}`}
       />
-      {loading && !order ? <Loading /> : <OrderDetailComponent order={order} />}
+      {loading && !order ? <Loading /> : <OrderDetail order={order} />}
     </>
   );
 };
 
-export default OrderDetail;
+export default OrderDetailPage;

@@ -33,7 +33,7 @@ const Header = () => {
     router.events.on('routeChangeStart', () => setNavOpen(false));
   }
   return (
-    <header className="sticky top-0 z-[1020] overflow-visible bg-white text-black opacity-100 dark:bg-slate-600 dark:text-white">
+    <header className="sticky top-0 z-[1020] overflow-visible bg-white text-black opacity-100 dark:bg-slate-600 dark:text-white print:hidden">
       <div className="relative">
         <SideCart isOpen={isCartOpen} />
         <div className="container relative mx-auto hidden w-full sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:py-2">
