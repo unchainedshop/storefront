@@ -1,12 +1,19 @@
+import getConfig from 'next/config';
 import React, { useState, useContext, useMemo } from 'react';
+
+const {
+  publicRuntimeConfig: { disableEmailSupport },
+} = getConfig();
 
 type AppContextType = {
   isCartOpen: boolean;
+  emailSupportDisabled: boolean;
   toggleCart?: (p: any) => void; // eslint-disable-line
 };
 
 export const AppContext = React.createContext<AppContextType>({
   isCartOpen: false,
+  emailSupportDisabled: !!disableEmailSupport,
   toggleCart: () => null,
 });
 
@@ -19,6 +26,7 @@ export const AppContextWrapper = ({ children }) => {
     () =>
       ({
         isCartOpen,
+        emailSupportDisabled: !!disableEmailSupport,
         toggleCart,
       }) as AppContextType,
     [isCartOpen],

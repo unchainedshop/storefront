@@ -41,7 +41,7 @@ const PaymentLabels = defineMessages({
   },
 });
 
-const CheckoutPaymentMethod = ({ cart }) => {
+const CheckoutPaymentMethod = ({ cart, disabled = false }) => {
   const { updateCartPayment } = useUpdateCartPayment();
   const { formatMessage } = useIntl();
 
@@ -91,7 +91,7 @@ const CheckoutPaymentMethod = ({ cart }) => {
           ))}
         </div>
       </form>
-      <CheckoutButton order={cart} />
+      {!disabled && <CheckoutButton order={cart} />}
     </div>
   );
 };

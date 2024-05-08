@@ -1,4 +1,5 @@
 import { useMutation, gql } from '@apollo/client';
+import { useAppContext } from '../../common/components/AppContextWrapper';
 import isEmail from '../../common/utils/isEmail';
 
 const LOG_IN_WITH_PASSWORD_MUTATION = gql`
@@ -26,6 +27,7 @@ const LOG_IN_WITH_PASSWORD_MUTATION = gql`
 `;
 
 const useLoginWithPassword = () => {
+  const { emailSupportDisabled } = useAppContext();
   const [logInWithPasswordMutation, { client }] = useMutation(
     LOG_IN_WITH_PASSWORD_MUTATION,
     {
@@ -39,7 +41,7 @@ const useLoginWithPassword = () => {
       plainPassword: null,
     };
 
-    if (isEmail(usernameOrEmail)) {
+    if (!emailSupportDisabled && isEmail(usernameOrEmail)) {
       const normalizedEmail = usernameOrEmail?.trim();
       variables.email = normalizedEmail;
     } else {

@@ -9,6 +9,7 @@ const {
   SKIP_INVALID_REMOTES,
   UNCHAINED_ENDPOINT,
   UNCHAINED_CREATE_THEME,
+  DISABLE_EMAIL_PROCESSES,
 } = process.env;
 
 const theme = JSON.parse(UNCHAINED_CREATE_THEME);
@@ -30,6 +31,7 @@ module.exports = {
     UNCHAINED_ENDPOINT,
     theme,
     localizations,
+    disableEmailSupport: !!DISABLE_EMAIL_PROCESSES,
   },
   i18n: {
     locales: Object.keys(theme.locales),

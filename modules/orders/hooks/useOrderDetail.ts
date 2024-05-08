@@ -1,19 +1,13 @@
 import { useQuery, gql } from '@apollo/client';
-
-import OrderFragment from '../fragments/OrderFragment';
-import OrderItemFragment from '../fragments/OrderItemFragment';
+import OrderDetailFragment from '../fragments/OrderDetailFragment';
 
 export const ORDER_DETAIL_QUERY = gql`
   query OrderDetailQuery($orderId: ID!) {
     order(orderId: $orderId) {
-      ...OrderFragment
-      items {
-        ...OrderItemFragment
-      }
+      ...OrderDetailFragment
     }
   }
-  ${OrderFragment}
-  ${OrderItemFragment}
+  ${OrderDetailFragment}
 `;
 
 const useOrderDetail = ({ orderId }) => {

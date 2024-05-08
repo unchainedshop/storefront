@@ -24,7 +24,7 @@ const useValidators = () => {
   };
 
   const validateEmail = (value) => {
-    if (isEmail(value || '')) return true;
+    if (isEmail(value || '') || !value) return true;
     return formatMessage({
       id: 'error_email',
       defaultMessage: '{label} must be a valid email address',

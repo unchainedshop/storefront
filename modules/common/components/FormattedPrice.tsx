@@ -6,8 +6,10 @@ const FormattedPrice = ({ price }) => {
   const currencyDefinition = currencies?.find(
     (currency) => currency.isoCode === price?.currency,
   );
-  if (!currencyDefinition) return formatPrice(null);
-  return formatPrice({ ...price, decimals: currencyDefinition?.decimals });
+  if (!currencyDefinition) return <> {formatPrice(null)} </>;
+  return (
+    <> {formatPrice({ ...price, decimals: currencyDefinition?.decimals })} </>
+  );
 };
 
 export default FormattedPrice;

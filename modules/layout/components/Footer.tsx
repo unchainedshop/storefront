@@ -23,7 +23,7 @@ const Footer = () => {
   return (
     <footer
       aria-labelledby="footer-heading"
-      className="container mx-auto bg-white dark:bg-slate-600"
+      className="container mx-auto bg-white dark:bg-slate-600 print:hidden"
     >
       <h2 id="footer-heading" className="sr-only">
         {formatMessage({ id: 'footer', defaultMessage: 'Footer' })}

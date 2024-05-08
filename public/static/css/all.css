@@ -28,3 +28,14 @@
 /* @import 'icon.css'; */
 /* @import 'print.css'; */
 /* @import 'shame.css'; */
+
+  
+  @media print {
+    
+    dl {
+      width: 50%; /* Each dl takes up half of the printed page width */
+      margin: 0;
+      padding: 0;
+    }
+  }
+  
