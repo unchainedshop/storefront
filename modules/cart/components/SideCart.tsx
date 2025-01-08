@@ -72,7 +72,7 @@ const SideCart = ({ isOpen }) => {
             <h3 className="m-0 block p-4 text-center text-lg">
               {intl.formatMessage({
                 id: 'in_cart',
-                defaultMessage: 'In cart',
+                defaultMessage: 'Cart',
               })}
             </h3>
           </div>

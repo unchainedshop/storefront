@@ -1,15 +1,13 @@
-const fs = require('fs');
-
-console.log('Docker Helper: Load _FILE env into env at App Startup');
+import fs from "fs";
 
 // Load _FILE env's
 Object.entries(process.env)
-  .filter(([key]) => key.substr(-5) === '_FILE')
+  .filter(([key]) => key.substr(-5) === "_FILE")
   .forEach(([key, path]) => {
     try {
       const stats = fs.statSync(path);
       if (stats.isFile()) {
-        const value = fs.readFileSync(path, 'utf8');
+        const value = fs.readFileSync(path, "utf8");
         const envVarName = key.substr(0, key.length - 5);
         process.env[envVarName] = value;
       }

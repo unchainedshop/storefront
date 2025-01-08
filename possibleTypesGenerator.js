@@ -1,13 +1,11 @@
-/* eslint-disable no-undef */
+import fs from "fs";
 
-const fs = require('fs');
-
-const { UNCHAINED_ENDPOINT = 'http://localhost:4010/graphql' } = process.env;
+const { UNCHAINED_ENDPOINT = "http://localhost:4010/graphql" } = process.env;
 console.log(UNCHAINED_ENDPOINT);
 
 fetch(UNCHAINED_ENDPOINT, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
     variables: {},
     query: `
@@ -38,13 +36,13 @@ fetch(UNCHAINED_ENDPOINT, {
     });
 
     fs.writeFile(
-      './possibleTypes.json',
+      "./possibleTypes.json",
       JSON.stringify(possibleTypes),
       (err) => {
         if (err) {
-          console.error('Error writing possibleTypes.json', err);
+          console.error("Error writing possibleTypes.json", err);
         } else {
-          console.log('Fragment types successfully extracted!');
+          console.log("Fragment types successfully extracted!");
         }
       },
     );

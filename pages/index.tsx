@@ -1,8 +1,7 @@
 import getConfig from 'next/config';
 import { useIntl } from 'react-intl';
 
-import Link from 'next/link';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 
 import MetaTags from '../modules/common/components/MetaTags';
 import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
@@ -22,12 +21,14 @@ const Home = () => {
     <>
       <MetaTags title={formatMessage({ id: 'home', defaultMessage: 'Home' })} />
       <div className="w-full bg-white px-4 dark:bg-slate-600 sm:px-0">
-        <div className="relative h-[442px] w-full">
+        <div className="relative w-full" style={{ height: '35vh' }}>
           <Image
             src={theme.assets.hero}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="center"
+            fill
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'center',
+            }}
             quality={100}
             placeholder="blur"
             blurDataURL="/placeholder.png"
@@ -42,46 +43,23 @@ const Home = () => {
         ) : (
           products.length !== 0 && (
             <div>
-              <div className="mx-auto max-w-full pt-16 sm:pt-20">
+              <div className="mx-auto max-w-full pt-4 sm:pt-12">
                 <div className="sm:flex sm:items-baseline sm:justify-between">
-                  <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100">
+                  <h2 className="text-1xl lg:text-2xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100">
                     {formatMessage({
                       id: 'featured_products',
                       defaultMessage: 'Featured Products',
                     })}
                   </h2>
-                  <Link
-                    href="/shop"
-                    className="hidden text-sm font-semibold text-fuchsia-600 hover:text-fuchsia-500 sm:block"
-                  >
-                    {formatMessage({
-                      id: 'browse_all_category',
-                      defaultMessage: 'Browse all categories',
-                    })}
-                    <span aria-hidden="true"> &rarr;</span>
-                  </Link>
-                </div>
-
-                <div className="mt-6 sm:hidden">
-                  <Link
-                    href="/shop"
-                    className="block text-sm font-semibold text-fuchsia-600 hover:text-fuchsia-500"
-                  >
-                    {formatMessage({
-                      id: 'browse_all_category_mobile',
-                      defaultMessage: 'Browse all categories',
-                    })}
-                    <span aria-hidden="true"> &rarr;</span>
-                  </Link>
                 </div>
               </div>
-              <div className="mt-10 space-y-12 divide-gray-200 lg:grid lg:grid-cols-3 lg:gap-x-5  lg:space-y-0">
+              <div className="space-y-12 divide-gray-200 grid grid-cols-2 gap-x-3 lg:grid lg:grid-cols-3 lg:gap-x-5 lg:space-y-0">
                 {products.map((product) => (
                   <div
                     key={product?._id}
-                    className="group relative rounded-lg border-y border-r border-b border-slate-200 p-4 dark:border-slate-500 sm:p-6"
+                    className="group relative rounded-lg sm:p-6"
                   >
-                    <ProductListItem product={product} />
+                    <ProductListItem product={product} disableBookmark />
                   </div>
                 ))}
               </div>

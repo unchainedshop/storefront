@@ -455,9 +455,6 @@
   "region_optional": {
     "defaultMessage": "Optional"
   },
-  "register": {
-    "defaultMessage": "Register"
-  },
   "registration-complete": {
     "defaultMessage": "Registered successfully"
   },

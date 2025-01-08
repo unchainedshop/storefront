@@ -1,0 +1,5 @@
+schema: './schema.json'
+documents: 
+  - './modules/**/*.{ts,tsx,js,jsx}'
+  - './pages/**/*.{ts,tsx,js,jsx}'
+  - './app/**/*.{ts,tsx,js,jsx}'

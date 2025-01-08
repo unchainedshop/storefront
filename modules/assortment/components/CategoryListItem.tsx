@@ -32,9 +32,6 @@ const CategoryListItem = ({ category }) => {
           <p className="mt-1 text-center text-sm text-slate-500 dark:text-slate-400">
             {category.texts?.subtitle}
           </p>
-          <p className="mt-2 text-sm text-slate-500 dark:text-slate-300">
-            {category.texts?.description}
-          </p>
         </>
       ) : (
         <div className="group relative m-2 rounded-tl-lg rounded-tr-lg  border-2  p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-slate-500 sm:rounded-tr-none ">
@@ -48,9 +45,6 @@ const CategoryListItem = ({ category }) => {
                 {category.texts?.subtitle}
               </p>
             </h3>
-            <p className="mt-2 text-sm text-gray-500">
-              {category.texts?.description}
-            </p>
           </div>
           <span
             className="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-gray-400"

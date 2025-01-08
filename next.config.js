@@ -1,7 +1,5 @@
-console.log(process.version);
-
-require('./node_env');
-const fs = require('fs');
+import fs from "fs";
+await import("./node_env.js");
 
 const {
   GRAPHQL_ENDPOINT,
@@ -22,12 +20,12 @@ const localizations = Object.fromEntries(
   }),
 );
 
-module.exports = {
+const nextJsConfig = {
   serverRuntimeConfig: {},
   publicRuntimeConfig: {
     GRAPHQL_ENDPOINT,
     NODE_ENV,
-    SKIP_INVALID_REMOTES: JSON.parse(SKIP_INVALID_REMOTES || 'false'),
+    SKIP_INVALID_REMOTES: JSON.parse(SKIP_INVALID_REMOTES || "false"),
     UNCHAINED_ENDPOINT,
     theme,
     localizations,
@@ -38,3 +36,5 @@ module.exports = {
     defaultLocale: Object.keys(theme.locales)[0],
   },
 };
+
+export default nextJsConfig;

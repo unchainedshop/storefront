@@ -1,4 +1,6 @@
 import { useRouter } from 'next/router';
+import Markdown from 'react-markdown';
+
 import CategoriesList from '../../modules/assortment/components/CategoriesList';
 import useAssortmentProducts from '../../modules/assortment/hooks/useAssortmentProducts';
 import getAssortmentPath from '../../modules/assortment/utils/getAssortmentPath';
@@ -6,7 +8,6 @@ import AssortmentBreadcrumbs from '../../modules/assortment/components/Assortmen
 import ProductList from '../../modules/products/components/ProductList';
 import MetaTags from '../../modules/common/components/MetaTags';
 import useCategoriesTree from '../../modules/assortment/hooks/useCategoriesTree';
-
 import getMediaUrl from '../../modules/common/utils/getMediaUrl';
 import Loading from '../../modules/common/components/Loading';
 
@@ -71,7 +72,7 @@ const CategoryDetail = () => {
               {texts?.title}
             </h1>
             <h2>{texts?.subtitle}</h2>
-            <p>{texts?.description}</p>
+            <Markdown>{texts?.description}</Markdown>
           </div>
           {productsLoading ? (
             <Loading />

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import ImageGallery from 'react-image-gallery';
 import { useIntl } from 'react-intl';
 
+import Markdown from 'react-markdown';
 import useProductDetail from '../../modules/products/hooks/useProductDetail';
 import AddToCartButton from '../../modules/cart/components/AddToCartButton';
 import MetaTags from '../../modules/common/components/MetaTags';
@@ -42,7 +43,7 @@ const Detail = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="container mt-1">
+        <div className="container mt-1 p-4">
           <div className="row">
             <div className="col-12">
               <AssortmentBreadcrumbs
@@ -50,7 +51,7 @@ const Detail = () => {
                 currentAssortment={product?.texts}
               />
             </div>
-            <div className="col-md-8">
+            <div className="col-md-8" style={{ maxWidth: '50vh' }}>
               <ImageGallery
                 lazyLoad
                 onErrorImageURL="/static/img/sun-glass-placeholder.jpeg"
@@ -74,12 +75,7 @@ const Detail = () => {
                   className="mb-3"
                   dangerouslySetInnerHTML={{ __html: product?.texts?.subtitle }}
                 />
-                <div
-                  className="mb-3"
-                  dangerouslySetInnerHTML={{
-                    __html: product?.texts?.description,
-                  }}
-                />
+                <Markdown>{product?.texts?.description}</Markdown>
               </div>
               <AddToCartButton productId={product?._id} {...product} />
             </div>

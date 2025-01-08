@@ -103,7 +103,6 @@
   "new_here_message": "Checke als Gast aus oder erstelle ein Kundenkonto.",
   "create_an_account": "Ja, ich möchte ein Konto erstellen",
   "i_have_read_term": "Ja, ich habe die <a class=\"link\" href=\"/terms-conditions\">AGBs</a> gelesen",
-  "register": "Registrieren",
   "email_verified_success": "Ihre E-Mail wurde erfolgreich überprüft",
   "email_verifying": "Ihre E-Mail Addresse wird verifiziert",
   "confirmation_sent": "Eine Bestätigungs-E-Mail wird gesendet",
@@ -123,5 +122,13 @@
   "old_password_not_correct": "Altes Passwort ist nicht korrekt",
   "confirm_order": "OK, ok, ok. Just let me pay",
   "change_username": "Benutzername ändern",
-  "load_more": "Weitere laden ..."
+  "load_more": "Weitere laden ...",
+  "shop_logo": "Logo",
+  "shop_logo_mobile": "Logo",
+  "hero": "Hero",
+  "footer": "Footer",
+  "footer-heading": "All Rights Reserved",
+  "right": "All Rights Reserved",
+  "legal": "Legal stuff"
+
 }

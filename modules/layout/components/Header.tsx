@@ -5,12 +5,11 @@ import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 
 import { Bars3Icon } from '@heroicons/react/20/solid';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import LoginCart from '../../auth/components/LoginCart';
 import SideCart from '../../cart/components/SideCart';
 import DesktopNavigation from '../../assortment/components/DesktopNavigation';
 import MobileNavigation from '../../assortment/components/MobileNavigation';
-import ThemeToggle from '../../common/components/ThemeToggle';
 import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
 
 import { useAppContext } from '../../common/components/AppContextWrapper';
@@ -46,7 +45,8 @@ const Header = () => {
                   id: 'shop_logo',
                   defaultMessage: 'Shop logo',
                 })}
-                layout="fill"
+                fill
+                style={{ objectFit: 'contain', objectPosition: 'left' }}
                 placeholder="blur"
                 blurDataURL="/placeholder.png"
                 className="rounded"
@@ -81,7 +81,8 @@ const Header = () => {
                   id: 'shop_logo_mobile',
                   defaultMessage: 'Shop logo',
                 })}
-                layout="fill"
+                fill
+                style={{ objectFit: 'contain', objectPosition: 'left' }}
                 placeholder="blur"
                 blurDataURL="/placeholder.png"
                 className="rounded"
@@ -94,7 +95,6 @@ const Header = () => {
             <LoginCart />
           </div>
         </div>
-        <ThemeToggle />
       </div>
     </header>
   );
