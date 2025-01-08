@@ -5,8 +5,7 @@ const LOGIN_WITH_WEB_AUTHN_MUTATION = gql`
     loginWithWebAuthn(
       webAuthnPublicKeyCredentials: $webAuthnPublicKeyCredentials
     ) {
-      id
-      token
+      _id
       tokenExpires
     }
   }

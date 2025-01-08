@@ -6,8 +6,8 @@ export const CHANGE_PASSWORD_MUTATION = gql`
     $oldPlainPassword: String
   ) {
     changePassword(
-      newPlainPassword: $newPlainPassword
-      oldPlainPassword: $oldPlainPassword
+      newPassword: $newPlainPassword
+      oldPassword: $oldPlainPassword
     ) {
       success
     }

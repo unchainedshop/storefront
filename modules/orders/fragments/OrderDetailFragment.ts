@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import OrderItemFragment from "./OrderItemFragment";
 
 const OrderDetailFragment = gql`
   fragment OrderDetailFragment on Order {
@@ -85,21 +86,6 @@ const OrderDetailFragment = gql`
         amount
       }
       paid
-    }
-    delivery {
-      _id
-      status
-      provider {
-        _id
-        type
-        interface {
-          _id
-          label
-          version
-        }
-      }
-
-      delivered
     }
 
     orderNumber
@@ -205,51 +191,18 @@ const OrderDetailFragment = gql`
           }
         }
       }
-
-      delivered
     }
     total {
-      isTaxable
       isTaxable
       amount
       currency
     }
     items {
       _id
-      product {
-        _id
-        texts {
-          _id
-          slug
-          brand
-          vendor
-          title
-          subtitle
-        }
-        media {
-          _id
-          file {
-            _id
-            url
-          }
-        }
-      }
-      quantity
-
-      unitPrice {
-        amount
-        isTaxable
-        isNetPrice
-        currency
-      }
-      total {
-        amount
-        isTaxable
-        isNetPrice
-        currency
-      }
+      ...OrderItemDetails
     }
   }
+  ${OrderItemFragment}
 `;
 
 export default OrderDetailFragment;

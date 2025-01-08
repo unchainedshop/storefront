@@ -6,7 +6,7 @@ import AssortmentMediaFragment from "../fragments/AssortmentMedia";
 import AssortmentPathFragment from "../fragments/AssortmentPath";
 
 export const ASSORTMENT_PRODUCTS_QUERY = gql`
-  query AssortmentsProductsQuery($slugs: String!, $offset: Int, $limit: Int) {
+  query AssortmentsProducts($slugs: String!, $offset: Int, $limit: Int) {
     assortment(slug: $slugs) {
       ...AssortmentFragment
       assortmentPaths {
@@ -19,7 +19,7 @@ export const ASSORTMENT_PRODUCTS_QUERY = gql`
         filteredProductsCount
         productsCount
         products(offset: $offset, limit: $limit) {
-          ...ProductFragment
+          ...ProductDetails
           ...SimpleProductPrice
         }
       }

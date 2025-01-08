@@ -5,7 +5,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-export default ({ returnUrl }) => {
+export default function StripeCheckoutForm({ returnUrl }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -87,4 +87,4 @@ export default ({ returnUrl }) => {
       {message && <div id="payment-message">{message}</div>}
     </form>
   );
-};
+}

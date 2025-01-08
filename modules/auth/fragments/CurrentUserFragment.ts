@@ -4,7 +4,7 @@ import ProductFragment from "../../products/fragments/ProductFragment";
 import SimpleProductPrice from "../../products/fragments/SimpleProductPrice";
 
 const CurrentUserFragment = gql`
-  fragment CurrentUserFragment on User {
+  fragment CurrentUser on User {
     _id
     isGuest
     name
@@ -33,7 +33,7 @@ const CurrentUserFragment = gql`
       _id
       created
       product {
-        ...ProductFragment
+        ...ProductDetails
         ...SimpleProductPrice
       }
     }
@@ -48,10 +48,6 @@ const CurrentUserFragment = gql`
       _id
       billingAddress {
         ...AddressFragment
-      }
-      currency {
-        _id
-        isoCode
       }
 
       contact {
@@ -74,7 +70,7 @@ const CurrentUserFragment = gql`
           currency
         }
         product {
-          ...ProductFragment
+          ...ProductDetails
           ...SimpleProductPrice
         }
       }
@@ -143,7 +139,6 @@ const CurrentUserFragment = gql`
           version
         }
         simulatedPrice {
-          _id
           amount
           currency
         }

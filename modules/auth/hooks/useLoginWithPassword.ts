@@ -6,21 +6,20 @@ const LOG_IN_WITH_PASSWORD_MUTATION = gql`
   mutation LoginWithPassword(
     $username: String
     $email: String
-    $plainPassword: String
+    $plainPassword: String!
   ) {
     loginWithPassword(
       username: $username
       email: $email
-      plainPassword: $plainPassword
+      password: $plainPassword
     ) {
-      id
-      token
+      _id
+
       tokenExpires
       user {
         _id
         allowedActions
         roles
-        isTwoFactorEnabled
       }
     }
   }

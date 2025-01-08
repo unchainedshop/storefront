@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 const ProductFragment = gql`
-  fragment ProductFragment on Product {
+  fragment ProductDetails on Product {
     _id
     media {
       _id

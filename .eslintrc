@@ -36,6 +36,10 @@
       "files": ["*.graphql"],
       "parser": "@graphql-eslint/eslint-plugin",
       "plugins": ["@graphql-eslint"],
+      "rules": {
+        "@graphql-eslint/naming-convention": "off",
+        "@graphql-eslint/selection-set-depth": "off",
+      },
       "extends": "plugin:@graphql-eslint/operations-recommended",
     },
   ],

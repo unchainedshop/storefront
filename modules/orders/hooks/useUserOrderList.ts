@@ -3,7 +3,7 @@ import { useQuery, gql } from "@apollo/client";
 import OrderFragment from "../fragments/OrderFragment";
 
 export const USER_ORDERS_QUERY = gql`
-  {
+  query UserOrders {
     me {
       _id
       orders {

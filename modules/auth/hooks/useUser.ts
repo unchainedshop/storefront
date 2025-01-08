@@ -4,7 +4,7 @@ import CurrentUserFragment from "../fragments/CurrentUserFragment";
 export const USER_QUERY = gql`
   query User {
     me {
-      ...CurrentUserFragment
+      ...CurrentUser
     }
   }
   ${CurrentUserFragment}

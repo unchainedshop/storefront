@@ -3,8 +3,7 @@ import { useMutation, gql } from "@apollo/client";
 const VERIFY_EMAIL_MUTATION = gql`
   mutation VerifyEmail($token: String!) {
     verifyEmail(token: $token) {
-      id
-      token
+      _id
       tokenExpires
       user {
         _id

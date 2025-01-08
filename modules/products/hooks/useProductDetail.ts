@@ -4,12 +4,12 @@ import ProductFragment from "../fragments/ProductFragment";
 import SimpleProductPrice from "../fragments/SimpleProductPrice";
 
 const PRODUCT_DETAIL_QUERY = gql`
-  query ProductDetailQuery($slug: String) {
+  query ProductDetails($slug: String) {
     product(slug: $slug) {
       assortmentPaths {
         ...ProductAssortmentPathFragment
       }
-      ...ProductFragment
+      ...ProductDetails
       ...SimpleProductPrice
     }
   }

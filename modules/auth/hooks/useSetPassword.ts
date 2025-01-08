@@ -2,7 +2,7 @@ import { useMutation, gql } from "@apollo/client";
 
 export const SET_PASSWORD_MUTATION = gql`
   mutation SetPassword($newPlainPassword: String, $userId: ID!) {
-    setPassword(newPlainPassword: $newPlainPassword, userId: $userId) {
+    setPassword(newPassword: $newPlainPassword, userId: $userId) {
       _id
     }
   }

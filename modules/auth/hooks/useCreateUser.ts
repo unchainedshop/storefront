@@ -11,12 +11,11 @@ export const CREATE_USER_MUTATION = gql`
     createUser(
       username: $username
       email: $email
-      plainPassword: $plainPassword
+      password: $plainPassword
       profile: $profile
       webAuthnPublicKeyCredentials: $webAuthnPublicKeyCredentials
     ) {
-      id
-      token
+      _id
       tokenExpires
     }
   }

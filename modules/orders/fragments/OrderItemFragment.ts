@@ -1,47 +1,38 @@
 import { gql } from "@apollo/client";
 
 const OrderItemFragment = gql`
-  fragment OrderItemFragment on OrderItem {
+  fragment OrderItemDetails on OrderItem {
     _id
     product {
       _id
+      texts {
+        _id
+        slug
+        brand
+        vendor
+        title
+        subtitle
+      }
       media {
         _id
         file {
-          name
+          _id
           url
         }
       }
-      texts {
-        _id
-        title
-        subtitle
-        description
-        vendor
-        labels
-        brand
-      }
     }
     quantity
+
     unitPrice {
       amount
+      isTaxable
+      isNetPrice
       currency
-    }
-    discounts {
-      orderDiscount {
-        total {
-          amount
-          currency
-        }
-        code
-      }
-      total {
-        amount
-        currency
-      }
     }
     total {
       amount
+      isTaxable
+      isNetPrice
       currency
     }
   }
