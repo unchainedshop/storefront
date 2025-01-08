@@ -1,94 +1,42 @@
 {
   "root": true,
-  "plugins": ["formatjs", "react-hooks"],
-  "extends": [ "next", "airbnb", "prettier", "plugin:prettier/recommended"],
+  "plugins": ["formatjs"],
+  "extends": ["next", "plugin:prettier/recommended"],
   "parserOptions": {
-        
     "project": "./tsconfig.json",
     "requireConfigFile": false,
-    "ecmaVersion": 6,
- 
+    "ecmaVersion": 12,
     "ecmaFeatures": {
-        "jsx": true
-    }
-
+      "jsx": true,
+    },
   },
   "env": {
     "browser": true,
     "node": true,
     "es6": true,
-    "mocha": true
-
+    "mocha": true,
   },
-  "rules": {
-    "react/react-in-jsx-scope": "off",
-    // allow jsx syntax in js files (for next.js project)
-    "react/no-unstable-nested-components": [
-      "off",
-      { "allowAsProps": true  }
-    ],
-    
-    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
-    "formatjs/no-offset": "error",
-    "formatjs/enforce-default-message": "error",
-    "formatjs/no-emoji": "error",
-    "jsx-a11y/label-has-associated-control": [0],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-    "react/prop-types": [0],
-    "react/function-component-definition": [
-      2,
-      {
-        "namedComponents": "arrow-function",
-        "unnamedComponents": "arrow-function"
-      }
-    ],
-    "react/jsx-props-no-spreading": [0],
-    "no-underscore-dangle": [
-      "error",
-      { "allow": ["_id", "__typename", "__mutationName"] }
-    ],
-    "prettier/prettier": [
-      "error",
-      {
-        "printWidth": 80,
-        "semi": true,
-        "trailingComma": "all",
-        "singleQuote": true,
-        "proseWrap": "always"
-      }
-    ],
-    "jsx-a11y/anchor-is-valid": "off",
-    "jsx-a11y/anchor-has-content": "off",
-
-    "import/no-unresolved": [0],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
-    "react/jsx-filename-extension": [
-      1,
-      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
-    ],
-    
-    "jsx-a11y/no-static-element-interactions": [0],
-    "jsx-a11y/click-events-have-key-events": [0]
-  },
+  "rules": {},
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+      },
     },
     "react": {
-      "version": "detect"
-    }
-
-  }
+      "version": "detect",
+    },
+  },
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
+      "processor": "@graphql-eslint/graphql",
+    },
+    {
+      "files": ["*.graphql"],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "plugins": ["@graphql-eslint"],
+      "extends": "plugin:@graphql-eslint/operations-recommended",
+    },
+  ],
 }

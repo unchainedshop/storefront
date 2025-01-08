@@ -122,5 +122,13 @@
   "old_password_not_correct": "Altes Passwort ist nicht korrekt",
   "confirm_order": "OK, ok, ok. Just let me pay",
   "change_username": "Benutzername ändern",
-  "load_more": "Weitere laden ..."
+  "load_more": "Weitere laden ...",
+  "shop_logo": "Logo",
+  "shop_logo_mobile": "Logo",
+  "hero": "Hero",
+  "footer": "Footer",
+  "footer-heading": "All Rights Reserved",
+  "right": "All Rights Reserved",
+  "legal": "Legal stuff"
+
 }

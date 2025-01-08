@@ -1,4 +1,4 @@
-FROM node:18-alpine as bundler
+FROM node:18-alpine AS bundler
 
 # Create app directory
 RUN mkdir -p /usr/src/app
@@ -21,7 +21,7 @@ ENV NEXT_TELEMETRY_DISABLED="1"
 RUN npm run build && \
     rm -Rf node_modules
 
-FROM node:18-alpine as runtime
+FROM node:18-alpine AS runtime
 
 WORKDIR /usr/src/app
 
@@ -44,4 +44,4 @@ HEALTHCHECK --timeout=1s --start-period=2s \
 
 EXPOSE 3000
 
-CMD npm run start
+CMD ["npm", "start"]
