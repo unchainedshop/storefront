@@ -29,7 +29,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 const uri =
   typeof window === "undefined"
     ? process.env.UNCHAINED_ENDPOINT || "http://localhost:4010/graphql"
-    : `${window.origin}/api/graphql`;
+    : `${window.origin}/graphql`;
 
 const httpLink = new HttpLink({
   uri,
