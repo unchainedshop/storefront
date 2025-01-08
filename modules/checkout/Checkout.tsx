@@ -109,7 +109,7 @@ const Checkout = () => {
         {!isAddressesMissing && !isContactDataMissing && (
           <CheckoutPaymentMethod
             cart={data.me.cart}
-            disabled={!isContactDataMissing}
+            disabled={isContactDataMissing}
           />
         )}
       </div>
