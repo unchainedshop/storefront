@@ -1,9 +1,9 @@
-import { useIntl } from 'react-intl';
-import Badge from '../common/components/Badge';
-import useFormatDateTime from '../common/utils/useFormatDateTime';
+import { useIntl } from "react-intl";
+import Badge from "../common/components/Badge";
+import useFormatDateTime from "../common/utils/useFormatDateTime";
 
-import { normalizeCurrencyISOCode } from '../common/utils/utils';
-import DetailHeader from './DetailHeader';
+import { normalizeCurrencyISOCode } from "../common/utils/utils";
+import DetailHeader from "./DetailHeader";
 
 const OrderDetailHeader = ({ order }) => {
   const { formatMessage, locale } = useIntl();
@@ -14,8 +14,8 @@ const OrderDetailHeader = ({ order }) => {
       <div className="flex items-center justify-between">
         <span className="text-sm block mr-3">
           {formatMessage({
-            id: 'order_number',
-            defaultMessage: 'Order #',
+            id: "order_number",
+            defaultMessage: "Order #",
           })}
           &nbsp;
         </span>
@@ -33,7 +33,7 @@ const OrderDetailHeader = ({ order }) => {
             />
           ) : (
             <Badge
-              text={formatMessage({ id: 'cart', defaultMessage: 'Cart' })}
+              text={formatMessage({ id: "cart", defaultMessage: "Cart" })}
               color="yellow"
               className="text-lg font-medium sm:text-xl sm:font-bold"
             />
@@ -44,7 +44,7 @@ const OrderDetailHeader = ({ order }) => {
       <div className="flex justify-between">
         <div>
           <span className="text-sm mr-3">
-            {formatMessage({ id: 'date', defaultMessage: 'Date' })}
+            {formatMessage({ id: "date", defaultMessage: "Date" })}
           </span>
           {order?.ordered ? formatDateTime(order.ordered) : null}
         </div>

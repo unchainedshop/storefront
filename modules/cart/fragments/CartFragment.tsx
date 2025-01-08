@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-import AddressFragment from '../../common/fragments/AddressFragment';
+import AddressFragment from "../../common/fragments/AddressFragment";
 
 const CartFragment = gql`
   fragment CartFragment on Order {

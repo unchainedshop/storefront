@@ -1,16 +1,16 @@
-import React from 'react';
-import Link from 'next/link';
-import { useIntl } from 'react-intl';
-import classNames from 'classnames';
-import { useDesktopNavigationContext } from './DesktopNavigationContext';
-import Thumbnail from '../../common/components/thumbnail';
+import React from "react";
+import Link from "next/link";
+import { useIntl } from "react-intl";
+import classNames from "classnames";
+import { useDesktopNavigationContext } from "./DesktopNavigationContext";
+import Thumbnail from "../../common/components/thumbnail";
 
 export type Node = {
   slug: string;
   children: any[];
   path: string[];
   navigationTitle: string;
-  type: 'default' | 'show_all';
+  type: "default" | "show_all";
   media: any[];
 };
 
@@ -25,7 +25,7 @@ const MegaDropdownItem = ({
   const intl = useIntl();
   const { setHoverPath, hoverPath, isTouching } = useDesktopNavigationContext();
   const handleClick = () => {
-    if (type === 'default' && isTouching && children) {
+    if (type === "default" && isTouching && children) {
       setHoverPath(path);
     } else {
       setHoverPath([]);
@@ -41,17 +41,17 @@ const MegaDropdownItem = ({
   };
   return (
     <Link
-      href={`/${path.join('/')}`}
-      className={classNames('mega-link', {
-        'has-arrow': type === 'default' && Object.keys(children || {}).length,
+      href={`/${path.join("/")}`}
+      className={classNames("mega-link", {
+        "has-arrow": type === "default" && Object.keys(children || {}).length,
       })}
       onMouseEnter={handleMouseEnter}
       onClick={handleClick}
       onTouchStart={handleTouchStart}
-      data-in-hover-path={type === 'default' && hoverPath?.includes(slug)}
+      data-in-hover-path={type === "default" && hoverPath?.includes(slug)}
     >
       <div className="flex items-baseline">
-        {type === 'default' ? (
+        {type === "default" ? (
           <>
             <Thumbnail media={media} />
             {navigationTitle}
@@ -63,15 +63,15 @@ const MegaDropdownItem = ({
           </b>
         )}
 
-        {type === 'show_all' ? (
+        {type === "show_all" ? (
           <small className="ml-2">
             {intl.formatMessage({
-              id: 'show_all',
-              defaultMessage: 'Show all',
+              id: "show_all",
+              defaultMessage: "Show all",
             })}
           </small>
         ) : (
-          ''
+          ""
         )}
       </div>
     </Link>

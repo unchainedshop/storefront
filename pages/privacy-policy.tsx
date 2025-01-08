@@ -1,6 +1,6 @@
-import { useIntl } from 'react-intl';
+import { useIntl } from "react-intl";
 
-import MetaTags from '../modules/common/components/MetaTags';
+import MetaTags from "../modules/common/components/MetaTags";
 
 const Privacy = () => {
   const intl = useIntl();
@@ -8,13 +8,13 @@ const Privacy = () => {
   return (
     <>
       <MetaTags
-        title={intl.formatMessage({ id: 'privacy', defaultMessage: 'Privacy' })}
+        title={intl.formatMessage({ id: "privacy", defaultMessage: "Privacy" })}
       />
       <div className="container">
         <div className="row">
           <div className="col-md-8 offset-md-2">
             <h1>
-              {intl.formatMessage({ id: 'privacy', defaultMessage: 'Privacy' })}
+              {intl.formatMessage({ id: "privacy", defaultMessage: "Privacy" })}
             </h1>
             <p>...</p>
           </div>

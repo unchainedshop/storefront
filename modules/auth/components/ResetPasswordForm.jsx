@@ -1,13 +1,13 @@
-import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
-import { useIntl } from 'react-intl';
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
+import { useIntl } from "react-intl";
 
-import Form from '../../forms/components/Form';
-import FormErrors from '../../forms/components/FormErrors';
-import PasswordField from '../../forms/components/PasswordField';
-import SubmitButton from '../../forms/components/SubmitButton';
+import Form from "../../forms/components/Form";
+import FormErrors from "../../forms/components/FormErrors";
+import PasswordField from "../../forms/components/PasswordField";
+import SubmitButton from "../../forms/components/SubmitButton";
 
-import useResetPassword from '../hooks/useResetPassword';
+import useResetPassword from "../hooks/useResetPassword";
 
 const ResetPasswordForm = ({ token }) => {
   const { formatMessage } = useIntl();
@@ -18,20 +18,20 @@ const ResetPasswordForm = ({ token }) => {
     await resetPassword({ newPassword, token });
     toast.success(
       formatMessage({
-        id: 'password_changed_success',
-        defaultMessage: 'Password changed successfully.',
+        id: "password_changed_success",
+        defaultMessage: "Password changed successfully.",
       }),
     );
-    router.push('/');
+    router.push("/");
   };
   const onSubmitError = async (e) => {
-    if (e?.message?.toLowerCase().includes('expired')) {
+    if (e?.message?.toLowerCase().includes("expired")) {
       return {
         submit: {
-          type: 'manual',
+          type: "manual",
           message: formatMessage({
-            id: 'reset_token_expired',
-            defaultMessage: 'Token link invalid or has expired',
+            id: "reset_token_expired",
+            defaultMessage: "Token link invalid or has expired",
           }),
         },
       };
@@ -44,8 +44,8 @@ const ResetPasswordForm = ({ token }) => {
     if (newPassword !== confirmPassword) {
       return {
         confirmPassword: {
-          type: 'manual',
-          message: 'Passwords do not match',
+          type: "manual",
+          message: "Passwords do not match",
         },
       };
     }
@@ -62,12 +62,12 @@ const ResetPasswordForm = ({ token }) => {
         name="newPassword"
         id="new-password"
         placeholder={formatMessage({
-          id: 'new_password',
-          defaultMessage: 'New password',
+          id: "new_password",
+          defaultMessage: "New password",
         })}
         label={formatMessage({
-          id: 'new_password',
-          defaultMessage: 'New password',
+          id: "new_password",
+          defaultMessage: "New password",
         })}
         required
       />
@@ -77,12 +77,12 @@ const ResetPasswordForm = ({ token }) => {
         name="confirmPassword"
         id="confirm-password"
         placeholder={formatMessage({
-          id: 'confirm_password',
-          defaultMessage: 'Confirm password',
+          id: "confirm_password",
+          defaultMessage: "Confirm password",
         })}
         label={formatMessage({
-          id: 'confirm_password',
-          defaultMessage: 'Confirm password',
+          id: "confirm_password",
+          defaultMessage: "Confirm password",
         })}
       />
 
@@ -91,8 +91,8 @@ const ResetPasswordForm = ({ token }) => {
       </div>
       <SubmitButton className="w-full">
         {formatMessage({
-          id: 'rest_password',
-          defaultMessage: 'Reset password',
+          id: "rest_password",
+          defaultMessage: "Reset password",
         })}
       </SubmitButton>
     </Form>

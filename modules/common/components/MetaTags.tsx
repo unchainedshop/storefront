@@ -1,20 +1,20 @@
-import Head from 'next/head';
-import getConfig from 'next/config';
-import { useRouter } from 'next/router';
+import Head from "next/head";
+import getConfig from "next/config";
+import { useRouter } from "next/router";
 
 const {
   publicRuntimeConfig: { theme },
 } = getConfig();
 
 const MetaTags = ({
-  imageUrl = 'https://unchained.shop/img/unchained-commerce-snake.svg',
+  imageUrl = "https://unchained.shop/img/unchained-commerce-snake.svg",
   title,
-  description = '',
+  description = "",
 }) => {
   const { asPath } = useRouter();
   return (
     <Head>
-      <title>{title || ' '}</title>
+      <title>{title || " "}</title>
       {Object.entries(theme.locales)?.map(([lang]) => (
         <link
           key={`${lang}${asPath}`}

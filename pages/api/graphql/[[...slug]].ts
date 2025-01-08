@@ -1,6 +1,6 @@
-import { createProxyMiddleware } from 'http-proxy-middleware';
-import http from 'http';
-import https from 'https';
+import { createProxyMiddleware } from "http-proxy-middleware";
+import http from "http";
+import https from "https";
 
 const engineURL = new URL(process.env.UNCHAINED_ENDPOINT);
 
@@ -12,22 +12,22 @@ export const config = {
 };
 
 const agent =
-  engineURL.protocol === 'https:'
+  engineURL.protocol === "https:"
     ? new https.Agent({ keepAlive: true })
     : new http.Agent({ keepAlive: true });
 
 export default createProxyMiddleware({
   agent,
   cookieDomainRewrite: {
-    '*': '',
+    "*": "",
   },
-  cookiePathRewrite: '/',
+  cookiePathRewrite: "/",
   target: process.env.UNCHAINED_ENDPOINT,
   changeOrigin: true,
   proxyTimeout: 30000,
   onProxyRes: (proxyRes) => {
-    const removeSecure = (str) => str.replace(/; Secure/i, '');
-    const set = proxyRes.headers['set-cookie'];
+    const removeSecure = (str) => str.replace(/; Secure/i, "");
+    const set = proxyRes.headers["set-cookie"];
     if (set) {
       const result = Array.isArray(set)
         ? set.map(removeSecure)

@@ -1,18 +1,18 @@
-import Link from 'next/link';
-import { useIntl } from 'react-intl';
+import Link from "next/link";
+import { useIntl } from "react-intl";
 
 import {
   BookmarkIcon,
   ArrowRightOnRectangleIcon,
   ShoppingCartIcon,
   UserCircleIcon,
-} from '@heroicons/react/24/outline';
-import { useRouter } from 'next/router';
-import OrderButton from '../../orders/components/UserOrderButton';
-import useUser from '../hooks/useUser';
-import { useApollo } from '../../apollo/apolloClient';
-import logOut from '../hooks/logOut';
-import { useAppContext } from '../../common/components/AppContextWrapper';
+} from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
+import OrderButton from "../../orders/components/UserOrderButton";
+import useUser from "../hooks/useUser";
+import { useApollo } from "../../apollo/apolloClient";
+import logOut from "../hooks/logOut";
+import { useAppContext } from "../../common/components/AppContextWrapper";
 
 const LoginCart = () => {
   const { user } = useUser();
@@ -23,7 +23,7 @@ const LoginCart = () => {
 
   const onLogout = async () => {
     await logOut(apollo);
-    router.push('/login');
+    router.push("/login");
   };
 
   return user ? (
@@ -34,8 +34,8 @@ const LoginCart = () => {
           <span>{user?.bookmarks?.length}</span>
           <span className="hidden lg:block">
             {formatMessage({
-              id: 'bookmarks',
-              defaultMessage: 'Bookmarks',
+              id: "bookmarks",
+              defaultMessage: "Bookmarks",
             })}
           </span>
         </Link>
@@ -51,10 +51,10 @@ const LoginCart = () => {
             {user?.cart?.items.reduce((acc, item) => acc + item.quantity, 0)}
           </span>
         ) : (
-          ''
+          ""
         )}
         <span className="hidden lg:block">
-          {formatMessage({ id: 'cart', defaultMessage: 'Cart' })}
+          {formatMessage({ id: "cart", defaultMessage: "Cart" })}
         </span>
       </a>
       {!user?.isGuest && (
@@ -63,7 +63,7 @@ const LoginCart = () => {
           <Link href="/account" className="flex items-center gap-x-3">
             <UserCircleIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
             <span className="hidden lg:block">
-              {formatMessage({ id: 'account', defaultMessage: 'Account' })}
+              {formatMessage({ id: "account", defaultMessage: "Account" })}
             </span>
           </Link>
 
@@ -75,7 +75,7 @@ const LoginCart = () => {
           >
             <ArrowRightOnRectangleIcon className="inline-flex h-6 w-6 select-none items-center justify-center dark:text-white" />
             <span className="hidden lg:block">
-              {formatMessage({ id: 'log-out', defaultMessage: 'Logout' })}
+              {formatMessage({ id: "log-out", defaultMessage: "Logout" })}
             </span>
           </a>
         </>
@@ -84,7 +84,7 @@ const LoginCart = () => {
   ) : (
     <div className="flex items-center gap-x-3">
       <Link href="/login">
-        {formatMessage({ id: 'log_in', defaultMessage: 'Log In' })}
+        {formatMessage({ id: "log_in", defaultMessage: "Log In" })}
       </Link>
     </div>
   );

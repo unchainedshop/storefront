@@ -1,5 +1,5 @@
-import formatPrice from '../utils/formatPrice';
-import useSupportedCurrencies from '../utils/useSupportedCurrencies';
+import formatPrice from "../utils/formatPrice";
+import useSupportedCurrencies from "../utils/useSupportedCurrencies";
 
 const FormattedPrice = ({ price }) => {
   const { currencies } = useSupportedCurrencies();

@@ -1,4 +1,4 @@
-import { formatCurrency } from '@coingecko/cryptoformat';
+import { formatCurrency } from "@coingecko/cryptoformat";
 
 export const roundUp = (amount, decimals) => {
   if (decimals <= 2) return amount;
@@ -7,7 +7,7 @@ export const roundUp = (amount, decimals) => {
 
 const formatPrice = (rawPrice) => {
   const { amount, currency, decimals = 2, hack = true } = rawPrice || {};
-  if (amount === undefined || amount === null) return 'N/A';
+  if (amount === undefined || amount === null) return "N/A";
 
   let fixedAmount = amount;
   if (hack) {

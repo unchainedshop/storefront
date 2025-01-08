@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
 
-import { useIntl } from 'react-intl';
-import ContactForm from './ContactForm';
-import ContactPanel from './ContactPanel';
-import useAddEmail from '../cart/hooks/useAddEmail';
-import useUpdateCartContact from '../cart/hooks/useUpdateCartContact';
+import { useIntl } from "react-intl";
+import ContactForm from "./ContactForm";
+import ContactPanel from "./ContactPanel";
+import useAddEmail from "../cart/hooks/useAddEmail";
+import useUpdateCartContact from "../cart/hooks/useUpdateCartContact";
 
 const CheckoutContact = ({ cart, isInitial }) => {
   const { updateCartContact } = useUpdateCartContact();
@@ -27,7 +27,7 @@ const CheckoutContact = ({ cart, isInitial }) => {
       setShowLogin(false);
       setEditMode(false);
     } catch (error) {
-      if ((error as any)?.message.includes('duplicate')) setShowLogin(true);
+      if ((error as any)?.message.includes("duplicate")) setShowLogin(true);
       throw error;
     }
   };
@@ -41,15 +41,15 @@ const CheckoutContact = ({ cart, isInitial }) => {
     <div className="mt-6">
       <h2 className="text-lg font-medium ">
         {formatMessage({
-          id: 'contact-info',
-          defaultMessage: 'Contact info',
+          id: "contact-info",
+          defaultMessage: "Contact info",
         })}
       </h2>
       {showLogin && editMode && (
         <div className="text-red-500">
           {formatMessage({
-            id: 'email-not-available',
-            defaultMessage: 'E-Mail address is not available, please',
+            id: "email-not-available",
+            defaultMessage: "E-Mail address is not available, please",
           })}
           <Link
             href="/login"
@@ -57,14 +57,14 @@ const CheckoutContact = ({ cart, isInitial }) => {
           >
             <span className="ml-2">
               {formatMessage({
-                id: 'sign-in',
-                defaultMessage: 'Sign in',
+                id: "sign-in",
+                defaultMessage: "Sign in",
               })}
             </span>
-          </Link>{' '}
+          </Link>{" "}
           {formatMessage({
-            id: 'or-choose-another',
-            defaultMessage: 'or choose another one',
+            id: "or-choose-another",
+            defaultMessage: "or choose another one",
           })}
         </div>
       )}

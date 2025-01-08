@@ -1,17 +1,17 @@
-import { KeyIcon } from '@heroicons/react/20/solid';
+import { KeyIcon } from "@heroicons/react/20/solid";
 
-import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 
-import { useIntl } from 'react-intl';
+import { useIntl } from "react-intl";
 
-import useChangePassword from '../../modules/auth/hooks/useChangePassword';
+import useChangePassword from "../../modules/auth/hooks/useChangePassword";
 
-import MetaTags from '../../modules/common/components/MetaTags';
-import Form from '../../modules/forms/components/Form';
-import FormErrors from '../../modules/forms/components/FormErrors';
-import PasswordField from '../../modules/forms/components/PasswordField';
-import SubmitButton from '../../modules/forms/components/SubmitButton';
+import MetaTags from "../../modules/common/components/MetaTags";
+import Form from "../../modules/forms/components/Form";
+import FormErrors from "../../modules/forms/components/FormErrors";
+import PasswordField from "../../modules/forms/components/PasswordField";
+import SubmitButton from "../../modules/forms/components/SubmitButton";
 
 const ChangePassword = () => {
   const { formatMessage } = useIntl();
@@ -27,21 +27,21 @@ const ChangePassword = () => {
     if (confirmPassword && newPassword && newPassword !== confirmPassword)
       return {
         confirmPassword: {
-          type: 'manual',
+          type: "manual",
           message: formatMessage({
-            id: 'password-does-not-match',
-            defaultMessage: 'Password does not match',
+            id: "password-does-not-match",
+            defaultMessage: "Password does not match",
           }),
         },
       };
     if (newPassword === oldPassword)
       return {
         newPassword: {
-          type: 'manual',
+          type: "manual",
           message: formatMessage({
-            id: 'password_identical',
+            id: "password_identical",
             defaultMessage:
-              'Provided new password identical to previous password',
+              "Provided new password identical to previous password",
           }),
         },
       };
@@ -52,35 +52,35 @@ const ChangePassword = () => {
     await changePassword({ oldPassword, newPassword });
     toast.success(
       formatMessage({
-        id: 'password-change-success',
-        defaultMessage: 'Password changed successfully.',
+        id: "password-change-success",
+        defaultMessage: "Password changed successfully.",
       }),
     );
-    router.push('/account');
+    router.push("/account");
   };
 
   const onSubmitError = async (error) => {
-    if (error?.message?.toLowerCase().includes('incorrect credential')) {
+    if (error?.message?.toLowerCase().includes("incorrect credential")) {
       return {
         oldPassword: {
-          type: 'manual',
+          type: "manual",
           message: formatMessage({
-            id: 'old_password_not_correct',
-            defaultMessage: 'Wrong password, please try again',
+            id: "old_password_not_correct",
+            defaultMessage: "Wrong password, please try again",
           }),
         },
       };
     }
     if (
-      error?.message?.toLowerCase()?.includes('password is not set for account')
+      error?.message?.toLowerCase()?.includes("password is not set for account")
     ) {
       return {
         submit: {
-          type: 'manual',
+          type: "manual",
           message: formatMessage({
-            id: 'password-not-set-error',
+            id: "password-not-set-error",
             defaultMessage:
-              'Password is not set for account. please assign a password using set password instead or contact system admin',
+              "Password is not set for account. please assign a password using set password instead or contact system admin",
           }),
         },
       };
@@ -88,11 +88,11 @@ const ChangePassword = () => {
 
     return {
       submit: {
-        type: 'manual',
+        type: "manual",
         message: formatMessage(
           {
-            id: 'password_change_failed',
-            defaultMessage: 'Password change failed, {error} try again later',
+            id: "password_change_failed",
+            defaultMessage: "Password change failed, {error} try again later",
           },
           { error: error.message },
         ),
@@ -104,8 +104,8 @@ const ChangePassword = () => {
     <>
       <MetaTags
         title={formatMessage({
-          id: 'update_password',
-          defaultMessage: 'Update Password',
+          id: "update_password",
+          defaultMessage: "Update Password",
         })}
       />
       <div className="bg-slate-100 dark:bg-slate-600">
@@ -116,8 +116,8 @@ const ChangePassword = () => {
             </div>
             <h1 className="text-center text-6xl font-bold text-slate-600 dark:text-slate-300">
               {formatMessage({
-                id: 'change_password',
-                defaultMessage: 'Change Password',
+                id: "change_password",
+                defaultMessage: "Change Password",
               })}
             </h1>
 
@@ -130,12 +130,12 @@ const ChangePassword = () => {
               <PasswordField
                 required
                 label={formatMessage({
-                  id: 'current_password',
-                  defaultMessage: 'Current password',
+                  id: "current_password",
+                  defaultMessage: "Current password",
                 })}
                 placeholder={formatMessage({
-                  id: 'current_password',
-                  defaultMessage: 'Current password',
+                  id: "current_password",
+                  defaultMessage: "Current password",
                 })}
                 name="oldPassword"
                 id="oldPassword"
@@ -143,12 +143,12 @@ const ChangePassword = () => {
               <PasswordField
                 required
                 label={formatMessage({
-                  id: 'new_password',
-                  defaultMessage: 'New password',
+                  id: "new_password",
+                  defaultMessage: "New password",
                 })}
                 placeholder={formatMessage({
-                  id: 'new_password',
-                  defaultMessage: 'New password',
+                  id: "new_password",
+                  defaultMessage: "New password",
                 })}
                 name="newPassword"
                 id="newPassword"
@@ -157,12 +157,12 @@ const ChangePassword = () => {
               <PasswordField
                 required
                 label={formatMessage({
-                  id: 'confirm-password',
-                  defaultMessage: 'Confirm password',
+                  id: "confirm-password",
+                  defaultMessage: "Confirm password",
                 })}
                 placeholder={formatMessage({
-                  id: 'confirm-password',
-                  defaultMessage: 'Confirm password',
+                  id: "confirm-password",
+                  defaultMessage: "Confirm password",
                 })}
                 name="confirmPassword"
                 id="confirmPassword"
@@ -173,8 +173,8 @@ const ChangePassword = () => {
 
               <SubmitButton>
                 {formatMessage({
-                  id: 'reset_password',
-                  defaultMessage: 'Reset password',
+                  id: "reset_password",
+                  defaultMessage: "Reset password",
                 })}
               </SubmitButton>
             </Form>

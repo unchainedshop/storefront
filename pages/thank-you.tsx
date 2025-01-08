@@ -1,16 +1,16 @@
-import { useRouter } from 'next/router';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useRouter } from "next/router";
+import { FormattedMessage, useIntl } from "react-intl";
 
-import Link from 'next/link';
-import Image from 'next/legacy/image';
-import getConfig from 'next/config';
-import { CheckCircleIcon } from '@heroicons/react/20/solid';
-import useOrderDetail from '../modules/orders/hooks/useOrderDetail';
-import MetaTags from '../modules/common/components/MetaTags';
-import CartItem from '../modules/cart/components/CartItem';
-import useFormatDateTime from '../modules/common/utils/useFormatDateTime';
-import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
-import FormattedPrice from '../modules/common/components/FormattedPrice';
+import Link from "next/link";
+import Image from "next/legacy/image";
+import getConfig from "next/config";
+import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import useOrderDetail from "../modules/orders/hooks/useOrderDetail";
+import MetaTags from "../modules/common/components/MetaTags";
+import CartItem from "../modules/cart/components/CartItem";
+import useFormatDateTime from "../modules/common/utils/useFormatDateTime";
+import defaultNextImageLoader from "../modules/common/utils/defaultNextImageLoader";
+import FormattedPrice from "../modules/common/components/FormattedPrice";
 
 const {
   publicRuntimeConfig: { theme },
@@ -19,7 +19,7 @@ const {
 function getFlagEmoji(countryCode) {
   const codePoints = countryCode
     ?.toUpperCase()
-    ?.split('')
+    ?.split("")
     ?.map((char) => 127397 + Number(char?.charCodeAt() || 0));
   return String.fromCodePoint(...(codePoints || []));
 }
@@ -32,19 +32,19 @@ const ThankYou = () => {
     orderId: router.query?.orderId,
   });
 
-  if (!router.query.orderId) return '';
+  if (!router.query.orderId) return "";
 
   return (
     <>
       <MetaTags
         title={formatMessage({
-          id: 'thank_you',
-          defaultMessage: 'Thank you!',
+          id: "thank_you",
+          defaultMessage: "Thank you!",
         })}
         description={formatMessage({
-          id: 'thank_you_description',
+          id: "thank_you_description",
           defaultMessage:
-            'It has reached us and an email with the order placement  confirmation is on its way. To avoid any potential  miscommunication, please check your spam, perhaps the email landed  there.',
+            "It has reached us and an email with the order placement  confirmation is on its way. To avoid any potential  miscommunication, please check your spam, perhaps the email landed  there.",
         })}
       />
 
@@ -55,8 +55,8 @@ const ThankYou = () => {
               <Image
                 src={theme.assets.logo}
                 alt={formatMessage({
-                  id: 'shop_logo',
-                  defaultMessage: 'Shop logo',
+                  id: "shop_logo",
+                  defaultMessage: "Shop logo",
                 })}
                 layout="fill"
                 placeholder="blur"
@@ -68,21 +68,21 @@ const ThankYou = () => {
             <div className="lg:col-start-2">
               <h1 className="text-sm font-medium text-slate-600 dark:text-slate-400">
                 {formatMessage({
-                  id: 'thank_you',
-                  defaultMessage: 'Thank you!',
+                  id: "thank_you",
+                  defaultMessage: "Thank you!",
                 })}
               </h1>
               <p className="mt-2 text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
                 {formatMessage({
-                  id: 'thank_you_header',
-                  defaultMessage: 'Thank You for Placing this Order with Us!',
+                  id: "thank_you_header",
+                  defaultMessage: "Thank You for Placing this Order with Us!",
                 })}
               </p>
               <p className="mt-2 text-base text-slate-500 dark:text-slate-400">
                 {formatMessage({
-                  id: 'thank_you_description',
+                  id: "thank_you_description",
                   defaultMessage:
-                    'It has reached us and an email with the order placement  confirmation is on its way. To avoid any potential  miscommunication, please check your spam, perhaps the email landed  there.',
+                    "It has reached us and an email with the order placement  confirmation is on its way. To avoid any potential  miscommunication, please check your spam, perhaps the email landed  there.",
                 })}
               </p>
               <div className="md:grid md:grid-cols-2 md:gap-2">
@@ -149,12 +149,12 @@ const ThankYou = () => {
                 <div>
                   <dt className="font-medium text-slate-900 dark:text-white">
                     {formatMessage({
-                      id: 'shipping_address',
-                      defaultMessage: 'Shipping Address',
+                      id: "shipping_address",
+                      defaultMessage: "Shipping Address",
                     })}
                   </dt>
                   <dd className="mt-2">
-                    {order?.delivery?.provider?.type === 'SHIPPING' ? (
+                    {order?.delivery?.provider?.type === "SHIPPING" ? (
                       <address className="mt-3 not-italic text-slate-500 dark:text-slate-300">
                         <span className="block">
                           {order?.delivery?.address?.firstName}&nbsp;
@@ -174,8 +174,8 @@ const ThankYou = () => {
                       <div>
                         <span className="block">
                           {formatMessage({
-                            id: 'order_pickup',
-                            defaultMessage: 'Order is pick up',
+                            id: "order_pickup",
+                            defaultMessage: "Order is pick up",
                           })}
                         </span>
                       </div>
@@ -186,8 +186,8 @@ const ThankYou = () => {
                 <div>
                   <dt className="font-medium text-slate-900 dark:text-white">
                     {formatMessage({
-                      id: 'payment-information',
-                      defaultMessage: 'Payment Information',
+                      id: "payment-information",
+                      defaultMessage: "Payment Information",
                     })}
                   </dt>
                   <dd className="-ml-4 -mt-1">
@@ -226,8 +226,8 @@ const ThankYou = () => {
                             />
                             <span className="mx-2">
                               {formatMessage({
-                                id: 'paid_on',
-                                defaultMessage: 'paid on',
+                                id: "paid_on",
+                                defaultMessage: "paid on",
                               })}
                             </span>
                             <time dateTime={order?.paid}>
@@ -247,8 +247,8 @@ const ThankYou = () => {
                   className="text-sm font-medium text-slate-600 hover:text-slate-500 dark:text-slate-400 dark:hover:text-slate-500"
                 >
                   {formatMessage({
-                    id: 'continue_shopping',
-                    defaultMessage: 'Continue Shopping',
+                    id: "continue_shopping",
+                    defaultMessage: "Continue Shopping",
                   })}
 
                   <span aria-hidden="true"> &rarr;</span>

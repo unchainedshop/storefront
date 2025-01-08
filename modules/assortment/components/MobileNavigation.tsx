@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import getConfig from 'next/config';
-import { useIntl } from 'react-intl';
+import React, { useState } from "react";
+import Link from "next/link";
+import getConfig from "next/config";
+import { useIntl } from "react-intl";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
   XMarkIcon,
-} from '@heroicons/react/20/solid';
-import useCategoriesTree from '../hooks/useCategoriesTree';
-import Thumbnail from '../../common/components/thumbnail';
-import changeLanguage from '../../common/utils/changeLanguage';
+} from "@heroicons/react/20/solid";
+import useCategoriesTree from "../hooks/useCategoriesTree";
+import Thumbnail from "../../common/components/thumbnail";
+import changeLanguage from "../../common/utils/changeLanguage";
 
 const createPathFromArray = (path = []) => {
-  return `/${(path || []).join('/')}`;
+  return `/${(path || []).join("/")}`;
 };
 
 const {
@@ -33,10 +33,10 @@ const Subtree = ({
   const level = path.length - 2;
 
   const levelClassMap = [
-    'text-xl p-3',
-    'pl-8 text-base py-3',
-    'pl-12 text-base py-3',
-    'pl-16 text-base py-3',
+    "text-xl p-3",
+    "pl-8 text-base py-3",
+    "pl-12 text-base py-3",
+    "pl-16 text-base py-3",
   ];
 
   return Object.keys(children).length ? (
@@ -66,8 +66,8 @@ const Subtree = ({
             }`}
           >
             {intl.formatMessage({
-              id: 'show_all',
-              defaultMessage: 'Show all',
+              id: "show_all",
+              defaultMessage: "Show all",
             })}
           </Link>
 
@@ -87,7 +87,7 @@ const Subtree = ({
             ))}
         </div>
       ) : (
-        ''
+        ""
       )}
     </div>
   ) : (
@@ -113,7 +113,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
         onClick={doClose}
       >
         <span className="hidden">
-          {intl.formatMessage({ id: 'close', defaultMessage: 'Close' })}
+          {intl.formatMessage({ id: "close", defaultMessage: "Close" })}
         </span>
       </button>
       <nav
@@ -129,7 +129,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
           >
             <XMarkIcon className="h-5 w-5 select-none" />
             <small className="sr-only">
-              {intl.formatMessage({ id: 'close', defaultMessage: 'Close' })}
+              {intl.formatMessage({ id: "close", defaultMessage: "Close" })}
             </small>
           </button>
           {Object.entries(assortmentTree.children).map(
@@ -152,7 +152,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
               key={lang}
               aria-label={intl.formatMessage({
                 id: `language_${lang}`,
-                defaultMessage: 'Language X',
+                defaultMessage: "Language X",
               })}
               type="button"
               className="mb-3 block cursor-pointer appearance-none border-0 bg-transparent p-0 text-left text-inherit"
@@ -160,7 +160,7 @@ const MobileNavigation = ({ doClose, isNavOpen }) => {
             >
               {intl.formatMessage({
                 id: `language_${lang}`,
-                defaultMessage: 'Language X',
+                defaultMessage: "Language X",
               })}
             </button>
           ))}

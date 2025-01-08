@@ -1,15 +1,15 @@
-import React from 'react';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/router';
+import React from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 import {
   PlusIcon,
   MinusIcon,
   ShoppingCartIcon,
   CogIcon,
   CheckCircleIcon,
-} from '@heroicons/react/24/outline';
-import { useIntl } from 'react-intl';
-import useUnchainedAddToCartButton from '../hooks/useUnchainedAddToCartButton';
+} from "@heroicons/react/24/outline";
+import { useIntl } from "react-intl";
+import useUnchainedAddToCartButton from "../hooks/useUnchainedAddToCartButton";
 
 const AddToCartButton = ({ productId, ...product }) => {
   const { formatMessage } = useIntl();
@@ -24,8 +24,8 @@ const AddToCartButton = ({ productId, ...product }) => {
     quantity,
   } = useUnchainedAddToCartButton({ productId });
   const router = useRouter();
-  const coverImageSrc = product?.media?.[0]?.file?.url || '/no-image.jpg';
-  const coverImageTitle = product?.media?.[0]?.texts?.title || 'product image';
+  const coverImageSrc = product?.media?.[0]?.file?.url || "/no-image.jpg";
+  const coverImageTitle = product?.media?.[0]?.texts?.title || "product image";
   const productTitle = product?.texts?.title;
   const productSubTitle = product?.texts?.subTitle;
 
@@ -36,7 +36,7 @@ const AddToCartButton = ({ productId, ...product }) => {
     toast.custom((t) => (
       <div
         className={`${
-          t.visible ? 'animate-enter' : 'animate-leave'
+          t.visible ? "animate-enter" : "animate-leave"
         } max-w-lg w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5 animate-enter`}
       >
         <div className="flex-1 w-0 p-4">
@@ -52,10 +52,10 @@ const AddToCartButton = ({ productId, ...product }) => {
               <p className="text-sm font-medium ">
                 {productTitle}
                 <div className="mt-2 text-sm font-medium text-green-600">
-                  {quantity} x{' '}
+                  {quantity} x{" "}
                   {formatMessage({
-                    id: 'added-to-cart',
-                    defaultMessage: 'Added to cart',
+                    id: "added-to-cart",
+                    defaultMessage: "Added to cart",
                   })}
                 </div>
               </p>
@@ -68,7 +68,7 @@ const AddToCartButton = ({ productId, ...product }) => {
             type="button"
             onClick={() => {
               toast.dismiss(t.id);
-              router.push('/checkout');
+              router.push("/checkout");
             }}
             className="bg-white border border-transparent rounded-none rounded-r-lg p-4 justify-center flex-col align-middle text-sm font-medium text-slate-600 hover:text-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-800"
           >
@@ -90,8 +90,8 @@ const AddToCartButton = ({ productId, ...product }) => {
 
             <div className="w-20">
               {formatMessage({
-                id: 'checkout',
-                defaultMessage: 'Checkout',
+                id: "checkout",
+                defaultMessage: "Checkout",
               })}
             </div>
           </button>
@@ -144,8 +144,8 @@ const AddToCartButton = ({ productId, ...product }) => {
             <span aria-label="ok icon" className="flex justify-center w-full">
               <ShoppingCartIcon className="inline-block -ml-1 mr-2 h-5 w-5" />
               {formatMessage({
-                id: 'add-to-cart',
-                defaultMessage: 'Add to Cart',
+                id: "add-to-cart",
+                defaultMessage: "Add to Cart",
               })}
             </span>
           )}

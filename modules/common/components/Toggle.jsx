@@ -1,9 +1,9 @@
-import classNames from 'classnames';
-import { useRouter } from 'next/router';
-import { normalizeQuery } from '../utils/utils';
+import classNames from "classnames";
+import { useRouter } from "next/router";
+import { normalizeQuery } from "../utils/utils";
 
 const Toggle = ({
-  toggleText = '',
+  toggleText = "",
   toggleKey,
   onToggle,
   active,
@@ -13,7 +13,7 @@ const Toggle = ({
 }) => {
   const router = useRouter();
 
-  const toggleState = router?.query?.[toggleKey] === 'true' || active;
+  const toggleState = router?.query?.[toggleKey] === "true" || active;
 
   const toggle = () => {
     const { skip, ...rest } = router.query;
@@ -23,40 +23,40 @@ const Toggle = ({
   };
 
   return (
-    <div className={classNames('ml-1', className)}>
+    <div className={classNames("ml-1", className)}>
       <button
         id={toggleKey}
         disabled={disabled}
         type="button"
         className={classNames(
-          ' relative inline-flex h-4 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2',
+          " relative inline-flex h-4 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2",
           {
-            'bg-slate-200 dark:bg-slate-700': !toggleState,
-            'bg-slate-500': toggleState,
+            "bg-slate-200 dark:bg-slate-700": !toggleState,
+            "bg-slate-500": toggleState,
           },
         )}
         role="switch"
         onClick={onToggle || toggle}
-        aria-checked={toggleState ? 'true' : 'false'}
+        aria-checked={toggleState ? "true" : "false"}
         {...props}
       >
         <span className="sr-only">{toggleText}</span>
 
         <span
           className={classNames(
-            ' pointer-events-none relative inline-block h-3 w-3 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+            " pointer-events-none relative inline-block h-3 w-3 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
             {
-              'translate-x-5': toggleState,
-              'translate-x-0': !toggleState,
+              "translate-x-5": toggleState,
+              "translate-x-0": !toggleState,
             },
           )}
         >
           <span
             className={classNames(
-              'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
+              "absolute inset-0 flex h-full w-full items-center justify-center transition-opacity",
               {
-                'opacity-100 duration-200 ease-in': toggleState,
-                'opacity-0 duration-100 ease-out': toggleState,
+                "opacity-100 duration-200 ease-in": toggleState,
+                "opacity-0 duration-100 ease-out": toggleState,
               },
             )}
             aria-hidden="true"
@@ -78,10 +78,10 @@ const Toggle = ({
 
           <span
             className={classNames(
-              'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
+              "absolute inset-0 flex h-full w-full items-center justify-center transition-opacity",
               {
-                'opacity-100 duration-200 ease-in': toggleState,
-                'opacity-0 duration-100 ease-out': !toggleState,
+                "opacity-100 duration-200 ease-in": toggleState,
+                "opacity-0 duration-100 ease-out": !toggleState,
               },
             )}
             aria-hidden="true"

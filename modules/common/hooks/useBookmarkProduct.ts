@@ -1,4 +1,4 @@
-import { useMutation, gql } from '@apollo/client';
+import { useMutation, gql } from "@apollo/client";
 
 const AddBookmarkMutation = gql`
   mutation Bookmark($productId: ID!) {

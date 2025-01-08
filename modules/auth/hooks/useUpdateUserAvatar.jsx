@@ -1,6 +1,6 @@
-import { useMutation, gql } from '@apollo/client';
+import { useMutation, gql } from "@apollo/client";
 
-import CurrentUserFragment from '../fragments/CurrentUserFragment';
+import CurrentUserFragment from "../fragments/CurrentUserFragment";
 
 export const UPDATE_USER_AVATAR_MUTATION = gql`
   mutation UpdateUserAvatar($avatar: Upload!, $userId: ID) {

@@ -1,21 +1,21 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
-import toast from 'react-hot-toast';
-import { useIntl } from 'react-intl';
-import { useAppContext } from '../../common/components/AppContextWrapper';
-import Toggle from '../../common/components/Toggle';
-import EmailField from '../../forms/components/EmailField';
-import Form from '../../forms/components/Form';
-import FormErrors from '../../forms/components/FormErrors';
+import toast from "react-hot-toast";
+import { useIntl } from "react-intl";
+import { useAppContext } from "../../common/components/AppContextWrapper";
+import Toggle from "../../common/components/Toggle";
+import EmailField from "../../forms/components/EmailField";
+import Form from "../../forms/components/Form";
+import FormErrors from "../../forms/components/FormErrors";
 
-import PasswordField from '../../forms/components/PasswordField';
-import SubmitButton from '../../forms/components/SubmitButton';
-import TextField from '../../forms/components/TextField';
+import PasswordField from "../../forms/components/PasswordField";
+import SubmitButton from "../../forms/components/SubmitButton";
+import TextField from "../../forms/components/TextField";
 
-import useCreateUser from '../hooks/useCreateUser';
-import useGenerateWebAuthCredentials from '../hooks/useGenerateWebAuthCredentials';
+import useCreateUser from "../hooks/useCreateUser";
+import useGenerateWebAuthCredentials from "../hooks/useGenerateWebAuthCredentials";
 
 const SignUpForm = () => {
   const { formatMessage } = useIntl();
@@ -26,28 +26,28 @@ const SignUpForm = () => {
   const { emailSupportDisabled } = useAppContext();
 
   const onSubmitError = async (e) => {
-    if (e.message?.toLowerCase().includes('email already exist')) {
+    if (e.message?.toLowerCase().includes("email already exist")) {
       return {
         email: {
-          type: 'manual',
+          type: "manual",
           message: formatMessage({
-            id: 'email_exists_error',
-            defaultMessage: 'Email already exists',
+            id: "email_exists_error",
+            defaultMessage: "Email already exists",
           }),
         },
       };
     }
     if (
-      e.message?.includes('challenge mismatch') ||
-      e.message?.includes('already exists')
+      e.message?.includes("challenge mismatch") ||
+      e.message?.includes("already exists")
     ) {
       return {
         email: {
-          type: 'manual',
+          type: "manual",
           message: formatMessage({
-            id: 'username_or_email_taken',
+            id: "username_or_email_taken",
             defaultMessage:
-              'Username taken, Please provided different username',
+              "Username taken, Please provided different username",
           }),
         },
       };
@@ -79,11 +79,11 @@ const SignUpForm = () => {
 
     toast.success(
       formatMessage({
-        id: 'registration-complete',
-        defaultMessage: 'Registered successfully',
+        id: "registration-complete",
+        defaultMessage: "Registered successfully",
       }),
     );
-    push('/account');
+    push("/account");
   };
 
   return (
@@ -92,8 +92,8 @@ const SignUpForm = () => {
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-200">
             {formatMessage({
-              id: 'sign_up_header',
-              defaultMessage: 'Create new account',
+              id: "sign_up_header",
+              defaultMessage: "Create new account",
             })}
           </h2>
         </div>
@@ -112,8 +112,8 @@ const SignUpForm = () => {
               required={authenticateWithDevice}
               type="text"
               label={formatMessage({
-                id: 'username',
-                defaultMessage: 'Username',
+                id: "username",
+                defaultMessage: "Username",
               })}
             />
 
@@ -125,8 +125,8 @@ const SignUpForm = () => {
                     name="email"
                     required={!authenticateWithDevice}
                     label={formatMessage({
-                      id: 'email',
-                      defaultMessage: 'Email',
+                      id: "email",
+                      defaultMessage: "Email",
                     })}
                   />
                 ) : null}
@@ -135,8 +135,8 @@ const SignUpForm = () => {
                   name="password"
                   required={!authenticateWithDevice}
                   label={formatMessage({
-                    id: 'password',
-                    defaultMessage: 'Password',
+                    id: "password",
+                    defaultMessage: "Password",
                   })}
                 />
               </>
@@ -146,8 +146,8 @@ const SignUpForm = () => {
                 setAuthenticateWithDevice(!authenticateWithDevice)
               }
               toggleText={formatMessage({
-                id: 'use_authenticator',
-                defaultMessage: 'Use authenticator',
+                id: "use_authenticator",
+                defaultMessage: "Use authenticator",
               })}
               className="ml-2 my-3"
               toggleKey="webauthn"
@@ -175,24 +175,24 @@ const SignUpForm = () => {
               </span>
 
               {formatMessage({
-                id: 'sign_up',
-                defaultMessage: 'Sign up',
+                id: "sign_up",
+                defaultMessage: "Sign up",
               })}
             </SubmitButton>
           </div>
 
           <div className="text-sm text-slate-400 dark:text-slate-200">
             {formatMessage({
-              id: 'already_got_a_user',
-              defaultMessage: 'Already got a user?',
+              id: "already_got_a_user",
+              defaultMessage: "Already got a user?",
             })}
             <Link
               href="/login"
               className=" ml-2 font-medium text-slate-600 hover:text-slate-500 dark:text-slate-400 dark:hover:text-slate-300"
             >
               {formatMessage({
-                id: 'log_in',
-                defaultMessage: 'Log In',
+                id: "log_in",
+                defaultMessage: "Log In",
               })}
             </Link>
           </div>

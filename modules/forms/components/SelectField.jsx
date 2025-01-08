@@ -1,9 +1,9 @@
-import classNames from 'classnames';
-import React from 'react';
-import { useFormContext } from 'react-hook-form';
-import useValidators from '../lib/useValidators';
+import classNames from "classnames";
+import React from "react";
+import { useFormContext } from "react-hook-form";
+import useValidators from "../lib/useValidators";
 
-import FieldWrapper from './FieldWrapper';
+import FieldWrapper from "./FieldWrapper";
 
 const SelectField = ({ ...props }) => {
   const { register, formState } = useFormContext();
@@ -15,11 +15,11 @@ const SelectField = ({ ...props }) => {
     <FieldWrapper {...props} error={error}>
       <select
         className={classNames(
-          'mt-1 block w-full appearance-none rounded-md border focus:outline-none px-3 py-2 text-slate-900 placeholder-slate-400 shadow-sm dark:bg-slate-300 sm:text-sm',
+          "mt-1 block w-full appearance-none rounded-md border focus:outline-none px-3 py-2 text-slate-900 placeholder-slate-400 shadow-sm dark:bg-slate-300 sm:text-sm",
           {
-            'border-slate-300 focus:border-slate-900 focus:ring-slate-900':
+            "border-slate-300 focus:border-slate-900 focus:ring-slate-900":
               !props.error,
-            'border-red-300 focus:border-red-500 focus:ring-red-500':
+            "border-red-300 focus:border-red-500 focus:ring-red-500":
               props.error,
           },
         )}

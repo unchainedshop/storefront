@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-import AssortmentFragment from './assortment';
+import AssortmentFragment from "./assortment";
 
 const AssortmentThreeLevelLinksFragment = gql`
   fragment AssortmentThreeLevelLinksFragment on AssortmentLink {

@@ -1,39 +1,39 @@
-import getConfig from 'next/config';
-import { useIntl } from 'react-intl';
+import getConfig from "next/config";
+import { useIntl } from "react-intl";
 
-import Image from 'next/image';
+import Image from "next/image";
 
-import MetaTags from '../modules/common/components/MetaTags';
-import defaultNextImageLoader from '../modules/common/utils/defaultNextImageLoader';
-import useProducts from '../modules/products/hooks/useProducts';
-import ProductListItem from '../modules/products/components/ProductListItem';
-import Loading from '../modules/common/components/Loading';
+import MetaTags from "../modules/common/components/MetaTags";
+import defaultNextImageLoader from "../modules/common/utils/defaultNextImageLoader";
+import useProducts from "../modules/products/hooks/useProducts";
+import ProductListItem from "../modules/products/components/ProductListItem";
+import Loading from "../modules/common/components/Loading";
 
 const {
   publicRuntimeConfig: { theme },
 } = getConfig();
 
 const Home = () => {
-  const { products, loading } = useProducts({ tags: ['featured'] });
+  const { products, loading } = useProducts({ tags: ["featured"] });
   const { formatMessage } = useIntl();
 
   return (
     <>
-      <MetaTags title={formatMessage({ id: 'home', defaultMessage: 'Home' })} />
+      <MetaTags title={formatMessage({ id: "home", defaultMessage: "Home" })} />
       <div className="w-full bg-white px-4 dark:bg-slate-600 sm:px-0">
-        <div className="relative w-full" style={{ height: '35vh' }}>
+        <div className="relative w-full" style={{ height: "35vh" }}>
           <Image
             src={theme.assets.hero}
             fill
             style={{
-              objectFit: 'cover',
-              objectPosition: 'center',
+              objectFit: "cover",
+              objectPosition: "center",
             }}
             quality={100}
             placeholder="blur"
             blurDataURL="/placeholder.png"
             className="mx-auto mb-4 block rounded-lg"
-            alt={formatMessage({ id: 'hero', defaultMessage: 'Hero' })}
+            alt={formatMessage({ id: "hero", defaultMessage: "Hero" })}
             loader={defaultNextImageLoader}
           />
         </div>
@@ -47,8 +47,8 @@ const Home = () => {
                 <div className="sm:flex sm:items-baseline sm:justify-between">
                   <h2 className="text-1xl lg:text-2xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100">
                     {formatMessage({
-                      id: 'featured_products',
-                      defaultMessage: 'Featured Products',
+                      id: "featured_products",
+                      defaultMessage: "Featured Products",
                     })}
                   </h2>
                 </div>

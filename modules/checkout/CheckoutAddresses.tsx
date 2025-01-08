@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
-import { useIntl } from 'react-intl';
-import AddressForm from './AddressForm';
-import AddressPanel from './AddressPanel';
+import { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { useIntl } from "react-intl";
+import AddressForm from "./AddressForm";
+import AddressPanel from "./AddressPanel";
 
 export const UPDATE_CART_BILLING_ADDRESS_MUTATION = gql`
   mutation UpdateCartBillingAddress($billingAddress: AddressInput) {
@@ -154,8 +154,8 @@ const CheckoutAddresses = ({ cart, isInitial }) => {
       <div className="mb-6">
         <h2 className="text-lg font-medium">
           {formatMessage({
-            id: 'delivery-address',
-            defaultMessage: 'Delivery address',
+            id: "delivery-address",
+            defaultMessage: "Delivery address",
           })}
         </h2>
         <EditableAddressPanel
@@ -169,8 +169,8 @@ const CheckoutAddresses = ({ cart, isInitial }) => {
       <div className="mb-6" hidden={isInitial}>
         <h2 className="text-lg font-medium  mb-4">
           {formatMessage({
-            id: 'billing-address',
-            defaultMessage: 'Billing address',
+            id: "billing-address",
+            defaultMessage: "Billing address",
           })}
         </h2>
         <div className="flex items-center">
@@ -186,8 +186,8 @@ const CheckoutAddresses = ({ cart, isInitial }) => {
             className="ml-3 block text-sm font-medium text-brown-600"
           >
             {formatMessage({
-              id: 'billing-same-as-delivery',
-              defaultMessage: 'Billing Address Same as Delivery',
+              id: "billing-same-as-delivery",
+              defaultMessage: "Billing Address Same as Delivery",
             })}
           </label>
         </div>

@@ -1,8 +1,8 @@
-import { useIntl } from 'react-intl';
-import { ChevronDoubleDownIcon } from '@heroicons/react/20/solid';
+import { useIntl } from "react-intl";
+import { ChevronDoubleDownIcon } from "@heroicons/react/20/solid";
 
-import ProductListItem from './ProductListItem';
-import Button from '../../common/components/Button';
+import ProductListItem from "./ProductListItem";
+import Button from "../../common/components/Button";
 
 const ProductList = ({ products, totalProducts, onLoadMore }) => {
   const { formatMessage } = useIntl();
@@ -11,7 +11,7 @@ const ProductList = ({ products, totalProducts, onLoadMore }) => {
     <div className="mt-4 bg-white dark:bg-slate-600">
       <div className="mx-auto max-w-full overflow-hidden ">
         <h2 className="sr-only">
-          {formatMessage({ id: 'products', defaultMessage: 'Products' })}
+          {formatMessage({ id: "products", defaultMessage: "Products" })}
         </h2>
 
         <div className="-mx-px grid rounded-lg border-l border-slate-200 dark:border-slate-500 sm:mx-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -29,12 +29,12 @@ const ProductList = ({ products, totalProducts, onLoadMore }) => {
             <Button
               icon={<ChevronDoubleDownIcon className="mr-2 h-6 w-6" />}
               text={formatMessage({
-                id: 'load_more',
-                defaultMessage: 'Load More',
+                id: "load_more",
+                defaultMessage: "Load More",
               })}
               aria-label={formatMessage({
-                id: 'load_more',
-                defaultMessage: 'Load More',
+                id: "load_more",
+                defaultMessage: "Load More",
               })}
               type="button"
               className="dark:text-white"

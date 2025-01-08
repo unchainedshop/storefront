@@ -1,20 +1,20 @@
-import { useRouter } from 'next/router';
-import Markdown from 'react-markdown';
+import { useRouter } from "next/router";
+import Markdown from "react-markdown";
 
-import CategoriesList from '../../modules/assortment/components/CategoriesList';
-import useAssortmentProducts from '../../modules/assortment/hooks/useAssortmentProducts';
-import getAssortmentPath from '../../modules/assortment/utils/getAssortmentPath';
-import AssortmentBreadcrumbs from '../../modules/assortment/components/AssortmentBreadcrumbs';
-import ProductList from '../../modules/products/components/ProductList';
-import MetaTags from '../../modules/common/components/MetaTags';
-import useCategoriesTree from '../../modules/assortment/hooks/useCategoriesTree';
-import getMediaUrl from '../../modules/common/utils/getMediaUrl';
-import Loading from '../../modules/common/components/Loading';
+import CategoriesList from "../../modules/assortment/components/CategoriesList";
+import useAssortmentProducts from "../../modules/assortment/hooks/useAssortmentProducts";
+import getAssortmentPath from "../../modules/assortment/utils/getAssortmentPath";
+import AssortmentBreadcrumbs from "../../modules/assortment/components/AssortmentBreadcrumbs";
+import ProductList from "../../modules/products/components/ProductList";
+import MetaTags from "../../modules/common/components/MetaTags";
+import useCategoriesTree from "../../modules/assortment/hooks/useCategoriesTree";
+import getMediaUrl from "../../modules/common/utils/getMediaUrl";
+import Loading from "../../modules/common/components/Loading";
 
 const CategoryDetail = () => {
   const router = useRouter();
   const { slug: slugs } = router.query;
-  const slug = slugs?.length ? slugs[(slugs?.length || 0) - 1] : '';
+  const slug = slugs?.length ? slugs[(slugs?.length || 0) - 1] : "";
 
   const { assortmentTree, loading: categoryTreeLoading } = useCategoriesTree({
     slugs: [slug],
@@ -36,10 +36,10 @@ const CategoryDetail = () => {
   const assortmentPaths = getAssortmentPath(paths);
 
   let currentPath;
-  if (typeof slugs === 'string') {
+  if (typeof slugs === "string") {
     currentPath = slugs;
   } else {
-    currentPath = slugs?.join('/');
+    currentPath = slugs?.join("/");
   }
 
   return (

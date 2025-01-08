@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import classnames from 'classnames';
-import { useIntl } from 'react-intl';
+import classnames from "classnames";
+import { useIntl } from "react-intl";
 
 const FieldWrapper = ({
   children,
@@ -17,8 +17,8 @@ const FieldWrapper = ({
   const errorsMap = {
     required: formatMessage(
       {
-        id: 'error_required',
-        defaultMessage: '{label} is a required field',
+        id: "error_required",
+        defaultMessage: "{label} is a required field",
       },
       {
         label: label || name,
@@ -28,9 +28,9 @@ const FieldWrapper = ({
   return (
     <div
       className={classnames(
-        'container',
+        "container",
         {
-          'is-invalid': !!error,
+          "is-invalid": !!error,
           disabled,
           required,
         },
@@ -41,11 +41,11 @@ const FieldWrapper = ({
         aria-label={label}
         htmlFor={name}
         className={classnames(
-          'mb-2 block text-left text-sm font-medium text-slate-700 dark:text-slate-400',
+          "mb-2 block text-left text-sm font-medium text-slate-700 dark:text-slate-400",
           {
-            'mt-1 mb-5 rounded border border-red-100 dark:border-none bg-red-50 dark:bg-red-300 p-2 pl-4 text-red-400 dark:text-red-800':
+            "mt-1 mb-5 rounded border border-red-100 dark:border-none bg-red-50 dark:bg-red-300 p-2 pl-4 text-red-400 dark:text-red-800":
               !!error,
-            'sr-only': hideLabel,
+            "sr-only": hideLabel,
           },
           labelClassName,
         )}

@@ -1,18 +1,18 @@
-import Link from 'next/link';
-import { useIntl } from 'react-intl';
+import Link from "next/link";
+import { useIntl } from "react-intl";
 
-import LanguageSwitch from '../../common/components/LanguageSwitch';
+import LanguageSwitch from "../../common/components/LanguageSwitch";
 
 const footerNavigation = {
   products: [],
-  customerService: [{ name: 'Contact', href: '#' }],
+  customerService: [{ name: "Contact", href: "#" }],
   company: [
-    { name: 'About', href: '/about' },
-    { name: 'Imprint', href: '/imprint' },
+    { name: "About", href: "/about" },
+    { name: "Imprint", href: "/imprint" },
   ],
   legal: [
-    { name: 'Terms & Conditions', href: '/terms-conditions' },
-    { name: 'Privacy', href: '/privacy-policy' },
+    { name: "Terms & Conditions", href: "/terms-conditions" },
+    { name: "Privacy", href: "/privacy-policy" },
   ],
   bottomLinks: [],
   social: [],
@@ -26,7 +26,7 @@ const Footer = () => {
       className="container mx-auto bg-white dark:bg-slate-600 print:hidden"
     >
       <h2 id="footer-heading" className="sr-only">
-        {formatMessage({ id: 'footer', defaultMessage: 'Footer' })}
+        {formatMessage({ id: "footer", defaultMessage: "Footer" })}
       </h2>
 
       <div className="max-w-full px-1">
@@ -50,8 +50,8 @@ const Footer = () => {
                   <div>
                     <h3 className="text-lg font-medium text-slate-900 dark:text-slate-50">
                       {formatMessage({
-                        id: 'company',
-                        defaultMessage: 'Company',
+                        id: "company",
+                        defaultMessage: "Company",
                       })}
                     </h3>
                     <ul className="mt-6 space-y-6">
@@ -69,7 +69,7 @@ const Footer = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-medium text-slate-900 dark:text-slate-50">
-                      {formatMessage({ id: 'legal', defaultMessage: 'Legal' })}
+                      {formatMessage({ id: "legal", defaultMessage: "Legal" })}
                     </h3>
                     <ul className="mt-6 space-y-6">
                       {footerNavigation.legal.map((item) => (
@@ -97,8 +97,8 @@ const Footer = () => {
               <span className="mx-2">{new Date().getFullYear()}</span>
               <span>
                 {formatMessage({
-                  id: 'right',
-                  defaultMessage: 'All Rights Reserved',
+                  id: "right",
+                  defaultMessage: "All Rights Reserved",
                 })}
               </span>
             </p>

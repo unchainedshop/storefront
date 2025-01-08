@@ -1,7 +1,7 @@
-import { useIntl } from 'react-intl';
-import Link from 'next/link';
-import { useFormatPrice } from '../common/utils/utils';
-import ImageWithFallback from '../common/components/ImageWithFallback';
+import { useIntl } from "react-intl";
+import Link from "next/link";
+import { useFormatPrice } from "../common/utils/utils";
+import ImageWithFallback from "../common/components/ImageWithFallback";
 
 const OrderDetailItem = ({ item }) => {
   const { formatMessage } = useIntl();
@@ -11,8 +11,8 @@ const OrderDetailItem = ({ item }) => {
       <Link href={`/product/${item.product.texts.slug}`}>
         <h2 id="products-heading" className="sr-only">
           {formatMessage({
-            id: 'purchased_products',
-            defaultMessage: 'Purchased products',
+            id: "purchased_products",
+            defaultMessage: "Purchased products",
           })}
         </h2>
 
@@ -50,8 +50,8 @@ const OrderDetailItem = ({ item }) => {
                   </div>
                   <div className="mt-2 text-xs">
                     {formatMessage({
-                      id: 'item_quantity',
-                      defaultMessage: 'Quantity:',
+                      id: "item_quantity",
+                      defaultMessage: "Quantity:",
                     })}
                     <span className="ml-2 font-bold">{item?.quantity}</span>
                   </div>

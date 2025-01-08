@@ -1,6 +1,6 @@
-import classNames from 'classnames';
-import { useIntl } from 'react-intl';
-import Button from '../../common/components/Button';
+import classNames from "classnames";
+import { useIntl } from "react-intl";
+import Button from "../../common/components/Button";
 
 const SaveAndCancelButtons = ({
   cancelText,
@@ -14,7 +14,7 @@ const SaveAndCancelButtons = ({
   return (
     <span
       className={classNames(
-        'flex flex-shrink-0 items-center space-x-4 py-5 pl-1',
+        "flex flex-shrink-0 items-center space-x-4 py-5 pl-1",
         className,
       )}
     >
@@ -24,14 +24,14 @@ const SaveAndCancelButtons = ({
           data-id="cancel_update"
           type="button"
           className={classNames(
-            'focus:ring-indigo-400',
-            'inline-flex items-center rounded-md border dark:text-indigo-400 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2',
+            "focus:ring-indigo-400",
+            "inline-flex items-center rounded-md border dark:text-indigo-400 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2",
           )}
         >
           {cancelText ||
             formatMessage({
-              id: 'cancel',
-              defaultMessage: 'Cancel',
+              id: "cancel",
+              defaultMessage: "Cancel",
             })}
         </button>
       ) : null}
@@ -40,8 +40,8 @@ const SaveAndCancelButtons = ({
           text={
             submitText ||
             formatMessage({
-              id: 'save',
-              defaultMessage: 'Save',
+              id: "save",
+              defaultMessage: "Save",
             })
           }
         />

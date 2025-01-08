@@ -1,11 +1,11 @@
-import React, { useMemo, useRef, useState } from 'react';
-import Link from 'next/link';
-import { useIntl } from 'react-intl';
+import React, { useMemo, useRef, useState } from "react";
+import Link from "next/link";
+import { useIntl } from "react-intl";
 
-import { Bars3Icon } from '@heroicons/react/20/solid';
-import DesktopNavigationContext from './DesktopNavigationContext';
-import MegaDropdown from './MegaDropdown';
-import useCategoriesTree from '../hooks/useCategoriesTree';
+import { Bars3Icon } from "@heroicons/react/20/solid";
+import DesktopNavigationContext from "./DesktopNavigationContext";
+import MegaDropdown from "./MegaDropdown";
+import useCategoriesTree from "../hooks/useCategoriesTree";
 
 const arrayEqual = (a, b) =>
   a.length === b.length &&
@@ -51,7 +51,7 @@ const DesktopNavigation = () => {
   };
 
   const ref = useRef(null);
-  const dataInHoverPath = ref?.current?.getAttribute('data-in-hover-path');
+  const dataInHoverPath = ref?.current?.getAttribute("data-in-hover-path");
 
   return (
     <DesktopNavigationContext.Provider value={navContext}>
@@ -80,7 +80,7 @@ const DesktopNavigation = () => {
             onClick={handleClick(assortmentTree)}
           >
             <Bars3Icon className="mr-2 h-6 w-6 text-slate-900 dark:text-slate-100" />
-            {formatMessage({ id: 'menu', defaultMessage: 'Menu' })}
+            {formatMessage({ id: "menu", defaultMessage: "Menu" })}
           </Link>
           {hoverPath?.includes(assortmentTree.slug) && (
             <MegaDropdown

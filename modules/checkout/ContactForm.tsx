@@ -1,11 +1,11 @@
-import { useIntl } from 'react-intl';
-import { useState } from 'react';
-import classNames from 'classnames';
-import { useAppContext } from '../common/components/AppContextWrapper';
-import Button from '../common/components/Button';
+import { useIntl } from "react-intl";
+import { useState } from "react";
+import classNames from "classnames";
+import { useAppContext } from "../common/components/AppContextWrapper";
+import Button from "../common/components/Button";
 
-import Toggle from '../common/components/Toggle';
-import usePushNotification from '../context/push-notification/usePushNotification';
+import Toggle from "../common/components/Toggle";
+import usePushNotification from "../context/push-notification/usePushNotification";
 
 const ContactForm = ({ contact, onSubmit, onCancel }) => {
   const { formatMessage } = useIntl();
@@ -28,8 +28,8 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
           className="mb-2 block text-left text-sm font-medium text-slate-700 dark:text-slate-400"
         >
           {formatMessage({
-            id: 'email-address',
-            defaultMessage: 'Email Address',
+            id: "email-address",
+            defaultMessage: "Email Address",
           })}
           <input
             type="email"
@@ -48,8 +48,8 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
           className="mb-2 block text-left text-sm font-medium text-slate-700 dark:text-slate-400"
         >
           {formatMessage({
-            id: 'telNumber',
-            defaultMessage: 'Mobile Phone',
+            id: "telNumber",
+            defaultMessage: "Mobile Phone",
           })}
           <input
             type="tel"
@@ -83,26 +83,26 @@ const ContactForm = ({ contact, onSubmit, onCancel }) => {
             disabled={isDisabled}
             name="submit"
             value={formatMessage({
-              id: 'save_contact',
-              defaultMessage: 'Save Contact Data',
+              id: "save_contact",
+              defaultMessage: "Save Contact Data",
             })}
             className={classNames(
-              'flex w-full justify-center rounded-md border border-transparent  py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2',
+              "flex w-full justify-center rounded-md border border-transparent  py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2",
               {
-                'bg-slate-400': isDisabled,
-                'bg-slate-800': !isDisabled,
+                "bg-slate-400": isDisabled,
+                "bg-slate-800": !isDisabled,
               },
             )}
           />
         </div>
         <Button
           text={formatMessage({
-            id: 'cancel',
-            defaultMessage: 'Cancel',
+            id: "cancel",
+            defaultMessage: "Cancel",
           })}
           type="button"
           className={classNames(
-            'inline-flex justify-center mt-2 mr-1 rounded-md border border-transparent py-2 px-4 text-sm font-medium  bg-black slate-800 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:ring-offset-2',
+            "inline-flex justify-center mt-2 mr-1 rounded-md border border-transparent py-2 px-4 text-sm font-medium  bg-black slate-800 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-200 focus:ring-offset-2",
           )}
           onClick={onCancel}
         />

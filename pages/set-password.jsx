@@ -1,6 +1,6 @@
-import { useIntl } from 'react-intl';
-import SetPasswordForm from '../modules/auth/components/SetPasswordForm';
-import useUser from '../modules/auth/hooks/useUser';
+import { useIntl } from "react-intl";
+import SetPasswordForm from "../modules/auth/components/SetPasswordForm";
+import useUser from "../modules/auth/hooks/useUser";
 
 const SetPassword = () => {
   const { formatMessage } = useIntl();
@@ -13,14 +13,14 @@ const SetPassword = () => {
         <div className="m-6 text-center">
           <h1 className="text-3xl font-semibold text-brown-600 dark:text-slate-200">
             {formatMessage({
-              id: 'set-password-header',
-              defaultMessage: 'Set password',
+              id: "set-password-header",
+              defaultMessage: "Set password",
             })}
           </h1>
           <p className="text-slate-500 dark:text-slate-300">
             {formatMessage({
-              id: 'set-password-subtitle',
-              defaultMessage: 'Set a password for your account',
+              id: "set-password-subtitle",
+              defaultMessage: "Set a password for your account",
             })}
           </p>
         </div>

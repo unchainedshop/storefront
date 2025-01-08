@@ -1,10 +1,10 @@
-import { useIntl } from 'react-intl';
+import { useIntl } from "react-intl";
 
-import usePaymentStatusTypes from '../orders/hooks/usePaymentStatusTypes';
-import usePaymentProviderTypes from '../orders/hooks/usePaymentProviderTypes';
-import useFormatDateTime from '../common/utils/useFormatDateTime';
-import { getInterfaceLabel, useFormatPrice } from '../common/utils/utils';
-import StatusInformation from '../common/components/StatusInformation';
+import usePaymentStatusTypes from "../orders/hooks/usePaymentStatusTypes";
+import usePaymentProviderTypes from "../orders/hooks/usePaymentProviderTypes";
+import useFormatDateTime from "../common/utils/useFormatDateTime";
+import { getInterfaceLabel, useFormatPrice } from "../common/utils/utils";
+import StatusInformation from "../common/components/StatusInformation";
 
 const OrderDetailPayment = ({ order }) => {
   const { paymentProviderType } = usePaymentProviderTypes();
@@ -19,8 +19,8 @@ const OrderDetailPayment = ({ order }) => {
       <div className="flex items-center justify-between px-4 sm:px-6">
         <h2 className="py-4 text-lg font-medium text-slate-900 dark:text-slate-200">
           {formatMessage({
-            id: 'paid',
-            defaultMessage: 'Paid',
+            id: "paid",
+            defaultMessage: "Paid",
           })}
         </h2>
         <span className="mr-2 block rounded-full py-1 text-xs font-semibold leading-5">
@@ -28,8 +28,8 @@ const OrderDetailPayment = ({ order }) => {
         </span>
         <span className="font-medium">
           {formatDateTime(order.payment.paid, {
-            timeStyle: 'short',
-            dateStyle: 'medium',
+            timeStyle: "short",
+            dateStyle: "medium",
           })}
         </span>
       </div>
@@ -42,8 +42,8 @@ const OrderDetailPayment = ({ order }) => {
         </span>
         <div className="mt-3 text-sm font-medium text-slate-500 dark:text-slate-200">
           {formatMessage({
-            id: 'method',
-            defaultMessage: 'Method',
+            id: "method",
+            defaultMessage: "Method",
           })}
         </div>
         <span className="c mr-2 block rounded-full py-1 text-xs font-semibold leading-5">
@@ -58,8 +58,8 @@ const OrderDetailPayment = ({ order }) => {
         </span>
         <div className="mt-3 text-sm font-medium text-slate-500 dark:text-slate-200 print:hidden">
           {formatMessage({
-            id: 'payment_status',
-            defaultMessage: 'Status',
+            id: "payment_status",
+            defaultMessage: "Status",
           })}
         </div>
         <span className="mr-2 block rounded-full py-1 text-xs font-semibold leading-5 print:hidden">

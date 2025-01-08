@@ -1,6 +1,6 @@
-import { useIntl } from 'react-intl';
-import SaveAndCancelButtons from './SaveAndCancelButtons';
-import TextField from '../../forms/components/TextField';
+import { useIntl } from "react-intl";
+import SaveAndCancelButtons from "./SaveAndCancelButtons";
+import TextField from "../../forms/components/TextField";
 
 const AddressFields = ({ isEdit, address, setIsEdit }) => {
   const { formatMessage } = useIntl();
@@ -11,8 +11,8 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
         {!isEdit && (
           <label className="text-sm font-medium text-slate-500 dark:text-slate-200">
             {formatMessage({
-              id: 'full_name',
-              defaultMessage: 'Full name',
+              id: "full_name",
+              defaultMessage: "Full name",
             })}
           </label>
         )}
@@ -24,12 +24,12 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
                 labelClassName="text-sm font-medium text-slate-500 dark:text-slate-200"
                 name="firstName"
                 label={formatMessage({
-                  id: 'first_name',
-                  defaultMessage: 'First name',
+                  id: "first_name",
+                  defaultMessage: "First name",
                 })}
                 placeholder={formatMessage({
-                  id: 'first_name',
-                  defaultMessage: 'First name',
+                  id: "first_name",
+                  defaultMessage: "First name",
                 })}
               />
               <TextField
@@ -37,18 +37,18 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
                 labelClassName="text-sm font-medium text-slate-500 dark:text-slate-200"
                 name="lastName"
                 label={formatMessage({
-                  id: 'last_Name',
-                  defaultMessage: 'Last name',
+                  id: "last_Name",
+                  defaultMessage: "Last name",
                 })}
                 placeholder={formatMessage({
-                  id: 'last_Name',
-                  defaultMessage: 'Last name',
+                  id: "last_Name",
+                  defaultMessage: "Last name",
                 })}
               />
             </div>
           ) : (
             <span className="flex-grow">
-              {address?.firstName} {address?.lastName}{' '}
+              {address?.firstName} {address?.lastName}{" "}
             </span>
           )}
         </div>
@@ -57,8 +57,8 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
         <label className="text-sm font-medium text-slate-500 dark:text-slate-200">
           {!isEdit &&
             formatMessage({
-              id: 'company',
-              defaultMessage: 'Company',
+              id: "company",
+              defaultMessage: "Company",
             })}
         </label>
         <div className="mt-1 flex text-sm text-slate-900 dark:text-slate-200 sm:mt-0">
@@ -67,12 +67,12 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
               className="mt-0 w-full"
               name="company"
               label={formatMessage({
-                id: 'company',
-                defaultMessage: 'Company',
+                id: "company",
+                defaultMessage: "Company",
               })}
               placeholder={formatMessage({
-                id: 'company',
-                defaultMessage: 'Company',
+                id: "company",
+                defaultMessage: "Company",
               })}
             />
           ) : (
@@ -84,8 +84,8 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
         <label className="text-sm font-medium text-slate-500 dark:text-slate-200">
           {!isEdit &&
             formatMessage({
-              id: 'address_line_1',
-              defaultMessage: 'Address line 1 (Street, House no)',
+              id: "address_line_1",
+              defaultMessage: "Address line 1 (Street, House no)",
             })}
         </label>
         <div className="mt-1 flex text-sm text-slate-900 dark:text-slate-200 sm:mt-0">
@@ -94,12 +94,12 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
               className="mt-0 w-full"
               name="addressLine"
               label={formatMessage({
-                id: 'address_line_1',
-                defaultMessage: 'Address line 1 (Street, House no)',
+                id: "address_line_1",
+                defaultMessage: "Address line 1 (Street, House no)",
               })}
               placeholder={formatMessage({
-                id: 'address_line_1',
-                defaultMessage: 'Address line 1 (Street, House no)',
+                id: "address_line_1",
+                defaultMessage: "Address line 1 (Street, House no)",
               })}
             />
           ) : (
@@ -111,8 +111,8 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
         <label className="text-sm font-medium text-slate-500 dark:text-slate-200">
           {!isEdit &&
             formatMessage({
-              id: 'address_line_2',
-              defaultMessage: 'Address line 2',
+              id: "address_line_2",
+              defaultMessage: "Address line 2",
             })}
         </label>
         <div className="mt-1 flex text-sm text-slate-900 dark:text-slate-200 sm:mt-0">
@@ -121,12 +121,12 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
               className="mt-0 w-full"
               name="addressLine2"
               label={formatMessage({
-                id: 'address_line_2',
-                defaultMessage: 'Address line 2',
+                id: "address_line_2",
+                defaultMessage: "Address line 2",
               })}
               placeholder={formatMessage({
-                id: 'address_line_2',
-                defaultMessage: 'Address line 2',
+                id: "address_line_2",
+                defaultMessage: "Address line 2",
               })}
             />
           ) : (
@@ -140,8 +140,8 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
           <label className="text-sm font-medium text-slate-500 dark:text-slate-200">
             {!isEdit &&
               formatMessage({
-                id: 'region',
-                defaultMessage: 'Region',
+                id: "region",
+                defaultMessage: "Region",
               })}
           </label>
 
@@ -151,12 +151,12 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
                 className="mt-0 w-full"
                 name="regionCode"
                 label={formatMessage({
-                  id: 'region_Code',
-                  defaultMessage: 'Region',
+                  id: "region_Code",
+                  defaultMessage: "Region",
                 })}
                 placeholder={formatMessage({
-                  id: 'region_Code',
-                  defaultMessage: 'Region',
+                  id: "region_Code",
+                  defaultMessage: "Region",
                 })}
               />
             ) : (
@@ -169,8 +169,8 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
           <label className="text-sm font-medium text-slate-500 dark:text-slate-200">
             {!isEdit &&
               formatMessage({
-                id: 'postal_code',
-                defaultMessage: 'Postal/ZIP code',
+                id: "postal_code",
+                defaultMessage: "Postal/ZIP code",
               })}
           </label>
           <div className="mt-1 w-full text-sm text-slate-900 dark:text-slate-200 sm:mt-0">
@@ -179,12 +179,12 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
                 className="mt-0 w-full"
                 name="postalCode"
                 label={formatMessage({
-                  id: 'postal_code',
-                  defaultMessage: 'Postal/ZIP code',
+                  id: "postal_code",
+                  defaultMessage: "Postal/ZIP code",
                 })}
                 placeholder={formatMessage({
-                  id: 'postal_code',
-                  defaultMessage: 'Postal/ZIP code',
+                  id: "postal_code",
+                  defaultMessage: "Postal/ZIP code",
                 })}
               />
             ) : (
@@ -197,8 +197,8 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
           <label className="text-sm font-medium text-slate-500 dark:text-slate-200">
             {!isEdit &&
               formatMessage({
-                id: 'city',
-                defaultMessage: 'City',
+                id: "city",
+                defaultMessage: "City",
               })}
           </label>
           <div className="mt-1 text-sm text-slate-900 dark:text-slate-200 sm:mt-0">
@@ -207,12 +207,12 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
                 className="mt-0 w-full"
                 name="city"
                 label={formatMessage({
-                  id: 'city',
-                  defaultMessage: 'City',
+                  id: "city",
+                  defaultMessage: "City",
                 })}
                 placeholder={formatMessage({
-                  id: 'city',
-                  defaultMessage: 'City',
+                  id: "city",
+                  defaultMessage: "City",
                 })}
               />
             ) : (
@@ -225,8 +225,8 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
           <label className="text-sm font-medium text-slate-500 dark:text-slate-200">
             {!isEdit &&
               formatMessage({
-                id: 'country_code',
-                defaultMessage: 'Country code',
+                id: "country_code",
+                defaultMessage: "Country code",
               })}
           </label>
           <div className="mt-1 text-sm text-slate-900 dark:text-slate-200 sm:mt-0">
@@ -235,12 +235,12 @@ const AddressFields = ({ isEdit, address, setIsEdit }) => {
                 className="mt-0 w-full"
                 name="countryCode"
                 label={formatMessage({
-                  id: 'country_code',
-                  defaultMessage: 'Country code',
+                  id: "country_code",
+                  defaultMessage: "Country code",
                 })}
                 placeholder={formatMessage({
-                  id: 'country_code',
-                  defaultMessage: 'Country code',
+                  id: "country_code",
+                  defaultMessage: "Country code",
                 })}
               />
             ) : (

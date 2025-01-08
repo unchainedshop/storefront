@@ -5,16 +5,16 @@ import React, {
   useRef,
   useCallback,
   useState,
-} from 'react';
-import useUser from '../../auth/hooks/useUser';
-import useRemovePushNotificationSubscription from '../../common/hooks/useRemovePushNotificationSubscription';
-import useShopInfo from '../../common/hooks/useShopInfo';
-import useStorePushSubscription from '../../common/hooks/useStorePushSubscription';
+} from "react";
+import useUser from "../../auth/hooks/useUser";
+import useRemovePushNotificationSubscription from "../../common/hooks/useRemovePushNotificationSubscription";
+import useShopInfo from "../../common/hooks/useShopInfo";
+import useStorePushSubscription from "../../common/hooks/useStorePushSubscription";
 
-import PushNotificationContext from './PushNotificationContext';
+import PushNotificationContext from "./PushNotificationContext";
 
 const getRegistrationAndSubscription = async () => {
-  if (typeof window === 'undefined') return undefined;
+  if (typeof window === "undefined") return undefined;
   const registration = await navigator.serviceWorker.getRegistration();
   if (!registration) return { registration: null, subscription: null };
 
@@ -49,10 +49,10 @@ const PushNotificationWrapper = ({ children }) => {
         return urlBase64ToUint8ArrayCache.current[base64String];
       }
 
-      const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+      const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
       const base64 = (base64String + padding)
-        .replace(/-/g, '+')
-        .replace(/_/g, '/');
+        .replace(/-/g, "+")
+        .replace(/_/g, "/");
 
       const rawData = window.atob(base64);
       const outputArray = new Uint8Array(rawData.length);
@@ -69,7 +69,7 @@ const PushNotificationWrapper = ({ children }) => {
   }, []);
 
   const requestPermission = async () => {
-    if (typeof window === 'undefined') return undefined;
+    if (typeof window === "undefined") return undefined;
     return Notification.requestPermission();
   };
 
@@ -88,16 +88,16 @@ const PushNotificationWrapper = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    if (navigator && 'serviceWorker' in navigator) {
+    if (navigator && "serviceWorker" in navigator) {
       navigator.serviceWorker
-        .register('/service-worker.js')
+        .register("/service-worker.js")
         .then((registration) => {
-          console.info('Service worker registered:', registration);
+          console.info("Service worker registered:", registration);
           // eslint-disable-next-line no-param-reassign
           registration.onupdatefound = () => {
             const installingWorker = registration.installing;
             installingWorker.onstatechange = () => {
-              if (installingWorker.state === 'installed') {
+              if (installingWorker.state === "installed") {
                 if (navigator.serviceWorker.controller) {
                   window.location.reload();
                 }
@@ -106,31 +106,31 @@ const PushNotificationWrapper = ({ children }) => {
           };
         })
         .catch((error) => {
-          console.info('Service worker registration failed:', error);
+          console.info("Service worker registration failed:", error);
         });
     }
   }, []);
 
   const subscribe = async () => {
     if (!shopInfo?.vapidPublicKey) {
-      console.info('Push Notification is not configured on the server');
+      console.info("Push Notification is not configured on the server");
       return;
     }
     if (subscribed) {
-      console.info('User is already subscribed to push notifications.');
+      console.info("User is already subscribed to push notifications.");
       return;
     }
 
     const permission = await requestPermission();
-    if (permission !== 'granted') {
-      console.info('Permission to send push notifications was denied.');
+    if (permission !== "granted") {
+      console.info("Permission to send push notifications was denied.");
       return;
     }
     const subscription = await registerSubscription(shopInfo?.vapidPublicKey);
     await storeSubscription({ subscription });
     localStorage.setItem(`p256dh`, await getP256dh());
 
-    console.info('User is subscribed to push notifications:');
+    console.info("User is subscribed to push notifications:");
     setSubscribed(true);
   };
 
@@ -158,7 +158,7 @@ const PushNotificationWrapper = ({ children }) => {
   useEffect(() => {
     const isPreviouslyDisabled = async () => {
       const permission = await requestPermission();
-      setDisabledForCurrentBrowser(permission !== 'granted');
+      setDisabledForCurrentBrowser(permission !== "granted");
     };
     isPreviouslyDisabled();
   }, [user]);
@@ -171,7 +171,7 @@ const PushNotificationWrapper = ({ children }) => {
       p256dh: lastPublicKey,
     });
     await subscription.unsubscribe();
-    localStorage.setItem(`p256dh`, '');
+    localStorage.setItem(`p256dh`, "");
     setSubscribed(false);
   }, [user]);
 

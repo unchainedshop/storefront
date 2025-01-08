@@ -1,12 +1,12 @@
-import { useIntl } from 'react-intl';
-import EmailField from '../../forms/components/EmailField';
-import Form from '../../forms/components/Form';
-import SubmitButton from '../../forms/components/SubmitButton';
-import useAddEmail from '../hooks/useAddEmail';
-import VerifiedStatus from '../../common/components/VerifiedStatus';
-import Button from '../../common/components/Button';
-import useResendVerificationEmail from '../hooks/useResendVerificationEmail';
-import useRemoveEmail from '../hooks/useRemoveEmail';
+import { useIntl } from "react-intl";
+import EmailField from "../../forms/components/EmailField";
+import Form from "../../forms/components/Form";
+import SubmitButton from "../../forms/components/SubmitButton";
+import useAddEmail from "../hooks/useAddEmail";
+import VerifiedStatus from "../../common/components/VerifiedStatus";
+import Button from "../../common/components/Button";
+import useResendVerificationEmail from "../hooks/useResendVerificationEmail";
+import useRemoveEmail from "../hooks/useRemoveEmail";
 
 const EmailAddresses = ({ emails }) => {
   const { formatMessage } = useIntl();
@@ -16,15 +16,15 @@ const EmailAddresses = ({ emails }) => {
 
   const onSubmitError = async (e) => {
     if (
-      e.message?.toLowerCase().includes('email already exist') ||
-      e.message?.toLowerCase().includes('duplicate')
+      e.message?.toLowerCase().includes("email already exist") ||
+      e.message?.toLowerCase().includes("duplicate")
     ) {
       return {
         email: {
-          type: 'manual',
+          type: "manual",
           message: formatMessage({
-            id: 'email_exists_error',
-            defaultMessage: 'Email already exists',
+            id: "email_exists_error",
+            defaultMessage: "Email already exists",
           }),
         },
       };
@@ -45,8 +45,8 @@ const EmailAddresses = ({ emails }) => {
       <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5 bg-white">
         <h2 className="text-sm font-medium text-slate-500 dark:text-slate-200">
           {formatMessage({
-            id: 'email-addresses',
-            defaultMessage: 'Email Addresses',
+            id: "email-addresses",
+            defaultMessage: "Email Addresses",
           })}
         </h2>
         <div className="sm:col-span-2">
@@ -62,8 +62,8 @@ const EmailAddresses = ({ emails }) => {
                     <Button
                       type="button"
                       text={formatMessage({
-                        id: 'send_verification_email',
-                        defaultMessage: 'Send Verification Link',
+                        id: "send_verification_email",
+                        defaultMessage: "Send Verification Link",
                       })}
                       className="my-2 mr-2 border-0 bg-slate-900 text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
                       onClick={() => resendVerificationEmail(e.address)}
@@ -73,8 +73,8 @@ const EmailAddresses = ({ emails }) => {
                     <Button
                       type="button"
                       text={formatMessage({
-                        id: 'remove',
-                        defaultMessage: 'Remove',
+                        id: "remove",
+                        defaultMessage: "Remove",
                       })}
                       className="my-2 border-0 bg-red-500 text-white focus:outline-none focus:ring-2 focus:ring-red-900  focus:ring-offset-2"
                       onClick={() => removeEmail(e.address)}
@@ -89,20 +89,20 @@ const EmailAddresses = ({ emails }) => {
             <EmailField
               name="email"
               label={formatMessage({
-                id: 'add_email',
-                defaultMessage: 'Add Email',
+                id: "add_email",
+                defaultMessage: "Add Email",
               })}
               placeholder={formatMessage({
-                id: 'add_email',
-                defaultMessage: 'Add Email',
+                id: "add_email",
+                defaultMessage: "Add Email",
               })}
               required
             />
 
             <SubmitButton>
               {formatMessage({
-                id: 'add_email',
-                defaultMessage: 'Add Email',
+                id: "add_email",
+                defaultMessage: "Add Email",
               })}
             </SubmitButton>
           </Form>

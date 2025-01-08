@@ -1,11 +1,11 @@
-import classnames from 'classnames';
-import { bgColor, textColor, borderColor } from '../data/miscellaneous';
+import classnames from "classnames";
+import { bgColor, textColor, borderColor } from "../data/miscellaneous";
 
 const Badge = ({
   text,
-  className: classes = '',
+  className: classes = "",
   dotted = null,
-  color = 'green',
+  color = "green",
   square = null,
   onClick = null,
 }) => {
@@ -24,8 +24,8 @@ const Badge = ({
         )} ${textColor(normalizedColor, 800)}`,
         classes,
         {
-          'rounded-full': !square,
-          'rounded-md': square,
+          "rounded-full": !square,
+          "rounded-md": square,
         },
       )}
     >

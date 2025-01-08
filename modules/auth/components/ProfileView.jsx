@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { useIntl } from 'react-intl';
+import { useState } from "react";
+import { useIntl } from "react-intl";
 
-import useUpdateUserProfile from '../hooks/useUpdateUserProfile';
-import Button from '../../common/components/Button';
+import useUpdateUserProfile from "../hooks/useUpdateUserProfile";
+import Button from "../../common/components/Button";
 
-import TextField from '../../forms/components/TextField';
-import Form from '../../forms/components/Form';
-import SubmitButton from '../../forms/components/SubmitButton';
+import TextField from "../../forms/components/TextField";
+import Form from "../../forms/components/Form";
+import SubmitButton from "../../forms/components/SubmitButton";
 
 const ProfileView = ({ user }) => {
   const { formatMessage } = useIntl();
@@ -64,8 +64,8 @@ const ProfileView = ({ user }) => {
               <div className="space-y-1">
                 <h3 className="text-lg font-medium leading-6 text-slate-900 dark:text-slate-100">
                   {formatMessage({
-                    id: 'account',
-                    defaultMessage: 'Account',
+                    id: "account",
+                    defaultMessage: "Account",
                   })}
                 </h3>
               </div>
@@ -74,8 +74,8 @@ const ProfileView = ({ user }) => {
                   <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:pt-5">
                     <div className="text-sm font-medium text-slate-500 dark:text-slate-200">
                       {formatMessage({
-                        id: 'full_name',
-                        defaultMessage: 'Full name',
+                        id: "full_name",
+                        defaultMessage: "Full name",
                       })}
                     </div>
                     <div className="mb-2 flex items-center gap-x-16 sm:col-span-2">
@@ -109,8 +109,8 @@ const ProfileView = ({ user }) => {
                   <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-b sm:border-slate-200 sm:py-5">
                     <div className="mb-1 text-sm font-medium text-slate-500 dark:text-slate-200">
                       {formatMessage({
-                        id: 'company',
-                        defaultMessage: 'Company',
+                        id: "company",
+                        defaultMessage: "Company",
                       })}
                     </div>
                     {updateProfile ? (
@@ -134,16 +134,16 @@ const ProfileView = ({ user }) => {
                 <Button
                   type="button"
                   text={formatMessage({
-                    id: 'cancel',
-                    defaultMessage: 'Cancel',
+                    id: "cancel",
+                    defaultMessage: "Cancel",
                   })}
                   onClick={onProfileUpdateComplete}
                   className=" bg-white sm:text-black text-black hover:bg-slate-200"
                 />
                 <SubmitButton>
                   {formatMessage({
-                    id: 'save',
-                    defaultMessage: 'Save',
+                    id: "save",
+                    defaultMessage: "Save",
                   })}
                 </SubmitButton>
               </div>
@@ -151,8 +151,8 @@ const ProfileView = ({ user }) => {
               <Button
                 type="button"
                 text={formatMessage({
-                  id: 'update',
-                  defaultMessage: 'update',
+                  id: "update",
+                  defaultMessage: "update",
                 })}
                 onClick={() => setUpdateProfile(true)}
               />

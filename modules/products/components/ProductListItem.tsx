@@ -1,13 +1,13 @@
-import { BookmarkIcon, PhotoIcon } from '@heroicons/react/20/solid';
-import classNames from 'classnames';
-import Image from 'next/legacy/image';
-import Link from 'next/link';
+import { BookmarkIcon, PhotoIcon } from "@heroicons/react/20/solid";
+import classNames from "classnames";
+import Image from "next/legacy/image";
+import Link from "next/link";
 
-import useUser from '../../auth/hooks/useUser';
-import useConditionalBookmarkProduct from '../../cart/hooks/useConditionalBookmarkProduct';
-import useRemoveBookmark from '../../common/hooks/useRemoveBookmark';
-import defaultNextImageLoader from '../../common/utils/defaultNextImageLoader';
-import FormattedPrice from '../../common/components/FormattedPrice';
+import useUser from "../../auth/hooks/useUser";
+import useConditionalBookmarkProduct from "../../cart/hooks/useConditionalBookmarkProduct";
+import useRemoveBookmark from "../../common/hooks/useRemoveBookmark";
+import defaultNextImageLoader from "../../common/utils/defaultNextImageLoader";
+import FormattedPrice from "../../common/components/FormattedPrice";
 
 const ProductListItem = ({ product, disableBookmark = false }) => {
   const { conditionalBookmarkProduct } = useConditionalBookmarkProduct();
@@ -62,13 +62,12 @@ const ProductListItem = ({ product, disableBookmark = false }) => {
                   productId: product?._id,
                 })
           }
-      >
         >
           <BookmarkIcon
-            className={classNames('h-6 w-6', {
-              'text-purple-600 hover:text-purple-700 dark:text-yellow-500 dark:hover:text-yellow-700':
+            className={classNames("h-6 w-6", {
+              "text-purple-600 hover:text-purple-700 dark:text-yellow-500 dark:hover:text-yellow-700":
                 filteredBookmark,
-              'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300':
+              "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300":
                 !filteredBookmark,
             })}
           />

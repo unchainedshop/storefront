@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 
-import { useIntl } from 'react-intl';
-import ResetPasswordForm from '../modules/auth/components/ResetPasswordForm';
-import useResetPassword from '../modules/auth/hooks/useResetPassword';
+import { useIntl } from "react-intl";
+import ResetPasswordForm from "../modules/auth/components/ResetPasswordForm";
+import useResetPassword from "../modules/auth/hooks/useResetPassword";
 
 const ResetPassword = () => {
   const { query, ...router } = useRouter();
@@ -16,11 +16,11 @@ const ResetPassword = () => {
   const onPasswordChangedSuccessfully = () => {
     toast.success(
       formatMessage({
-        id: 'password_changed_success',
-        defaultMessage: 'Password changed successfully.',
+        id: "password_changed_success",
+        defaultMessage: "Password changed successfully.",
       }),
     );
-    router.push('/');
+    router.push("/");
   };
 
   return (
@@ -28,14 +28,14 @@ const ResetPassword = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight ">
           {formatMessage({
-            id: 'reset-password-header',
-            defaultMessage: 'Reset password',
+            id: "reset-password-header",
+            defaultMessage: "Reset password",
           })}
         </h2>
         <p className="mt-2 text-center text-sm text-slate-600">
           {formatMessage({
-            id: 'reset-password-subtitle',
-            defaultMessage: 'Set a password for your account',
+            id: "reset-password-subtitle",
+            defaultMessage: "Set a password for your account",
           })}
         </p>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

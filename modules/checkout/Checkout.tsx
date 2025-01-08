@@ -1,10 +1,10 @@
-import { gql, useQuery } from '@apollo/client';
-import ErrorMessage from '../common/components/ErrorMessage';
-import CheckoutContact from './CheckoutContact';
-import CheckoutAddresses from './CheckoutAddresses';
-import CheckoutPaymentMethod from './CheckoutPaymentMethod';
-import { useAppContext } from '../common/components/AppContextWrapper';
-import usePushNotification from '../context/push-notification/usePushNotification';
+import { gql, useQuery } from "@apollo/client";
+import ErrorMessage from "../common/components/ErrorMessage";
+import CheckoutContact from "./CheckoutContact";
+import CheckoutAddresses from "./CheckoutAddresses";
+import CheckoutPaymentMethod from "./CheckoutPaymentMethod";
+import { useAppContext } from "../common/components/AppContextWrapper";
+import usePushNotification from "../context/push-notification/usePushNotification";
 
 export const CART_CHECKOUT_QUERY = gql`
   query CartCheckout {
@@ -96,7 +96,7 @@ const Checkout = () => {
       <div
         data-loading={loading}
         className={`mt-5 lg:grid lg:items-start lg:gap-x-12 ${
-          isAddressesMissing ? 'lg:grid-cols-2' : 'lg:grid-cols-2'
+          isAddressesMissing ? "lg:grid-cols-2" : "lg:grid-cols-2"
         }`}
       >
         <CheckoutAddresses cart={data.me.cart} isInitial={isAddressesMissing} />

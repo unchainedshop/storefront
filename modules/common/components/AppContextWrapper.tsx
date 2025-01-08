@@ -1,5 +1,5 @@
-import getConfig from 'next/config';
-import React, { useState, useContext, useMemo } from 'react';
+import getConfig from "next/config";
+import React, { useState, useContext, useMemo } from "react";
 
 const {
   publicRuntimeConfig: { disableEmailSupport },

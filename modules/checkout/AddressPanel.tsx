@@ -1,5 +1,5 @@
-import { useIntl } from 'react-intl';
-import Button from '../common/components/Button';
+import { useIntl } from "react-intl";
+import Button from "../common/components/Button";
 
 const formatAddress = ({
   firstName,
@@ -12,25 +12,25 @@ const formatAddress = ({
   countryCode,
 }) =>
   [
-    [firstName, lastName].filter(Boolean).join(' '),
+    [firstName, lastName].filter(Boolean).join(" "),
     addressLine,
     addressLine2,
-    [postalCode, city].filter(Boolean).join(' '),
+    [postalCode, city].filter(Boolean).join(" "),
     regionCode,
     countryCode,
   ]
     .filter(Boolean)
-    .join('\n');
+    .join("\n");
 
 const AddressPanel = ({ address, onEdit }) => {
   const { formatMessage } = useIntl();
   return (
     <div className="mt-4">
-      <div style={{ whiteSpace: 'pre-wrap' }}>{formatAddress(address)}</div>
+      <div style={{ whiteSpace: "pre-wrap" }}>{formatAddress(address)}</div>
       <Button
         text={formatMessage({
-          id: 'edit-address',
-          defaultMessage: 'Edit Address',
+          id: "edit-address",
+          defaultMessage: "Edit Address",
         })}
         type="button"
         className="inline-flex justify-center mt-2 rounded-md border border-transparent bg-slate-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"

@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(() => {
     try {
       let item;
-      if (typeof window !== 'undefined')
+      if (typeof window !== "undefined")
         item = window.localStorage.getItem(key);
 
       return item || initialValue;

@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import MegaDropdownColumn from './MegaDropdownColumn';
-import { useDesktopNavigationContext } from './DesktopNavigationContext';
+import MegaDropdownColumn from "./MegaDropdownColumn";
+import { useDesktopNavigationContext } from "./DesktopNavigationContext";
 
 const findChildBySlug = (node, slug) => {
   return (
@@ -63,7 +63,7 @@ const MegaDropdown = ({ dataInHoverPath, ...rest }) => {
       {thirdColumnNode?.children ? (
         <MegaDropdownColumn {...thirdColumnNode} key="mega-dropdown-column-3" />
       ) : (
-        ''
+        ""
       )}
     </div>
   );

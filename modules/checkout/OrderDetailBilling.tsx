@@ -1,5 +1,5 @@
-import { useIntl } from 'react-intl';
-import FormattedPrice from '../common/components/FormattedPrice';
+import { useIntl } from "react-intl";
+import FormattedPrice from "../common/components/FormattedPrice";
 
 const OrderDetailBilling = ({ order }) => {
   const { formatMessage } = useIntl();
@@ -8,8 +8,8 @@ const OrderDetailBilling = ({ order }) => {
     <section aria-labelledby="summary-heading">
       <h2 id="summary-heading" className="sr-only">
         {formatMessage({
-          id: 'billing_summary',
-          defaultMessage: 'Billing Summary',
+          id: "billing_summary",
+          defaultMessage: "Billing Summary",
         })}
       </h2>
 
@@ -19,12 +19,12 @@ const OrderDetailBilling = ({ order }) => {
             <span className="text-xl mb-5 block font-bold">
               {order?.billingAddress?.firstName ||
                 order?.billingAddress?.lastName ||
-                'n/a'}
+                "n/a"}
             </span>
             <dt className="mb-2 font-medium">
               {formatMessage({
-                id: 'billing_address',
-                defaultMessage: 'Billing address',
+                id: "billing_address",
+                defaultMessage: "Billing address",
               })}
             </dt>
             <span className="my-1 inline-block">
@@ -45,8 +45,8 @@ const OrderDetailBilling = ({ order }) => {
           <div className="flex items-center justify-between pb-3 text-lg">
             <dt className="font-bold">
               {formatMessage({
-                id: 'order_total',
-                defaultMessage: 'Order total',
+                id: "order_total",
+                defaultMessage: "Order total",
               })}
             </dt>
             <dd className="font-bold">
@@ -57,8 +57,8 @@ const OrderDetailBilling = ({ order }) => {
             <div className="flex items-center justify-between py-1">
               <dt className="text-slate-600 dark:text-slate-200">
                 {formatMessage({
-                  id: 'discount',
-                  defaultMessage: 'Discount',
+                  id: "discount",
+                  defaultMessage: "Discount",
                 })}
               </dt>
               <dd className="font-medium">
@@ -70,8 +70,8 @@ const OrderDetailBilling = ({ order }) => {
             <div className="flex items-center justify-between py-1">
               <dt className="text-slate-600 dark:text-slate-200">
                 {formatMessage({
-                  id: 'shipping',
-                  defaultMessage: 'Shipping',
+                  id: "shipping",
+                  defaultMessage: "Shipping",
                 })}
               </dt>
               <dd className="font-medium">
@@ -83,8 +83,8 @@ const OrderDetailBilling = ({ order }) => {
             <div className="flex items-center justify-between py-1">
               <dt className="text-slate-600 dark:text-slate-200">
                 {formatMessage({
-                  id: 'tax',
-                  defaultMessage: 'Tax',
+                  id: "tax",
+                  defaultMessage: "Tax",
                 })}
               </dt>
               <dd className="font-medium">
@@ -96,8 +96,8 @@ const OrderDetailBilling = ({ order }) => {
             <div className="flex items-center justify-between py-1">
               <dt className="text-slate-600 dark:text-slate-200">
                 {formatMessage({
-                  id: 'order_payment_fees',
-                  defaultMessage: 'Fees',
+                  id: "order_payment_fees",
+                  defaultMessage: "Fees",
                 })}
               </dt>
               <dd className="font-medium">
@@ -108,8 +108,8 @@ const OrderDetailBilling = ({ order }) => {
           <div className="flex items-center justify-between py-1">
             <dt className="text-slate-600 dark:text-slate-200">
               {formatMessage({
-                id: 'subtotal',
-                defaultMessage: 'Subtotal',
+                id: "subtotal",
+                defaultMessage: "Subtotal",
               })}
             </dt>
             <dd className="font-medium">
